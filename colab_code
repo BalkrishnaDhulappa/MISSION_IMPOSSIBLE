@@ -1,0 +1,194 @@
+
+
+# -------------------------------------------------------------------------
+# CAR (Cumulative Average) + 30, 50, 200 DMA सुपर ब्रेकआउट स्कैनर
+# -------------------------------------------------------------------------
+
+# यहाँ हम कुछ ज़रूरी लाइब्रेरी (टूलकिट) मंगा रहे हैं:
+import yfinance as yf    # यह लाइब्रेरी याहू फाइनेंस से शेयरों का ऐतिहासिक (Historical) डेटा फ्री में डाउनलोड करती है।
+import pandas as pd      # यह डेटा को एक एक्सेल जैसी टेबल (Rows और Columns) में अच्छे से सजाने के काम आती है।
+import warnings          # फालतू की चेतावनियों को छुपाने के लिए।
+import logging           # यह पीछे चल रहे प्रोसेस के मैसेज को कंट्रोल करता है।
+from datetime import datetime  # यह आज की ताज़ा तारीख निकालने के लिए है।
+
+# यह लाइन याहू फाइनेंस की फालतू लाल रंग की एरर (जैसे अगर कोई शेयर न मिले) को स्क्रीन पर आने से रोकती है, ताकि हमारी स्क्रीन साफ रहे।
+logging.getLogger('yfinance').setLevel(logging.CRITICAL)
+warnings.filterwarnings('ignore')
+
+# -------------------------------------------------------------------------
+# मुख्य फंक्शन बनाना (Main Scanner Logic)
+# -------------------------------------------------------------------------
+
+# 'advanced_stock_scanner' नाम का एक फंक्शन बना रहे हैं, जिसे हम अपनी शेयरों की लिस्ट देंगे।
+def advanced_stock_scanner(ticker_list):
+    results = [] # खाली लिस्ट बना रहे हैं, जिसमें हम पास हुए (Breakout) शेयरों का डेटा जमा करेंगे।
+    
+    # आज की तारीख को (DD-MM-YYYY) के फॉर्मेट में निकाल रहे हैं, ताकि इसे हमारी एक्सेल रिपोर्ट में जोड़ सकें।
+    today_date = datetime.now().strftime("%d-%m-%Y")
+    
+    print(f"कुल {len(ticker_list)} शेयरों की स्कैनिंग शुरू हो रही है... कृपया प्रतीक्षा करें।\n")
+    
+    # FOR लूप (Loop): यह लूप हमारी लिस्ट के हर एक शेयर (ticker) को एक-एक करके चेक करेगा।
+    for ticker in ticker_list:
+        try:
+            # 1. डेटा डाउनलोड करना (Data Fetching)
+            # यहाँ हम पिछले 2 साल (period="2y") का रोज़ाना (interval="1d") डेटा डाउनलोड कर रहे हैं। 
+            # 200 DMA निकालने के लिए हमें कम से कम 200 दिन का डेटा चाहिए ही होता है।
+            data = yf.download(ticker, period="2y", interval="1d", progress=False)
+            
+            # अगर कोई शेयर बाज़ार में नया आया है और उसका 200 दिन का डेटा ही नहीं है, तो उसे छोड़ कर अगले शेयर पर जाओ।
+            if data.empty or len(data) < 200: 
+                continue
+                
+            # क्लोज़िंग प्राइस (बंद भाव) को एक लिस्ट में निकाल रहे हैं।
+            close_prices = data['Close'].squeeze()
+            
+            # 2. मूविंग एवरेज (DMAs) की गणना
+            # .rolling(window=30).mean() पिछले 30 दिनों का साधारण औसत निकालता है।
+            # .iloc[-1] का मतलब है कि हमें पूरी लिस्ट नहीं चाहिए, सिर्फ आज की सबसे ताज़ा (आख़िरी) एवरेज चाहिए।
+            dma_30 = close_prices.rolling(window=30).mean().iloc[-1]
+            dma_50 = close_prices.rolling(window=50).mean().iloc[-1]
+            dma_200 = close_prices.rolling(window=200).mean().iloc[-1]
+            
+            # CMP (Current Market Price) यानी शेयर का आज का ताज़ा भाव।
+            cmp = close_prices.iloc[-1]
+            
+            # 3. दूरी की गणना (Distance from 200 DMA)
+            # शेयर आज अपने 200 दिनों की औसत से कितने प्रतिशत (%) ऊपर या नीचे है, यह उसका फॉर्मूला है।
+            dist_200_dma = ((cmp - dma_200) / dma_200) * 100
+
+            # 4. सालाना हाई (52-Week High) खोजना
+            # .tail(252) का मतलब है कि हम पिछले 1 साल (1 साल में लगभग 252 ट्रेडिंग दिन होते हैं) का डेटा ले रहे हैं।
+            last_1y_data = data.tail(252)
+            
+            # उस 1 साल के डेटा में शेयर ने सबसे ज्यादा हाई (High) किस तारीख को बनाया था, वह तारीख (idxmax) निकाल रहे हैं।
+            high_date = last_1y_data['High'].squeeze().idxmax()
+            
+            # 5. CAR (Cumulative Average) की गणना
+            # हाई वाली तारीख से लेकर आज तक का सारा क्लोज़िंग डेटा निकाल रहे हैं।
+            car_data = close_prices.loc[high_date:]
+            
+            # अगर नया हाई बने हुए अभी 10 दिन भी नहीं हुए हैं, तो हमारी CAR की गणना नहीं हो सकती, इसलिए अगले शेयर पर जाओ।
+            if len(car_data) < 10: 
+                continue
+                
+            # expanding().mean() हमारी असली CAR निकालता है, यानी पहले दिन से लेकर आज तक का लगातार बढ़ता हुआ औसत।
+            car_values = car_data.expanding().mean()
+            
+            # हमें केवल पिछले 10 दिनों की CAR चेक करनी है, इसलिए .tail(10) का उपयोग किया।
+            last_10_car = car_values.tail(10)
+
+            # 6. ट्रेंड चेक करना (Trend Verification)
+            # is_monotonic_increasing यह चेक करता है कि क्या पिछले 10 दिनों से CAR लगातार बढ़ रही है (बिना एक भी दिन गिरे)।
+            if last_10_car.is_monotonic_increasing:
+                car_status = 'Positive' # लगातार बढ़ी तो पॉजिटिव
+            else:
+                car_status = 'Negative' # एक दिन भी गिरी तो नेगेटिव
+
+            # 7. फाइनल सुपर-ट्रेडिंग स्ट्रेटेजी की शर्त (The Magic Rule)
+            # शर्त 1: आज का भाव 30 DMA से ऊपर हो
+            # शर्त 2: आज का भाव 50 DMA से ऊपर हो
+            # शर्त 3: आज का भाव 200 DMA से ऊपर हो
+            # शर्त 4: CAR पिछले 10 दिनों से लगातार पॉजिटिव (बढ़ती हुई) हो
+            if (cmp > dma_30) and (cmp > dma_50) and (cmp > dma_200) and (car_status == 'Positive'):
+                action = '🟢 Positive Breakout' # सब पास हुआ तो हरा सिग्नल
+            else:
+                action = '🔴 Avoid/Hold' # एक भी शर्त फेल हुई तो लाल सिग्नल
+
+            # 8. डेटा जमा करना
+            # अब जो भी डेटा हमने ऊपर कैलकुलेट किया है, उसे अपनी एक्सेल टेबल में डालने के लिए इकट्ठा कर रहे हैं।
+            if action == '🟢 Positive Breakout':
+                results.append({
+                    'Date': today_date,
+                    'Stock': ticker.replace('.NS', ''), # .NS हटा रहे हैं ताकि शेयर का नाम साफ दिखे।
+                    'CMP': round(cmp, 2), # भाव को दशमलव के 2 अंकों तक राउंड ऑफ (Round off) कर रहे हैं।
+                    '30 DMA': round(dma_30, 2),
+                    '50 DMA': round(dma_50, 2),
+                    '200 DMA': round(dma_200, 2),
+                    '200 DMA Dist %': round(dist_200_dma, 2),
+                    'CAR Status': car_status,
+                    'Action': action
+                })
+            
+        except Exception as e:
+            # अगर किसी शेयर का डेटा डाउनलोड होने में कोई दिक्कत आए, तो कोड को रुकने मत दो, पास (pass) करके अगले शेयर पर चले जाओ।
+            pass
+            
+    # 9. फाइनल रिजल्ट की सफाई (Filtering)
+    # इकट्ठे किए गए सारे डेटा को pandas की DataFrame (एक्सेल शीट) में बदल रहे हैं।
+    df_positive = pd.DataFrame(results)
+    
+    # अंत में, चुनी गई लिस्ट को 200 DMA की दूरी (% Distance) के आधार पर छोटे से बड़े क्रम में (Ascending order) सेट कर रहे हैं।
+    if not df_positive.empty:
+        df_positive = df_positive.sort_values(by='200 DMA Dist %', ascending=True)
+        
+    return df_positive
+
+# -------------------------------------------------------------------------
+# कोड को रन करना (Execution Part)
+# -------------------------------------------------------------------------
+
+# यह हमारे 210 शेयरों की पूरी लिस्ट है, जिसे हमारा स्कैनर चेक करेगा।
+my_stocks = [
+    '360ONE.NS', 'ABB.NS', 'APLAPOLLO.NS', 'AUBANK.NS', 'ADANIENSOL.NS',
+    'ADANIENT.NS', 'ADANIGREEN.NS', 'ADANIPORTS.NS', 'ADANIPOWER.NS', 'ABCAPITAL.NS',
+    'ALKEM.NS', 'AMBER.NS', 'AMBUJACEM.NS', 'ANGELONE.NS', 'APOLLOHOSP.NS',
+    'ASHOKLEY.NS', 'ASIANPAINT.NS', 'ASTRAL.NS', 'AUROPHARMA.NS', 'DMART.NS',
+    'AXISBANK.NS', 'BSE.NS', 'BAJAJ-AUTO.NS', 'BAJFINANCE.NS', 'BAJAJFINSV.NS',
+    'BAJAJHLDNG.NS', 'BANDHANBNK.NS', 'BANKBARODA.NS', 'BANKINDIA.NS', 'BDL.NS',
+    'BEL.NS', 'BHARATFORG.NS', 'BHEL.NS', 'BPCL.NS', 'BHARTIARTL.NS',
+    'BIOCON.NS', 'BLUESTARCO.NS', 'BOSCHLTD.NS', 'BRITANNIA.NS', 'CGPOWER.NS',
+    'CANBK.NS', 'CDSL.NS', 'CHOLAFIN.NS', 'CIPLA.NS', 'COALINDIA.NS',
+    'COCHINSHIP.NS', 'COFORGE.NS', 'COLPAL.NS', 'CAMS.NS', 'CONCOR.NS',
+    'CROMPTON.NS', 'CUMMINSIND.NS', 'DLF.NS', 'DABUR.NS', 'DALBHARAT.NS',
+    'DELHIVERY.NS', 'DIVISLAB.NS', 'DIXON.NS', 'DRREDDY.NS', 'ETERNAL.NS',
+    'EICHERMOT.NS', 'EXIDEIND.NS', 'FORCEMOT.NS', 'NYKAA.NS', 'FORTIS.NS',
+    'GAIL.NS', 'GVT&D.NS', 'GMRAIRPORT.NS', 'GLENMARK.NS', 'GODFRYPHLP.NS',
+    'GODREJCP.NS', 'GODREJPROP.NS', 'GRASIM.NS', 'HCLTECH.NS', 'HDFCAMC.NS',
+    'HDFCBANK.NS', 'HDFCLIFE.NS', 'HAVELLS.NS', 'HEROMOTOCO.NS', 'HINDALCO.NS',
+    'HAL.NS', 'HINDPETRO.NS', 'HINDUNILVR.NS', 'HINDZINC.NS', 'POWERINDIA.NS',
+    'HYUNDAI.NS', 'ICICIBANK.NS', 'ICICIGI.NS', 'ICICIPRULI.NS', 'IDFCFIRSTB.NS',
+    'ITC.NS', 'INDIANB.NS', 'IEX.NS', 'IOC.NS', 'IRFC.NS', 'IREDA.NS',
+    'INDUSTOWER.NS', 'INDUSINDBK.NS', 'NAUKRI.NS', 'INFY.NS', 'INOXWIND.NS',
+    'INDIGO.NS', 'JINDALSTEL.NS', 'JSWENERGY.NS', 'JSWSTEEL.NS', 'JIOFIN.NS',
+    'JUBLFOOD.NS', 'KEI.NS', 'KPITTECH.NS', 'KALYANKJIL.NS', 'KAYNES.NS',
+    'KFINTECH.NS', 'KOTAKBANK.NS', 'LTF.NS', 'LICHSGFIN.NS', 'LTM.NS',
+    'LT.NS', 'LAURUSLABS.NS', 'LICI.NS', 'LODHA.NS', 'LUPIN.NS',
+    'M&M.NS', 'MANAPPURAM.NS', 'MANKIND.NS', 'MARICO.NS', 'MARUTI.NS',
+    'MFSL.NS', 'MAXHEALTH.NS', 'MAZDOCK.NS', 'MOTILALOFS.NS', 'MPHASIS.NS',
+    'MCX.NS', 'MUTHOOTFIN.NS', 'NBCC.NS', 'NHPC.NS', 'NMDC.NS',
+    'NTPC.NS', 'NATIONALUM.NS', 'NESTLEIND.NS', 'NAM-INDIA.NS', 'NUVAMA.NS',
+    'OBEROIRLTY.NS', 'ONGC.NS', 'OIL.NS', 'PAYTM.NS', 'OFSS.NS',
+    'POLICYBZR.NS', 'PGEL.NS', 'PIIND.NS', 'PNBHOUSING.NS', 'PAGEIND.NS',
+    'PATANJALI.NS', 'PERSISTENT.NS', 'PETRONET.NS', 'PIDILITIND.NS', 'POLYCAB.NS',
+    'PFC.NS', 'POWERGRID.NS', 'PREMIERENE.NS', 'PRESTIGE.NS', 'PNB.NS',
+    'RBLBANK.NS', 'RECLTD.NS', 'RADICO.NS', 'RVNL.NS', 'RELIANCE.NS',
+    'SBICARD.NS', 'SBILIFE.NS', 'SHREECEM.NS', 'SRF.NS', 'MOTHERSON.NS',
+    'SHRIRAMFIN.NS', 'SIEMENS.NS', 'SOLARINDS.NS', 'SONACOMS.NS', 'SBIN.NS',
+    'SAIL.NS', 'SUNPHARMA.NS', 'SUPREMEIND.NS', 'SUZLON.NS', 'SWIGGY.NS',
+    'TATACONSUM.NS', 'TVSMOTOR.NS', 'TCS.NS', 'TATAELXSI.NS', 'TMPV.NS',
+    'TATAPOWER.NS', 'TATASTEEL.NS', 'TECHM.NS', 'FEDERALBNK.NS', 'INDHOTEL.NS',
+    'PHOENIXLTD.NS', 'TITAN.NS', 'TORNTPHARM.NS', 'TRENT.NS', 'TIINDIA.NS',
+    'UNOMINDA.NS', 'UPL.NS', 'ULTRACEMCO.NS', 'UNIONBANK.NS', 'UNITDSPR.NS',
+    'VBL.NS', 'VEDL.NS', 'VMM.NS', 'IDEA.NS', 'VOLTAS.NS',
+    'WAAREEENER.NS', 'WIPRO.NS', 'YESBANK.NS', 'ZYDUSLIFE.NS'
+]
+
+# ऊपर बनाए गए फंक्शन को अपनी शेयरों की लिस्ट देकर चला रहे हैं।
+positive_breakout_data = advanced_stock_scanner(my_stocks)
+
+# जो भी रिजल्ट आया, उसे स्क्रीन पर अच्छे से प्रिंट कर रहे हैं।
+print("\n--- 🟢 फाईनल लिस्ट: केवल POSITIVE BREAKOUT स्टॉक्स ---")
+if positive_breakout_data.empty:
+    print("आज किसी भी शेयर ने आपकी सभी कड़ी शर्तों को पार नहीं किया है। (कोई नया ब्रेकआउट नहीं)")
+else:
+    print(positive_breakout_data.to_string(index=False))
+    
+    # अंत में: इस छंटनी की हुई लिस्ट को 'Final_Breakout_List.xlsx' नाम से सेव कर रहे हैं।
+    positive_breakout_data.to_excel("Final_Breakout_List.xlsx", index=False)
+    print("\nफ़िल्टर की गई फाईनल लिस्ट 'Final_Breakout_List.xlsx' सेव हो गई है!")
+    
+    # यह कमांड गूगल कोलाब (Colab) को बोलती है कि एक्सेल फाइल बनने के बाद उसे सीधा हमारे कंप्यूटर में डाउनलोड कर दे।
+    from google.colab import files
+    files.download("Final_Breakout_List.xlsx")
+
