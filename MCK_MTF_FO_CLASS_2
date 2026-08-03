@@ -1,0 +1,754 @@
+Class 2
+
+Hello friends, I, Mahesh Chandra Kaushik, a SEBI-registered research analyst,
+0:06
+welcome to my video. In today's video,
+0:12
+I'll explain the secret of MTF trading through a story. So, let's
+0:17
+get straight to the story. Once upon a time, there were three friends. The first friend's name was
+0:22
+Chandu. Then there was his second friend, Ghisu, and the third friend,
+0:28
+Bholu. These three friends had read a book on real estate investing.
+0:33
+After reading this book, they decided to take a house loan from a bank and
+0:37
+buy a house, then sell it and earn money. Just like you earn money by selling shares
+0:43
+, it's similar to how you
+0:49
+buy a house with a house loan from a bank. In the same way,
+0:55
+you buy shares in an MTF by taking a loan from a broker in the stock market. The goal of these three friends was to
+1:00
+buy a house worth ₹25 lakh and sell it for under ₹30 lakh. So, they each
+1:07
+took a loan from a bank to buy a house. Now, let's look at repaying the loan. What was each person's strategy? Let's start
+1:13
+with Chandu. Chandu had business income and
+1:18
+regularly paid the EMI on the loan every month. However, his other two friends,
+1:24
+Ghisu and Bholu, had a different approach to EMIs. They didn't
+1:30
+pay any EMIs. They thought they would pay the principal amount and
+1:35
+the entire interest at the same time when the house was sold. This was their strategy. Now let's see
+1:40
+how these strategies worked for them. Some time later, the real estate
+1:45
+market hit a recession. Their houses weren't selling. But with great difficulty, a
+1:49
+customer came and said, "These three of you don't cost more than 2020 lakhs.
+1:54
+I'm willing to pay 2020 lakhs for them." Hearing this, Chandu and Ghisu chased the customer
+2:00
+away, saying, "Don't sell us for 2020 lakhs." But Bholu panicked at
+2:05
+the 20 lakh offer. He thought, "This is my stop loss." I
+2:10
+bought a house for 2.5 million rupees. My stop-loss was 5 million rupees. I
+2:14
+couldn't afford a loss beyond that. Meanwhile, Bholu's loan kept accruing interest because he
+2:19
+didn't pay the EMI. The interest on the interest compounded, increasing the loan from 2.5 million rupees to 2.8 million rupees. So, Bholu then
+2:25
+scammed and registered the house, resulting in a loss of 8 million rupees.
+2:31
+You understand, his loan had already reached 2.8 million rupees. The customer was only willing to pay 2 million rupees
+2:36
+. He considered that his stop-loss, broke his bank deposit,
+2:41
+paid another 8 million rupees, and paid 2.8 million rupees to the bank. He lost 8 million rupees on the 8 million rupees he borrowed from the customer.
+2:47
+This led to further problems with blood pressure and diabetes.
+2:51
+And then our Bholu cried bitterly, saying he would never again do business on real estate using loans
+2:57
+. Just like our MTF employees often cry bitterly. Now, let's talk about
+3:03
+what happened to Ghisu. Ghisu's 25 lakh loan grew to 40 lakh as interest
+3:08
+kept accruing on interest. He couldn't even pay the EMI. His interest amounted to 15 lakh rupees. What
+3:13
+happened? Frustrated, how long could the bank wait? They seized his house and
+3:17
+auctioned it for 27 lakh rupees. But now the loan had grown to 40 lakh rupees. So, to
+3:23
+repay the remaining 13 lakh rupees, the bank, under court order, seized and
+3:28
+sold Ghisu's agricultural land. Now Ghisu had neither house nor land. Ghisu wept bitterly, just
+3:34
+as Bholu had. Now let's talk about the success of their third friend, Chandu. What did Chandu
+3:40
+do? He continued to pay regular EMI installments. Due to the timely installments, his balance
+3:45
+and principal balance steadily decreased. Gradually, the entire loan was repaid.
+3:51
+He received delivery of the house. In a way, just like you take delivery of shares in an MTF.
+3:55
+This means he now has a loan-free house.
+3:58
+He may have owned a house before, or even had a loan. He's now completely debt-free.
+4:03
+The house now charges less interest. As the principal balance dwindled, the interest also decreased.
+4:07
+The interest charged was only ₹6 lakh, bringing the total cost to ₹31 lakh. He took a loan of ₹5 lakh,
+4:12
+paid interest of ₹6 lakh, and the total cost was ₹31 lakh. After some time, the real estate market boomed.
+4:17
+Chandu sold his house for ₹45 lakh, making a net profit of ₹14 lakh. Without
+4:22
+panicking, let's now
+4:27
+understand the margin trading facility (MTF) in today's class
+4:32
+and correlate the story I've told you with trading this MTF. Let's
+4:37
+begin today's class. In today's class, first of all, keep in mind that the method being described
+4:41
+will work with brokers like ICC Direct. It will work with brokers like Groww,
+4:46
+which offer the option to add margin. If you think it's easy, then
+4:50
+This broker is ICC Direct, and there may be other brokers that
+4:55
+offer margin additions. This means you buy a position on margin. Suppose you
+4:59
+bought a position worth 15,000, paying a margin of 6,000.
+5:04
+Those new to margin trading who don't know what a margin trading facility is or
+5:07
+what an MTF is will learn that when you
+5:12
+take a position worth 15,000, you don't have to pay the full amount at once. Some brokers charge 25%
+5:18
+and give you a 100% position. Some charge 30% and
+5:22
+give you a 100% position. Some charge 40%. Let's say I
+5:26
+'m charging a maximum margin of 40%. If you buy a position worth 15,000, you pay a margin of 6,000
+5:30
+, and you borrow 9,000 from the broker. You borrow and
+5:36
+take a position worth 15,000. So what do brokers do? I
+5:42
+have my own account with ICICI Direct. What ICICI Direct does is
+5:46
+they offer the ability to add margin. If I take a position of ₹1,000,
+5:50
+I can add ₹1,000 to it in just half an hour. After half an hour, 5 minutes,
+5:55
+2 minutes, or even 5 days. Now
+6:00
+that I've added ₹1,000, my loan is ₹8,000. The interest will be charged on the ₹8,000.
+6:04
+Then, after a few days, I add another ₹500. My interest will be charged
+6:08
+on the ₹7,500. I know of brokers like Groww and ICC Direct
+6:15
+that offer margin additions. If you have an account with one,
+6:19
+that's best. If you don't, I'm not an agent for these companies. I don't give you any
+6:24
+links to open accounts, telling you to go through my link and open an account. No,
+6:28
+I don't do that kind of commission business. I'm not their agent. I'm
+6:32
+not advertising them. If you have accounts with other companies, I
+6:37
+'ll show you tricks like this. In later classes of this course, I'll also
+6:41
+show you tricks like this. Suppose they don't
+6:45
+offer the facility to add margin, how can you do it? Where will that come from? It'll come up in later classes. Today's
+6:50
+class video is for brokers that offer margin additions,
+6:54
+like ICC Direct or Groww. So,
+7:00
+even if you don't have an account with them, watch this class video and understand the process. Then, if you like it, you
+7:04
+can open an account. I'm not their agent. Keep that in mind.
+7:10
+Let's start understanding today's method. Suppose you took a position of $15,000 in an MTF
+7:15
+. Notice why it keeps returning to $15,000? Because this course
+7:18
+I created is designed to show how we
+7:23
+can start with an MTF position of 15,000 and easily enter futures options. This
+7:28
+is the topic of future classes. Watch this video from class two. This
+7:32
+is the second class of this course. If you're joining for the first time, you can watch the class one video later
+7:36
+. The link to the class one video is provided in the description of this video. So,
+7:40
+I start with 1500 to 15,000, showing how starting with 15,000 in MTF positions will allow you to
+7:44
+easily enter futures options. That's the essence of this course
+7:49
+. That's what I'm going to teach you. And this video does not promise any guaranteed returns
+7:54
+. You should not make any investment decisions
+7:59
+based on this educational documentary; instead, consult your registered investment advisor. This
+8:03
+is mandatory according to SEBI regulations and YouTube policy. So,
+8:08
+let's begin today's video. In today's video, I'll
+8:12
+explain how we can minimize our interest and
+8:18
+easily take delivery using the EMI method, as we don't use a stop-loss.
+8:23
+I'm going to explain this to you right now. Consider, in an MTF, let's say you
+8:27
+took a position of ₹15,000. For a ₹15,000 position, let's say your initial margin
+8:32
+was ₹6,000. Your initial margin was approximately 40%. Suppose you get the position at 25%
+8:36
+. You only get 30%. I'm assuming approximately 40%. Right? This
+8:41
+doesn't mean your broker only allows you to open positions with a 25% margin
+8:45
+. So, you might ask, "My broker only charges 25%." You explained 40%. Some
+8:50
+brokers charge 30%, some 33%. It also varies by stock.
+8:54
+If it's a stock of a good company, you can take a larger position with a lower margin. If the stock is from a slightly
+8:58
+undervalued company, the higher the margin demanded, the lower the company's margin. A poor company
+9:03
+means one with low volume and few trades, and a low market cap.
+9:07
+Yes. These brokers have created this definition. So how much of your loan is left now? The loan
+9:13
+amount means you paid ₹6,000 and took a position of ₹15,000.
+9:18
+In effect, you took a loan of ₹9,000 from your broker. As if taking a house loan isn't bad.
+9:23
+What was the story about? The house loan was about a person who
+9:28
+didn't have the money to buy a property worth ₹25 lakh. He paid the EMI and bought a property worth ₹25 lakh, and later it easily
+9:32
+didn't sell. So, the story described the worst possible situation.
+9:37
+In the worst case scenario, the entire house loan tenure was over. The house didn't
+9:41
+sell. Yet, at least he got the keys to the house. This is what you
+9:45
+saw in the story: he received the house, and after receiving it,
+9:50
+he sold it whenever the price of the house increased, making a profit of 1.4 million rupees. You saw that in the story.
+9:54
+Listen again. This is not a promise of guaranteed returns. If you reach 1.4 million words, the YouTuber might
+9:58
+ask, "Brother, how did you say 1.4 million?" This video
+10:02
+does not promise any kind of guaranteed return. It is an educational documentary. You should
+10:07
+make any decision based on your investment advisor's advice and your own discretion. Now, the margin remaining in this is your loan
+10:12
+amount, which is 9,000 rupees. How much interest is charged on this?
+10:18
+How much interest do I charge? I will explain this. I have an account with ICICI Direct, where I have
+10:24
+a one-time brokerage plan. One-time means
+10:28
+I deposited ₹4,999 with ICC Direct. After that, my MTF interest will be 9.85% for life.
+10:35
+By the way, this is just what they said. When they first deposited the money, they said it
+10:39
+would be 9.65%. And recently, they sent me an email saying, "We
+10:44
+'re increasing your interest rate. We're increasing it to 9.85%. No problem, brother, increase it. We
+10:50
+can increase it like this." Look, there's no lifelong rule. They just make you agree to small terms and conditions,
+10:53
+like if you pay it all at once, we
+10:57
+can increase it at any time. But it's better than others. 9.85% interest is charged. Now, these
+11:03
+home loans are for 20 years each, or 15 years each. This isn't the case with our MTF
+11:07
+. We'll keep this in our MTF. We 'll hold this position
+11:11
+for a maximum of four months . We'll make a 16-week EMI.
+11:16
+We'll make a 16-week EMI with the remaining money. We'll hold it for a maximum of four months,
+11:19
+saying, "My brother, we've bought the best shares." How to buy these shares? What
+11:25
+method? Which shares? This is the subject of classes three and four
+11:29
+. Look, this is a complete course. How to plant an F. Endo tree in an MTF nursery
+11:34
+? I told you, we'll start with MTF
+11:38
+and slowly jump into F. Endo. I'm telling you how to do that slowly. I'm teaching
+11:42
+you that. This is a complete course. So, in this course, how to plant an F. Endo tree in an MTF nursery,
+11:48
+we assume that we've
+11:53
+bought the best stocks, using the Nifty shop method, using my Python coding method.
+11:58
+I'll repeat it again in the next class, how to buy all of that.
+12:01
+But three months is a quarter for a company. Three months
+12:06
+is the entire company's quarter, and the company's quarterly results are declared.
+12:10
+We couldn't make a profit on it for four months. We couldn't sell it for four months.
+12:14
+In the worst-case scenario, like the one in the case of that house, where the lease was completed
+12:19
+and Chandu paid the full installments and then sold it,
+12:24
+in the worst-case scenario, we could hold it for 16 weeks. So, we would
+12:28
+extend the EMI based on 16 weeks. And as you know, in my videos, I don't set a stop-loss like Ghisu Bhai
+12:32
+. Ghisu Bhai, that stop-loss, is an offer price. Ghisu Bhai had
+12:36
+a customer who asked, "Do you want to pay for 20 lakhs?" Ghisu Bhai didn't say, "Ghisu Bhai," but Ghisu Bhai said, "It
+12:41
+was Bholu." A customer came to Bholu and asked Bholu, "Do you want to pay for ₹1 lakh?"
+12:46
+Bholu cried all night, saying, "I've lost 5 lakhs." He went and
+12:51
+sold it the next day for 20 lakhs, saying, "Yes, I have to pay, brother. I can't afford any more losses."
+12:55
+This is my stop-loss. We don't set a stop-loss in these kinds of methods,
+12:59
+and I'll explain why we don't keep a stop-loss later
+13:03
+in this class. Let's move on. I've repeatedly told you that
+13:09
+intraday futures and options and MTF markets are structured
+13:15
+to take money out of your pocket and into the pockets of large operators. They're designed to
+13:20
+incur losses for you, the retail investor. They book losses, and you'll lose.
+13:25
+Booking money from your pocket puts it in the pockets of big operators. See how it
+13:29
+works. In intraday and F&O, you're often taught
+13:33
+to keep a stop loss. Stop losses can also be necessary because you
+13:37
+take large positions beyond your means, and you keep a stop loss
+13:40
+. This is my belief about stop losses. I don't want to get embroiled in any controversy by making
+13:45
+too many statements about this . I believe that big
+13:49
+operators know your stop loss. You keep a stop loss somewhere,
+13:52
+and if you keep a stop loss on your computer, there's bound to be someone
+13:56
+who can see it. There's a chance this information could be leaked from anywhere
+14:01
+. It's like playing cards by showing cards, then
+14:05
+losing and then crying. So, in intraday F&O, your
+14:09
+stop loss is known to big operators. They trade the stock in large volumes,
+14:13
+pushing it to a point where your stop-loss is easily triggered, and
+14:17
+once triggered, you incur a loss. Similarly, in MTF trading, as
+14:22
+I mentioned, the entirety of all three markets has evolved in a similar way: money
+14:26
+is taken out of your pocket and into the pockets of the big operators. A special point has been established within MTF trading
+14:29
+. What do they do with it? There's a point called the trigger point. They give you
+14:33
+holdings four times your capacity, five times your capacity, and
+14:37
+some even six times your capacity. Now they say, "
+14:41
+Sir, there's a trigger point. If that stock falls beyond a certain limit, you're
+14:47
+not in a position to place an order. The margin you paid
+14:51
+is only a small amount. They're saying, 'If the stock falls significantly one day, that
+14:54
+'s your trigger point.' They'll sell without you even asking. You won't even know. You
+14:59
+'ll see where my position went. At that trigger point, you'll see where my position went."
+15:03
+So, while I was researching this method,
+15:08
+I noticed one day I bought Tata Motors shares. Let's say
+15:12
+I bought Tata Motors shares at around ₹400, and I was new to it. It had
+15:18
+been many years since I'd been researching MTF trading. It had been many years, so I was
+15:21
+new to it. I didn't even notice what they had set at ₹380. They
+15:26
+had set a trigger price. I added a small margin at ₹380. I took a margin position.
+15:31
+I said, "Okay, brother, that's good." I took a margin position. Now it
+15:34
+closed at ₹378. In the evening, I looked, "I had taken a position in the MTF." Where did it
+15:39
+go? Where did the share go? I searched for it, but the share
+15:43
+wasn't visible in the MTF. Then I looked in the trade book and saw that it had been sold. Sold at a loss. "
+15:48
+Sir, you bought it for ₹400 and sold it for ₹378." You've incurred a loss. Then I
+15:53
+realized when I thought about it: this is their trigger point.
+15:57
+Even if you don't set this stop-loss, they say they'll set it within the margin themselves
+16:00
+. Your stop-loss is ₹380, brother, it's gone. What can we do? You're gone.
+16:05
+So, what's the first rule of this method? What would the people who take notes for my classes
+16:09
+write as the first rule? We
+16:15
+have to add a 10% margin immediately upon purchasing the stock. 10% margin immediately. That means you bought a share for 400. It
+16:20
+was worth 15,000. You opened a position for 15,000. You paid ₹6,000. So what
+16:28
+'s 10% of ₹1,000? ₹1,500. We'll add the 1500 margin immediately. Whatever
+16:33
+your position value is, we'll add 10% margin immediately.
+16:39
+What's the benefit of that? If this 400 stock was priced at 380, then the buyer of the 400 stock
+16:45
+had placed a stop-loss at 380. The trigger point of 380
+16:50
+will drop to 340 once a 10% margin is added. Now, bringing a 400 stock to 340
+16:55
+is a very difficult task. A stock with such a high market cap
+17:00
+cannot be brought down from 400 to 300 or 340. This means it
+17:04
+will fall below its circuit limit. I researched and found that
+17:09
+adding an extra 10% margin is sufficient. This way, you
+17:14
+avoid falling prey to this trigger point. So, the first rule is to
+17:18
+add 10% margin immediately upon purchasing the stock to
+17:23
+avoid falling prey to this trigger point. Now, let's understand how to pay EMIs like Chandu
+17:29
+. How do we pay EMIs on our margin positions? The same principle applies.
+17:32
+Let's explain: you paid an initial margin of ₹6,000. You
+17:36
+received a loan of ₹9,000 from your broker. You took a position of ₹15,000. But what does the first rule say?
+17:41
+We need to add an additional 10% margin
+17:46
+to avoid automatic squaring off at the trigger point. We added ₹1,500. Now, what's left of our loan? ₹7,500.
+17:51
+We'll hold it for a maximum of 16 weeks. We'll pay the EMI every week. We
+17:56
+'ll hold it for a maximum of 16 weeks. If it doesn't sell even after 16 weeks, we'll assume
+18:00
+something fundamentally wrong with the company made it profitable to take delivery of the shares
+18:04
+. We can't afford to pay the interest further. If we pay the EMI, divide ₹7,500 by 16.
+18:08
+Divide 7,500 by 16, resulting
+18:13
+in a weekly EMI of ₹468.75. Suppose you increased your position on Monday, then the following
+18:18
+Monday you need to remember to invest ₹468.75. Then, if
+18:24
+your shares remain unsold until the following week, add another ₹468.75 as margin.
+18:28
+This will have two benefits. One benefit is that your principal balance will continue to decrease,
+18:33
+and you won't have to pay as much interest. The 4-month interest rate at 9.85%
+18:40
+on this entire ₹7,500 loan
+18:47
+will be reduced by half. If you do this, you'll keep paying EMIs.
+18:52
+By paying ₹468.75 every week, you'll have an idea of ​​your financial situation, whether to take a new position or not.
+18:56
+I don't have the money to pay EMIs, do I? In the upcoming classes,
+19:01
+I'll explain in detail when
+19:06
+to open a position, how to keep track of the EMIs, how to assume you
+19:10
+should stop opening new positions, and how many weeks' worth of EMIs
+19:14
+you should carry in your balance. For now, consider this for one position: if
+19:20
+you continue adding an EMI of ₹468.75 per week to your margin position
+19:25
+, your interest will steadily decrease. The remaining principal, the loan
+19:31
+amount, will decrease weekly. Your interest will steadily decrease. After 16 weeks,
+19:35
+you'll have repaid the entire amount. If you continue paying ₹468.75 per week and your
+19:41
+shares remain unsold for four months, you've repaid the loan amount in full.
+19:46
+You can now easily convert your shares into delivery. For example, Chandu
+19:50
+paid all the installments on his house and then took delivery of the house. However,
+19:54
+with a house loan, you get the money immediately. What happens with a house loan?
+19:56
+You already get to live in the house. But as a story, I told you that Chandu
+20:00
+took delivery of the house, so that you understand that once your 16-week installment
+20:04
+is complete, you should take delivery of these shares. We
+20:09
+don't explain how to set a stop-loss. How to exit without a stop-loss.
+20:13
+We exit using the CAR method later. You'll learn about that in future classes.
+20:17
+But for now, I'll first show you a complete calculator in Excel.
+20:22
+I've created a complete calculator in Excel. You
+20:27
+can change the amount according to your position. You can change the interest rate. You
+20:31
+can change the initial margin. You must add this 10% amount.
+20:36
+This is automatically provided in the calculator. So, I've
+20:40
+created that calculator in Excel. I'll explain it to you in practice. The concept will become clear to you
+20:44
+. You can find the link to that Excel calculator in the video
+20:48
+description. You can download it from there and use it for free
+20:52
+. So let's understand that first. Friends,
+20:58
+I've created this automated Excel sheet for you to calculate and compare interest rates within MTFs.
+21:03
+I'll provide the link to this Excel sheet in the video description. You
+21:06
+can perform this automatic calculation for any of your positions. As I
+21:12
+explained on the board, your total position size is ₹15,000. If you change this, it
+21:16
+will be reflected in the entire sheet. I'll show you how to change it right now. The total position
+21:21
+size is ₹15,000. Let's say your initial margin is 6%. You
+21:27
+had to pay approximately 40% margin. This total comes to ₹6,000. If you add 40% margin to ₹15,000,
+21:33
+the initial margin becomes ₹6,000. How much initial loan did you
+21:38
+take from the broker? You took an initial loan of ₹9,000. Now, as the first condition of my method was that
+21:43
+we would immediately pay an additional 10% margin. Look, this formula is involved
+21:48
+. Here, if you increase the amount from 15,000 to 5,000, the formula
+21:53
+will automatically increase the 10% amount to 5,000. Now, I'll show you the first 15,000.
+21:58
+I'll explain it accordingly. Then I'll show you how to change the amount. Now,
+22:04
+what's your remaining loan amount? ₹7,500. Subtract ₹1,500 from this ₹9,000, meaning ₹7,500
+22:12
+is your loan amount. ₹1,500. We'll add the margin as soon as we buy the shares.
+22:17
+We'll add the ₹1,500 margin as soon as we buy the shares. Now, what's your remaining loan amount?
+22:23
+₹7,500. I've used the broker's interest rate, which is 9.85%.
+22:29
+You can change whatever interest rate your broker charges here. If you change it, your interest rate
+22:33
+will automatically change. I'll change this too and show you how to change it.
+22:38
+What's the weekly payment margin we've added? ₹468.75
+22:42
+. That means, we've divided ₹7,500 by 16. This
+22:47
+formula is given here. Look, you have to pay ₹468.75
+22:52
+per week automatically, which won't seem too difficult. We
+22:56
+'ll pay ₹68.75 if the shares remain unsold for a week. We'll pay another ₹468.75 the next week. If we
+23:02
+continue paying like this for 16 weeks, our shares will become completely debt-free, and we'll
+23:06
+receive delivery. This means that in four months, we'll either sell them mid-term and
+23:11
+book a profit. If we book a profit, we
+23:15
+'ll get back all the extra margin we paid. It will be used to buy another stock. If we don't book,
+23:19
+the entire debt will automatically be cleared. How will this happen? Look, the calculation is completely explained
+23:24
+. At the beginning of the week, it's the first week. Week Zero is the beginning. You
+23:28
+bought the shares for ₹9,000 . You paid ₹1500 margin and immediately your loan balance became ₹7500.
+23:35
+Now in the first week you paid ₹468.75 out of ₹7500. So,
+23:42
+the interest charged on this EMI was ₹14.17 and now your loan balance is ₹731.25.
+23:48
+If you had not paid this margin, you would have been
+23:54
+charged ₹17 interest per week on the entire loan. So how much are you saving? As you keep paying EMIs, you
+23:58
+are saving and here you will see that in 4 months,
+24:04
+the interest charged on this entire position is ₹120.40. But if we had not paid the money and charged interest on the entire ₹9,000, then we would have had to pay ₹272.2 paise
+24:10
+. That means you saved ₹151.60 interest
+24:16
+on the ₹15,000 position. Now suppose you change the position figure. Here you pay ₹48,000
+24:21
+or ₹5,000, and you pay an initial margin of, say, ₹00
+24:29
+. ₹00 is the initial margin.
+24:39
+So, what is your initial loan amount? It's ₹00, and
+24:44
+how much additional margin do you have to pay immediately? ₹5,000, this amount is automatically calculated. 10% of ₹500 = ₹25,000, or
+24:48
+you keep the loan amount halfway. The remaining loan amount is ₹25,000. But now your broker
+24:53
+doesn't charge 9.85% interest. He charges 14% interest. So, the interest rate has been changed here to 14%.
+25:01
+Now, what interest have you saved? How much weekly margin will
+25:06
+you have to pay? ₹1562.50. So, all these calculations
+25:10
+have also changed automatically. If you hadn't paid interest in this way
+25:14
+, you would have paid ₹1288.77 in interest. However, using my method, you
+25:19
+would have paid ₹570.55 in interest. You saved ₹718 in interest on this large position.
+25:26
+So, it's a matter of the higher interest rate. If the interest rate is 9.85%,
+25:32
+it will automatically reduce to 9.85%.
+25:37
+Right? So, with a 9.85% interest rate, you would have paid ₹96 in interest. But
+25:43
+using my method, you only paid ₹401 in interest. You saved ₹505.32. So,
+25:50
+I've created a kind of calculator in Excel
+25:54
+; you can find the link to it in the description of this video for free. You
+25:58
+can use it to calculate your positions . So, the video you're watching
+26:04
+is from Class 2 of my course, "How to Plant a Fado Tree in a Nursery," in MTF.
+26:09
+This is Class 2 of my course. If you haven't seen the Class 1 video yet
+26:13
+, the link is in the video description. You should go and
+26:17
+watch that Class 1 video as well. I've written nine books on the stock market
+26:23
+. All nine of these books are available in Hindi and English.
+26:28
+They're published by Prabhat Prakashan. I don't ship them; Prabhat Prakashan ships them. I'm
+26:32
+just a book author. What happens sometimes? You order books.
+26:34
+Then you comment and ask, "Sir, I ordered this book. When will it
+26:38
+arrive?" I don't know. Prabhat Prakashan has published them
+26:42
+in Hindi and English. Some of these books have also been translated into Gujarati and Marathi
+26:46
+. Translations of all nine books
+26:50
+are not available in Gujarati or Marathi. However, all nine of my books are available in Hindi and English.
+26:54
+Anyone wishing to read them to learn more
+26:58
+can do so. One should keep in mind that some Scammers use my photo to
+27:03
+create fake profiles on Instagram and Facebook and start sending you friend requests. So keep in mind
+27:08
+that I definitely have an authentic WhatsApp channel, the link of which
+27:12
+is in the description of this video. I have told you to join through the link only. I don't send any courses or give any tips on that either.
+27:16
+I only share the link of the videos from my channel.
+27:21
+My wife and I have a channel called Mehe Seema Blogs, where
+27:26
+we both, husband and wife, sometimes bring podcasts or when we go out somewhere, we
+27:29
+make blogs and I share the link of the videos from that blogging channel. My
+27:33
+wife has a cooking channel called Seema's Rasoi. If there
+27:38
+is a very good cooking video from that Seema's Rasoi, then I eat some of her cooking recipes, not all of them, and if I
+27:42
+like them, I share the link to that channel. Otherwise, I don't give any tips or
+27:45
+send any paid courses. So, if someone
+27:49
+sends you a friend request, asks you to join a group, or offers you a tip, then
+27:53
+understand that they're a scammer, not Mahesh Kaushik. Yes, one thing is for sure: the "
+27:57
+Join" button is on my channel. If someone joins the channel by paying a small monthly fee,
+28:02
+they get one extra benefit:
+28:05
+priority in comment replies. Because I have 7,120,000 followers, I
+28:10
+get a lot of comments. It's impossible for me to reply to everyone. It's not like
+28:14
+the rest don't get a reply. Look, I'm making a very interesting point
+28:18
+. I've mentioned in every video these days that, for example, if
+28:22
+some guests come to your house, the family members try to feed them first
+28:26
+and then eat later. The family members will also eat. The family members
+28:30
+won't starve. So, when I sit down to respond to comments, I'm like, "I'm not a fan of yours." First, I check
+28:34
+if anyone is a member, if someone is paying a fee, and if they comment, I
+28:39
+respond to them first. After that, I respond to everyone else, even my family members
+28:42
+. Therefore, if anyone wants to join, it's voluntary. There's no special benefit
+28:47
+. The only benefit you'll receive is that if you join voluntarily, you
+28:51
+'ll help me pay the statutory fees I have to pay
+28:55
+to maintain the services of research analysts. So,
+28:58
+you'll help keep the services free in the future. In return, you'll
+29:02
+receive some priority in comment replies. So, please let me know how you liked today's video in the comments.
+29:08
+Thank you very much. Hello. Hello, hello!
+29:18
+Investing in the stock market is subject to market risk. I, Mahesh Chandra Kaushik, am a SEBI
+29:22
+-registered research analyst and I strive to provide the best information I can
+29:27
+. No trading or investment system in the stock market
+29:33
+is 100% perfect. Therefore, the information presented in this video will
+29:38
+ensure you 100% profit in the stock market. There are no guarantees. You may incur losses
+29:43
+. Therefore, the information presented in this video should be considered for educational purposes only,
+29:49
+and use it at your own discretion. I, the creator of this video,
+29:54
+will not be held liable for any losses. Thank you.
+

@@ -1,0 +1,637 @@
+class 4
+
+Hello friends, I, Mahesh Chandra Kaushik, a SEBI-registered research analyst,
+0:06
+welcome you all to my YouTube channel. In today's video, I'm
+0:11
+going to teach you a state-of-the-art stock screener that even a person with a fifth-grade education
+0:17
+or a 100-year-old can
+0:23
+easily create. This stock screener can be created in just four steps, in just five minutes. If
+0:28
+you watch today's video, it's quite sophisticated. I'd even say it's the most advanced stock screener available today. I
+0:38
+'m going to teach you how to create a stock screener in just five minutes. So, whenever we create a stock screener, the first question we face is which
+0:46
+stocks to include. Now, there are 4,000 to 5,000 stocks listed
+0:52
+in the stock market. So, putting all the stocks in the scanner isn't a wise move. The stock scanner we're developing today
+1:03
+is so useful that it can be used for trading in the cash market. It can also be used for swing trading, margin trading,
+1:12
+and even FED trading . However, when it comes to trading , you must always remember, in accordance with SEBI regulations and YouTube
+1:21
+policies, disclosures, and disclaimers: this video is an educational documentary. This means you'll only
+1:30
+be taught how to make stock trades. This video is an educational documentary. It does not provide any investment advice. Although I
+1:39
+am a SEBI-registered research analyst, after creating this stock scanner,
+1:45
+please do not accept my recommendations for the stocks that appear through the filter. Do not buy them.
+1:51
+SEBI regulations and YouTube policies state that I should tell you these things, and I invest in them myself. I personally
+1:59
+use this type of stock scanner. So, whatever stocks are finally filtered, I can invest in them personally. My family can invest in them
+2:07
+. How should you buy? After creating a stock screener, you should buy whatever stocks appear as filtered stocks based on your own discretion. Don't
+2:17
+make decisions based on videos. You must remember that the stock market is risky and you should only buy shares with the advice of your registered investment advisor. So, I've explained this disclosure display
+2:26
+. So, the first question we face when creating a stock screener is: which stocks should we select? Now, there are 4,000 to 5,000 stocks
+2:35
+in the market. There's no benefit in screening them all at once. So, which stocks should we select ? Some say we should select the Nifty 50. They say, "Okay,
+2:43
+this is the country's largest index. Take the Nifty 50 stocks." Some say we should use the Nifty 100 stocks when creating our stock screener. Which ones
+2:51
+? I'll also answer this question for you today. I'll explain logically which stocks to select. Some say you should select stocks from the top 250. Others
+3:00
+say you should select stocks from the top 500 companies with the highest market caps . So, I
+3:09
+'ll teach you how to create stocks. I told you even a fifth-grade educated person can create them, or even a 100-year-old can do it in 5 minutes.
+3:17
+Before I teach you how to create them, which stocks will we use in this stock market? I 'll explain them logically. Now I'll explain the
+3:26
+characteristics a good trading stock should have. Listen to that logic first. So, whether you trade on a delivery basis in the cash market or you practice swing trading,
+3:35
+swing trading means buying a stock today, holding it for a day, two days , a month, 15 days, and then selling it. If it rises a little, then selling it
+3:44
+. Whether you do swing trading, margin trading, MTF trading, or whatever that is, futures and options trading
+3:52
+, or intraday trading, I'll explain the logic behind what characteristics any trading stock should have. Any trading
+4:00
+stock should have a very high trading volume. The trading volume should be very high. The trading volume will be low. Suppose
+4:08
+there's a daily volume of only 100 shares. You buy those 100 shares. When you go to sell them again, you won't find anyone to buy them. So, they have a very high trading volume.
+4:15
+It should be high. This should be the primary characteristic of a stock. It should have high volatility . Now, this is the essence of trading. What does trading even mean?
+4:23
+If you want to buy low and sell high, you'll only sell if the stock rises. If it falls again, you'll buy low. Therefore, it should also have high volatility. It
+4:31
+should also have a high average delivery value. I previously made a video explaining how to select stocks based on total turnover. Followers commented
+4:39
+, "Sir, don't just look at the total turnover. Look at the delivery as well. How many deliveries
+4:45
+are there?" That's fine. Today, we'll only include stocks with a high average delivery value in our scan. Stocks with a high free float
+4:54
+holding should have a high free float holding. What is free float holding? You've heard this term many times in the stock market. Many of my followers have
+5:02
+been working in the stock market for 10 or 20 years. Go ask them today, "Are you a disciple of Bhesh Kaushik?" Tell me, "What is free float holding?" They won't
+5:09
+be able to tell. Your guru will be embarrassed. So, what is free float holding? It's a hoarding held by non-promoters. Non-promoters' hoardings that
+5:19
+trade freely in the market. Promoters don't sell their shares. I 'm the owner of a company, I'm a promoter. Suppose my shares
+5:27
+won't trade in the market. I won't sell them. So, free float shares are those non- promoter holdings that trade freely in the market. People buy,
+5:36
+sell, buy, sell. There's a lot of trading in the market, and the company should have a high market cap. Most of the market's money
+5:44
+is invested in it. So, how do we
+5:50
+select stocks with all these characteristics? We'll build a stock scanner later. Which stocks will we put into that scanner? We'll put stocks that have all these characteristics. And where
+5:59
+will you find such stocks? There are 210 stocks. How do you find them? I'll tell you right now. So,
+6:05
+let's start learning where to find stocks that meet all these criteria. These are 210 stocks. I'll tell you how I selected them
+6:14
+. They have high trading volume. Look, all the stock stocks traded in Fendo have volumes many times higher than the cash market. This
+6:23
+stock scanner isn't just for Fendo. I've told you this many times in this video. You can use it in the cash market, or for swing trading
+6:30
+. Just do it with the advice of your financial advisor. Do it with your own discretion. The stock market is risky. Keep this in mind. So, Fendo stocks
+6:39
+have high trading volume. We can select Fendo stocks if we wish . Another characteristic of Fendo stocks is that the stocks
+6:47
+traded in futures options also experience high volatility. Both characteristics are found in the stocks traded in these futures options. Now,
+6:55
+what is the NSC's criteria for including the stocks listed in futures options ? Shares that have average delivery over the past six months
+7:07
+exceeded 350 million rupees. As
+7:12
+you followers say, those who take delivery within the average delivery should have high delivery. Only those shares with an average delivery value exceeding 350 million rupees over the past six months are included in the FAO list
+7:21
+. The NSC periodically reviews these.
+7:26
+The third characteristic found in F&O shares is that their average delivery value is also high. Even if we don't trade F&O, we may trade on margin or
+7:34
+swing trade, but these are three characteristics found in FAO shares . What is the fourth characteristic found in F&O shares? Free
+7:42
+float holding means that non-promoters must have more than 20% of their holdings.
+7:47
+Shares that trade freely and have a value of more than 1500 crore rupees must have free float holdings. This is also NSC's criteria
+7:56
+for inclusion of a share in the FAO list. And what are the NSC's criteria? Its market cap should also be among the top 500 companies. Therefore, the stocks
+8:06
+traded in futures options include Nifty 50 stocks and Nifty 100 stocks. Many indices are also traded in F&O
+8:13
+. Most of the stocks listed on those indices also share these characteristics. They also have high volume. Over the past six months, they have seen significant growth.
+8:20
+Their average delivery value is also higher. They also experience higher volatility. Their free float holdings are also higher, and their market cap is a requirement that they
+8:28
+be among the top 500 companies with a market cap. So, how many shares are traded in FINDO? 210 shares are traded in FINDO.
+8:39
+How can we get the complete list along with their NSC codes? Where can I find it on the NSC website? I'll go and teach you how to do it on your laptop. After that, I'll build a stock scanner. A stock
+8:48
+scanner is very easy. I'll teach you in 2 minutes. First, let's learn how to get the complete list. For this, you
+8:58
+need to search this command on Google: "NSC FINDO Stocks List."
+9:04
+If you type in "NSC FINDO," a drop-down menu will appear. You need to search for "NSC FO Stocks List." At the top, you
+9:13
+'ll find a link to NSC India. "List of Underlying Indexes." This will list all your FINDO stocks
+9:18
+. So, what is this? It's an index. This means that the F&O stocks will also be included in the Nifty 50. We've already mentioned that Nifty Bank also trades in the F&O. So, whatever
+9:27
+F&O stocks we're looking at, those particular stocks will be included in the Nifty Bank Index and the Nifty Financial Services Index. All the stocks from the Nifty Mid Select Index are included in
+9:35
+this index, and all the stocks from the Nifty Next 50 are also
+9:44
+included in this index. These are all underlying stocks within individual securities. Look, 360 starts with One Bam Limited, ABp India. You'll keep moving down like this. There's One, there's
+9:54
+Alchem, there's Apollo Hospital. You'll keep moving down like this.
+10:00
+Within this dropdown menu, you'll see a list of 210 stocks. There
+10:05
+are 210 shares in total. If you want to paste this anywhere, you'll have to copy it like this. From here, you'll
+10:10
+have to keep selecting it like this. You'll have to keep the mouse pressed . You'll need to select all 210 stocks by holding down the mouse and scrolling upwards
+10:20
+. Once you've selected them, by holding down the mouse and scrolling upwards, all these stocks, along with their symbols,
+10:30
+will be copied here. Select them here, then right-click on them. Copy. After copying,
+10:39
+you can paste them into an Excel file or wherever you want. All 210 stocks, along with their code, will be copied. I'll teach you
+10:49
+how to do this later. We'll use this in our scanner. But from these 210 stocks, we 'll select the best stocks for trading, based on our scanner's understanding.
+11:00
+Today, we're going to create this stock scanner.
+11:07
+Will we create it on Google Sheets? No, not at all. We won't create it on Google Sheets . Why won't we create it on Google Sheets? Look, the method of creating stock screeners on Google
+11:16
+Sheets is outdated. Secondly, there's a problem loading Google Sheets. You'll often notice that
+11:24
+all my old stock screeners are created on Google Sheets. They often say "loading, loading, loading, loading, loading." The sheet takes a long time to load. Sometimes,
+11:33
+errors occur with the data in Google Sheets. So, we won't learn how to create it on Google Sheets today . This doesn't mean the previous ones are useless. If you
+11:40
+'re using the previous ones on Google Sheets, keep using them. If you're creating them on Google Sheets, keep doing them. That works too. There's no problem with Google Sheets. But I said
+11:48
+today's technology is cutting-edge. Today's technology is high-tech. So, for cutting-edge technology, we're not going to use Google Sheets today. Will we
+11:57
+create them using Python code within GitHub? Absolutely not. That's also a great thing. I
+12:02
+even have a separate course on how to create them using Python code within GitHub. But there are problems with that. A person with a fifth-grade education can't make this. A little
+12:11
+education is necessary. And a 100-year-old can't make it.
+12:16
+Older people have a little difficulty making it. Our elderly, senior citizens, struggle with it. But today we'll
+12:24
+make it on Google Collab. As I told you, even a fifth-grader can make it,
+12:29
+a 100-year-old can make it. In just four steps, your
+12:35
+scanner is ready in five minutes. It runs instantly, and the results come out, click-thak-thak. So, to create that, let me start by showing you
+12:44
+how to create a stock screener. We first need to understand the criteria for this screener . We select a stock for trading. We
+12:51
+select it based on the advice of our financial advisor. We consult him first. We select it first. We create a stock screener for educational purposes.
+12:58
+We then consult our financial advisor about the stocks that come up. He agrees. Our judgment tells us that the stock market is risky. So, we
+13:05
+trade in it based on our judgment, based on the advice of our financial advisor. So, what criteria should be there for creating it? What makes us
+13:13
+believe that this stock has broken out? Let me explain that to you logically first . After what I've explained so far, it's just a 5-minute job.
+13:22
+Creating one on Google Play isn't difficult. Now, look at my teaching style, I don't just show you big charts of stocks. People
+13:30
+keep showing you stock charts, saying, "If you make this kind of chart, this will happen." If you make this kind of chart, this will happen. My charts are pretty common. I say,
+13:38
+pick up a chart of any stock over the last three or four years. It will look roughly like this . If you pick up a chart of any good stock, a blue chip stock,
+13:47
+a stock traded in the F&O, or any of these 210 stocks over the last 510 years, it will look roughly like this. Stocks have a pattern: they fall,
+13:56
+rise, fall, rise, fall, rise, then they enter a bull run, then they keep rising, keep rising, keep rising. They reach a very high level, and they
+14:02
+form an opinion. The operators here tell you to sell and exit. From here, the operators start selling and exiting. So, it
+14:10
+falls a little, then it falls a little. So, you don't buy it, retail investors , so the operators add a little to it. You go here and buy it.
+14:18
+Then you get trapped here. Then they sell it faster. Then they increase it a little. Then they sell it even faster. In this way the share starts falling. So the retail investor gets
+14:25
+trapped here. Gets trapped here. Gets trapped here. Gets trapped here. This is what happens mostly with retail investors. Gets trapped here. Then he holds on for a while. Then as
+14:34
+soon as it rises a little, he sells it and gets out. He says that at least I have reduced my loss. I'm out, so he comes here and cries. Then what he
+14:42
+does is he holds for a bit, then it reaches the year's low. Then he
+14:48
+says, "I've hit my stop-loss." Then he remembers that people tell him to keep a stop-loss. He says, " Yes, brother, this is my stop-loss." He sells here
+14:56
+and exits. Bearing a loss is his birthright. So what does he do? He sells here and exits. Then it rises a little more. Then it doesn't rise for a few days
+15:06
+. He waits here, like on his birthday. He saw it rise, but it fell, so he couldn't sell. Then it rises a little more. He sells here and exits, saying, "Sell your money now." And
+15:14
+after that, he can't sell here either. Then it starts falling. He says, "Oh, it will fall again, it will fall." Stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss stop-loss. Then the stock starts
+15:23
+rising again. Then a similar chart forms again later. So
+15:28
+what's special about our stock scanner? We'll see when the stock
+15:33
+makes its EA high. What's the stock's average since the day it reached its EAI? Look,
+15:39
+this line is the line that appears. I'll show it in a separate square. This line is the average of its year-high. If it's been high for one day, it
+15:47
+'s a one-day average. If it's been high for two days, it's a two-day average. If it's been high for three days, it's a three-day average. If it's been high for four days, it's a four-day average.
+15:57
+And the interesting thing is that if this average is falling, it
+16:02
+will also continue to fall. It won't increase. We call this a cumulative average.
+16:08
+So, what will be one of the things in our scanner? It will be a cumulative average. So you will avoid buying shares here. If this cumulative average is falling, we
+16:17
+won't buy the stock. So you will avoid buying shares here. You will avoid buying here. Avoid buying here. Avoid here because the cumulative average will continue to fall. If this mustard seed is grown here for
+16:26
+100 days, then this is the 100-day average. If it is grown for 90 days, then this is the 90-day average. If it is grown for 80 days, then this is the 80-day average. This is not a fixed average. This is simply this mustard seed.
+16:35
+The average of the number of days it has been formed is called the cumulative average. Then, if the stock stabilizes a bit, the cumulative average also starts to rise slightly
+16:45
+. But our condition is that this cumulative average should continue to rise for 10 days . 1 2 3 4 5 6 7 8 9 10 If it continues to rise for 10 days, we assume that
+16:56
+the cumulative average has reversed. Its CAR has become positive. Otherwise, its CAR
+17:02
+is decreasing. So, what is its CAR? It is negative. So, the first condition is that its CAR should become positive. After this, we
+17:10
+can consider the stock within the buying criteria at any time. But when do we buy? After consulting our financial advisor, at our own pace, at our own risk.
+17:20
+Okay? So, if this CAR becomes positive here, then the stock falls within the
+17:25
+buying criteria. Now, I've made videos on CAR before, where we average our losing stocks based on CAR. I
+17:34
+also made a video on how to exit losing stocks based on CAR. All my videos on CAR are videos about averaging losing stocks
+17:43
+. I'll provide links to all the detailed CAR videos in the description of this video . Anyone who wants to learn more can do so later. I've already
+17:51
+explained it here. So, when the CAR becomes positive, we need to put it in the scanner, which is the criteria for its CAR to be positive, and the scanner will automatically
+18:00
+calculate it. You don't need to do this. Our scanner is very smart. It automatically determines when this stock formed its CAR. First, it checks
+18:07
+how many days have passed since it formed. It checks what its CAR is today. Has its CAR been consistently positive for the last 10 days? He sees this and
+18:17
+tells you that brother, its CR has been positive for 10 days continuously. The scanner calculates it and tells you itself within 40-50 seconds. We will make that. Now in my
+18:26
+previous videos, I said that I have made videos earlier, in that my smart followers say that Sir, why do you make CAR from year high?
+18:35
+Make it from year low, it will be more perfect. People want to buy it at a cheaper price. They say Sir,
+18:40
+why don't you make CAR from year low? Hey guys, when I calculate the CR using my Year Low, 10 days
+18:46
+will be here: 1 2 3 4 5 6 7 8 9 10. You'll think its CR has turned positive and
+18:52
+the stock will start falling again. A stock doesn't reach a year low once. When it was here, its year
+18:57
+low became this, then the next year low became this. So, what about such a stock? It also reaches year lows two or three times. When we calculate the CR from the year low,
+19:07
+the chances of a fast breakout are very high because the stock reaches year lows many times. It makes two or three new year lows, only then does the stock start rising again. That's why we don't
+19:16
+calculate it from the year low. But if the stock keeps falling from the year high and its CR becomes positive again for 10 consecutive days, it's considered a very good sign
+19:25
+. It's considered a very good omen. If it's an omen, then it's considered a very good omen. That's why I calculate it from this formula, which is absolutely correct. We shouldn't be able to measure CR based on this
+19:36
+law. Now, people say, "Sir, add a couple of filters." Look, it's not fun, isn't it? Sir, add a couple of filters. Because
+19:45
+even here, it's possible that if its CR becomes slightly positive, if we measure it here, it will fall back, and we'll lose it. So, we add a couple of filters. We also check that
+19:54
+the stock should be above its 30-day moving average. Many people also assume that if the CR is positive here, then it will be below its 30-day moving average. But that
+20:03
+'s not the case. Even if the CR is positive here, it will be below its 30-day moving average. If it's positive, it won't work.
+20:11
+Because CR requires at least 10 days of data. By the time we get to this point, it hasn't even been 10 days. Once we have 10 days of data, it will become clear that if the CAR
+20:19
+is negative, it's negative. That's why we've added these three filters: the stock must be above its 30-day DMA. Our screener
+20:28
+will calculate this also automatically . The 30 day DMA of the share should be more than its 50 day DMA. Our screener will calculate this also automatically. The share
+20:36
+should also be more than its 200 day DMA. Here even if the first CR is positive somewhere, it will not come in our screener unless it is more than the 200 day DMA. It
+20:45
+will come here. When the share is more than its 30 day DMA. The share is also more than its 50 day DMA. Only when the share is more than its 200 day DMA
+20:54
+You'll get a buy signal. This is a feature of our screener. So,
+21:00
+add another feature to that stock screener: if the price rises significantly, you 'll still get buy signals. It will also indicate this, because here too, the price
+21:07
+is higher than its 30-day DMA, higher than its 50-day DMA, and higher than its 200-day DMA. The CAR is positive here too. So, if we get a wrong signal
+21:15
+near such year highs, the CAR is positive here too. Here too, the stock is higher than its 30-day DMA, higher than its 50-day DMA, and
+21:23
+higher than its 200-day DMA. If we get a fast signal here, how do we avoid buying near such year highs? What criteria
+21:31
+have we used in the filter for this? We look at the distance from its 200-day moving average in percentage terms.
+21:37
+The stock should not have risen more than 10% since crossing the 200-day moving average. The percentage difference from its 200-day moving average
+21:43
+should not exceed 10%. We'll also
+21:49
+apply this filter to our stock screener. Applying all these criteria, we can create a stock screener on Google Collab in 5 minutes. I
+21:57
+'ll teach you how to do it practically on my laptop. Come learn with me. Friends, I 've written this entire tutorial
+22:07
+for you on my blog, mesh cosic.com. Look, my blog is mesh cosic.com.
+22:12
+If you want, you can also view it on my blog later, if you wish, on how to create a stock screener on Google Collab for trading. I
+22:21
+'ll also show you each step step by step, and if you forget later, you can read it directly from the video, not just on my blog.
+22:31
+I'll provide the link to this blog in the description of this video. So, these are the four easy steps you
+22:36
+need to follow. Open Google Collab. Use Chrome in your browser . You need to use the Safari browser. Google CLA will work fine
+22:44
+if you use Google's browser . I've also provided a link to open Google CLA . Simply click on this link. Google CLA will open. This
+22:53
+will open a new page for you. Welcome to CLA. In Google CLA, first you'll
+22:58
+see a window like this. Look, this is the first window that will open. So, you understand the first step. The first step is very simple. Look,
+23:06
+what did I write in the first step? Open Google CLA. If you're visiting for the first time, it may ask you to log in with your Gmail ID. Log in, brother. I'm already logged in
+23:14
+. You'll see a blue "New Notebook" button on the screen.
+23:20
+I told you, even a fifth-grade student can do it, and a 100-year-old can do it. So, look, on the screen we opened,
+23:28
+look down at the screen, and you can see the blue "New Notebook" button. I've shown you what a
+23:34
+great tutorial I've created for you. You have to click on it. You have to click on
+23:39
+this new notebook. If you click on it like this, a new notebook will open. What exactly is this? It's a Jupyter notebook. Now,
+23:48
+keep it white for a while. It takes time to open a new notebook depending on your internet speed, so
+23:53
+don't worry. After a while, this new notebook
+23:59
+will automatically open. It will say something like "Untitled Zero," etc. So, you have to select it and rename it. Suppose your name is Satish, then you can name it
+24:10
+Satish Stock Screener, or whatever it is.
+24:16
+I'll give you a short name for it: Satish. You can name it anything. Your name is Satish. Your name is Ramlal. Your name is Anand. Your name is Shyam Singh. Whatever your name
+24:25
+is. You can name your Stock Screener here with whatever
+24:31
+name you like. So, that's it. And now, look, there's nothing else to do. Now, I've provided a code on the block. This entire Python code
+24:40
+is given in blocks. Last time when I made a tutorial of Python code, people complained that advertisements come in the middle of the blog. It
+24:47
+is difficult to copy the code. So this time I have given this entire code in a box. It is a complete box. You will not have any problem in copying it. What happens is that when we copy Python code,
+24:55
+if any hash is left out, even equals are left out, some thing or the other is left out. If any part is copied more or less, then the code does not run properly later. So see
+25:04
+what I have done this time, look here in the blog, I have given a button to copy the code. You do not need to select the entire copy code and copy it like this, this time I have given a button to do this
+25:12
+Press the Copy Code button. As soon as you press the Copy Code button, it will appear "Copied
+25:21
+" (copied) for a moment, indicating that your code has been copied. So, you should copy the code from here.
+25:27
+I've written everything in this code to explain which line does what. Those interested in more advanced code can read it. For example, "Import Yahoo Finance
+25:36
+Edge Waff" (this library downloads historical stock data from Yahoo Finance for free). "Import Pandas Edge Pd" (this
+25:46
+library nicely arranges the data in an Excel-like table). So, which code is doing what? I've also written it. Those with advanced code should understand it. How
+25:54
+do you calculate the moving average? Which code will calculate the closing price? You don't have to do anything. This code will do it automatically. And I've included the codes for all those 210 stocks.
+26:04
+What does it do? It works with Yahoo Finance. This is the complete list of our 210 stocks that our scanner will check. I've explained it to you along the way. This
+26:13
+is very advanced data science. Very advanced data science.
+26:19
+Even those with a B.Sc. in computer science can't create something like this. So, I'm explaining a very advanced data science to you. You can go up to the third step, but there are only four steps ahead.
+26:27
+Paste the code. A blank screen will open in front of you. There will be a rectangular box. Click inside that box. Paste your copied code there. So, a blank
+26:35
+screen opens. This rectangular box is here. This is
+26:40
+the run icon. To start coding, click here.
+26:46
+After clicking here, press Control V. Or you can right-click here, but
+26:51
+the paste option doesn't appear. Press Control V on your keyboard. Press Control V and V. Press Control V and then all the code you copied will be pasted
+27:00
+. So, the thorn is removed, and your work is done. Now, look, there's nothing left. The fourth step
+27:06
+is the final step: see the magic. Run the code. After pasting the code, there's a round play symbol on the far left of the box. Click on it.
+27:15
+The result will appear in a few seconds. What will it do? In the background, it will scan all 210 stocks in a Jupyter Notebook
+27:20
+, giving you the final list. It will also automatically download to your blog as an Excel file containing today's trading signals. But
+27:29
+remember, this is just an educational video. It
+27:34
+doesn't recommend any stocks. Don't consider these trading signals as my stock recommendations . The stock market is risky. You
+27:43
+should only act on the advice of your financial advisor. We haven't pressed the button yet. We have to press this play button. This is the play button. And look, what do you have to do every day? You have to press this play button once
+27:51
+. There will be no automatic updates. Until you press this play button, this code won't run daily. The next day, you'll have to open it and press this play button again.
+28:00
+This is the play button, right? Press it. Look, it's started spinning. Lines are appearing like this. Everything is spinning. It's started doing its work. The play button has started working
+28:10
+. Look, it will take a little while. You just have
+28:16
+to sit quietly with it for a while. It will do all the work for you. Look, it's spinning at the top. This button is spinning, so
+28:23
+look, it's done all the work for you. Scanning a total of 210 lions is starting. Please wait. Now this poor thing will calculate the CAR for 210 lions. It will calculate their 30-day DMA
+28:33
+. It will calculate their 50-day DMA. It will calculate their 200-day DMA. It will calculate their
+28:39
+CAR. It will calculate their EARI. It will compare them with today. After comparing,
+28:46
+it will also generate an Excel file for you. What will this code do automatically? It will also create an Excel file. So, give it some time. I've been running for 32 seconds now.
+28:54
+So look, I'm showing you live, without any cuts, the entire process. Sometimes it's early, sometimes it's late. 41 seconds have passed. It's
+29:03
+in progress. He's just thinking about it, and it's done, the job is done. And he's even downloaded the Excel file here. Look, the Excel file has been downloaded here. He'll
+29:11
+also write it down here. The final list of only positive breakout stocks will also
+29:17
+appear. You'll know it's updated as of today, the 19th. This is the current market price of LKM stock on the 19th. Its 30-day DMA is this. Its 50-day DMA is this. Its
+29:26
+200-day DMA is this. So, it's above all of these. Today's current market price
+29:32
+is above all three DMAs. What is its distance from the 200 DMA? It's only 0.96%.
+29:38
+We've adjusted it so that the stock with the shortest distance from its 200-day DMA comes to the top, and the stock with the longest distance comes to the bottom. For example, this stock,
+29:48
+Lodha, is 17.63%
+29:53
+above its 200-day DMA. What we do is we try to pick stocks that are up to 10% above its 200- day DMA , but we start with the lowest. So, Elkem,
+30:02
+it's listed here. It's a positive breakout, its CAR is also positive. We'll only pick stocks with a positive CAR
+30:11
+, above its 30-day DMA, above its 50-day DMA, and above its 200-day DMA. So, your scanner is ready. Just
+30:19
+click the play button once daily, and it will automatically scan. And that Excel file was also downloaded . I'll open it and show you how it
+30:28
+will automatically download the Excel file to your computer. I've even opened this Excel file and shown it to you. The entire story will appear in the Excel file. Date, stock, current market price, 50-day
+30:37
+DMA, 200-day DMA, 30-day DMA, and its distance from the DMA. What is
+30:43
+its CR status in percent? Is it positive? And what is its upside action? The bottom line is that this isn't my stock recommendation.
+30:53
+This video was created as an educational documentary for you to learn. You should buy only after consulting your financial advisor. I also work with them, and my
+31:00
+own personal interests are involved. So, it's not like I just told you this and you buy it, and I'll make a profit. No, you absolutely mustn't buy it
+31:08
+. You need to ask your registered investment advisor, " What should I do if I've made this stock a skinner? Should I buy it?" The next day, ask again, "TVS Motors
+31:16
+is coming up. I bought it at number two. Should I buy it?" So, you should only act on the advice of a registered investment advisor. You should act on your own instincts.
+31:24
+The stock market is risky. This video is an educational documentary. I trade in all these stocks myself. My family members also trade.
+31:33
+So, I may have a personal interest in them. Therefore, you should not buy them.
+31:39
+You should only buy the shares your registered investment advisor advises. So, look how wonderful I've told you this. This is
+31:49
+saved here. What's the matter with you? It will be saved. And you
+31:55
+can also go to my blog and ask about it. The next day, if you open this new tab again, or open it again the next day, your own Sati Screener
+32:04
+will appear written here. Then you don't have to go to a new notebook every time. The next day, when you open it, you simply click on what you wrote here, and the previous
+32:12
+screener we created will open again. If you see a white page for a while,
+32:18
+don't panic. This is your previous one. The results that will appear are
+32:24
+for the previous date. If you want to bring it to a new date, you'll have to click the play button again and run it.
+32:35
+So, if we bought a stock based on this Skinner analysis, it
+32:41
+shouldn't have been bought. We bought the stock based on Skinner analysis based on the advice of our financial advisor and our own discretion, keeping in mind that
+32:50
+I may have personal holdings in all these shares. I can also buy shares using this method, and if you buy, I may profit. So, don't buy.
+32:58
+Keeping this in mind, we still bought, and the buyer: suppose we
+33:03
+bought that stock at ₹2320.40, and as soon as we bought it, Trump fired two missiles at Iran.
+33:08
+So what happened? The next day, that stock fell to ₹2275.51. We bought it at ₹2320.40. Scared by Mr. Trump
+33:17
+'s missiles, that stock fell to ₹2275.51. So, did this
+33:23
+stock fail? Did Mahesh Kaushik fail? Did your
+33:28
+financial advisor, whom you consulted, fail? Did your own conscience fail ? Nothing failed. Look, no matter how great a financial
+33:38
+advisor or stock screener in the stock market, no one
+33:44
+can tell you the exact point: if you buy a stock here, it will definitely rise from there. Because of our ego, we think that if we buy a stock here, it
+33:53
+should definitely rise from there. Otherwise, Mahesh Kaushik failed. Otherwise, the stock screener failed . Hey, brother, nothing failed. This video you're watching is actually my video.
+34:02
+This is part of the course. I have a course on how to plant an Afendo tree in an MTF nursery . This is the video for Class 4 of this course. Class 1, 2, 3 videos
+34:13
+have already been posted on the YouTube channel. But you don't have enough time to go and watch those videos. You haven't even watched them because you're busy watching reels.
+34:23
+You're busy using Facebook. You're busy playing with WhatsApp. You 're busy checking statuses. So if you have enough time, go and
+34:32
+watch the Class 1, 2, 3 videos as well. Even if it falls, we
+34:38
+hold it in MTF for four months. Then we take delivery of it. And if it ultimately makes a profit after taking delivery,
+34:43
+that's fine. If it doesn't , we average it using the CAR method, using the CRC CAR method. But we
+34:53
+strive to exit with a profit. This video does not promise any guaranteed returns. When it comes to making a profit,
+35:01
+YouTube's policy comes into play. You must mention that this video does not promise any guaranteed returns. It's an educational documentary. The stock
+35:09
+market is risky. You should make any investment decisions only after consulting your investment advisor. Do not base any decisions on this video. I've already
+35:17
+told you all this. Please keep this in mind. So, let's continue this Class 4 video. Let's take Class 4 a little further.
+35:25
+So, in today's course, how to plant an FAO tree in an MTF nursery? What did we learn in Class 4? First, how to select stocks for this? We
+35:34
+learned how to create a stock scanner. Second, what are the rules? When we trade within an MTF , what is our rule? We don't buy more than one share in a day.
+35:43
+In Skinner, a stock that has risen slightly above its 200 DMA
+35:48
+is selected. That tops the list. Then, a stock that has risen slightly below that level is selected. Then, the one that has risen slightly less than that comes in. So, on the first day, the stock that comes out first
+35:56
+has risen only slightly above its 200-day DMA. But its CR is positive. Its 30-day DMA is positive. Its 50-day DMA is positive. Its 200-day
+36:04
+DMA is positive. And you've even consulted your financial advisor. You understand that the stock market is risky. Even if you buy after that,
+36:12
+you only need to buy one share per day. The next day, open the screener again. If you already bought the first stock, buy the second one
+36:20
+. Then, if you already bought the first two, buy the third one the next day. But
+36:25
+we want to create an ideal situation. Look, what's the logic behind this ? That logic is ideal: we don't
+36:33
+buy more than one share in a day, and we don't sell more than one share in a day. So, this ideal situation is like, say, Mr. Trump
+36:42
+is firing missiles at missiles. For 101 days, you've been buying one share a day, and the market is constantly falling. So, you get the opportunity to buy during those 101 consecutive downturns. You've
+36:51
+hoarded 15 shares, and now news comes that Iran and Mr. Trump have reached an agreement. Such news arrives, and the market suddenly surges, and
+36:59
+10 of your 15 shares turn profitable. You owned 15 shares. For 15 days, there was no profit booking. Ten of the 15 shares turned profitable. Some
+37:08
+rose 10.23%, some 9.27%, and some 8.24%.
+37:14
+What is our profit target in this? My standard target is 6.28% . Why is this the case? Watch my
+37:23
+videos about Nifi's Shop. There's an updated course on Nifi's Shop. I explain the entire logic in it. 6.28% is the standard target.
+37:31
+We use this same target in MTF trading at this MTF shop. So, you waited 15 days for 10 shares out of 15. There was no profit booking for 15 days
+37:40
+. And then 10 shares simultaneously made profits above 6.28%. So what do we do
+37:46
+? For 15 days, we feel trapped. We feel like someone is holding a huge pot of money. We feel like this. Kaushik feels very bad. Stock skinners feel very bad,
+37:56
+financial advisors feel very bad, and then they suddenly jump in and book 10 profits out of 10. Today they book a profit, and the next day
+38:06
+they hold on to the remaining five shares that were losing money. Today, none of them moved. So, a typical situation is that we don't buy more than one share in a day.
+38:15
+So that we have the opportunity to buy during the entire decline. What is such a typical situation? We don't sell more than one share in a single day, so that
+38:25
+we have the opportunity to book profits continuously throughout the bull run, just like the entire decline. Today, one of our shares is making a 10% profit. Another is making a 9% profit. Another
+38:35
+is making an 8% profit. There are 10 such shares that are above 6% profit. So, we will sell the one that makes the highest profit in a day. And then we will sing a song. The sun will rise tomorrow.
+38:45
+The birds will sing tomorrow too. So, when the sun rises the next day, we will see what often happens in bull runs: this share can rise even more. You
+38:54
+can make 14% on a 9% gainer. The next day, there is profit again in the bull run. Shares rise even more. So, the next day we can book profits on this one too. Then we will wait for the next day. We
+39:01
+will keep buying new ones like this. This is how our business is , I call it an MTF
+39:06
+shop. So, our business gets into rotation within this . This creates a habit of booking a profit every day.
+39:14
+What happens when we book profits every day? Our hemoglobin increases, so hemoglobin should increase daily. The next day, we'll book a profit again. So, these
+39:21
+stocks that are down will also get a chance to rise a little during the bull run. If they fall again the next
+39:27
+day, let them fall. What difference does it make? Hold on. Let it continue, and my business will grow again. After all, I've been working in the stock market since 2004.
+39:38
+I've seen countless ups and downs like this, but if I can't book a profit for 10, 15, or 20 days, it's okay. Stock is accumulating in the shop. We're
+39:45
+getting a chance to buy at a low price. We're happy even during a decline, when we get a chance to buy at a low price . We're also happy during a rise, when we get a chance to
+39:52
+book a profit . So, this was today's Class 4 video. The Class 5
+39:58
+video will be coming soon. In this video, I'll explain how we compound within MTFs. How to increase the value of our holdings will
+40:05
+be explained in the Class 5 video. But by receiving this free knowledge, you 're increasing your gurus' debt. So, what's the solution to freeing yourself from the debt of your gurus? You
+40:16
+can find a link to the playlist of the MTF course on MTF Pathshala . Watch the full video. Also watch Classes 1, 2, 3 of the entire course, and
+40:27
+build the stock scanner that we taught you today on Google Web. After that, write in the comments, "Sir, I watched all three videos of the MTF shop and I also built a stock scanner
+40:36
+. My stock scanner was successfully built." Seeing your progress,
+40:42
+seeing a smart disciple like you, will bring peace to my soul. This
+40:47
+will repay my debt to my gurus. Thank you very much. Hello. Hello.
+40:54
+Investing in the stock market is subject to market risk. I, Mahesh Chandra Kaushik, am a SEBI -registered research analyst and I strive to provide the best information possible
+41:04
+. No trading or investment system in the stock market
+41:10
+is 100% perfect. Therefore, the information shown in this video will not only give you 100% profit in the stock market. This is not guaranteed. You may also incur losses
+41:20
+. Therefore, the information shown in this video should be considered for educational purposes only
+41:26
+and should be used at your own discretion. I, the creator of this video,
+41:31
+will not be held liable for any losses. Thank you.

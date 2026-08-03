@@ -1,0 +1,553 @@
+class 3 
+
+Hello friends, I, Mahesh Chandra Kaushik, a SEBI-registered research analyst,
+0:05
+welcome you all to my YouTube channel. In today's video, I'm going to share many new secrets about MTF trading, or margin trading.
+0:15
+You'll learn how your positions will be automatically squared off by your broker, preventing you from booking losses.
+0:25
+How you can trade within MTFs without placing a stop-loss and without incurring any losses. I'll teach you when to open and close positions in MTFs
+0:35
+. But before proceeding,
+0:41
+please listen to the disclosures and disclaimers provided by SEBI regulations. SEBI regulations and YouTube policies require this disclosure. Therefore, please understand that this video
+0:50
+is an educational documentary. It does not promise any guaranteed returns . Do not make any investment decisions based on this video.
+0:58
+Consult your registered investment advisor or use your own discretion. Let's move on. I'll start teaching you this in practical mode today, right on your laptop
+1:07
+. Just follow me through each step . Friends, what you're seeing on the screen
+1:15
+is the margin position details in my ICICI Direct account. If you have an account with any other broker, don't worry. Something similar exists.
+1:25
+Many brokers don't offer add-on margin, so I 'll explain the solution for them in today's video. What should you do if you don't have add-on margin? First,
+1:32
+look at my positions. This isn't the date when they were acquired. It's the date for which they can be held. You can hold them for almost a year. That date is shown here. The total current
+1:42
+position value is ₹17,400, and I've
+1:48
+paid ₹77,000 in margin to hold them. This means I don't have to pay the entire amount at once. Now, the first problem is that I won't book a loss on any of these positions
+1:57
+. Look, you can see that Tata Motors has a loss of ₹155. I won't book a loss on this. There's a system for how
+2:07
+deliveries are taken and how profits are taken out. That entire system will be explained to you in today's educational documentary. Look, this isn't a guaranteed return
+2:14
+. This is an educational documentary. But I will explain the entire system to you in today's documentary. This is Axis Bank. I
+2:21
+won't book a loss on this. But what ICICI does is they say that your margin is
+2:28
+running low. They say that I must have a lot of money in my bank account . But they say that
+2:36
+they require an additional margin of ₹72.50 in your trading account. This kind of information also comes to your broker. And if it had been a little higher, it would have broken out intraday, and the market has just closed,
+2:44
+they would have automatically squared off this position. So, what do we do to avoid this ? What do we do to avoid this? I've created an Excel sheet.
+2:55
+I'll explain it to you. It's called the MTF Shift Tracker Smart Margin System. Don't worry. You
+3:04
+can download the link for free below this video. First, understand that we enter the purchase date, meaning when we bought this stock. I bought RC LED today on July 7th. So, I have
+3:13
+to enter this manually. It won't appear automatically. I write the name of this stock, July 7th, 2026, by hand
+3:18
+. How much did I buy RC LED for? So, look,
+3:23
+I bought 54 shares in this formula above, and they bought them at an average price of ₹358.25. Look,
+3:28
+go to IC Direct. This Rural Electrification, these are your 54 shares. Bought at an average price of ₹358.25, and it's
+3:37
+fallen by almost ₹2. It's trading at ₹356.25. What do they do? The system
+3:42
+levies a full margin . I explained this series in a previous video. It 's a series. So, two videos on this have already been released. In the previous video, I explained that if
+3:50
+we had taken full margin, if it had fallen a little more, we would have squared off this position. But I took the risk for you to see how you
+3:57
+have to pay this additional margin. How to prevent it from being squared off . So I took the risk of it being skewed
+4:04
+. So, I multiplied it by 54 shares. Look, in the formula bar, it's 39825 paise
+4:11
+. So, we invested ₹1,340.50. What is our initial margin? It's ₹6358.87. Where will you see the initial margin?
+4:21
+Look, here I came, it's written View. Now, different brokers have different options. It could be a system. This is my ICICI account, so naturally, I
+4:29
+'ll make videos based on ICICI. But if you search for yours, you 'll find a system somewhere in your broker, or you'll find it everywhere. If you go to View, it
+4:37
+shows you the initial margin as ₹6,358.87
+4:42
+(₹6358.87). You have to manually enter this margin here. The initial margin is approximately 1/3. However, I've written "Please feel
+4:52
+actual," and you have to enter whatever you feel is yours. Now,
+4:58
+in the previous part of Class 2 of this series, I told you that we would add an additional 10% margin on the spot. What is 10% of this ₹19,345.50? ₹1934.55
+5:10
+. So, this should have been added on the spot. It should have been added as soon as the trade was taken. But I paused a bit to complete the video. That's why it
+5:18
+'s showing you this additional margin requirement. And look, they haven't yet written down
+5:23
+its trigger price. They've given it a trigger price. For example, let's say
+5:29
+this is your Tata Motors. In Tata Motors, they're saying, "Brother,
+5:34
+it's trading at ₹342.30, and I've added so much extra margin that if it falls to ₹244, it will book a loss without even asking me." I won't let that happen.
+5:42
+Those who watched the previous video know that we add margins weekly . First, how much margin do we need to add initially? The initial margin
+5:50
+is 1/3. So, you have to enter it manually. It's around 1/3. What exactly do you need to enter? If we add 10% extra margin,
+5:59
+our trigger point goes away. So, let's try it out. You can do it two ways . Click on "Add Margin" here and you'll see the margin adding
+6:08
+system, which will tell you how much margin you need to add. Now, if you say, "Sir, it doesn't work with my broker," I'll explain the solution. I'll explain its system.
+6:16
+If it doesn't work with your broker, what should you do? Keep an extra 10% of your money in your broker's trading account so your position doesn't spiral.
+6:24
+Your treatment will continue along the way. Those who don't have an account with ICC Direct, whose brokers don't offer them the facility to add margin, their system is to
+6:32
+keep extra money in their trader's account. Now, look at this, you can do it from here as well. Go to "Add Margin View" and
+6:42
+click "Add Margin." The same window will open. You can access either way. Just look at the "View" and understand it again. You
+6:52
+can access the "Add Margin" window, or you can access the "Add Margin" window from "View." You can access it either way. This same window will open. How much amount do we
+7:01
+need to add? We purchased 19345.50 paise. This window will automatically calculate and display
+7:06
+10% of this amount. If you enter it here, it will be automatically added. ₹134.55 ₹1,934.55
+7:16
+I'm showing you how to add it right before your eyes. Look, 34.55 and I added it now.
+7:26
+The exchange is currently in its expiry phase. While I'm recording the video, they say you can't add it now. It's okay, the exchange expiry period lasts for two or three hours, it's now 4:30 PM
+7:33
+. I'll add the margin by 7:30 PM. If the exchange wasn't in its expiry phase, the margin would have been added directly. So, you've understood the system
+7:42
+and how to add margin. Now, understand
+7:48
+how much of your total amount you paid? Your broker deducted ₹6398.87. You deposited 10% yourself immediately.
+7:57
+When the market is open, it gets deposited immediately. What's this? The market is neither open nor closed. That's why it's saying the expiry is ongoing, meaning calculations are underway.
+8:05
+Right now, they won't allow any additions or subtractions. Had the market been open, ₹134.55
+8:10
+would have been added instantly. Our total margin would have been ₹8293.42.
+8:16
+I immediately settled the total amount. What's the broker's remaining margin? What's my borrowing ? ₹152.8 remains, on which
+8:26
+ICC Direct charges interest at an annual rate of 9.85%. In the previous video, I explained how we reduce this interest and how we manage it. Now,
+8:35
+in the previous video, I explained that we would repay this amount in 16 installments. This is the EMI method, which is the weekly installment. MTF SIP Tracker Smart Margin System. So,
+8:44
+we calculated one EMI using the formula. This is the broker's remaining margin. Divide it by 16. ₹690.76 And when do I have to pay this installment?
+8:56
+I have to pay the first installment on July 14, 2026. The second installment is due on July 21, so by July 14. My shares don't sell. If REC doesn't reach my profit target, I
+9:04
+'ll pay ₹690.76. What good will this do? This will remove the trigger point
+9:10
+. Look, I've removed the trigger point by paying it off like this. If you look at the margin in Tata Motors, the margin
+9:18
+has now accumulated to ₹9,200. ₹9,209 because the installments have been paid. So, look
+9:23
+at this Tata Motors, you'll see how much margin did Tata Motors charge initially? It was ₹5,932.13. But I've paid these three
+9:33
+installments. So, because of this, you'll see 9,000 now
+9:39
+. There's only 5,000. I told you in the previous video that they had auto-squared off some quantity of Tata Motors. Initially,
+9:45
+the margin was higher, but I didn't add margin at the time. For example, if I didn't add today , they automatically squared off some quantity. I
+9:52
+explained this in a previous video. And you might think you won't understand it. So, in 40s,
+9:58
+you can understand this example better. Look at 40s. What was the initial margin in 40s? It was ₹6130.41. I paid two installments of ₹737.9.
+10:07
+I paid the installments marked yellow, the ones that had passed due on June 25th. I paid them on July 2nd. So, I'll show you this 40s case in those cases as well.
+10:17
+For 40 Health Care, go to View and you can see it.
+10:25
+It's not clicking yet. It's done. ₹9596.12,
+10:30
+the initial margin has been deposited. So, what do you have to do with this ? The weekly margin will automatically appear. If you do this till here, what do you have to enter manually
+10:39
+? The date. You need to enter the name of your share. You need to enter the total purchase value manually. You need to enter the initial margin manually. Then
+10:48
+everything else will automatically appear. How much margin do you have to pay for 10%? You need to
+10:53
+pay ₹241.65 upfront. Your total margin is ₹8341. Your margin has been deposited.
+10:59
+Your remaining margin is ₹12,000. Now you have to pay this installment on July 8th. Tomorrow is July 8th. What will I do tomorrow? I will pay ₹754.77 in GEL shares
+11:08
+. Now there are many such dates. July 8th is also coming here. July 8th is also coming here. I have to
+11:17
+pay ₹790.95 to Axis Bank tomorrow. So, I should see the date as soon as I open the sheet. I
+11:22
+have conditional formatting for this. If the date is today, it will appear in green. If
+11:28
+the date is today, the green color will automatically disappear when I open the sheet tomorrow. What I'll do here is turn it yellow to indicate that I've paid this installment.
+11:35
+I paid this installment today at IDFC First Bank. Look, it's the same system. For example, if I were to add margin to IDFC First Bank, I'd go to "Add Margin" and add whatever amount I
+11:45
+needed to add there. But they're saying, "Try it after two seconds." Their system also works slowly. I added the amount here.
+11:54
+I added it today. I've
+12:01
+already added ₹733.52 to IDFC First Bank. I didn't make a video about it, but what's the system? I should have added it this way. I had to click on "Add Margin" and it would have been added. Right now, it won't
+12:08
+let me add it. It'll say the same thing again: "Expiry is Underway." You can't do it right now . It's saying this because the market is neither fully closed nor fully open
+12:16
+. It's around 4:30 PM. The market is currently accounting, so I don't add margin like this. Now, all your installments will arrive.
+12:26
+There are 16 installments listed. Look, I've listed up to the 16th installment. All 16 installments will arrive automatically. So, the 16th installment will arrive by October 21st. If I
+12:35
+don't book profits by then, I'll gradually reduce them to nothing. For example, if only one installment came today, two installments came on July 8th, and both will be in the green tomorrow.
+12:46
+Some require ₹754 to be paid, some require ₹790. Margin will be added gradually,
+12:51
+and as you add margin, the trigger point will keep moving away. For example, the price of 40 Healthcare is currently ₹971.90
+13:02
+. But what is its trigger point? It's ₹688. That's nearly ₹300 gone . Why did this happen? Firstly, the stock is in profit at ₹494, and secondly, we're
+13:09
+gradually adding margin to it. Now, I'm going to explain another key system of Sheist to you. So, look, what a beautiful system it is. You
+13:19
+must have understood that firstly, I've added formulas to it for up to 100 rows.
+13:24
+You'll find such formulas added for up to 100 rows. It's showing 19100, isn't it? This is here. If you enter the date, it will change automatically. It is showing 1900 because of the font.
+13:32
+You can enter the date from here also. It is coming blank. It will change. You have to fill only the first three columns. I will show you a sample. Suppose tomorrow I
+13:40
+write 8th July here. So how should I write it like this? 8 0726 This is the format of the date,
+13:45
+I have to write the date within this format only and inside this, suppose I bought shares of company x yz, then why should I advertise anyone's company? These shares that are shown
+13:54
+are also not a recommendation for you to buy. You should invest only after consulting your registered investment advisor and at your own discretion. These should not be considered as my stock recommendations
+14:03
+. I have my own holdings in all these, so you can see it and now suppose I invested ₹19133 in this, where is it coming from,
+14:12
+around ₹1000, you can see, there is around 19000 in each one, this is the subject of the next class, in this we will teach you how to compound everything in the next class, how much interest will be charged,
+14:20
+how much money will you have to give yourself self-dividend, how will it grow, it is a very good system, I am going to teach this in the next class, so once, by estimation, suppose
+14:28
+I took ₹133, then this 1/3 margin was applied in it, that is, my system is saying
+14:33
+that it should have cost you around ₹6377. If the number comes more after such a point,
+14:38
+then you can go up and reduce it like this. Look, go up and click on this Decrease Decimal Decimal place and the decimal gets reduced automatically from the first
+14:45
+. Keep up to two characters after the point. Suppose your actual margin was ₹6215.30. Let's assume I'm guessing that
+14:54
+you have to pay the actual amount. The actual amount paid is ₹113.30, so you
+15:00
+have to add it to the margin to be paid on the spot. That is, it is ₹1933, so to prevent it from being auto-squared off, you have to add ₹19135 on the spot. Pay the total immediately, this is the margin.
+15:09
+Your broker's loan will be ₹10,804. If you divide this by 16, you
+15:15
+have to pay ₹675.28 every week. If it is not sold by July 15, you have to add ₹675.28 as margin.
+15:21
+If it is not sold by July 22, you have to add ₹675.28. If it is not sold by July 29
+15:26
+, you have to add another ₹675.28. If the share is not sold even after 16 weeks, it will go into automatic delivery. You can take delivery after paying the full margin
+15:35
+. The full margin will be paid. Brother, it's unlikely that all shares won't sell until October. You do agree that this
+15:41
+will happen in some cases. Now, one more question. The most important question, the biggest one, is that your broker allows you to add such margin.
+15:51
+In a previous video, I mentioned that as you add margin, the interest rate decreases. My broker doesn't allow you to add margin at all. Where should I
+15:58
+go? This is the biggest question. So, the answer to this question is that you have to pay your broker today, if not tomorrow, this remaining margin
+16:07
+on all the positions
+16:12
+. Deposit this 10% extra margin into your broker's account. Deposit it into the broker's margin account. If the margin in
+16:20
+the broker's account falls short, the broker automatically draws the additional required margin
+16:27
+from the position. What the broker does is, if you have money in your account, it will automatically draw it from that amount; if not, it will
+16:35
+square off your position. Other brokers, other than ICICI, do this in this way. You simply deposit it in the broker's account and leave it there. As for the margin,
+16:43
+it will continue to draw it down. What you need to do with this margin for the next 16 weeks
+16:48
+is to invest it in a liquid fund . So far, I have all the positions I have
+16:54
+. To pay this installment across all these positions, I need ₹11,000. Now, look, what is this position? It's a duplicate. I've entered this position number eight
+17:04
+. This is for your understanding. First, let me delete this position from here
+17:12
+. I blew this column.
+17:18
+So what happened? It's no longer here. Now I
+17:23
+need ₹1719.14. So, where do you leave it? You've taken such a position, and your
+17:28
+broker doesn't allow you to add margin. If I want, I'll let it sit in my bank account, even if some of these
+17:36
+dates are far away, so I can also make an FD or liquid fund on those far away dates. I can also put it in. I must have my status. Your status
+17:45
+will keep coming here simultaneously, saying that you can only take a new position if you have more funds left than this amount. It will keep coming here simultaneously. Right now it says that
+17:54
+you have to pay ₹1719.34 for all your positions in 16 installments.
+18:00
+I'll fix this a little bit. If the dates you paid are negative,
+18:05
+I'll try it now. You must be bored watching the long screen recording
+18:11
+. Let's understand a little on the board: those who have an account with a broker like Zerodha. Zerodha ETC is written in brokers like Zerodha, which
+18:21
+do not offer the facility to add margin. Let's say
+18:26
+we have to pay this margin of ₹1719.34 to take delivery in the next 16 weeks. So
+18:31
+what will they do? They will keep it in a liquid case. They will keep it in a liquid ETF. I'll show it on the board right now. I'll take it to my laptop and show you on the screen
+18:39
+what the Liquid Case ETF is. How does it perform?
+18:44
+What are its past results? I'll show it to you right now. It gives approximately a 5% annual return . Liquid's ETFs, however, don't offer the facility for you to add margin periodically
+18:54
+. So, what should you do? After depositing
+18:59
+the 10% margin directly into your broker's account, you should invest the remaining margin in the Liquid Case ETF. What's the benefit? You get a return of approximately 5%. Then comes the question
+19:08
+of returns. Whenever we discuss this, YouTube's policy states that we must state that this video is an educational documentary. It does not promise any
+19:15
+guaranteed returns. Do not make any investment decisions based on this video. Use your own discretion and the advice of your registered investment advisor
+19:22
+. Hearing this repeatedly bothers you. People comment, asking, " Why do you keep saying this? It's a matter of policy, brother." The video gets a strike
+19:29
+. Otherwise, they'll ask, "Why did you say 5%?" So, I mentioned that 5% historically, meaning that historically, this yields a return of around 5%. So,
+19:39
+if your broker charges 14% interest. If your broker charges 14% interest
+19:45
+on the margin trading facility, and you get 5% from keeping the remaining margin in liquid cash,
+19:51
+around 5%, then your effective interest rate is only 9%. The effective interest rate is
+19:57
+only 9%. But now, I know that people with weak mathematics get such comments on every MTF video of mine. Those with weak mathematics will write in the comments below,
+20:06
+"Guruji, you made me put all my money in liquid gas at once. You put the remaining money for 16 weeks
+20:12
+in liquid gas, so why should we invest in liquid gas? We'll just take whatever we have in cash. Why should we pay even 2% interest? Why should we
+20:22
+pay 14% interest? Why should we earn 5% on liquid gas?" Why should we take a position in an MTF? We'll take it in cash when we have cash. Hey,
+20:31
+those with weak mathematics often think of this. This is a very good science behind it. You've never thought seriously about it, never
+20:40
+thought about it with your mind. So let me explain this on my laptop screen. I'll answer this question for you on my laptop screen.
+20:47
+Even after keeping all this margin in liquid gas, it doesn't mean you 'll earn the same profit as cash. Why is it better than cash? I'll explain it on my screen,
+20:55
+explaining how MTF trading will take place within it, and I'll show you how positions will be maintained in MTFs despite keeping all this money. When you
+21:05
+search for liquid share prices on Google, you 'll see "Zero Nifty One Day Rate Liquid ETF." In one day, it increased by approximately 0.03
+21:16
+. This is how its movement has been shown over 5 days. This is how it has been shown over 1 month. If you click on 6 months, it
+21:23
+'s shown like this. And if you click on 1 year, you'll see that it
+21:28
+has given a return of approximately 5.05% in 1 year. So, here again, YouTube's policies and SEBI regulations require us to state that this video is an educational documentary. It
+21:36
+does not promise any guaranteed returns. This is not a promise. This is what I've shown you . This is not a promise of guaranteed returns. It shows you that historically
+21:44
+liquid cases have given a return of approximately 5.05% in 1 year. Now, this
+21:50
+could be slightly lower or slightly higher. So, what should you do?
+21:56
+What should those whose brokers don't offer ad margin do? Look for them in this sheet.
+22:01
+It will be written above that you can only take a new position if you have more funds than this amount . When you take a position, you first had to pay ₹12,000 to the broker, so you
+22:10
+put this ₹12.76 into a liquid fund. You put it into Zerodha's liquid cash. Don't worry. I'll get to this question. You might say, "Sir, I put it all in there.
+22:17
+What's the benefit? I could have taken it in cash, or taken it on delivery." Don't worry at all. I'll get to this question now. So, in this way, let's say you
+22:26
+hold a position as large as mine. After holding, if tomorrow your IDFC First Bank booked a profit. If you booked a profit there, then
+22:35
+your ₹1719.34 was already in the liquid fund . You had already invested it, it would have been useful for taking delivery. Now, if a profit is booked there,
+22:43
+you have to select it and delete it. You'll understand this system as well. Select and delete any positions that book profits. Now it's saying, "Sir
+22:51
+, only take new positions if you have ₹88,282 left." So, you
+22:57
+don't need to add anything to the liquid fund again. You already have ₹17,000. And
+23:02
+the IDFC First Bank position you squared off in, you got your initial funds back. You
+23:11
+got back the ₹6678.51 you had invested in it. You also got back the two installments of ₹733.52. The new position will be funded from these. And this ₹1 lakh, which
+23:20
+is a type of FD in your liquid case, won't require you to add any new money . This shows your status. Suppose you
+23:29
+book profits on three things in a row. If there's a market rally, you 'll book profits on all three positions simultaneously. So now it's saying
+23:37
+you should only take a new position if your net worth is over ₹64,000, so take it easy. You're worth over ₹1 lakh. You 've already invested over ₹1 lakh in liquid funds. So,
+23:45
+after a rotation, you won't need to invest more in liquid funds. Not all positions get stuck, and if they do, the advantage is that it
+23:53
+will stop you from doing so once you're here. Let's say you only have ₹1 lakh. So it's saying, "Brother, don't take a new position until profit booking is complete. Let profit booking happen."
+24:00
+Let profit booking happen. Let's say you started with ₹1 lakh. Once profit booking happens, take a new position. Otherwise, this will be useful for taking delivery from your liquid fund later. It
+24:10
+will be useful for taking delivery later. Who is this referring to? Those with accounts in Zerodha, etc. As I just told you, if you have an account with ICICI Bank, like me,
+24:18
+who has a broker with a forward margin? Those whose brokers allow you to add margin don't have to count it here. This is their status.
+24:26
+I've included a comprehensive formula for the remaining day margin. Readers should keep reading, and those who understand should understand. What this formula does is
+24:36
+subtract the installments for the past due dates. This ₹47.90 has been deducted from this amount
+24:42
+. We paid it. After subtracting the installments for the past due dates in yellow, it's telling you that
+24:52
+you have ₹676.99 left. So, you can comfortably take a position within this amount. You have
+24:57
+to keep these two things in mind: those whose brokers allow you to add margin, they have to count their status here. Shares in margin, because as you add margin,
+25:06
+this amount will decrease. And when your profit is booked, suppose tomorrow a profit is booked in this internal, then what you have to do
+25:14
+is delete this row immediately. Once you delete the profit-booking row, your remaining daily margin is only ₹85,000, and you have around a lakh in your account. So, you
+25:24
+can easily create a new position. So, when creating a new position, you have to keep this in mind in this sheet. Now another big question arises. All these questions will come up.
+25:34
+I will also provide you the link to this sheet. After providing the link, what will they do? They will try to edit this sheet directly.
+25:45
+They will go here and say, "10% margin, this is deleted." And then it will not work. They will say, "Sir, it cannot be deleted because
+25:53
+you cannot delete my share with the link I will provide you." So, if they are new, they will go here and say, "Sir, please email me for permission." They ask for permission. Hey, understand this much
+26:03
+: you cannot edit this directly. You have to go to the File menu.
+26:08
+I've got to go in and click on Make a Copy. Make a Copy. Then this copy will be created.
+26:14
+Make a copy under your new name. Okay? Whatever your desired name is,
+26:21
+for example, if your name is Savita, then make a copy under the name Savita.
+26:28
+Whatever your desired name is, if you click on Make a Copy under that name,
+26:33
+a new sheet will be created in your drive. When you go in and click
+26:38
+on Make a Copy like this, a new sheet will be created in your drive with your new name. Now its name is Savita MTF. So put your name here and edit
+26:47
+it. After the new sheet is created, you can edit it. So keep in mind that in the link I'll provide you, you have to go to the File menu and click Make a Copy.
+26:57
+And I'll provide you with two links. One link will directly ask you to copy, and the other will directly give you this. You can do this in that link by going to the File menu
+27:06
+. Sometimes, when the sheet is overloaded, these menus become invisible. When the sheet is overloaded, it
+27:14
+removes the menu from your Google Sheet. Therefore, I'll provide you with two links. Whichever one works, you
+27:21
+can copy the sheet from the description. Sometimes, copying from a mobile device can be difficult.
+27:26
+Therefore, you can copy the sheet on your desktop.
+27:33
+Another important thing that struck me about this sheet is that I've dragged these formulas all the way down to row 100. Because you'll be
+27:41
+taking delivery in four months. I've embedded these formulas up to row 100. You can see them in the formula bar. Even if it's empty, you'll see the formulas in the formula bar above.
+27:48
+They won't be visible after 100. So, those who know how to drag formulas down like this , should know how to drag from the top row down. For them, there's
+27:55
+no problem. But those who don't know how to drag like this will wonder after the 100 rows are complete, "What's the deal with us now?" So, if they delete it, suppose you
+28:04
+booked a profit in something. Suppose you booked a profit in Axis Bank and deleted it from here. After deleting the deleted row, it will gradually
+28:13
+move up 100 rows and become complete. This will then cause problems for your formula. So, don't delete it. If you booked a profit in Axis Bank, then write the new purchase above it.
+28:21
+For example, suppose today you booked a profit on 87, then
+28:26
+put the date 87 2026 here. Write the name of the new purchase under it.
+28:32
+For example, if you made the new purchase in Shipla, then write it here. Write the amount of Cipla here. That is, if you erase this old one and move the new purchase above it, then
+28:40
+there is no chance of it ever running out until 100 rows. Because the delivery of your shares comes in 4 months anyway. There are approximately 20 trading sessions in a month.
+28:49
+There is no profit booking in even a single share for the entire 4 months. Which is not possible.
+28:55
+Whatever shares we buy, we buy breakout ones. I will explain further how we buy shares. So it is not possible that
+29:02
+there will be no profit booking in even a single share in 4 months. But it may happen someday. If this happens then your restriction will not be reduced. So what should you do? Instead of deleting these, if profit booking happens in the profit booking section,
+29:11
+then type it above it. Whatever new things you have to type above it . The rest will come automatically from the file. Now, after my followers copy this sheet,
+29:21
+I get another question. They say, "Guruji, this sheet isn't updating. Tell me, I haven't updated it in such a way that Google Finance will automatically update it." But
+29:29
+they ask, "Which update?" They say, " Every purchase you've made on MTF so far was listed on this sheet. Now, if you make any new purchases on MTF,
+29:38
+keep adding them in, we'll keep watching." So, why would I tell you that, brother? Why would I leak my privacy to you? This sheet doesn't update automatically.
+29:47
+I don't show you my purchases so far. I show you how many installments I've paid. I'll keep updating it in the future. I'll keep making updates. How much profit I
+29:54
+'ve made. No, no, if anyone likes it, watch my video. You don't need to provide any proof. My followers love me with all their heart. Look at my channel,
+30:02
+the 71,000 followers I have today. They're all followers who
+30:08
+are satisfied with my methods, are earning, and love me." So I don't need to provide proof to anyone . So don't ask the question about why the seat isn't being updated anymore.
+30:16
+Have you stopped further purchases? Why aren't they showing up? So, I'll add some to this. I'll put it in a separate sheet. I'll give you this sheet, and you
+30:23
+can delete my purchases and type your new purchases above it. The automatic formula will work in that sheet. Now the question arises:
+30:32
+how to select shares in this? How to select and buy shares using this method? So, look, this method
+30:38
+is part of a course. I have a complete course called "How to Plant an Afendo Tree in an MTF Nursery ?" It's a complete course. This is the video for Class 3 of that course. The videos for Class 1 and 2
+30:46
+have already been released. You can find a link to the playlist of this entire course in the description of this video, below. Go there and
+30:54
+watch the videos for Class 1 and 2 as well. It's the Class 3 video. Now, what's in this: how to select shares ? This is my course for Nifty Dukaan. I
+31:03
+have a separate course for Nifty Dukaan. I've created a Google Finance sheet in Nifty Dukaan. You can select shares from that Google Finance sheet in it. I've explained a sophisticated method for creating
+31:12
+sheets using Python coding . Shares from that sheet can also be selected within the MTF. Which ones should I select? Select large blue-chip shares
+31:20
+with high turnover. But in the next class, when Class 4 comes, I'll teach you how to create sheets without Google Sheets. This time, I've removed Google Sheets. I
+31:30
+'ll teach you how to create sheets without Google Sheets using a sophisticated smart system. That is, I'll show you how to select these shares.
+31:39
+What will we do with the shares traded on FFO in India? Because you know what it is? How to plant a FDO tree in the MTF nursery.
+31:48
+I'll create a system for the 1202 shares traded on FFO,
+31:53
+which won't require Google Sheets. What is a Google Sheet? It causes problems with loading. It loads slowly. So,
+32:02
+all these problems will be eliminated. Without Google Sheets, I 'll build you a state-of-the-art smart system that will scan all the shares in the FDO and
+32:09
+store them. Using the scanner we had in our Nifty shop, our Python coding sheet,
+32:18
+this smart system will automatically deliver them to you within 5 minutes. So, what will this do? The slow loading problem will be eliminated, and the name of your lion will automatically be recorded in the system
+32:26
+. So, I have a system that whenever there was a war between
+32:32
+countries like yours , I told you , the countries with the most advanced drones and missiles performed effectively in the war
+32:41
+. So, the same system is why you should keep innovating in the stock market every day.
+32:46
+What am I? I'm a SEBI-registered research analyst. I constantly conduct new research. So, I'm happy to tell you that I've discovered such research that I'm going to teach you a state-of-the-art smart system in the next class without Google
+32:53
+Finance Sheets . So, stay tuned for the next class. One more thing to remember:
+33:03
+none of my courses cost anything. All my courses are free. They're available on YouTube. I don't charge for any course. I don't have any paid courses.
+33:13
+I don't have any paid groups. I don't give any paid tips. And I don't send you friend requests on Instagram or Facebook. What
+33:20
+happens is that hackers? Scammers create fake Instagram profiles using my photo . They create fake Facebook profiles. And then
+33:28
+they write to those connected to our WhatsApp groups. "I hope you'll start giving me stock tips in my name." I never give any tips. If I
+33:35
+want to earn money, I'll do it in the stock market. I'll never take money from followers. Yes, the join button is on my channel. What does join mean? It's a membership where
+33:43
+anyone who wants to show their devotion to me by paying a monthly fee can join the channel by clicking the join button. So why have I charged that fee? Keep it so that these free services
+33:52
+remain free in the future. Because as a SEBI-registered research analyst, I have to pay numerous audit fees. I have to pay cybersecurity face
+34:01
+fees, and I also have to meet deposit requirements. All of these requirements take up a significant amount of my pocket money. So, no pocket money
+34:10
+, and any volunteer can join by clicking the Join button and contributing a small amount. If you want to contribute to my services to keep them free in the future,
+34:19
+I've enabled the "Join" button. There 's no other fee system. I don't leave any tips, so protect yourself from scammers. I've
+34:27
+written nine books on the stock market, all translated into Hindi and English . All nine are available in Hindi and English translations. Some
+34:34
+are also available in Gujarati and Marathi translations. I'm not advertising or promoting these books. If anyone wants to read more
+34:42
+information, links to those books are provided in the video description. Go there and buy and read them. If you don't want to read them, no problem.
+34:49
+Keep learning for free. Thank you very much. Hello, hello.
+34:56
+Investing in the stock market is subject to market risk. I'm Mahesh Chandra Kaushik, a SEBI -registered research analyst, and I strive to provide the best information I can
+35:06
+. No trading or investment system in the stock market
+35:12
+is 100% perfect. Therefore, the information presented in this video will certainly yield you 100% profit in the stock market. This is not guaranteed. You may also incur losses
+35:22
+. Therefore, the information presented in this video should be considered for educational purposes only
+35:27
+, and use it at your own discretion. I, the creator of this video, will not be held liable for any losses. Thank you.
