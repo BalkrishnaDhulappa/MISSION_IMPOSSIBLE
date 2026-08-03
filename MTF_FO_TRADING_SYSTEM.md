@@ -16,8 +16,9 @@ Instructor: Mahesh Chandra Kaushik (SEBI RA) — educational only.
 |---|---|
 | Class 1–5 transcripts | ✅ In repo |
 | Full rule extraction (this doc) | ✅ Done |
-| Excel: MTF SIP/Shift Tracker Smart Margin System | ❌ Still needed |
-| Google Colab scanner code (blog) | ❌ Still needed |
+| Excel: Class 5 `MTF to F&O.xlsx` | ✅ In repo |
+| Excel: Class 3 `Copy of MTF SIP Tracker (Smart Margin System).xlsx` | ✅ In repo |
+| Google Colab scanner code (`colab_code`) | ✅ In repo (210 FO tickers) |
 | CAR averaging method details | ⚠️ Referenced, not fully in these 5 classes |
 | Zerodha API key/secret + DDPI/MTF enabled | ❌ Still needed |
 | Your starting capital | ❌ Still needed |
