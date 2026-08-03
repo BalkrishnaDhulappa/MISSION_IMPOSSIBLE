@@ -38,6 +38,7 @@ No automation code until requirements + design are accepted.
 | Compounding Excel | `MTF to F&O.xlsx` | Ticket ladder, 6.28%, tax/split, Force/RF |
 | EMI / margin Excel | `Copy of MTF SIP Tracker (Smart Margin System).xlsx` | 10% buffer, 16 EMIs, status gate |
 | Scanner source | `colab_code` | FO universe (210) + CAR/DMA scan |
+| CAR exit/average transcript | `CAR_Avg` (= `CAR_Average`, duplicate) | Cumulative Average Reversal for losers |
 
 ---
 
@@ -102,11 +103,11 @@ On each new MTF fill, create ledger row matching Smart Margin sheet:
   (sheet logic: unpaid future EMIs × EMI amount across open rows).  
 - Display remaining obligation clearly (like sheet cell I1).
 
-### FR5 — Exit / profit booking
+### FR5 — Exit / profit booking (winners)
 - Target: **≥ 6.28%** from average (Class 5 / Excel `× 1.0628`).  
 - Max **1 sell per day**, choose **highest unrealized %** among eligible.  
 - No hard stop-loss in v1 (course rule).  
-- Losers: hold up to **16 weeks / ~4 months** → convert to delivery; CAR averaging is **out of scope for v1** unless artifacts added.
+- Losers: hold up to **16 weeks / ~4 months** → convert to delivery; then manage via **FR9 CAR** (do not panic-sell).
 
 ### FR6 — Compounding / Force–RF
 After a Force-eligible win, compute net like `MTF to F&O.xlsx`:
@@ -127,7 +128,28 @@ Interest rate default for Zerodha: **14.6%** (`B2 = 0.146`), not sheet’s 9.85%
 - **Dry-run** (read portfolio + emit intended orders, no place)  
 - **Live** (place orders) — requires explicit future enablement  
 
-v1 delivery target: Rules engine + scanner + dry-run intents.
+### FR9 — CAR averaging for losers (from `CAR_Avg`)
+**Definition — Cumulative Average Reversal (CAR):**
+- Find **52-week / year-high date** for the symbol.  
+- From that date through today, CA_n = mean(closes from high day … day n).  
+- **Average Out / Buy** iff the **last 10 CA values are strictly increasing** every day.  
+- Else **Avoid Hold** (if already held → hold; if not held → don’t buy).  
+- Any single CA dip (even ₹0.02) in that 10-day window → Avoid Hold.  
+- Price bounce alone does **not** override a falling CA.
+
+**Averaging rules:**
+- Cadence: evaluate losers **weekly** (not necessarily daily).  
+- On Average Out: buy **1/10 of original invested capital** (round up to whole shares; min 1 share if price > budget).  
+- Next week: re-check; average again only if still Average Out; else skip.  
+- Narrative cap: up to ~**10** such weekly averages (~original capital again).
+
+**Also applies as gate for new DMA-breakout candidates:** skip new buy that week if CA is Avoid Hold.
+
+**Gap / OPEN:** transcript goal is “exit losing stocks,” but **exact sell/% exit after averaging is not specified** (speaker defers to “next video”).  
+→ **FR9-EXIT** remains TBD until that follow-up transcript or your rule is provided.
+
+v1 delivery target (updated): Rules engine + scanner + EMI ledger + **CAR weekly signals** + dry-run intents.  
+(Live CAR average buys still behind approval gate.)
 
 ---
 
@@ -168,7 +190,9 @@ v1 delivery target: Rules engine + scanner + dry-run intents.
 | D7 | Liquid ETF | Which ETF for EMI float (symbol) | Optional for v1 |
 | D8 | Runtime host | Local PC / VPS / only manual daily run | Prefer |
 | D9 | Language stack | Python recommended (matches Colab + kiteconnect) | Confirm or alternate |
-| D10 | CAR method in v1? | Exclude / include after more transcripts | Confirm exclude for v1? |
+| D10 | CAR averaging in v1? | Include weekly Average Out signals (FR9) / defer live CAR buys | Confirm |
+| D11 | CAR exit after averaging | Wait for next CAR video / define your own exit % / defer | Choose |
+| D12 | “Original capital” for 1/10th | Freeze at first buy cost / update after each average | Choose |
 
 ---
 
@@ -201,5 +225,7 @@ D6: fees = excel model / zerodha actuals
 D7: liquid ETF = ____ or defer
 D8: run on = local / vps / manual
 D9: python = yes
-D10: CAR averaging = defer from v1
+D10: CAR averaging = include weekly signals in v1 (yes/no)
+D11: CAR exit rule = wait next video / my rule: ____ / defer
+D12: 1/10th base = first buy cost (yes/no)
 ```
