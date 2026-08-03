@@ -3,7 +3,7 @@
 **Status:** Requirements / planning phase  
 **Not started:** Design sign-off, implementation, live trading  
 **Broker:** Zerodha only  
-**Source of truth:** Course Classes 1–5 + uploaded Excel/Colab artifacts
+**Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
 
 > Educational system recreation for personal use. Not investment advice. No guaranteed returns.
 
@@ -18,7 +18,8 @@ Build a **Zerodha-only** operating system that follows the course method as clos
 3. Manage margin via 10% buffer + 16 weekly EMIs (Zerodha workaround)  
 4. Sell ≤1 winner/day at ≥6.28%  
 5. Track Force / Reserve Force and compound ticket size  
-6. Later: covered-call stage when holdings ≈ F&O lot  
+6. Manage losers with weekly CAR Average Out (1/10th adds)  
+7. Later: covered-call stage when holdings ≈ F&O lot  
 
 **Delivery order (agreed):**
 1. **Requirements** (this doc) → clarify & freeze  
@@ -117,7 +118,8 @@ After a Force-eligible win, compute net like `MTF to F&O.xlsx`:
 - Growth adds to next ticket size  
 - **3 Force bookings** advance the 3-in-1 step; extras = Reserve Force  
 
-Interest rate default for Zerodha: **14.6%** (`B2 = 0.146`), not sheet’s 9.85%.
+Interest rate default for Zerodha: **0.04%/day on funded amount** (`Interest = funded × 0.04% × days`).
+Fees: Zerodha MTF brokerage + pledge/unpledge as in §7.1 (not the Class 5 Excel 9.85%/₹25 model).
 
 ### FR7 — Covered call stage (v2 / later)
 - When qty ≈ 1 F&O lot: suggest/sell call at **next strike above avg×1.0628**.  
@@ -179,20 +181,75 @@ v1 delivery target (updated): Rules engine + scanner + EMI ledger + **CAR weekly
 
 ## 7. Open decisions (block design until answered)
 
-| # | Decision | Options | Needed from you |
-|---|---|---|---|
-| D1 | Scanner mid-filter + 10% rule | A spoken / B colab_code / hybrid | Choose |
-| D2 | Starting capital | e.g. ₹6L as course, or your amount | Number |
-| D3 | Start ticket | Keep ₹15,000 or custom | Confirm |
-| D4 | Book only at exactly 6.28% or allow higher same-day | Exact vs ≥6.28% best | Confirm |
-| D5 | Interest estimate model | Use Excel G formula with 14.6%, or actual Zerodha funded interest later | Prefer for v1 |
-| D6 | Brokerage/pledge model | Keep Excel (`0.12%` both sides, ₹25×2×1.18) vs Zerodha actuals | Prefer for v1 |
-| D7 | Liquid ETF | Which ETF for EMI float (symbol) | Optional for v1 |
-| D8 | Runtime host | Local PC / VPS / only manual daily run | Prefer |
-| D9 | Language stack | Python recommended (matches Colab + kiteconnect) | Confirm or alternate |
-| D10 | CAR averaging in v1? | Include weekly Average Out signals (FR9) / defer live CAR buys | Confirm |
-| D11 | CAR exit after averaging | Wait for next CAR video / define your own exit % / defer | Choose |
-| D12 | “Original capital” for 1/10th | Freeze at first buy cost / update after each average | Choose |
+| # | Decision | Status / answer |
+|---|---|---|
+| **D1** | Scanner filters | ✅ **A** — Class 4 spoken: `30DMA > 50DMA` + hard `dist_200 ≤ 10%` |
+| **D2** | Starting capital / SIP | 🟡 Guided below — confirm your choice of seed |
+| **D3** | Start ticket | ✅ **₹15,000** |
+| **D4** | Winner sell | ✅ Min **6.28%**; sell **only 1/day** = **most profitable ≥ 6.28%** |
+| **D5** | Interest | ✅ Zerodha actual: **funded × 0.04%/day × holding days** (from T+1 until sold) |
+| **D6** | Fees | 🟡 Use Zerodha actuals (see §7.1) — confirm brokerage print is **0.3% or ₹20** (usual MTF) vs any FAQ typo |
+| **D7** | Liquid ETF | ❌ Still open |
+| **D8** | Runtime host | ❌ Still open |
+| **D9** | Language stack | ❌ Still open (Python recommended) |
+| **D10** | CAR in v1 | ❌ Still open |
+| **D11** | CAR exit rule | ❌ Still open |
+| **D12** | 1/10th base capital | ❌ Still open |
+
+### 7.1 Zerodha MTF cost model (from your FAQ screenshots)
+
+| Item | Rule |
+|---|---|
+| Interest | `Interest = Funded amount × 0.04% × Holding days` (₹40 / lakh / day), from **T+1** until sold |
+| Brokerage | **₹20 or 0.3% per executed order, whichever lower** *(confirm vs FAQ text; for ₹15k ticket this is usually ₹20/order)* |
+| Pledge | **₹15 + GST** per ISIN per pledge |
+| Unpledge | **₹15 + GST** per ISIN per unpledge |
+| Square-off (broker) | **₹50 + GST** per order if Zerodha squares off |
+
+Excel sheet rates (9.85%, ₹25 pledge, 0.12% brokerage) are **replaced** by these for Zerodha v1 economics.
+
+### 7.2 D2 guidance — ₹50,000 / month SIP + ₹15,000 tickets
+
+MTF does **not** reduce total cash to own a stock; it **spreads** cash (initial + 10% buffer + 16 weekly EMIs) and adds interest.
+
+**Cash per new ₹15k ticket (approx, mid margin ~33%)**
+| At entry | Amount |
+|---|---:|
+| Initial margin + 10% buffer | ~**₹6,500** |
+| Then 16 weekly EMIs | ~**₹534/week** (~₹8,550 total) |
+| Full cash to own | ~**₹15,000** + interest + fees |
+
+**If you open too fast, EMI obligations eat the SIP.** Steady-state rough fit for ₹50k/month (assuming few early exits):
+
+| New tickets / month | Fits in ₹50k SIP? | Notes |
+|---|---|---|
+| 1 | ✅ Easy | Slow compounding |
+| 2 | ✅ Comfortable | **Recommended pace** |
+| 3 | ✅ Tight | Little buffer |
+| 4+ | ❌ Usually no | EMI snowball > SIP |
+
+**Upfront seed (recommended choices)**
+
+| Seed option | Upfront | What it buys you |
+|---|---:|---|
+| **Lean** | **₹50,000** | Start ~2 tickets + small EMI buffer; then rely on SIP |
+| **Recommended** | **₹1,00,000** | ~4 tickets room + healthier EMI/liquid float + ops reserve |
+| **Comfort** | **₹1,50,000–2,00,000** | More parallel names; less SIP stress early |
+
+Plus ongoing: **₹50,000 SIP every month**.
+
+**Practical system for your case (proposal — confirm as D2)**
+1. Seed **₹1,00,000** into Zerodha + liquid ETF EMI float  
+2. SIP **₹50,000/month**  
+3. Ticket size **₹15,000**  
+4. Pace: **~2 new MTF buys/month** (not 1/day) until EMI gate & SIP allow more  
+5. Still: **≤1 buy/day** and **≤1 sell/day** when signals exist  
+6. Sell rule: **most profitable ≥ 6.28%**, one per day  
+7. Keep status gate: no new buy if free funds ≤ remaining EMI obligation  
+
+> Note: Course “1 buy/day” is a **cap**, not a quota. With ₹50k SIP you should treat ~2 buys/month as the funding-safe default.
+
+**Please confirm D2 as one of:** `Lean 50k` / `Recommended 1L` / `Comfort 1.5–2L` / other amount.
 
 ---
 
@@ -213,19 +270,15 @@ Requirements are frozen when:
 
 ---
 
-## 10. Suggested reply template
+## 10. Suggested reply template (remaining)
 
 ```text
-D1: A / B / hybrid (describe)
-D2: capital = ₹____
-D3: start ticket = ₹15000 (yes/no)
-D4: sell rule = >=6.28% best of day
-D5: interest = excel formula @ 14.6% for v1
-D6: fees = excel model / zerodha actuals
+D2: Recommended 1L   # or Lean 50k / Comfort 2L / ₹____
+D6: zerodha actuals; brokerage = 0.3% or ₹20 lower (confirm)
 D7: liquid ETF = ____ or defer
-D8: run on = local / vps / manual
+D8: local / vps / manual
 D9: python = yes
-D10: CAR averaging = include weekly signals in v1 (yes/no)
-D11: CAR exit rule = wait next video / my rule: ____ / defer
-D12: 1/10th base = first buy cost (yes/no)
+D10: CAR weekly signals = yes/no
+D11: CAR exit = defer / wait next video / rule: ____
+D12: 1/10th base = first buy cost yes/no
 ```
