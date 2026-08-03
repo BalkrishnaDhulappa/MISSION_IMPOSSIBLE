@@ -125,33 +125,16 @@ Fees: Zerodha MTF brokerage + pledge/unpledge as in §7.1 (not the Class 5 Excel
 - When qty ≈ 1 F&O lot: suggest/sell call at **next strike above avg×1.0628**.  
 - **Not in v1** unless explicitly pulled in after design.
 
-### FR8 — Modes
-- **Rules-only / paper ledger** (no broker)  
-- **Dry-run** (read portfolio + emit intended orders, no place)  
-- **Live** (place orders) — requires explicit future enablement  
+v1 delivery target: Rules engine + scanner (option A filters) + EMI/LIQUIDCASE funding plan + Force/RF ledger + dry-run order intents on Oracle Always Free.  
+CAR averaging and live orders = later phases.
 
-### FR9 — CAR averaging for losers (from `CAR_Avg`)
-**Definition — Cumulative Average Reversal (CAR):**
-- Find **52-week / year-high date** for the symbol.  
-- From that date through today, CA_n = mean(closes from high day … day n).  
-- **Average Out / Buy** iff the **last 10 CA values are strictly increasing** every day.  
-- Else **Avoid Hold** (if already held → hold; if not held → don’t buy).  
-- Any single CA dip (even ₹0.02) in that 10-day window → Avoid Hold.  
-- Price bounce alone does **not** override a falling CA.
+### FR9 — CAR averaging for losers (DEFERRED from v1)
+Captured from `CAR_Avg` for later:
+- Average Out iff last 10 CA values strictly rising; else Avoid Hold  
+- Weekly 1/10th of original invested capital  
+- Exit-after-average rule still unspecified in source video  
 
-**Averaging rules:**
-- Cadence: evaluate losers **weekly** (not necessarily daily).  
-- On Average Out: buy **1/10 of original invested capital** (round up to whole shares; min 1 share if price > budget).  
-- Next week: re-check; average again only if still Average Out; else skip.  
-- Narrative cap: up to ~**10** such weekly averages (~original capital again).
-
-**Also applies as gate for new DMA-breakout candidates:** skip new buy that week if CA is Avoid Hold.
-
-**Gap / OPEN:** transcript goal is “exit losing stocks,” but **exact sell/% exit after averaging is not specified** (speaker defers to “next video”).  
-→ **FR9-EXIT** remains TBD until that follow-up transcript or your rule is provided.
-
-v1 delivery target (updated): Rules engine + scanner + EMI ledger + **CAR weekly signals** + dry-run intents.  
-(Live CAR average buys still behind approval gate.)
+**v1:** do not implement CAR buys/exits. Losers: hold ≤16 weeks → delivery; manual handling until CAR phase.
 
 ---
 
@@ -183,102 +166,92 @@ v1 delivery target (updated): Rules engine + scanner + EMI ledger + **CAR weekly
 
 | # | Decision | Status / answer |
 |---|---|---|
-| **D1** | Scanner filters | ✅ **A** — Class 4 spoken: `30DMA > 50DMA` + hard `dist_200 ≤ 10%` |
-| **D2** | Starting capital / SIP | 🟡 Guided below — confirm your choice of seed |
+| **D1** | Scanner filters | ✅ **A** — `30DMA > 50DMA` + hard `dist_200 ≤ 10%` |
+| **D2** | Starting capital / SIP | ✅ Start when comfortable seed ready — target **₹1,00,000** + ₹50k/month SIP; pace ~2 tickets/month |
 | **D3** | Start ticket | ✅ **₹15,000** |
-| **D4** | Winner sell | ✅ Min **6.28%**; sell **only 1/day** = **most profitable ≥ 6.28%** |
-| **D5** | Interest | ✅ Zerodha actual: **funded × 0.04%/day × holding days** (from T+1 until sold) |
-| **D6** | Fees | 🟡 Use Zerodha actuals (see §7.1) — confirm brokerage print is **0.3% or ₹20** (usual MTF) vs any FAQ typo |
-| **D7** | Liquid ETF | ❌ Still open |
-| **D8** | Runtime host | ❌ Still open |
-| **D9** | Language stack | ❌ Still open (Python recommended) |
-| **D10** | CAR in v1 | ❌ Still open |
-| **D11** | CAR exit rule | ❌ Still open |
-| **D12** | 1/10th base capital | ❌ Still open |
+| **D4** | Winner sell | ✅ Min **6.28%**; **1 sell/day** = most profitable ≥ 6.28% |
+| **D5** | Interest | ✅ Zerodha: `funded × 0.04% × days` (T+1 → sell) |
+| **D6** | Fees | ✅ Zerodha actuals; brokerage = **min(0.3%, ₹20)** per order; pledge/unpledge **₹15+GST** |
+| **D7** | Liquid ETF | ✅ Prefer **LIQUIDCASE** (Zerodha Nifty 1D Rate Liquid ETF); EMI float parked here; see §7.3 |
+| **D8** | Runtime host | ✅ **Oracle Cloud** Free Tier (Always Free VM); see §7.4 |
+| **D9** | Language stack | ✅ **Python** |
+| **D10** | CAR in v1 | ✅ **Defer** |
+| **D11** | CAR exit rule | ✅ **Defer** |
+| **D12** | 1/10th base capital | ✅ Per video: **1/10 of original invested capital** on that name (first-buy cost base) |
 
 ### 7.1 Zerodha MTF cost model (from your FAQ screenshots)
 
 | Item | Rule |
 |---|---|
 | Interest | `Interest = Funded amount × 0.04% × Holding days` (₹40 / lakh / day), from **T+1** until sold |
-| Brokerage | **₹20 or 0.3% per executed order, whichever lower** *(confirm vs FAQ text; for ₹15k ticket this is usually ₹20/order)* |
+| Brokerage | **₹20 or 0.3% per executed order, whichever lower** |
 | Pledge | **₹15 + GST** per ISIN per pledge |
 | Unpledge | **₹15 + GST** per ISIN per unpledge |
 | Square-off (broker) | **₹50 + GST** per order if Zerodha squares off |
 
 Excel sheet rates (9.85%, ₹25 pledge, 0.12% brokerage) are **replaced** by these for Zerodha v1 economics.
 
-### 7.2 D2 guidance — ₹50,000 / month SIP + ₹15,000 tickets
+### 7.2 D2 — capital stance (confirmed)
+- Do **not** go live until ~**₹1L comfortable seed** is available (plus plan for ₹50k SIP).
+- Design/code can proceed in dry-run/paper mode before capital arrives.
 
-MTF does **not** reduce total cash to own a stock; it **spreads** cash (initial + 10% buffer + 16 weekly EMIs) and adds interest.
+### 7.3 D7 — Liquid ETF + automation (important Zerodha constraint)
 
-**Cash per new ₹15k ticket (approx, mid margin ~33%)**
-| At entry | Amount |
-|---|---:|
-| Initial margin + 10% buffer | ~**₹6,500** |
-| Then 16 weekly EMIs | ~**₹534/week** (~₹8,550 total) |
-| Full cash to own | ~**₹15,000** + interest + fees |
+**Recommended ETF:** **LIQUIDCASE** (Zerodha Nifty 1D Rate Liquid ETF)
+- Why: Growth NAV (no dividend hassle), large AUM, high liquidity on Zerodha, ~**5–6% p.a.** class returns (overnight-rate linked; not guaranteed)
+- Alternatives: Kotak Nifty 1D Liquid (often low expense), Nippon LIQUIDBEES (highest AUM, dividend-style tracking friction)
 
-**If you open too fast, EMI obligations eat the SIP.** Steady-state rough fit for ₹50k/month (assuming few early exits):
+**“Highest ROI” reality:** All major liquid ETFs track the same overnight/1D rate bucket. Differences are small (expense ratio + tracking). Prefer **liquidity + tax simplicity** over chasing 0.1–0.3% extra.
 
-| New tickets / month | Fits in ₹50k SIP? | Notes |
-|---|---|---|
-| 1 | ✅ Easy | Slow compounding |
-| 2 | ✅ Comfortable | **Recommended pace** |
-| 3 | ✅ Tight | Little buffer |
-| 4+ | ❌ Usually no | EMI snowball > SIP |
+**Can automation fund MTF EMIs from liquid ETF?**
+- **Yes, with a sell→cash step.**
+- Critical Zerodha rule: **pledged collateral margin cannot be used for MTF** — MTF needs **cash** in the trading account.
+- So automation design should be:
+  1. Park EMI float in **LIQUIDCASE** (earn overnight-like return)
+  2. On EMI / buffer due date: **CNC sell** enough LIQUIDCASE → cash credits to funds
+  3. Keep/use that **cash** so Zerodha can cover MTF margin / your weekly top-up plan
+  4. Optional: pledge LIQUIDCASE only for **F&O** collateral later — **not** as MTF cash substitute
 
-**Upfront seed (recommended choices)**
+**Same-day caveat:** plan sells so cash is available when needed (MTF sale proceeds timing differs; CNC liquid ETF sale is the funding path).
 
-| Seed option | Upfront | What it buys you |
-|---|---:|---|
-| **Lean** | **₹50,000** | Start ~2 tickets + small EMI buffer; then rely on SIP |
-| **Recommended** | **₹1,00,000** | ~4 tickets room + healthier EMI/liquid float + ops reserve |
-| **Comfort** | **₹1,50,000–2,00,000** | More parallel names; less SIP stress early |
+### 7.4 D8 — Oracle Cloud Free Tier (not “1 year only”)
+Oracle Free Tier has **two** parts:
+1. **Always Free** services (small VM, etc.) — **do not expire** after 1 year (limits can change; recently Ampere free size was reduced)
+2. **Free Trial** — **$300 credits for ~30 days** (time-limited), not 1 year
 
-Plus ongoing: **₹50,000 SIP every month**.
-
-**Practical system for your case (proposal — confirm as D2)**
-1. Seed **₹1,00,000** into Zerodha + liquid ETF EMI float  
-2. SIP **₹50,000/month**  
-3. Ticket size **₹15,000**  
-4. Pace: **~2 new MTF buys/month** (not 1/day) until EMI gate & SIP allow more  
-5. Still: **≤1 buy/day** and **≤1 sell/day** when signals exist  
-6. Sell rule: **most profitable ≥ 6.28%**, one per day  
-7. Keep status gate: no new buy if free funds ≤ remaining EMI obligation  
-
-> Note: Course “1 buy/day” is a **cap**, not a quota. With ₹50k SIP you should treat ~2 buys/month as the funding-safe default.
-
-**Please confirm D2 as one of:** `Lean 50k` / `Recommended 1L` / `Comfort 1.5–2L` / other amount.
+So: you can host a small always-on Python worker on Always Free **indefinitely**, subject to Oracle’s current Always Free limits and idle/reclamation policies. Design for a **small VM** (e.g. within Always Free CPU/RAM caps).
 
 ---
 
 ## 8. Acceptance criteria for “Requirements done”
 
 Requirements are frozen when:
-1. All **D1–D10** answered (or explicitly deferred)  
-2. FR1–FR8 agreed as v1 / v2 split  
-3. You confirm: **no coding until Design doc is also accepted**
+1. Decisions **D1–D12** answered or explicitly deferred ✅ (done)
+2. FR1–FR8 agreed as v1 / v2 split (CAR deferred)  
+3. You confirm: **proceed to Design doc** (still no trading code)
 
 ---
 
 ## 9. Next actions
 
-**You:** answer Section 7 decisions (even short replies).  
-**Me (after that):** write **Design doc** (modules, schemas, sequences, Zerodha touchpoints) — still no trading code.  
-**Then:** implement only what Design specifies, dry-run first.
+**You:** say **“Requirements frozen — go to Design”** (or note any last changes).  
+**Me:** write **Design doc** (modules, data model, Oracle deploy, LIQUIDCASE→cash EMI flow, dry-run order intents) — **no live trading code yet**.
 
 ---
 
-## 10. Suggested reply template (remaining)
+## 10. Locked summary (quick)
 
 ```text
-D2: Recommended 1L   # or Lean 50k / Comfort 2L / ₹____
-D6: zerodha actuals; brokerage = 0.3% or ₹20 lower (confirm)
-D7: liquid ETF = ____ or defer
-D8: local / vps / manual
-D9: python = yes
-D10: CAR weekly signals = yes/no
-D11: CAR exit = defer / wait next video / rule: ____
-D12: 1/10th base = first buy cost yes/no
+D1: A (30>50 DMA + dist200<=10%)
+D2: wait for ~₹1L comfortable seed + ₹50k SIP; ~2 tickets/month
+D3: ₹15,000
+D4: >=6.28% most profitable, 1 sell/day
+D5: Zerodha funded × 0.04% × days
+D6: min(0.3%, ₹20); pledge ₹15+GST
+D7: LIQUIDCASE; sell→cash for MTF (collateral ≠ MTF cash)
+D8: Oracle Always Free (not 1-year-only)
+D9: Python
+D10: defer CAR
+D11: defer CAR exit
+D12: 1/10th of original (first) invested capital per video
 ```
