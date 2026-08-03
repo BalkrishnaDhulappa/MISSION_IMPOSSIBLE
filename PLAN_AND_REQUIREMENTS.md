@@ -170,11 +170,11 @@ v1 delivery target (updated): Rules engine + scanner + EMI ledger + **CAR weekly
 
 - Groww / multi-broker support  
 - Guaranteed profit / strategy marketing  
-- Full CAR averaging automation  
 - Live covered-call writing  
 - Mobile app UI  
 - Tax filing automation  
-
+- Blind averaging without CAR signal  
+- Hard stop-loss exits on MTF losers
 ---
 
 ## 7. Open decisions (block design until answered)
