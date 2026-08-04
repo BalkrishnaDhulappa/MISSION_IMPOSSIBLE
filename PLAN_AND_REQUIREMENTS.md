@@ -1,8 +1,7 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
-**Status:** ✅ Requirements frozen → ✅ **Design signed off** (`DESIGN.md`)  
-**Not started:** Implementation (C0+), live trading  
-**Next gate:** You say **start C0** to begin dry-run scaffold/tests only  
+**Status:** Requirements frozen → Design **under discussion** (`DESIGN.md`)  
+**Not started:** Design sign-off, implementation, live trading  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
 

@@ -1,9 +1,9 @@
 # MTF→F&O Zerodha System — Design
 
-**Status:** ✅ **DESIGN SIGNED OFF** (2026-08-04)  
+**Status:** Design draft — **under discussion** (not signed off yet)  
 **Based on:** `PLAN_AND_REQUIREMENTS.md` (frozen decisions D1–D12)  
 **Reuse:** `existing_bots/daily_etf_sip/fire_shop` + live `crontab_l` on Oracle Always Free  
-**Next:** Implementation C0 (scaffold + tests) — **dry-run only**; no live MTF until separate live sign-off
+**Code:** not started until you explicitly accept this design
 
 > Educational personal system. Not investment advice.
 
@@ -391,20 +391,20 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 
 ---
 
-## 14. Design acceptance — SIGNED OFF
+## 14. Design acceptance checklist
 
-Signed off **2026-08-04** with these locked choices:
+Still under discussion. When you’re happy, reply with approvals / changes:
 
 ```text
 Design:
-- [x] Module split OK
-- [x] Coexistence with fire_shop ₹6k OK
-- [x] Scanner D1=A encoding OK
-- [x] EMI + LIQUIDCASE→cash flow OK
-- [x] Cron order (before fire_shop) OK
-- [x] v1 = dry_run only OK
-- [x] SQLite ledger OK
-- [x] RMS guard module added (monitor/alert; no client SL)
+- [ ] Module split OK
+- [ ] Coexistence with fire_shop ₹6k OK
+- [ ] Scanner D1=A encoding OK
+- [ ] EMI + LIQUIDCASE→cash flow OK
+- [ ] Cron order (before fire_shop) OK
+- [ ] v1 = dry_run only OK
+- [ ] SQLite ledger OK
+- [ ] RMS guard module OK
 ```
 
-**Next:** Implementation phase **C0** when you say start coding — scaffold + pure math tests only.
+After you accept, implementation starts at **C0** (still no live MTF orders).
