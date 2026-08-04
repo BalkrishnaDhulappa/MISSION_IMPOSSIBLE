@@ -2,7 +2,39 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C4 (current) — LIQUIDCASE funding dry-run
+## Phase C6 (current) — Live MTF orders (explicit sign-off)
+
+Live placement is **off by default**. Three gates must all pass:
+
+| Gate | Requirement |
+|------|-------------|
+| Config | `"mode": "live"` and `"live_mtf_enabled": true` |
+| LIQUIDCASE live | `"live_liquid_topup": true` (independent of MTF mode) |
+| Environment | `export LIVE_CONFIRM=YES` on the VM for that run/cron |
+
+```bash
+# 1) Edit config.json on VM (keep dry_run until ready)
+cd ~/MISSION_IMPOSSIBLE/mtf_nursery
+nano config.json
+#   "mode": "live",
+#   "live_mtf_enabled": true,
+#   "live_liquid_topup": false   # enable separately for LIQUIDCASE CNC sells
+
+# 2) One-off live buy test (NOT cron) — market hours only
+export LIVE_CONFIRM=YES
+python3 jobs/run_buy.py \
+  --env-file /home/ubuntu/.env_fire_shop \
+  --token-path /home/ubuntu/fire_shop/.kite_token
+
+# 3) Revert to dry_run after testing
+#   "mode": "dry_run", "live_mtf_enabled": false
+```
+
+Orders use Kite `place_order` with product `MTF` (buy/sell) or `CNC` (LIQUIDCASE). Broker order id is stored in `orders_log.broker_order_id`.
+
+**Cron:** do not add `LIVE_CONFIRM=YES` to crontab until you accept full automation risk. Prefer manual `LIVE_CONFIRM` for first live week.
+
+## Phase C4 — LIQUIDCASE funding dry-run
 
 Sells **LIQUIDCASE (CNC) → cash** when free cash cannot cover EMI obligation + fire_shop ₹6k reserve.
 
@@ -217,7 +249,7 @@ This does **not** touch your existing `fire_shop` bot or Zerodha token.
 | Read Zerodha holdings/margins | C3 | Kite token, API key |
 | Telegram EMI reminders | C3 | Bot token + chat id |
 | LIQUIDCASE sell dry-run | C4 | **Done** — `run_liquid_funding.py` + qty intent |
-| Live MTF orders | C6 | Explicit sign-off + `LIVE_CONFIRM=YES` |
+| Live MTF orders | C6 | **Done** — Kite `place_order` behind triple gate |
 
 ---
 
@@ -238,6 +270,6 @@ python3 jobs/run_status.py --db data/demo_ledger.sqlite --as-of 2026-01-13
 
 ## Next phases
 
-- **C6** — Live MTF (optional, separate approval)
+All planned v1 phases (C0–C6) are implemented. Run in `dry_run` until you enable live gates above.
 
 See `../DESIGN.md` for full architecture.

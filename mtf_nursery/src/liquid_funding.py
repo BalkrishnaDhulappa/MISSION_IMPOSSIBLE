@@ -8,7 +8,7 @@ from datetime import date
 from typing import Any
 
 from broker_read import AccountSnapshot, build_account_snapshot, liquid_etf_position
-from executor import ExecMode, ExecResult, OrderIntent, execute_intent
+from executor import ExecResult, OrderIntent, execute_intent
 from ledger import Ledger
 from notify import Level, send_telegram
 from rms_guard import LiquidTopUpPlan, plan_liquid_topup
@@ -133,8 +133,7 @@ def run_liquid_funding(
     send_alerts: bool = True,
 ) -> LiquidFundingResult:
     as_of = as_of or date.today()
-    mode = cfg.get("mode", ExecMode.DRY_RUN.value)
-    live_liquid = bool(cfg.get("live_liquid_topup", False))
+    mode = cfg.get("mode", "dry_run")
     errors: list[str] = []
 
     if kite is None and (holdings is None or equity_margins is None):
@@ -227,40 +226,56 @@ def run_liquid_funding(
             skipped_reason="cannot_size_intent",
         )
 
-    exec_mode = ExecMode.LIVE.value if live_liquid else ExecMode.DRY_RUN.value
+    from live_trading import execution_mode_for_liquid, liquid_live_enabled
+
+    if ledger.has_order_intent(idem):
+        return LiquidFundingResult(
+            as_of=as_of,
+            shortfall=shortfall,
+            required_buffer=required,
+            emi_obligation=emi_obligation,
+            plan=plan,
+            intent=intent,
+            message=f"LIQUIDCASE intent already logged today ({symbol})",
+            already_logged=True,
+            exhausted=exhausted,
+        )
+
+    exec_mode = execution_mode_for_liquid(cfg)
+    live_flag = liquid_live_enabled(cfg)
     try:
         exec_result = execute_intent(
             intent,
             mode=exec_mode,
-            config_live_flag=live_liquid,
+            config_live_flag=live_flag,
             kite=kite,
+            order_tag=cfg.get("live_order_tag"),
         )
     except Exception as exc:
         errors.append(str(exc))
         exec_result = None
 
-    row_id = ledger.log_order_intent(
-        "sell",
-        symbol,
-        qty=intent.qty,
-        product="CNC",
-        mode=exec_mode,
-        reason=intent.reason,
-        idempotency_key=idem,
-    )
-    already_logged = row_id is None
-    if already_logged:
-        msg = f"LIQUIDCASE intent already logged today ({symbol})"
-    elif exec_result:
+    if exec_result:
         msg = exec_result.message
-
-    if row_id and plan.sell_amount > 0:
-        ledger.set_cash_reservation(as_of, "liquid_topup", plan.sell_amount)
+        row_id = ledger.log_order_intent(
+            "sell",
+            symbol,
+            qty=intent.qty,
+            product="CNC",
+            mode=exec_mode,
+            reason=intent.reason,
+            idempotency_key=idem,
+            broker_order_id=exec_result.broker_order_id,
+        )
+        if row_id and plan.sell_amount > 0:
+            ledger.set_cash_reservation(as_of, "liquid_topup", plan.sell_amount)
+    else:
+        row_id = None
 
     level = Level.WARN
     if exhausted:
         level = Level.CRITICAL
-    if send_alerts and not already_logged and plan.sell_amount > 0:
+    if send_alerts and exec_result and plan.sell_amount > 0:
         send_telegram(msg, level=level)
 
     return LiquidFundingResult(
@@ -272,7 +287,6 @@ def run_liquid_funding(
         intent=intent,
         exec_result=exec_result,
         message=msg,
-        already_logged=already_logged,
         exhausted=exhausted,
         errors=errors or None,
     )

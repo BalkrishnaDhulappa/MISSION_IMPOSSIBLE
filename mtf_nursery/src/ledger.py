@@ -10,6 +10,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
+from compounding import ForceTracker, compound_after_win
 from emi import compute_emi_schedule
 from emi_verify import EmiStatus, PaidVia, VerifyResult, verify_emi_repaid
 from gates import BuyGateInput, GateResult, SellGateInput, evaluate_buy_gate, evaluate_sell_gate
@@ -514,6 +515,7 @@ class Ledger:
         reason: str = "",
         gate_results: GateResult | None = None,
         idempotency_key: str | None = None,
+        broker_order_id: str | None = None,
     ) -> int | None:
         """Insert order intent; skip if idempotency_key already exists."""
         gate_json = json.dumps(
@@ -525,8 +527,8 @@ class Ledger:
                     """
                     INSERT INTO orders_log(
                         ts, side, symbol, qty, product, mode, reason,
-                        gate_results, idempotency_key
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        gate_results, idempotency_key, broker_order_id
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         _utc_now_iso(),
@@ -538,11 +540,98 @@ class Ledger:
                         reason,
                         gate_json,
                         idempotency_key,
+                        broker_order_id,
                     ),
                 )
                 return int(cur.lastrowid)
         except sqlite3.IntegrityError:
             return None
+
+    def has_order_intent(self, idempotency_key: str) -> bool:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT 1 FROM orders_log WHERE idempotency_key = ? LIMIT 1",
+                (idempotency_key,),
+            ).fetchone()
+        return row is not None
+
+    def record_win_and_close_position(
+        self,
+        symbol: str,
+        exit_value: float,
+        sell_date: date,
+        cfg: dict,
+    ) -> dict[str, Any] | None:
+        """Close open MTF position after live/dry sell; apply compounding to step."""
+        open_pos = [p for p in self.list_positions(status="open_mtf") if p.symbol == symbol]
+        if not open_pos:
+            return None
+        pos = open_pos[0]
+        holding_days = max(0, (sell_date - pos.buy_date).days)
+        ticket = self.current_ticket(cfg.get("ticket_start", 15000))
+        compound = compound_after_win(
+            pos.buy_value,
+            exit_value,
+            ticket,
+            pos.funded_baseline,
+            holding_days,
+            brokerage_rate=float(cfg.get("brokerage_rate", 0.003)),
+            brokerage_cap=float(cfg.get("brokerage_cap", 20)),
+            pledge_per_side=float(cfg.get("pledge_per_side", 15)),
+            gst=float(cfg.get("gst", 1.18)),
+            interest_daily=float(cfg.get("interest_daily", 0.0004)),
+            tax_rate=float(cfg.get("tax_rate_on_net", 0.2)),
+            surcharge_multiplier=float(cfg.get("tax_surcharge_multiplier", 1.04)),
+        )
+        step = self.get_step(pos.step_id) or self.ensure_step(pos.step_id, ticket)
+        tracker = ForceTracker(force_count=step.force_count, step_no=step.step_no)
+        force_tag = tracker.record_win()
+        advanced = tracker.advance_step_if_ready()
+
+        with self._tx() as conn:
+            conn.execute(
+                """
+                UPDATE positions
+                SET status = 'closed', force_tag = ?
+                WHERE id = ?
+                """,
+                (force_tag, pos.id),
+            )
+            if advanced:
+                conn.execute(
+                    """
+                    UPDATE steps
+                    SET force_count = 0, advanced = 1, ticket_amount = ?
+                    WHERE step_no = ?
+                    """,
+                    (compound.next_ticket, step.step_no),
+                )
+                conn.execute(
+                    """
+                    INSERT INTO steps(step_no, ticket_amount, force_count, advanced)
+                    VALUES (?, ?, 0, 0)
+                    ON CONFLICT(step_no) DO UPDATE SET ticket_amount = excluded.ticket_amount
+                    """,
+                    (tracker.step_no, compound.next_ticket),
+                )
+            else:
+                conn.execute(
+                    """
+                    UPDATE steps
+                    SET force_count = ?, ticket_amount = ?
+                    WHERE step_no = ?
+                    """,
+                    (tracker.force_count, compound.next_ticket, step.step_no),
+                )
+
+        return {
+            "symbol": symbol,
+            "force_tag": force_tag,
+            "advanced_step": advanced,
+            "next_ticket": compound.next_ticket,
+            "net_after_tax": compound.net_after_tax,
+            "growth": compound.growth,
+        }
 
     def set_cash_reservation(self, res_date: date, purpose: str, amount: float) -> None:
         with self._tx() as conn:

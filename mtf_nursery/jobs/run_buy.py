@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dry-run MTF buy intent (≤1/day) from top scan candidate."""
+"""MTF buy (≤1/day) from top scan candidate — dry-run or live (C6)."""
 
 from __future__ import annotations
 
@@ -13,13 +13,15 @@ from _bootstrap import bootstrap
 
 root = bootstrap()
 
+from _execution import run_order_with_ledger
 from broker_read import build_account_snapshot
 from calendar_ist import is_trading_day, load_market_calendar
 from config import load_config
 from dry_run import _load_top_scan_candidate
-from executor import ExecMode, OrderIntent, execute_intent, format_gate_block
+from executor import OrderIntent, format_gate_block
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
+from live_trading import mtf_live_enabled
 from notify import Level, send_telegram
 
 
@@ -37,8 +39,8 @@ def main() -> int:
     if not cfg_path.exists():
         cfg_path = root / "config.example.json"
     cfg = load_config(cfg_path)
-    cfg["mode"] = ExecMode.DRY_RUN.value
     ledger = Ledger(args.db)
+    ledger.ensure_step(1, cfg.get("ticket_start", 15000))
     today = date.today()
 
     cal_dir = cfg.get("market_calendar_dir", "/home/ubuntu/fire_shop")
@@ -87,7 +89,6 @@ def main() -> int:
         print(msg)
         return 0
 
-    # Find CMP from holdings or scan file
     cmp = _cmp_for_symbol(symbol, holdings, cfg)
     if cmp <= 0:
         send_telegram(f"Buy skip {symbol}: no price", level=Level.WARN)
@@ -102,19 +103,38 @@ def main() -> int:
         reason=f"top D1=A scan ticket ~{ticket}",
         limit_price=round(cmp * 1.001, 2),
     )
-    result = execute_intent(intent, mode=cfg["mode"])
     idem = f"{today}|buy|{symbol}"
-    ledger.log_order_intent(
-        "buy",
-        symbol,
-        qty=qty,
-        product="MTF",
-        mode=cfg["mode"],
-        reason=intent.reason,
-        idempotency_key=idem,
-    )
-    msg = f"{result.message} qty={qty} ~₹{qty * cmp:,.0f}"
-    send_telegram(msg, level=Level.INFO)
+
+    try:
+        result, msg, already = run_order_with_ledger(
+            ledger,
+            intent,
+            cfg=cfg,
+            idempotency_key=idem,
+            kite=kite,
+            gate_results=gate,
+        )
+    except Exception as exc:
+        send_telegram(f"Buy failed {symbol}: {exc}", level=Level.ERROR)
+        return 1
+
+    if result and result.executed and mtf_live_enabled(cfg):
+        buy_value = round(qty * cmp, 2)
+        initial_margin = round(buy_value * 0.30, 2)
+        ledger.add_position(
+            symbol,
+            today,
+            qty,
+            cmp,
+            initial_margin,
+            step_id=1,
+            buffer_pct=float(cfg.get("buffer_pct", 0.10)),
+            emi_weeks=int(cfg.get("emi_weeks", 16)),
+        )
+
+    level = Level.CRITICAL if result and result.executed else Level.INFO
+    if not already:
+        send_telegram(f"{msg} qty={qty} ~₹{qty * cmp:,.0f}", level=level)
     print(msg)
     return 0
 

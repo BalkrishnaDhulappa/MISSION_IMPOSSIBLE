@@ -38,7 +38,6 @@ def main() -> int:
     if not cfg_path.exists():
         cfg_path = root / "config.example.json"
     cfg = load_config(cfg_path)
-    cfg["mode"] = "dry_run"
     ledger = Ledger(args.db)
 
     if not args.force:

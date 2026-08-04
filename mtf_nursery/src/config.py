@@ -26,6 +26,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "fire_shop_daily_reserve": 6000,
     "liquid_etf_symbol": "LIQUIDCASE",
     "live_liquid_topup": False,
+    "live_mtf_enabled": False,
+    "live_order_tag": "mtf_nursery",
     "liquid_etf_min_reserve": 10000,
     "liquid_etf_max_sell_per_event": 25000,
     "liquid_sell_cushion_pct": 0.02,
