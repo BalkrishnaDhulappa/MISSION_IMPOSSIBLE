@@ -15,6 +15,7 @@ from config import load_config
 from dry_run import run_dry_cycle
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
+from liquid_funding import run_liquid_funding
 from notify import Level, send_telegram
 from rms_guard import RmsSeverity
 
@@ -41,10 +42,18 @@ def main() -> int:
         send_telegram(f"RMS job failed: {exc}", level=Level.ERROR)
         return 1
 
-    report = run_dry_cycle(ledger, cfg, kite=kite, send_alerts=False)
+    report = run_dry_cycle(
+        ledger,
+        cfg,
+        kite=kite,
+        send_alerts=False,
+        skip_liquid_funding=True,
+    )
     if report.errors:
         send_telegram(f"RMS job errors: {report.errors}", level=Level.ERROR)
         return 1
+
+    liquid = run_liquid_funding(ledger, cfg, kite=kite, send_alerts=False)
 
     level = Level.INFO
     if report.rms_severity == RmsSeverity.WARN.value:
@@ -55,7 +64,9 @@ def main() -> int:
     msg = f"RMS {report.rms_severity}"
     if report.rms_messages:
         msg += ": " + "; ".join(report.rms_messages)
-    if report.liquid_topup_intent:
+    if liquid.shortfall > 0:
+        msg += f" | {liquid.message}"
+    elif report.liquid_topup_intent:
         msg += f" | {report.liquid_topup_intent}"
     send_telegram(msg, level=level)
     print(msg)

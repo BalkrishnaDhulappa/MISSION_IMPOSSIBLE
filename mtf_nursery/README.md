@@ -2,13 +2,38 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C5 (current) — Cron beside fire_shop
+## Phase C4 (current) — LIQUIDCASE funding dry-run
+
+Sells **LIQUIDCASE (CNC) → cash** when free cash cannot cover EMI obligation + fire_shop ₹6k reserve.
+
+| Module / job | Purpose |
+|---|---|
+| `src/liquid_funding.py` | Shortfall calc, `plan_liquid_topup`, qty-sized `OrderIntent` |
+| `jobs/run_liquid_funding.py` | Standalone job — logs intent to `orders_log`, Telegram |
+| `jobs/run_emi_funding.py` | EMI verify + calls liquid funding (09:45 cron) |
+
+**Dry-run:** logs exact `qty` and ₹ estimate; no live order until `live_liquid_topup=true` + C6 sign-off.
+
+```bash
+# Manual test (needs Kite token on VM)
+python3 jobs/run_liquid_funding.py \
+  --env-file /home/ubuntu/.env_fire_shop \
+  --token-path /home/ubuntu/fire_shop/.kite_token \
+  --json
+
+# Via cron wrapper
+./scripts/mtf_cron.sh liquid_funding
+```
+
+Idempotency: one `LIQUIDCASE` sell intent per day (`YYYY-MM-DD|liquid|LIQUIDCASE`).
+
+## Phase C5 — Cron beside fire_shop
 
 Six scheduled jobs on Oracle VM (all **dry-run** until C6):
 
 | Cron job | IST | Script | Purpose |
 |---|---|---|---|
-| `emi_funding` | 09:45 | `jobs/run_emi_funding.py` | EMI due + repay verify + LIQUIDCASE intent |
+| `emi_funding` | 09:45 | `jobs/run_emi_funding.py` | EMI due + LIQUIDCASE funding (C4) |
 | `rms_guard` | 10:00 | `jobs/run_rms_guard.py` | Margin/RMS Telegram |
 | `scan` | 14:30 | `jobs/run_scan.py` | F&O D1=A scan → `data/last_scan.json` |
 | `sell` | 14:40 | `jobs/run_sell.py` | Winner ≥6.28% sell intent |
@@ -191,7 +216,7 @@ This does **not** touch your existing `fire_shop` bot or Zerodha token.
 | Live stock scanner | C2 | `yfinance`, network |
 | Read Zerodha holdings/margins | C3 | Kite token, API key |
 | Telegram EMI reminders | C3 | Bot token + chat id |
-| LIQUIDCASE sell dry-run | C4 | Kite read access |
+| LIQUIDCASE sell dry-run | C4 | **Done** — `run_liquid_funding.py` + qty intent |
 | Live MTF orders | C6 | Explicit sign-off + `LIVE_CONFIRM=YES` |
 
 ---
@@ -213,7 +238,6 @@ python3 jobs/run_status.py --db data/demo_ledger.sqlite --as-of 2026-01-13
 
 ## Next phases
 
-- **C4** — LIQUIDCASE funding dry-run (partially in EMI job)
 - **C6** — Live MTF (optional, separate approval)
 
 See `../DESIGN.md` for full architecture.

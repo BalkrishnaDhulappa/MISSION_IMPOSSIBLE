@@ -17,6 +17,7 @@ from config import load_config
 from dry_run import run_dry_cycle
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
+from liquid_funding import run_liquid_funding
 from notify import Level, send_telegram
 
 
@@ -84,6 +85,15 @@ def main() -> int:
         kite=kite,
         as_of=as_of,
         send_alerts=not args.no_telegram,
+        skip_liquid_funding=True,
+    )
+
+    liquid = run_liquid_funding(
+        ledger,
+        cfg,
+        kite=kite,
+        as_of=as_of,
+        send_alerts=not args.no_telegram,
     )
 
     if args.json:
@@ -95,7 +105,7 @@ def main() -> int:
             "emi_alerts_sent": report.emi_alerts_sent,
             "rms_severity": report.rms_severity,
             "rms_messages": report.rms_messages,
-            "liquid_topup_intent": report.liquid_topup_intent,
+            "liquid_topup_intent": report.liquid_topup_intent or liquid.message,
             "buy_gate_message": report.buy_gate_message,
             "ledger_summary": report.ledger_summary,
         }
@@ -128,6 +138,8 @@ def main() -> int:
             print(f"  ALERT: {a}")
         if report.liquid_topup_intent:
             print(f"  {report.liquid_topup_intent}")
+        elif liquid.message:
+            print(f"  {liquid.message}")
         print(f"  {report.buy_gate_message}")
 
     return 1 if report.errors else 0

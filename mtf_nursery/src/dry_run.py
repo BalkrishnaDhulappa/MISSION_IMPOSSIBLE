@@ -11,12 +11,16 @@ from emi_verify import EmiStatus
 from executor import ExecMode, format_gate_block
 from ledger import Ledger
 from notify import Level, format_emi_alert, send_telegram
+from liquid_funding import (
+    build_liquid_sell_intent,
+    evaluate_liquid_funding,
+    format_liquid_intent_message,
+)
 from rms_guard import (
     PositionRisk,
     RmsSeverity,
     account_cash_severity,
     max_severity,
-    plan_liquid_topup,
     position_risk_severity,
 )
 
@@ -45,6 +49,9 @@ def run_dry_cycle(
     equity_margins: dict | None = None,
     as_of: date | None = None,
     send_alerts: bool = True,
+    skip_liquid_funding: bool = False,
+    skip_summary: bool = False,
+    holdings_for_liquid: list[dict] | None = None,
 ) -> DryRunReport:
     as_of = as_of or date.today()
     mode = cfg.get("mode", ExecMode.DRY_RUN.value)
@@ -95,10 +102,19 @@ def run_dry_cycle(
         if send_alerts:
             send_telegram(msg, level=level)
 
-    _run_rms_checks(report, ledger, cfg, snapshot, as_of, send_alerts)
+    _run_rms_checks(
+        report,
+        ledger,
+        cfg,
+        snapshot,
+        as_of,
+        send_alerts,
+        skip_liquid_funding=skip_liquid_funding,
+        holdings=holdings_for_liquid or holdings,
+    )
     _run_buy_gate_check(report, ledger, cfg, snapshot, as_of)
 
-    if send_alerts and not report.errors:
+    if send_alerts and not report.errors and not skip_summary:
         summary = report.ledger_summary or {}
         send_telegram(
             f"Dry-run OK {as_of.isoformat()} | cash ₹{snapshot.free_cash:,.0f} | "
@@ -116,6 +132,9 @@ def _run_rms_checks(
     snapshot: AccountSnapshot,
     as_of: date,
     send_alerts: bool,
+    *,
+    skip_liquid_funding: bool = False,
+    holdings: list[dict] | None = None,
 ) -> None:
     warn = float(cfg.get("rms_loss_warn_pct", 0.15))
     crit = float(cfg.get("rms_loss_critical_pct", 0.20))
@@ -138,22 +157,16 @@ def _run_rms_checks(
     overall = max_severity(*severities) if severities else RmsSeverity.OK
     report.rms_severity = overall.value
 
-    shortfall = max(0.0, required_buffer - snapshot.free_cash)
-    if shortfall > 0:
-        plan = plan_liquid_topup(
-            shortfall,
-            snapshot.liquid_etf_value,
-            min_reserve=float(cfg.get("liquid_etf_min_reserve", 10000)),
-            max_sell_per_event=float(cfg.get("liquid_etf_max_sell_per_event", 25000)),
-            cushion_pct=float(cfg.get("liquid_sell_cushion_pct", 0.02)),
-            fire_shop_reserve=float(cfg.get("fire_shop_daily_reserve", 6000)),
+    shortfall, _, plan = evaluate_liquid_funding(ledger, snapshot, cfg, as_of)
+    if not skip_liquid_funding and shortfall > 0:
+        intent = None
+        if holdings:
+            intent = build_liquid_sell_intent(
+                snapshot, holdings, plan, cfg, shortfall=shortfall
+            )
+        report.liquid_topup_intent = format_liquid_intent_message(
+            snapshot, shortfall, plan, intent
         )
-        report.liquid_topup_intent = (
-            f"DRY-RUN sell {snapshot.liquid_etf_symbol} ₹{plan.sell_amount:,.0f} "
-            f"(shortfall ₹{shortfall:,.0f})"
-        )
-        if send_alerts and plan.sell_amount > 0:
-            send_telegram(report.liquid_topup_intent, level=Level.WARN)
 
     if send_alerts and overall == RmsSeverity.CRITICAL:
         send_telegram(

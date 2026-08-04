@@ -16,6 +16,7 @@ from config import load_config
 from dry_run import run_dry_cycle
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
+from liquid_funding import run_liquid_funding
 from notify import Level, send_telegram
 
 
@@ -42,11 +43,12 @@ def main() -> int:
         send_telegram(f"EMI job failed: {exc}", level=Level.ERROR)
         return 1
 
+    holdings = kite.holdings()
     if args.sync_mtf:
         from broker_read import build_account_snapshot
 
         snap = build_account_snapshot(
-            kite.holdings(),
+            holdings,
             kite.margins()["equity"],
             liquid_etf_symbol=cfg.get("liquid_etf_symbol", "LIQUIDCASE"),
         )
@@ -55,14 +57,27 @@ def main() -> int:
                 h.symbol, h.quantity, h.average_price, h.initial_margin, date.today()
             )
 
-    report = run_dry_cycle(ledger, cfg, kite=kite, send_alerts=True)
-    if report.liquid_topup_intent:
-        print(report.liquid_topup_intent)
+    report = run_dry_cycle(
+        ledger,
+        cfg,
+        kite=kite,
+        holdings=holdings,
+        send_alerts=True,
+        skip_liquid_funding=True,
+        skip_summary=True,
+    )
     for msg in report.emi_alerts_sent:
         print("EMI:", msg)
     for msg in report.emi_verified:
         print(msg)
-    return 1 if report.errors else 0
+
+    liquid = run_liquid_funding(ledger, cfg, kite=kite, holdings=holdings, send_alerts=True)
+    print(liquid.message)
+
+    errors = list(report.errors or [])
+    if liquid.errors:
+        errors.extend(liquid.errors)
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

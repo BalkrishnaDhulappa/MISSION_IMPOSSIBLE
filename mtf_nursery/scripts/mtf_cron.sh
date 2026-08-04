@@ -34,6 +34,9 @@ case "$JOB" in
   emi_funding)
     run_job jobs/run_emi_funding.py --env-file "$ENV_FILE" --token-path "$TOKEN_PATH"
     ;;
+  liquid_funding)
+    run_job jobs/run_liquid_funding.py --env-file "$ENV_FILE" --token-path "$TOKEN_PATH"
+    ;;
   rms_guard)
     run_job jobs/run_rms_guard.py --env-file "$ENV_FILE" --token-path "$TOKEN_PATH"
     ;;

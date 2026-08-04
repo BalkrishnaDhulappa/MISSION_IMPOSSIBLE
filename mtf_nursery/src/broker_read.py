@@ -66,14 +66,19 @@ def free_cash_from_margins(equity_margins: dict) -> tuple[float, float]:
 
 
 def liquid_etf_value(holdings: list[dict], symbol: str) -> float:
-    total = 0.0
+    qty, price = liquid_etf_position(holdings, symbol)
+    return round(qty * price, 2)
+
+
+def liquid_etf_position(holdings: list[dict], symbol: str) -> tuple[int, float]:
+    """Return (total_qty, last_price) for the liquid ETF holding."""
     for row in holdings:
         if row.get("tradingsymbol") != symbol:
             continue
-        qty = float(row.get("quantity") or 0) + float(row.get("t1_quantity") or 0)
+        qty = int(float(row.get("quantity") or 0) + float(row.get("t1_quantity") or 0))
         price = float(row.get("last_price") or row.get("close_price") or 0)
-        total += qty * price
-    return round(total, 2)
+        return qty, price
+    return 0, 0.0
 
 
 def build_account_snapshot(

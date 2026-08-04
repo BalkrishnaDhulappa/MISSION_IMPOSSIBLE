@@ -445,7 +445,7 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 | C1 | Ledger + EMI + gates (no broker) | ✅ Done |
 | C2 | Scanner port (D1=A) | ✅ Done |
 | C3 | Kite read-only + dry-run executor + Telegram | ✅ Done |
-| C4 | LIQUIDCASE funding dry-run | Pending |
+| C4 | LIQUIDCASE funding dry-run | ✅ Done |
 | C5 | Cron on Oracle beside fire_shop | ✅ Done |
 | C6 | Live MTF (optional, separate approval) | Pending |
 
