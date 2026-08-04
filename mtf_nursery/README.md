@@ -2,7 +2,43 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C2 (current) — FO scanner (D1=A)
+## Phase C5 (current) — Cron beside fire_shop
+
+Six scheduled jobs on Oracle VM (all **dry-run** until C6):
+
+| Cron job | IST | Script | Purpose |
+|---|---|---|---|
+| `emi_funding` | 09:45 | `jobs/run_emi_funding.py` | EMI due + repay verify + LIQUIDCASE intent |
+| `rms_guard` | 10:00 | `jobs/run_rms_guard.py` | Margin/RMS Telegram |
+| `scan` | 14:30 | `jobs/run_scan.py` | F&O D1=A scan → `data/last_scan.json` |
+| `sell` | 14:40 | `jobs/run_sell.py` | Winner ≥6.28% sell intent |
+| `buy` | 14:50 | `jobs/run_buy.py` | Top scan buy intent (before fire_shop 15:00) |
+| `status` | 16:00 | `jobs/run_status_day.py` | EOD Telegram summary |
+
+Install (once on VM):
+
+```bash
+cd ~/MISSION_IMPOSSIBLE/mtf_nursery
+git pull
+chmod +x scripts/mtf_cron.sh
+mkdir -p logs
+
+# Backup existing crontab, merge MTF lines (keep all fire_shop lines!)
+crontab -l > ~/crontab_backup_$(date +%Y%m%d).txt
+cat crontab_mtf_nursery.snippet >> ~/crontab_backup_$(date +%Y%m%d).txt
+crontab ~/crontab_backup_$(date +%Y%m%d).txt
+```
+
+Manual test:
+
+```bash
+./scripts/mtf_cron.sh scan
+tail -30 logs/scan.log
+```
+
+Logs: `mtf_nursery/logs/<job>.log`. Locks: `/tmp/mtf_<job>.lock` (via `flock` in crontab).
+
+## Phase C2 — FO scanner (D1=A)
 
 Scans **210 F&O stocks** via yfinance (same rules as course + colab, with D1=A filters).
 
@@ -156,7 +192,7 @@ This does **not** touch your existing `fire_shop` bot or Zerodha token.
 | Read Zerodha holdings/margins | C3 | Kite token, API key |
 | Telegram EMI reminders | C3 | Bot token + chat id |
 | LIQUIDCASE sell dry-run | C4 | Kite read access |
-| Cron on VM beside fire_shop | C5 | C3+C4 done |
+| Live MTF orders | C6 | Explicit sign-off + `LIVE_CONFIRM=YES` |
 
 ---
 
@@ -177,9 +213,7 @@ python3 jobs/run_status.py --db data/demo_ledger.sqlite --as-of 2026-01-13
 
 ## Next phases
 
-- **C2** — Scanner port with yfinance
-- **C3** — Kite read-only + dry-run executor + Telegram
-- **C4** — LIQUIDCASE funding dry-run
-- **C5** — Cron on Oracle beside `fire_shop`
+- **C4** — LIQUIDCASE funding dry-run (partially in EMI job)
+- **C6** — Live MTF (optional, separate approval)
 
 See `../DESIGN.md` for full architecture.

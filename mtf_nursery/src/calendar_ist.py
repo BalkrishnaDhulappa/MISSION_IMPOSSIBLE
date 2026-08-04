@@ -42,3 +42,12 @@ def is_trading_day(cal: MarketCalendar, on: date | None = None) -> bool:
     if on.weekday() >= 5:
         return False
     return on not in cal.holidays
+
+
+def should_run_scan(cfg: dict, on: date | None = None) -> bool:
+    """Skip scan on weekends/holidays (uses fire_shop market calendar)."""
+    cal_dir = cfg.get("market_calendar_dir", "/home/ubuntu/fire_shop")
+    try:
+        return is_trading_day(load_market_calendar(cal_dir), on)
+    except FileNotFoundError:
+        return True

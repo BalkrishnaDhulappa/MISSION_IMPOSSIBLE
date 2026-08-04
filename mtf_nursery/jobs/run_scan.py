@@ -13,6 +13,7 @@ from _bootstrap import bootstrap
 root = bootstrap()
 
 from config import load_config
+from calendar_ist import should_run_scan
 from notify import Level, send_telegram
 from scanner import ScanConfig
 from scanner_fetch import (
@@ -33,12 +34,24 @@ def main() -> int:
     parser.add_argument("--universe", default=None, help="Path to fo_universe.json")
     parser.add_argument("--limit", type=int, default=None, help="Scan first N only (testing)")
     parser.add_argument("--no-telegram", action="store_true")
+    parser.add_argument("--env-file", default=None, help="e.g. /home/ubuntu/.env_fire_shop")
+    parser.add_argument("--token-path", default=None, help="ignored; accepted for cron wrapper")
+    parser.add_argument("--force", action="store_true", help="Run even on holiday/weekend")
     args = parser.parse_args()
+
+    if args.env_file:
+        bootstrap(args.env_file)
 
     cfg_path = Path(args.config)
     if not cfg_path.exists():
         cfg_path = root / "config.example.json"
     cfg = load_config(cfg_path)
+
+    if not args.force and not should_run_scan(cfg):
+        out = {"skipped": "holiday_or_weekend"}
+        print(json.dumps(out, indent=2))
+        return 0
+
     sc = cfg.get("scanner", {})
     scan_cfg = ScanConfig(
         require_dma30_gt_dma50=sc.get("require_dma30_gt_dma50", True),
