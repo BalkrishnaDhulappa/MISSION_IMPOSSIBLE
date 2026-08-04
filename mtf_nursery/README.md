@@ -30,28 +30,88 @@ Scaffold + pure-math modules with unit tests:
 | `src/rms_guard.py` | Margin crunch severity + LIQUIDCASE sizing |
 | `src/config.py` | JSON config loader |
 
-## Setup
+## Setup (laptop or Oracle VM)
 
 ```bash
+# 1) Get the code from GitHub
+git clone https://github.com/BalkrishnaDhulappa/MISSION_IMPOSSIBLE.git
+cd MISSION_IMPOSSIBLE
+git checkout cursor/mtf-fo-trading-system-e0df
+
+# 2) Python env (only pytest needed for C0/C1 tests)
 cd mtf_nursery
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp config.example.json config.json   # edit locally; never commit
+
+# 3) Optional local config (not required for tests/demo)
+cp config.example.json config.json
 ```
 
-## Run tests
+No Zerodha API key, token, or Telegram needed until **C3**.
+
+---
+
+## What you can test today (no broker)
+
+| Test | Command | What it proves |
+|---|---|---|
+| All unit tests (48) | `python3 -m pytest tests/ -v` | EMI math, costs, gates, ledger, scanner filters |
+| Empty ledger status | `python3 jobs/run_status.py --init-step` | SQLite + step ₹15k ticket |
+| **Full C1 paper demo** | `python3 jobs/demo_ledger.py --fresh` | Position → EMI due → verify fail/pass → buy gate |
+| Re-open demo DB | `python3 jobs/run_status.py --db data/demo_ledger.sqlite` | Persisted state |
+
+### Quick demo (copy-paste)
 
 ```bash
 cd mtf_nursery
-python -m pytest tests/ -v
+source .venv/bin/activate
+python3 -m pytest tests/ -v
+python3 jobs/demo_ledger.py --fresh
 ```
 
-## Run status (C1)
+You should see 7 steps: add position, EMI due alert payload, failed verify (still pending), successful verify after simulated repay, buy gate blocked/allowed.
+
+### On your Oracle VM (same steps)
+
+```bash
+cd ~
+git clone https://github.com/BalkrishnaDhulappa/MISSION_IMPOSSIBLE.git
+cd MISSION_IMPOSSIBLE && git checkout cursor/mtf-fo-trading-system-e0df
+cd mtf_nursery && python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python3 jobs/demo_ledger.py --fresh
+```
+
+This does **not** touch your existing `fire_shop` bot or Zerodha token.
+
+---
+
+## What you cannot test yet
+
+| Feature | Phase | Needs |
+|---|---|---|
+| Live stock scanner | C2 | `yfinance`, network |
+| Read Zerodha holdings/margins | C3 | Kite token, API key |
+| Telegram EMI reminders | C3 | Bot token + chat id |
+| LIQUIDCASE sell dry-run | C4 | Kite read access |
+| Cron on VM beside fire_shop | C5 | C3+C4 done |
+
+---
+
+## Run tests only
+
+```bash
+cd mtf_nursery
+python3 -m pytest tests/ -v
+```
+
+## Run status (empty or existing DB)
 
 ```bash
 cd mtf_nursery
 python3 jobs/run_status.py --init-step
+python3 jobs/run_status.py --db data/demo_ledger.sqlite --as-of 2026-01-13
 ```
 
 ## Next phases
