@@ -1,0 +1,187 @@
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 -m pytest tests/ -v
+=================================================================================================================================================== test session starts ===================================================================================================================================================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery
+collected 54 items                                                                                                                                                                                                                                                                                                        
+
+tests/test_broker_read.py::test_parse_mtf_holding PASSED                                                                                                                                                                                                                                                            [  1%]
+tests/test_broker_read.py::test_build_account_snapshot PASSED                                                                                                                                                                                                                                                       [  3%]
+tests/test_compounding.py::test_unrealized_pct PASSED                                                                                                                                                                                                                                                               [  5%]
+tests/test_compounding.py::test_pick_sell_candidate_highest_winner PASSED                                                                                                                                                                                                                                           [  7%]
+tests/test_compounding.py::test_pick_sell_candidate_none_below_target PASSED                                                                                                                                                                                                                                        [  9%]
+tests/test_compounding.py::test_compound_after_win_splits_50_50 PASSED                                                                                                                                                                                                                                              [ 11%]
+tests/test_compounding.py::test_estimate_tax_zero_on_loss PASSED                                                                                                                                                                                                                                                    [ 12%]
+tests/test_compounding.py::test_force_tracker_three_then_advance PASSED                                                                                                                                                                                                                                             [ 14%]
+tests/test_config.py::test_load_config_defaults_without_file PASSED                                                                                                                                                                                                                                                 [ 16%]
+tests/test_config.py::test_load_config_merges_user_file PASSED                                                                                                                                                                                                                                                      [ 18%]
+tests/test_costs.py::test_brokerage_capped_at_20 PASSED                                                                                                                                                                                                                                                             [ 20%]
+tests/test_costs.py::test_pledge_one_side_with_gst PASSED                                                                                                                                                                                                                                                           [ 22%]
+tests/test_costs.py::test_interest_per_lakh_per_day PASSED                                                                                                                                                                                                                                                          [ 24%]
+tests/test_costs.py::test_square_off_fee PASSED                                                                                                                                                                                                                                                                     [ 25%]
+tests/test_costs.py::test_round_trip_15k_6_28_exit PASSED                                                                                                                                                                                                                                                           [ 27%]
+tests/test_dry_run.py::test_dry_cycle_verifies_emi PASSED                                                                                                                                                                                                                                                           [ 29%]
+tests/test_dry_run.py::test_dry_cycle_alerts_when_not_repaid PASSED                                                                                                                                                                                                                                                 [ 31%]
+tests/test_emi_math.py::test_emi_schedule_15k_example PASSED                                                                                                                                                                                                                                                        [ 33%]
+tests/test_emi_math.py::test_remaining_emi_obligation_counts_unpaid_future PASSED                                                                                                                                                                                                                                   [ 35%]
+tests/test_emi_math.py::test_remaining_emi_obligation_excludes_paid PASSED                                                                                                                                                                                                                                          [ 37%]
+tests/test_emi_verify.py::test_estimate_funded_from_mtf_block PASSED                                                                                                                                                                                                                                                [ 38%]
+tests/test_emi_verify.py::test_verify_emi_repaid_success PASSED                                                                                                                                                                                                                                                     [ 40%]
+tests/test_emi_verify.py::test_verify_emi_repaid_failure PASSED                                                                                                                                                                                                                                                     [ 42%]
+tests/test_emi_verify.py::test_emi_status_values PASSED                                                                                                                                                                                                                                                             [ 44%]
+tests/test_executor.py::test_dry_run_never_executes PASSED                                                                                                                                                                                                                                                          [ 46%]
+tests/test_executor.py::test_live_blocked_without_confirm PASSED                                                                                                                                                                                                                                                    [ 48%]
+tests/test_gates.py::test_buy_gate_allowed_when_cash_sufficient PASSED                                                                                                                                                                                                                                              [ 50%]
+tests/test_gates.py::test_buy_gate_blocked_insufficient_cash PASSED                                                                                                                                                                                                                                                 [ 51%]
+tests/test_gates.py::test_buy_gate_blocked_by_rms PASSED                                                                                                                                                                                                                                                            [ 53%]
+tests/test_gates.py::test_sell_gate_requires_winner PASSED                                                                                                                                                                                                                                                          [ 55%]
+tests/test_gates.py::test_count_actions_helpers PASSED                                                                                                                                                                                                                                                              [ 57%]
+tests/test_ledger.py::test_add_position_creates_16_emis PASSED                                                                                                                                                                                                                                                      [ 59%]
+tests/test_ledger.py::test_remaining_obligation_decreases_after_verify PASSED                                                                                                                                                                                                                                       [ 61%]
+tests/test_ledger.py::test_verify_emi_from_funded_api PASSED                                                                                                                                                                                                                                                        [ 62%]
+tests/test_ledger.py::test_verify_emi_fails_keeps_alerting PASSED                                                                                                                                                                                                                                                   [ 64%]
+tests/test_ledger.py::test_buy_gate_blocks_when_obligation_high PASSED                                                                                                                                                                                                                                              [ 66%]
+tests/test_ledger.py::test_buy_gate_allows_when_cash_sufficient PASSED                                                                                                                                                                                                                                              [ 68%]
+tests/test_ledger.py::test_order_idempotency PASSED                                                                                                                                                                                                                                                                 [ 70%]
+tests/test_ledger.py::test_overdue_emi_status PASSED                                                                                                                                                                                                                                                                [ 72%]
+tests/test_ledger.py::test_status_summary PASSED                                                                                                                                                                                                                                                                    [ 74%]
+tests/test_rms_guard.py::test_loss_pct_vs_funded PASSED                                                                                                                                                                                                                                                             [ 75%]
+tests/test_rms_guard.py::test_position_risk_severity_bands PASSED                                                                                                                                                                                                                                                   [ 77%]
+tests/test_rms_guard.py::test_account_cash_severity PASSED                                                                                                                                                                                                                                                          [ 79%]
+tests/test_rms_guard.py::test_max_severity PASSED                                                                                                                                                                                                                                                                   [ 81%]
+tests/test_rms_guard.py::test_plan_liquid_topup_no_shortfall PASSED                                                                                                                                                                                                                                                 [ 83%]
+tests/test_rms_guard.py::test_plan_liquid_topup_respects_min_reserve PASSED                                                                                                                                                                                                                                         [ 85%]
+tests/test_rms_guard.py::test_plan_liquid_topup_sells_with_cushion PASSED                                                                                                                                                                                                                                           [ 87%]
+tests/test_scanner_filters.py::test_dist_200_pct PASSED                                                                                                                                                                                                                                                             [ 88%]
+tests/test_scanner_filters.py::test_is_car_rising_strict PASSED                                                                                                                                                                                                                                                     [ 90%]
+tests/test_scanner_filters.py::test_passes_d1_a_filters PASSED                                                                                                                                                                                                                                                      [ 92%]
+tests/test_scanner_filters.py::test_fails_when_dma30_not_above_dma50 PASSED                                                                                                                                                                                                                                         [ 94%]
+tests/test_scanner_filters.py::test_fails_when_dist_200_above_cap PASSED                                                                                                                                                                                                                                            [ 96%]
+tests/test_scanner_filters.py::test_fails_when_car_not_rising PASSED                                                                                                                                                                                                                                                [ 98%]
+tests/test_scanner_filters.py::test_rank_candidates_ascending_dist PASSED                                                                                                                                                                                                                                           [100%]
+
+=================================================================================================================================================== 54 passed in 1.85s ====================================================================================================================================================
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/demo_ledger.py --fresh
+
+=== 1) New MTF position (paper) ===
+{
+  "symbol": "RELIANCE",
+  "buy_value": 15000.0,
+  "initial_margin": 4500.0,
+  "funded_baseline": 10500.0,
+  "weekly_emi": 562.5,
+  "immediate_need": 6000.0
+}
+
+=== 2) Status on first EMI due (2026-01-13) ===
+{
+  "as_of": "2026-01-13",
+  "open_positions": 1,
+  "remaining_emi_obligation": 9000.0,
+  "current_ticket": 15000.0,
+  "pending_emi_alerts": [
+    {
+      "emi_id": 1,
+      "symbol": "RELIANCE",
+      "installment_no": 1,
+      "due_date": "2026-01-13",
+      "amount": 562.5,
+      "status": "due"
+    }
+  ],
+  "buys_today": 0,
+  "buys_this_month": 0
+}
+
+=== 3) Telegram would alert (C3) ===
+{
+  "message": "[MTF][INFO] EMI due: RELIANCE \u20b9562.5",
+  "action": "Kite \u2192 Funds \u2192 Repay MTF \u2192 partial",
+  "emi_id": 1,
+  "status": "due"
+}
+
+=== 4) Auto-verify WITHOUT repay (should fail → keep alerting) ===
+{
+  "verified": false,
+  "reason": "insufficient_drop need>=512.50 got=0.00",
+  "still_pending": 1
+}
+
+=== 5) Auto-verify AFTER simulated Repay MTF ===
+{
+  "verified": true,
+  "funded_drop": 562.5,
+  "pending_alerts": 0
+}
+
+=== 6) Buy gate with ₹25k cash (likely blocked — EMI obligation) ===
+{
+  "allowed": true,
+  "reasons": [],
+  "remaining_obligation": 8437.5
+}
+
+=== 7) Buy gate with ₹1.2L cash ===
+{
+  "allowed": true,
+  "reasons": []
+}
+
+Demo DB saved at: /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/data/demo_ledger.sqlite
+Inspect anytime: python3 jobs/run_status.py --db /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/data/demo_ledger.sqlite
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_broker_snapshot.py --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+{
+  "free_cash": 131091.8,
+  "available_cash": 4665.6,
+  "liquid_etf_symbol": "LIQUIDCASE",
+  "liquid_etf_value": 0.0,
+  "mtf_holdings": []
+}
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_broker_snapshot.py --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token --sync-mtf
+usage: run_broker_snapshot.py [-h] [--config CONFIG] [--env-file ENV_FILE] [--token-path TOKEN_PATH]
+run_broker_snapshot.py: error: unrecognized arguments: --sync-mtf
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_dry_run.py  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token --sync-mtf
+MTF dry-run 2026-08-04 mode=dry_run
+  Cash: ₹131,091.80
+  LIQUIDCASE: ₹0.00
+  MTF holdings: 0
+  DRY-RUN would consider MTF buy up to ₹15,000 (scanner C2 not wired — no symbol picked)
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_dry_run.py --no-telegram --json  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+{
+  "as_of": "2026-08-04",
+  "mode": "dry_run",
+  "errors": [],
+  "emi_verified": [],
+  "emi_alerts_sent": [],
+  "rms_severity": "OK",
+  "rms_messages": [],
+  "liquid_topup_intent": null,
+  "buy_gate_message": "DRY-RUN would consider MTF buy up to \u20b915,000 (scanner C2 not wired \u2014 no symbol picked)",
+  "ledger_summary": {
+    "as_of": "2026-08-04",
+    "open_positions": 0,
+    "remaining_emi_obligation": 0.0,
+    "current_ticket": 15000.0,
+    "pending_emi_alerts": [],
+    "buys_today": 0,
+    "buys_this_month": 0
+  },
+  "account": {
+    "free_cash": 131091.8,
+    "liquid_etf_value": 0.0,
+    "mtf_holdings": []
+  }
+}
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
