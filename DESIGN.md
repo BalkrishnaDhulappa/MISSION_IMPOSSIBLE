@@ -1,9 +1,9 @@
 # MTF→F&O Zerodha System — Design
 
-**Status:** Design draft (awaiting sign-off)  
+**Status:** ✅ **DESIGN SIGNED OFF** (2026-08-04)  
 **Based on:** `PLAN_AND_REQUIREMENTS.md` (frozen decisions D1–D12)  
-**Reuse:** `existing_bots/daily_etf_sip/fire_shop` on Oracle Always Free  
-**Code:** not started until this design is accepted
+**Reuse:** `existing_bots/daily_etf_sip/fire_shop` + live `crontab_l` on Oracle Always Free  
+**Next:** Implementation C0 (scaffold + tests) — **dry-run only**; no live MTF until separate live sign-off
 
 > Educational personal system. Not investment advice.
 
@@ -67,9 +67,10 @@
 | **pricing/costs** | Zerodha interest/fees model | §7.1 requirements |
 | **compounding** | 6.28% exit net → 50/50 → next ticket | From `MTF to F&O.xlsx` logic |
 | **funding** | LIQUIDCASE sell → cash for EMI/buffer | Collateral ≠ MTF cash |
+| **rms_guard** | Monitor Zerodha RMS / MTM / margin shortfall risk | See §6.8 — not a client SL |
 | **executor** | Place or log orders | `mode=dry_run\|live` |
 | **notify** | Telegram | Reuse fire_shop sender |
-| **jobs** | CLI entrypoints for cron | buy / sell / emi / scan / status |
+| **jobs** | CLI entrypoints for cron | buy / sell / emi / scan / status / rms |
 
 ### Out of v1
 - CAR averaging (deferred)  
@@ -241,6 +242,25 @@ Even if scanner has many names:
 
 ---
 
+### 6.8 RMS guard (Zerodha broker square-off — not client stop-loss)
+
+Our strategy places **no client stop-loss**. Zerodha may still force-square MTF under RMS. v1 must observe and alert (dry-run can recommend actions; live later may auto top-up).
+
+**Monitor daily (and optionally intraday later):**
+| Signal | Source / estimate | Action if breached |
+|---|---|---|
+| Unrealized loss vs **funded** amount approaching policy bands (~20% debit / ~80% funded) | holdings + funded estimate | Telegram **CRITICAL**; block new buys; prefer EMI/cash top-up intent |
+| Additional maintenance margin / margin shortfall | margins API / ledger if exposed | Alert; schedule funding job; block new buys |
+| Open > ~16 weeks | ledger | Alert delivery conversion |
+| Token / API failure | kite_client | Alert; skip order jobs |
+
+**Explicit non-goal:** inventing a price SL that fights the course method.  
+**Goal:** keep enough cash/buffer that RMS never becomes the de facto SL.
+
+Add cron: `run_rms_guard` mid-morning after token (e.g. **10:00 IST / `30 4` UTC**).
+
+---
+
 ## 7. Execution modes
 
 | Mode | Behavior |
@@ -278,9 +298,10 @@ Paths confirmed: `/home/ubuntu/fire_shop`, env `/home/ubuntu/.env_fire_shop`, ve
 | Job | IST | UTC | Purpose |
 |---|---|---|---|
 | `run_emi_funding` | 09:45 | `15 4` | LIQUIDCASE→cash if EMI/buffer due |
+| `run_rms_guard` | 10:00 | `30 4` | MTM/funded/margin risk alerts; may block buys |
 | `run_scan` | 14:30 | `0 9` | Candidate list |
 | `run_sell` | 14:40 | `10 9` | ≤1 MTF winner ≥6.28% |
-| `run_buy` | 14:50 | `20 9` | ≤1 MTF buy if gates pass (**before** 15:00 fire_shop buy) |
+| `run_buy` | 14:50 | `20 9` | ≤1 MTF buy if gates + RMS OK (**before** 15:00 fire_shop buy) |
 | `run_status` | 16:00 | `30 10` | Telegram summary |
 
 All mtf jobs: `flock`, `cd /home/ubuntu/mtf_nursery`, source same `.env_fire_shop` (or dedicated env), shared/synced `.kite_token` after `30 3` token job.
@@ -370,19 +391,20 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 
 ---
 
-## 14. Design acceptance checklist
+## 14. Design acceptance — SIGNED OFF
 
-Reply with approvals / changes:
+Signed off **2026-08-04** with these locked choices:
 
 ```text
 Design:
-- [ ] Module split OK
-- [ ] Coexistence with fire_shop ₹6k OK
-- [ ] Scanner D1=A encoding OK
-- [ ] EMI + LIQUIDCASE→cash flow OK
-- [ ] Cron order (sell/buy before fire_shop) OK
-- [ ] v1 = dry_run only OK
-- [ ] SQLite ledger OK (or prefer JSON-only)
+- [x] Module split OK
+- [x] Coexistence with fire_shop ₹6k OK
+- [x] Scanner D1=A encoding OK
+- [x] EMI + LIQUIDCASE→cash flow OK
+- [x] Cron order (before fire_shop) OK
+- [x] v1 = dry_run only OK
+- [x] SQLite ledger OK
+- [x] RMS guard module added (monitor/alert; no client SL)
 ```
 
-After you accept, implementation starts at **C0** (still no live MTF orders).
+**Next:** Implementation phase **C0** when you say start coding — scaffold + pure math tests only.
