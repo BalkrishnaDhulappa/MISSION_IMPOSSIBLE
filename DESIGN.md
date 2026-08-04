@@ -249,8 +249,11 @@ Even if scanner has many names:
 
 ### 6.8 RMS guard — Zerodha margin crunch / force square-off (NOT client SL)
 
-**Policy:** system never places a client price stop-loss.  
+**Policy:** system never places a client price stop-loss on MTF stocks.  
 **Must handle:** Zerodha RMS force-square when margin/MTM blows through broker rules.
+
+**Primary recovery:** **sell LIQUIDCASE (CNC) → free cash**  
+MTF needs **cash**. Pledged collateral cannot fund MTF. Liquid ETF sell is the designed fix for margin crunch.
 
 **Detect / estimate**
 | Scenario | What we watch | Severity |
@@ -261,14 +264,25 @@ Even if scanner has many names:
 | Broker already squared a position | order/trade sync vs ledger | CRITICAL |
 | Token/API/job failure | exceptions, missing token, flock timeout | CRITICAL |
 
-**Dry-run / demo behavior (v1)**
-1. Instant Telegram alert (no batching delay for CRITICAL)  
-2. Mark `buy_blocked=true` until cleared  
-3. Emit **recommended actions** in alert text (add cash / sell LIQUIDCASE / skip new buys / consider delivery)  
-4. Log event in `orders_log` / `rms_events`  
-5. Do **not** place panic sells in v1 dry-run (recommendations only)
+**Response ladder**
+1. Instant Telegram `[MTF][CRITICAL]` / `[MTF][WARN]`  
+2. `buy_blocked=true` until risk clears  
+3. Compute cash shortfall to restore safe buffer  
+4. **Sell LIQUIDCASE** for shortfall + small cushion (respect min reserve)  
+5. Re-check; if still short → alert “deposit cash / human intervention”  
+6. Log everything in `rms_events`
 
-**Later live (separate approval):** optional auto LIQUIDCASE→cash top-up on WARN; still no client SL orders.
+**Dry-run / demo (v1):** do 1–3 and **log the exact LIQUIDCASE sell intent** (qty/₹); no live order until `live_liquid_topup=true`.  
+**Live top-up (separate flag):** actually place CNC LIQUIDCASE sell. Still never SL the MTF stock.
+
+**Safety limits**
+| Limit | Rule |
+|---|---|
+| Min reserve | Keep `liquid_etf_min_reserve` for future EMIs |
+| Max per event | Cap `liquid_etf_max_sell_per_event` |
+| Fire_shop guard | Don’t strip cash needed for same-day ₹6k buy |
+| Cooldown | One top-up intent per breach window |
+| Exhaustion | If LIQUIDCASE too low → CRITICAL deposit alert |
 
 ---
 
@@ -374,6 +388,9 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
   "gst": 1.18,
   "fire_shop_daily_reserve": 6000,
   "liquid_etf_symbol": "LIQUIDCASE",
+  "live_liquid_topup": false,
+  "liquid_etf_min_reserve": 10000,
+  "liquid_etf_max_sell_per_event": 25000,
   "scanner": {
     "require_dma30_gt_dma50": true,
     "max_dist_200_pct": 10.0,
@@ -434,6 +451,7 @@ Design:
 - [x] SQLite ledger OK
 - [x] No client stop-loss
 - [x] Handle Zerodha margin-crunch / force square-off via RMS guard
+- [x] **Auto LIQUIDCASE→cash** as primary margin-crunch recovery (dry-run logs intent; live behind flag)
 - [x] Fault tolerant jobs + instant Telegram alerts
 ```
 
