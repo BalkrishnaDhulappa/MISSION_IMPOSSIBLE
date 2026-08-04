@@ -1,7 +1,9 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
-**Status:** Requirements frozen → Design **under discussion** (`DESIGN.md`)  
-**Not started:** Design sign-off, implementation, live trading  
+**Status:** ✅ Requirements frozen → ✅ **Design accepted for dry-run/demo** (`DESIGN.md`)  
+**Not started:** Implementation (C0+), live trading  
+**Next gate:** You say **start C0**  
+**Accepted non-negotiables:** no client SL; handle Zerodha margin force-square; fault tolerant; instant Telegram  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
 
@@ -148,6 +150,9 @@ Captured from `CAR_Avg` for later:
 | NFR4 | Zerodha rate limits / daily token login handled safely |
 | NFR5 | Idempotent daily jobs (re-run same day doesn’t double-buy) |
 | NFR6 | Human approval gate before first live order |
+| NFR7 | No client stop-loss orders; handle Zerodha RMS margin crunch via monitor/alert/block |
+| NFR8 | Fault tolerant cron jobs (isolate failures, retries, idempotency, safe block-on-unknown) |
+| NFR9 | Instant Telegram alerts on CRITICAL/ERROR (not end-of-day only) |
 
 ---
 

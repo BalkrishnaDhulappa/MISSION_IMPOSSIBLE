@@ -1,9 +1,14 @@
 # MTF→F&O Zerodha System — Design
 
-**Status:** Design draft — **under discussion** (not signed off yet)  
+**Status:** ✅ **DESIGN ACCEPTED for dry-run / demo** (2026-08-04)  
 **Based on:** `PLAN_AND_REQUIREMENTS.md` (frozen decisions D1–D12)  
 **Reuse:** `existing_bots/daily_etf_sip/fire_shop` + live `crontab_l` on Oracle Always Free  
-**Code:** not started until you explicitly accept this design
+**Next:** Implementation C0 when you say start — dry-run only; no live MTF until separate live sign-off  
+
+**Accepted extras from discussion:**
+- **No client stop-loss**
+- Must handle **Zerodha force square-off / margin crunch** (RMS)
+- **Fault tolerant** jobs + **instant Telegram alerts**
 
 > Educational personal system. Not investment advice.
 
@@ -242,22 +247,45 @@ Even if scanner has many names:
 
 ---
 
-### 6.8 RMS guard (Zerodha broker square-off — not client stop-loss)
+### 6.8 RMS guard — Zerodha margin crunch / force square-off (NOT client SL)
 
-Our strategy places **no client stop-loss**. Zerodha may still force-square MTF under RMS. v1 must observe and alert (dry-run can recommend actions; live later may auto top-up).
+**Policy:** system never places a client price stop-loss.  
+**Must handle:** Zerodha RMS force-square when margin/MTM blows through broker rules.
 
-**Monitor daily (and optionally intraday later):**
-| Signal | Source / estimate | Action if breached |
+**Detect / estimate**
+| Scenario | What we watch | Severity |
 |---|---|---|
-| Unrealized loss vs **funded** amount approaching policy bands (~20% debit / ~80% funded) | holdings + funded estimate | Telegram **CRITICAL**; block new buys; prefer EMI/cash top-up intent |
-| Additional maintenance margin / margin shortfall | margins API / ledger if exposed | Alert; schedule funding job; block new buys |
-| Open > ~16 weeks | ledger | Alert delivery conversion |
-| Token / API failure | kite_client | Alert; skip order jobs |
+| Loss vs **funded** approaching ~20% / ~80% policy bands | position MTM vs funded estimate | WARN → CRITICAL |
+| Margin shortfall / Additional Maintenance Margin (VAR up) | margins / ledger / available cash | CRITICAL |
+| Account debit / inability to cover EMI+buffer+fire_shop reserve | cash governor | CRITICAL |
+| Broker already squared a position | order/trade sync vs ledger | CRITICAL |
+| Token/API/job failure | exceptions, missing token, flock timeout | CRITICAL |
 
-**Explicit non-goal:** inventing a price SL that fights the course method.  
-**Goal:** keep enough cash/buffer that RMS never becomes the de facto SL.
+**Dry-run / demo behavior (v1)**
+1. Instant Telegram alert (no batching delay for CRITICAL)  
+2. Mark `buy_blocked=true` until cleared  
+3. Emit **recommended actions** in alert text (add cash / sell LIQUIDCASE / skip new buys / consider delivery)  
+4. Log event in `orders_log` / `rms_events`  
+5. Do **not** place panic sells in v1 dry-run (recommendations only)
 
-Add cron: `run_rms_guard` mid-morning after token (e.g. **10:00 IST / `30 4` UTC**).
+**Later live (separate approval):** optional auto LIQUIDCASE→cash top-up on WARN; still no client SL orders.
+
+---
+
+### 6.9 Fault tolerance + instant Telegram
+
+| Requirement | Design rule |
+|---|---|
+| Instant alerts | CRITICAL/ERROR → Telegram **immediately** on detect (not only end-of-day status) |
+| Job isolation | Each cron job independent; one failure must not stop others |
+| Locks | Keep `flock -n`; if lock busy → alert “skipped overlapping run” |
+| Retries | Transient Kite/network errors: limited retry with backoff; then alert |
+| Idempotency | Same day/job/symbol cannot double-intend buys/sells |
+| Safe defaults | On unknown state → **block new buys**, alert, continue monitoring |
+| Heartbeat | Daily status job still runs; if token/scan/buy job missing → alert |
+| Secrets | Fail loud if token/env missing; never crash silently |
+
+Alert channels: reuse fire_shop Telegram bot/chat. Message prefix tags: `[MTF][CRITICAL]`, `[MTF][WARN]`, `[MTF][INFO]`.
 
 ---
 
@@ -391,20 +419,22 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 
 ---
 
-## 14. Design acceptance checklist
+## 14. Design acceptance — ACCEPTED (dry-run / demo)
 
-Still under discussion. When you’re happy, reply with approvals / changes:
+Accepted **2026-08-04** after discussion:
 
 ```text
 Design:
-- [ ] Module split OK
-- [ ] Coexistence with fire_shop ₹6k OK
-- [ ] Scanner D1=A encoding OK
-- [ ] EMI + LIQUIDCASE→cash flow OK
-- [ ] Cron order (before fire_shop) OK
-- [ ] v1 = dry_run only OK
-- [ ] SQLite ledger OK
-- [ ] RMS guard module OK
+- [x] Module split OK
+- [x] Coexistence with fire_shop ₹6k OK
+- [x] Scanner D1=A encoding OK
+- [x] EMI + LIQUIDCASE→cash flow OK
+- [x] Cron order (before fire_shop) OK
+- [x] v1 = dry_run / demo only OK
+- [x] SQLite ledger OK
+- [x] No client stop-loss
+- [x] Handle Zerodha margin-crunch / force square-off via RMS guard
+- [x] Fault tolerant jobs + instant Telegram alerts
 ```
 
-After you accept, implementation starts at **C0** (still no live MTF orders).
+**Next:** say **start C0** to begin scaffold + math/RMS tests (still no live MTF).
