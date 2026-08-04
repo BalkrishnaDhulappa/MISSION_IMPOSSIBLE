@@ -2,7 +2,52 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C1 (current)
+## Phase C3 (current) — real dry-run (read Zerodha, no orders)
+
+Reads your live Kite portfolio/margins, verifies EMI repays, sends Telegram alerts. **Never places orders.**
+
+| Module / job | Purpose |
+|---|---|
+| `src/kite_client.py` | Kite auth from `.kite_token` + `KITE_API_KEY` |
+| `src/broker_read.py` | Holdings, MTF funded estimate, cash, LIQUIDCASE |
+| `src/dry_run.py` | EMI verify + RMS + buy-gate orchestration |
+| `src/executor.py` | Blocks all live orders (`mode=dry_run` only) |
+| `src/notify.py` | Telegram `[MTF][INFO/WARN/CRITICAL]` |
+| `jobs/run_dry_run.py` | **Main job** — run on VM after market open |
+| `jobs/run_broker_snapshot.py` | Quick JSON snapshot (no telegram) |
+
+### Oracle VM setup (real dry-run)
+
+```bash
+cd ~/MISSION_IMPOSSIBLE && git pull
+cd mtf_nursery && source .venv/bin/activate
+pip install -r requirements.txt
+cp config.example.json config.json   # paths already point to fire_shop
+
+# Uses same secrets as fire_shop:
+#   /home/ubuntu/.env_fire_shop  → KITE_API_KEY, TELEGRAM_*
+#   /home/ubuntu/fire_shop/.kite_token  → daily token from 09:00 job
+
+# 1) See live account (no telegram)
+python3 jobs/run_broker_snapshot.py \
+  --env-file /home/ubuntu/.env_fire_shop \
+  --token-path /home/ubuntu/fire_shop/.kite_token
+
+# 2) Full dry-run (telegram on) — sync MTF holdings into ledger first time
+python3 jobs/run_dry_run.py \
+  --env-file /home/ubuntu/.env_fire_shop \
+  --token-path /home/ubuntu/fire_shop/.kite_token \
+  --sync-mtf
+
+# 3) JSON report, no telegram (testing)
+python3 jobs/run_dry_run.py --no-telegram --json \
+  --env-file /home/ubuntu/.env_fire_shop \
+  --token-path /home/ubuntu/fire_shop/.kite_token
+```
+
+**Safety:** `mode` is locked to `dry_run` in the job. Live MTF orders require C6 + `LIVE_CONFIRM=YES`.
+
+## Phase C1
 
 SQLite ledger + EMI persistence + gates wired to stored state (no broker):
 

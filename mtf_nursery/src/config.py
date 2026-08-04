@@ -33,6 +33,9 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "rms_loss_critical_pct": 0.20,
     "emi_verify_tolerance": 50.0,
     "ledger_db": "data/ledger.sqlite",
+    "kite_token_path": "/home/ubuntu/fire_shop/.kite_token",
+    "env_file": "/home/ubuntu/.env_fire_shop",
+    "market_calendar_dir": "/home/ubuntu/fire_shop",
     "scanner": {
         "require_dma30_gt_dma50": True,
         "max_dist_200_pct": 10.0,

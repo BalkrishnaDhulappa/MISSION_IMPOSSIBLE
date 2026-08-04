@@ -1,5 +1,8 @@
 {
   "mode": "dry_run",
+  "kite_token_path": "/home/ubuntu/fire_shop/.kite_token",
+  "env_file": "/home/ubuntu/.env_fire_shop",
+  "market_calendar_dir": "/home/ubuntu/fire_shop",
   "ticket_start": 15000,
   "max_buys_per_day": 1,
   "max_sells_per_day": 1,

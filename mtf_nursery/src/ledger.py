@@ -607,6 +607,34 @@ class Ledger:
         )
         return evaluate_sell_gate(inp)
 
+    def import_mtf_from_broker(
+        self,
+        symbol: str,
+        qty: int,
+        avg_price: float,
+        initial_margin: float,
+        buy_date: date | None = None,
+        *,
+        step_id: int = 1,
+        buffer_pct: float = 0.10,
+        emi_weeks: int = 16,
+    ) -> Position | None:
+        """Create ledger position from live MTF holding if symbol not already open."""
+        open_syms = {p.symbol for p in self.list_positions(status="open_mtf")}
+        if symbol in open_syms:
+            return None
+        buy_date = buy_date or date.today()
+        return self.add_position(
+            symbol,
+            buy_date,
+            qty,
+            avg_price,
+            initial_margin,
+            step_id=step_id,
+            buffer_pct=buffer_pct,
+            emi_weeks=emi_weeks,
+        )
+
     def status_summary(self, as_of: date | None = None) -> dict[str, Any]:
         as_of = as_of or date.today()
         self.refresh_emi_statuses(as_of)
