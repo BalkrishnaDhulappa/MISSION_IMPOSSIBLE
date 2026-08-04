@@ -2,7 +2,21 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C0 (current)
+## Phase C1 (current)
+
+SQLite ledger + EMI persistence + gates wired to stored state (no broker):
+
+| Module | Purpose |
+|---|---|
+| `src/ledger.py` | Positions, 16-week EMI rows, steps, orders_log, cash reservations |
+| `src/emi_verify.py` | Repay verification (funded drop) + EMI status enum |
+| `jobs/run_status.py` | JSON status summary CLI |
+
+EMI states: `scheduled` → `due` → `pending_repay` → `verified` (or `overdue` until paid).
+
+Manual Repay MTF on Zerodha is confirmed via API funded drop (C3) or `confirm_emi_manual()`.
+
+## Phase C0
 
 Scaffold + pure-math modules with unit tests:
 
@@ -33,9 +47,15 @@ cd mtf_nursery
 python -m pytest tests/ -v
 ```
 
+## Run status (C1)
+
+```bash
+cd mtf_nursery
+python3 jobs/run_status.py --init-step
+```
+
 ## Next phases
 
-- **C1** — SQLite ledger + EMI persistence
 - **C2** — Scanner port with yfinance
 - **C3** — Kite read-only + dry-run executor + Telegram
 - **C4** — LIQUIDCASE funding dry-run

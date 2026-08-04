@@ -1,8 +1,8 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
 **Status:** ✅ Requirements frozen → ✅ **Design accepted for dry-run/demo** (`DESIGN.md`)  
-**In progress:** Implementation **C0** — `mtf_nursery/` scaffold + math unit tests  
-**Not started:** C1+ ledger/broker, live trading  
+**In progress:** Implementation **C1** complete → next **C2** scanner  
+**Not started:** C3+ broker/Telegram, live trading  
 **Accepted non-negotiables:** no client SL; handle Zerodha margin force-square; fault tolerant; instant Telegram  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts

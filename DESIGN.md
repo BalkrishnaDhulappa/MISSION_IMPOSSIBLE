@@ -239,6 +239,21 @@ Job `run_emi_funding.py` (morning, before market or early session):
 4. Mark funding intent; rely on cash for Zerodha MTF margin utilization  
 5. Never treat pledged collateral as MTF cash
 
+### 6.6a Manual Repay MTF + EMI verify (C1 ledger, C3 Telegram)
+
+Zerodha has no Repay MTF API. Weekly principal pay-down is **manual** in Kite → Funds → Repay MTF.
+
+**Ledger EMI states** (`emi_schedule.status`):
+`scheduled` → `due` → `pending_repay` → `verified` | stays `overdue` until verified
+
+**Verify paid (stop alerts):**
+1. **API (C3):** poll `kite.holdings()` → `funded ≈ mtf.value − mtf.initial_margin`; mark verified when drop ≥ EMI − tolerance  
+2. **Manual fallback:** `confirm_emi_manual(emi_id)` or Telegram “✅ I repaid”
+
+**Persistent Telegram (C3):** re-alert on every scheduled run while status ∈ `{due, pending_repay, overdue}`; stop only on `verified`.
+
+**Cash alone does not verify** — only funded drop or manual confirm.
+
 ### 6.7 Pace governor
 Even if scanner has many names:
 - hard cap **1 MTF buy/day**
@@ -426,8 +441,8 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 
 | Phase | Deliverable |
 |---|---|
-| C0 | Repo scaffold + config + tests for pure math |
-| C1 | Ledger + EMI + gates (no broker) |
+| C0 | Repo scaffold + config + tests for pure math | ✅ Done |
+| C1 | Ledger + EMI + gates (no broker) | ✅ Done |
 | C2 | Scanner port (D1=A) |
 | C3 | Kite read-only + dry-run executor + Telegram |
 | C4 | LIQUIDCASE funding dry-run |

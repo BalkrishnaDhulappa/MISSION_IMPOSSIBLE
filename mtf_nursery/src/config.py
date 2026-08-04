@@ -31,6 +31,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "liquid_sell_cushion_pct": 0.02,
     "rms_loss_warn_pct": 0.15,
     "rms_loss_critical_pct": 0.20,
+    "emi_verify_tolerance": 50.0,
+    "ledger_db": "data/ledger.sqlite",
     "scanner": {
         "require_dma30_gt_dma50": True,
         "max_dist_200_pct": 10.0,
