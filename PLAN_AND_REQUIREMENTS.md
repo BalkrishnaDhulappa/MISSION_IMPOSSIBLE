@@ -1,6 +1,6 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
-**Status:** Requirements / planning phase  
+**Status:** Requirements frozen → **Design draft ready** (`DESIGN.md`)  
 **Not started:** Design sign-off, implementation, live trading  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
@@ -234,8 +234,8 @@ Requirements are frozen when:
 
 ## 9. Next actions
 
-**You:** say **“Requirements frozen — go to Design”** (or note any last changes).  
-**Me:** write **Design doc** (modules, data model, Oracle deploy, LIQUIDCASE→cash EMI flow, dry-run order intents) — **no live trading code yet**.
+**You:** review `DESIGN.md` and reply with the acceptance checklist (or requested changes).  
+**Me (after accept):** implement C0 scaffold + math tests — still **dry-run only**, no live MTF.
 
 ---
 
