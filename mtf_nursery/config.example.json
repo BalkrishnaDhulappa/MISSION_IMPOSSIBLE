@@ -27,6 +27,7 @@
   "rms_loss_critical_pct": 0.20,
   "emi_verify_tolerance": 50.0,
   "ledger_db": "data/ledger.sqlite",
+  "scan_output": "data/last_scan.json",
   "scanner": {
     "require_dma30_gt_dma50": true,
     "max_dist_200_pct": 10.0,

@@ -170,7 +170,6 @@ def _run_buy_gate_check(
     as_of: date,
 ) -> None:
     ticket = ledger.current_ticket(cfg.get("ticket_start", 15000))
-    # Estimate immediate need at ~40% margin + 10% buffer if no open ticket math
     est_margin = ticket * 0.30
     buffer = ticket * float(cfg.get("buffer_pct", 0.10))
     immediate = est_margin + buffer
@@ -184,10 +183,36 @@ def _run_buy_gate_check(
         max_mtf_buys_per_month=int(cfg.get("max_mtf_buys_per_month", 2)),
         buy_blocked_by_rms=rms_block,
     )
+    top_symbol = _load_top_scan_candidate(cfg)
     if gate.allowed:
-        report.buy_gate_message = (
-            f"DRY-RUN would consider MTF buy up to ₹{ticket:,.0f} "
-            f"(scanner C2 not wired — no symbol picked)"
-        )
+        if top_symbol:
+            report.buy_gate_message = (
+                f"DRY-RUN would consider MTF buy: {top_symbol} "
+                f"ticket ~₹{ticket:,.0f} (top D1=A scan)"
+            )
+        else:
+            report.buy_gate_message = (
+                f"DRY-RUN buy gate OPEN (ticket ~₹{ticket:,.0f}) "
+                f"— run jobs/run_scan.py for candidates"
+            )
     else:
-        report.buy_gate_message = format_gate_block("BUY", "?", gate)
+        sym = top_symbol or "?"
+        report.buy_gate_message = format_gate_block("BUY", sym, gate)
+
+
+def _load_top_scan_candidate(cfg: dict) -> str | None:
+    from pathlib import Path
+
+    from scanner_fetch import load_scan_result
+
+    scan_path = Path(cfg.get("scan_output", "data/last_scan.json"))
+    if not scan_path.is_absolute():
+        scan_path = Path(__file__).resolve().parent.parent / scan_path
+    if not scan_path.exists():
+        return None
+    try:
+        data = load_scan_result(scan_path)
+        cands = data.get("candidates") or []
+        return cands[0]["symbol"] if cands else None
+    except (OSError, KeyError, IndexError, TypeError):
+        return None

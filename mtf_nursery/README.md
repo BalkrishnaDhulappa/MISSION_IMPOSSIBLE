@@ -2,7 +2,23 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C3 (current) — real dry-run (read Zerodha, no orders)
+## Phase C2 (current) — FO scanner (D1=A)
+
+Scans **210 F&O stocks** via yfinance (same rules as course + colab, with D1=A filters).
+
+```bash
+# Full scan (~5–15 min) + Telegram top pick
+python3 jobs/run_scan.py
+
+# Quick test (first 10 symbols only)
+python3 jobs/run_scan.py --limit 10 --no-telegram
+
+# Output: data/last_scan.json (used by dry-run for top buy candidate)
+```
+
+Filters: rising CAR (10d) · CMP > 30 & 200 DMA · 30 DMA > 50 DMA · dist_200 ≤ 10% · rank by dist_200 asc.
+
+## Phase C3 — real dry-run (read Zerodha, no orders)
 
 Reads your live Kite portfolio/margins, verifies EMI repays, sends Telegram alerts. **Never places orders.**
 
