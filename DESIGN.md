@@ -253,25 +253,39 @@ v1 ship target: **`dry_run` + `paper`**. Live behind explicit second sign-off.
 
 ---
 
-## 8. Cron plan (IST → UTC like fire_shop)
+## 8. Cron plan (IST → UTC) — aligned to live `crontab_l`
 
-Existing fire_shop (do not break):
-- Token ~ morning  
-- Buy 15:00 IST  
-- Sell check 15:15 IST  
+### 8.1 Currently ACTIVE on VM (`crontab_l`)
+| Job | Cron (UTC) | IST | Command |
+|---|---|---|---|
+| Token gen | `30 3 * * 1-5` | **09:00** | `server_generate_token.py` |
+| Daily notify | `0 4 * * 1-5` | **09:30** | `daily_notify.py` |
+| **Buy ₹6k ETF** | `30 9 * * 1-5` | **15:00** | `buy_engine.py` (+ flock) |
+| Weekly summary | `30 12 * * 0` | Sun **18:00** | `weekly_market_summary.py` |
 
-Proposed mtf_nursery:
-| Job | IST | Purpose |
-|---|---|---|
-| `run_emi_funding` | 09:45 | Ensure cash for EMIs / buffer |
-| `run_scan` | 14:30 | Build candidate list |
-| `run_sell` | 14:40 | One winner ≥6.28% if any (before fire_shop buy) |
-| `run_buy` | 14:50 | At most one MTF buy if gates pass |
-| `run_status` | 16:00 | Telegram daily summary |
+### 8.2 Currently DISABLED on VM
+| Job | Notes |
+|---|---|
+| `sell_engine.py` (was 15:15 IST) | `# DISABLED 2026-06-29 stop sell engine` |
+| Legacy `pkp_engine.py` | commented |
+| All `algo_trader` / crypto / gold / delta jobs | `# DISABLED 2026-06-29` |
 
-Rationale: MTF sell/buy **before** fire_shop’s ₹6k buy so cash planning is explicit; fire_shop remains last cash consumer of the day.
+**Design implication:** fire_shop is currently **buy-only** for the daily ₹6k CNC SIP. MTF nursery must not assume an automatic fire_shop sell frees cash the same day.
 
-Use `flock` per job (same as fire_shop).
+Paths confirmed: `/home/ubuntu/fire_shop`, env `/home/ubuntu/.env_fire_shop`, venv `/home/ubuntu/fire_shop/venv/bin/python3`.
+
+### 8.3 Proposed mtf_nursery cron (add beside existing; do not break buy)
+| Job | IST | UTC | Purpose |
+|---|---|---|---|
+| `run_emi_funding` | 09:45 | `15 4` | LIQUIDCASE→cash if EMI/buffer due |
+| `run_scan` | 14:30 | `0 9` | Candidate list |
+| `run_sell` | 14:40 | `10 9` | ≤1 MTF winner ≥6.28% |
+| `run_buy` | 14:50 | `20 9` | ≤1 MTF buy if gates pass (**before** 15:00 fire_shop buy) |
+| `run_status` | 16:00 | `30 10` | Telegram summary |
+
+All mtf jobs: `flock`, `cd /home/ubuntu/mtf_nursery`, source same `.env_fire_shop` (or dedicated env), shared/synced `.kite_token` after `30 3` token job.
+
+Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC buy.
 
 ---
 
