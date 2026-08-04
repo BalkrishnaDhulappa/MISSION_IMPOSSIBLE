@@ -1,0 +1,30 @@
+{
+  "mode": "dry_run",
+  "ticket_start": 15000,
+  "max_buys_per_day": 1,
+  "max_sells_per_day": 1,
+  "max_mtf_buys_per_month": 2,
+  "profit_target_pct": 0.0628,
+  "buffer_pct": 0.10,
+  "emi_weeks": 16,
+  "interest_daily": 0.0004,
+  "brokerage_rate": 0.003,
+  "brokerage_cap": 20,
+  "pledge_per_side": 15,
+  "gst": 1.18,
+  "tax_rate_on_net": 0.2,
+  "tax_surcharge_multiplier": 1.04,
+  "fire_shop_daily_reserve": 6000,
+  "liquid_etf_symbol": "LIQUIDCASE",
+  "live_liquid_topup": false,
+  "liquid_etf_min_reserve": 10000,
+  "liquid_etf_max_sell_per_event": 25000,
+  "liquid_sell_cushion_pct": 0.02,
+  "rms_loss_warn_pct": 0.15,
+  "rms_loss_critical_pct": 0.20,
+  "scanner": {
+    "require_dma30_gt_dma50": true,
+    "max_dist_200_pct": 10.0,
+    "car_rising_days": 10
+  }
+}

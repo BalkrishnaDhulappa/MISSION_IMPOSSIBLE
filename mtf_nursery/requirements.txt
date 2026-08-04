@@ -1,0 +1,7 @@
+# Runtime (C3+)
+kiteconnect>=5.0.0
+pandas>=2.0.0
+yfinance>=0.2.0
+
+# Dev / tests (C0+)
+pytest>=8.0.0
