@@ -1,25 +1,29 @@
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_dry_run.py --no-telegram --json  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+{
+  "as_of": "2026-08-05",
+  "mode": "dry_run",
+  "errors": [],
+  "emi_verified": [],
+  "emi_alerts_sent": [],
+  "rms_severity": "OK",
+  "rms_messages": [],
+  "liquid_topup_intent": "No LIQUIDCASE sell needed (shortfall \u20b90)",
+  "buy_gate_message": "SKIP BUY GAIL: max_buys_per_day",
+  "ledger_summary": {
+    "as_of": "2026-08-05",
+    "open_positions": 0,
+    "remaining_emi_obligation": 0.0,
+    "current_ticket": 15000.0,
+    "pending_emi_alerts": [],
+    "buys_today": 1,
+    "buys_this_month": 1
+  },
+  "account": {
+    "free_cash": 131053.59999999999,
+    "liquid_etf_value": 0.0,
+    "mtf_holdings": []
+  }
+}
 (.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_buy.py --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
-DRY-RUN intent: buy 2 ALKEM product=MTF reason=top D1=A scan ticket ~15000.0
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ cat crontab_mtf_nursery.snippet 
-# MTF nursery (dry-run) — append to existing crontab on Oracle VM.
-# Paths: /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery
-# IST times in comments; crontab uses UTC (VM is UTC per fire_shop).
-
-# 09:45 IST — EMI funding check + LIQUIDCASE intent (dry-run)
-15 4 * * 1-5 flock -n /tmp/mtf_emi_funding.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh emi_funding
-
-# 10:00 IST — RMS / margin Telegram (no client SL)
-30 4 * * 1-5 flock -n /tmp/mtf_rms_guard.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh rms_guard
-
-# 14:30 IST — F&O universe scan (yfinance; ~3–5 min full run)
-0 9 * * 1-5 flock -n /tmp/mtf_scan.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh scan
-
-# 14:40 IST — sell gate (6.28% target, dry-run)
-10 9 * * 1-5 flock -n /tmp/mtf_sell.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh sell
-
-# 14:50 IST — buy gate from last_scan.json (dry-run; before fire_shop 15:00 buy)
-20 9 * * 1-5 flock -n /tmp/mtf_buy.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh buy
-
-# 16:00 IST — EOD status Telegram
-30 10 * * 1-5 flock -n /tmp/mtf_status.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh status
+SKIP BUY GAIL: max_buys_per_day
 (.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 
