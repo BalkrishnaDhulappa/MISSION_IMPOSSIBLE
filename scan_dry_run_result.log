@@ -1,0 +1,222 @@
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ cd ~/MISSION_IMPOSSIBLE/
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE$ git pull
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (9/9), done.
+Unpacking objects: 100% (19/19), 10.50 KiB | 1.17 MiB/s, done.
+remote: Total 19 (delta 10), reused 16 (delta 9), pack-reused 0 (from 0)
+From https://github.com/BalkrishnaDhulappa/MISSION_IMPOSSIBLE
+   a4dc1c88..ecc64baf  cursor/mtf-fo-trading-system-e0df -> origin/cursor/mtf-fo-trading-system-e0df
+   6852ed09..42dd7a4a  master                            -> origin/master
+Updating a4dc1c88..ecc64baf
+Fast-forward
+ DESIGN.md                               |   2 +-
+ mtf_nursery/README.md                   |  18 +++++++++++++++++-
+ mtf_nursery/config.example.json         |   1 +
+ mtf_nursery/jobs/run_scan.py            |  72 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ mtf_nursery/resources/fo_universe.json  | 216 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ mtf_nursery/src/config.py               |   1 +
+ mtf_nursery/src/dry_run.py              |  37 +++++++++++++++++++++++++++++++------
+ mtf_nursery/src/scanner_fetch.py        | 183 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ mtf_nursery/tests/test_scanner_fetch.py |  61 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 9 files changed, 583 insertions(+), 8 deletions(-)
+ create mode 100755 mtf_nursery/jobs/run_scan.py
+ create mode 100644 mtf_nursery/resources/fo_universe.json
+ create mode 100644 mtf_nursery/src/scanner_fetch.py
+ create mode 100644 mtf_nursery/tests/test_scanner_fetch.py
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE$ git checkout cursor/mtf-fo-trading-system-e0df 
+Already on 'cursor/mtf-fo-trading-system-e0df'
+Your branch is up to date with 'origin/cursor/mtf-fo-trading-system-e0df'.
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE$ cd mtf_nursery/
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_scan.py --limit 10 --no-telegram
+Scanning 10 symbols (D1=A)...
+{
+  "scan_date": "2026-08-04",
+  "count": 0,
+  "candidates": []
+}
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_scan.py --no-telegram
+Scanning 210 symbols (D1=A)...
+{
+  "scan_date": "2026-08-04",
+  "count": 8,
+  "candidates": [
+    {
+      "symbol": "ULTRACEMCO",
+      "cmp": 11980.0,
+      "dma_30": 11683.43,
+      "dma_50": 11506.82,
+      "dma_200": 11802.84,
+      "dist_200_pct": 1.501,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ALKEM",
+      "cmp": 5688.5,
+      "dma_30": 5598.32,
+      "dma_50": 5496.78,
+      "dma_200": 5543.81,
+      "dist_200_pct": 2.6099,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "GAIL",
+      "cmp": 175.55,
+      "dma_30": 173.44,
+      "dma_50": 171.91,
+      "dma_200": 167.27,
+      "dist_200_pct": 4.9501,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ICICIBANK",
+      "cmp": 1445.0,
+      "dma_30": 1413.37,
+      "dma_50": 1364.41,
+      "dma_200": 1348.7,
+      "dist_200_pct": 7.1402,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "HAL",
+      "cmp": 4676.0,
+      "dma_30": 4485.21,
+      "dma_50": 4414.79,
+      "dma_200": 4361.47,
+      "dist_200_pct": 7.2116,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "INDHOTEL",
+      "cmp": 740.85,
+      "dma_30": 730.45,
+      "dma_50": 708.31,
+      "dma_200": 688.85,
+      "dist_200_pct": 7.5488,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "cmp": 2794.8,
+      "dma_30": 2693.91,
+      "dma_50": 2693.83,
+      "dma_200": 2594.63,
+      "dist_200_pct": 7.7148,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "EICHERMOT",
+      "cmp": 7967.5,
+      "dma_30": 7534.05,
+      "dma_50": 7449.48,
+      "dma_200": 7256.31,
+      "dist_200_pct": 9.801,
+      "car_status": "Positive"
+    }
+  ]
+}
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ cat data/last_scan.json 
+{
+  "scan_date": "2026-08-04",
+  "count": 8,
+  "candidates": [
+    {
+      "symbol": "ULTRACEMCO",
+      "cmp": 11980.0,
+      "dma_30": 11683.43,
+      "dma_50": 11506.82,
+      "dma_200": 11802.84,
+      "dist_200_pct": 1.501,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ALKEM",
+      "cmp": 5688.5,
+      "dma_30": 5598.32,
+      "dma_50": 5496.78,
+      "dma_200": 5543.81,
+      "dist_200_pct": 2.6099,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "GAIL",
+      "cmp": 175.55,
+      "dma_30": 173.44,
+      "dma_50": 171.91,
+      "dma_200": 167.27,
+      "dist_200_pct": 4.9501,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ICICIBANK",
+      "cmp": 1445.0,
+      "dma_30": 1413.37,
+      "dma_50": 1364.41,
+      "dma_200": 1348.7,
+      "dist_200_pct": 7.1402,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "HAL",
+      "cmp": 4676.0,
+      "dma_30": 4485.21,
+      "dma_50": 4414.79,
+      "dma_200": 4361.47,
+      "dist_200_pct": 7.2116,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "INDHOTEL",
+      "cmp": 740.85,
+      "dma_30": 730.45,
+      "dma_50": 708.31,
+      "dma_200": 688.85,
+      "dist_200_pct": 7.5488,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "cmp": 2794.8,
+      "dma_30": 2693.91,
+      "dma_50": 2693.83,
+      "dma_200": 2594.63,
+      "dist_200_pct": 7.7148,
+      "car_status": "Positive"
+    },
+    {
+      "symbol": "EICHERMOT",
+      "cmp": 7967.5,
+      "dma_30": 7534.05,
+      "dma_50": 7449.48,
+      "dma_200": 7256.31,
+      "dist_200_pct": 9.801,
+      "car_status": "Positive"
+    }
+  ]
+}(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$python3 jobs/run_dry_run.py --no-telegram --json  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+{
+  "as_of": "2026-08-04",
+  "mode": "dry_run",
+  "errors": [],
+  "emi_verified": [],
+  "emi_alerts_sent": [],
+  "rms_severity": "OK",
+  "rms_messages": [],
+  "liquid_topup_intent": null,
+  "buy_gate_message": "DRY-RUN would consider MTF buy: ULTRACEMCO ticket ~\u20b915,000 (top D1=A scan)",
+  "ledger_summary": {
+    "as_of": "2026-08-04",
+    "open_positions": 0,
+    "remaining_emi_obligation": 0.0,
+    "current_ticket": 15000.0,
+    "pending_emi_alerts": [],
+    "buys_today": 0,
+    "buys_this_month": 0
+  },
+  "account": {
+    "free_cash": 131091.8,
+    "liquid_etf_value": 0.0,
+    "mtf_holdings": []
+  }
+}
+(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ 

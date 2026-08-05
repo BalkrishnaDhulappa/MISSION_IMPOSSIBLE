@@ -5,7 +5,7 @@
 ================================================================================
 1) QUICK SCAN (--limit 10)
 ================================================================================
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_scan.py --limit 10 --no-telegram
+python3 jobs/run_scan.py --limit 10 --no-telegram
 Scanning 10 symbols (D1=A)...
 {
   "scan_date": "2026-08-05",
@@ -16,162 +16,73 @@ Scanning 10 symbols (D1=A)...
 ================================================================================
 2) FULL SCAN (210 symbols)
 ================================================================================
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_scan.py --no-telegram
+python3 jobs/run_scan.py --no-telegram
 Scanning 210 symbols (D1=A)...
 {
   "scan_date": "2026-08-05",
   "count": 9,
   "candidates": [
-    {
-      "symbol": "ALKEM",
-      "cmp": 5654.0,
-      "dma_30": 5606.88,
-      "dma_50": 5502.63,
-      "dma_200": 5544.71,
-      "dist_200_pct": 1.9711,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "ULTRACEMCO",
-      "cmp": 12146.0,
-      "dma_30": 11734.53,
-      "dma_50": 11525.98,
-      "dma_200": 11800.84,
-      "dist_200_pct": 2.9249,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "CIPLA",
-      "cmp": 1451.7,
-      "dma_30": 1443.5,
-      "dma_50": 1421.65,
-      "dma_200": 1404.6,
-      "dist_200_pct": 3.3533,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "GAIL",
-      "cmp": 174.82,
-      "dma_30": 173.43,
-      "dma_50": 172.15,
-      "dma_200": 167.23,
-      "dist_200_pct": 4.5387,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "HAL",
-      "cmp": 4627.0,
-      "dma_30": 4498.77,
-      "dma_50": 4423.5,
-      "dma_200": 4359.32,
-      "dist_200_pct": 6.1404,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "ASIANPAINT",
-      "cmp": 2770.9,
-      "dma_30": 2701.66,
-      "dma_50": 2698.68,
-      "dma_200": 2598.51,
-      "dist_200_pct": 6.6342,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "ICICIBANK",
-      "cmp": 1449.2,
-      "dma_30": 1420.27,
-      "dma_50": 1371.75,
-      "dma_200": 1349.22,
-      "dist_200_pct": 7.4102,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "INDHOTEL",
-      "cmp": 748.95,
-      "dma_30": 732.46,
-      "dma_50": 712.02,
-      "dma_200": 689.07,
-      "dist_200_pct": 8.69,
-      "car_status": "Positive"
-    },
-    {
-      "symbol": "EICHERMOT",
-      "cmp": 7978.5,
-      "dma_30": 7562.25,
-      "dma_50": 7473.5,
-      "dma_200": 7266.88,
-      "dist_200_pct": 9.7926,
-      "car_status": "Positive"
-    }
+    {"symbol": "ALKEM", "cmp": 5654.0, "dist_200_pct": 1.9711, "car_status": "Positive"},
+    {"symbol": "ULTRACEMCO", "cmp": 12146.0, "dist_200_pct": 2.9249, "car_status": "Positive"},
+    {"symbol": "CIPLA", "cmp": 1451.7, "dist_200_pct": 3.3533, "car_status": "Positive"},
+    {"symbol": "GAIL", "cmp": 174.82, "dist_200_pct": 4.5387, "car_status": "Positive"},
+    {"symbol": "HAL", "cmp": 4627.0, "dist_200_pct": 6.1404, "car_status": "Positive"},
+    {"symbol": "ASIANPAINT", "cmp": 2770.9, "dist_200_pct": 6.6342, "car_status": "Positive"},
+    {"symbol": "ICICIBANK", "cmp": 1449.2, "dist_200_pct": 7.4102, "car_status": "Positive"},
+    {"symbol": "INDHOTEL", "cmp": 748.95, "dist_200_pct": 8.69, "car_status": "Positive"},
+    {"symbol": "EICHERMOT", "cmp": 7978.5, "dist_200_pct": 9.7926, "car_status": "Positive"}
   ]
 }
 
 ================================================================================
-3) DRY-RUN (after scan)
+3) DRY-RUN (after scan, before ticket-sizing fix)
 ================================================================================
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_dry_run.py --no-telegram --json  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+python3 jobs/run_dry_run.py --no-telegram --json \
+  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token
 {
   "as_of": "2026-08-05",
   "mode": "dry_run",
   "errors": [],
-  "emi_verified": [],
-  "emi_alerts_sent": [],
   "rms_severity": "OK",
-  "rms_messages": [],
-  "liquid_topup_intent": "No LIQUIDCASE sell needed (shortfall \u20b90)",
-  "buy_gate_message": "DRY-RUN would consider MTF buy: ALKEM ticket ~\u20b915,000 (top D1=A scan)",
-  "ledger_summary": {
-    "as_of": "2026-08-05",
-    "open_positions": 0,
-    "remaining_emi_obligation": 0.0,
-    "current_ticket": 15000.0,
-    "pending_emi_alerts": [],
-    "buys_today": 0,
-    "buys_this_month": 0
-  },
-  "account": {
-    "free_cash": 131053.59999999999,
-    "liquid_etf_value": 0.0,
-    "mtf_holdings": []
-  }
+  "buy_gate_message": "DRY-RUN would consider MTF buy: ALKEM ticket ~₹15,000 (top D1=A scan)",
+  "account": {"free_cash": 131053.6, "liquid_etf_value": 0.0, "mtf_holdings": []}
 }
 
 ================================================================================
-4) BUY JOB (dry-run intent)
+4) BUY JOB — early floor sizing (ALKEM undershoot)
 ================================================================================
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ python3 jobs/run_buy.py --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token 
+python3 jobs/run_buy.py --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token
 DRY-RUN intent: buy 2 ALKEM product=MTF reason=top D1=A scan ticket ~15000.0
 
 ================================================================================
-5) CRON SNIPPET (reference — install optional)
+5) AFTER TICKET-SIZING FIX — best fill ~₹15k+
 ================================================================================
-(.venv) ubuntu@instance-20260318-2324:~/MISSION_IMPOSSIBLE/mtf_nursery$ cat crontab_mtf_nursery.snippet 
-# MTF nursery (dry-run) — append to existing crontab on Oracle VM.
-# Paths: /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery
-# IST times in comments; crontab uses UTC (VM is UTC per fire_shop).
+# Real ledger blocked: max_buys_per_day (ALKEM intent already logged)
+python3 jobs/run_dry_run.py --no-telegram --json ...
+"buy_gate_message": "SKIP BUY GAIL: max_buys_per_day"
+"buys_today": 1
 
-# 09:45 IST — EMI funding check + LIQUIDCASE intent (dry-run)
-15 4 * * 1-5 flock -n /tmp/mtf_emi_funding.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh emi_funding
+# Fresh DB retest:
+python3 jobs/run_buy.py --db /tmp/mtf_buy_test.sqlite \
+  --env-file /home/ubuntu/.env_fire_shop --token-path /home/ubuntu/fire_shop/.kite_token
+DRY-RUN intent: buy 86 GAIL product=MTF reason=D1=A ticket fill ~₹15,035 (target ₹15,000) | notional ~₹15,035 (ticket ₹15,000)
 
-# 10:00 IST — RMS / margin Telegram (no client SL)
-30 4 * * 1-5 flock -n /tmp/mtf_rms_guard.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh rms_guard
+================================================================================
+6) CRON INSTALLED (fire_shop kept + MTF appended)
+================================================================================
+crontab -l > ~/crontab_backup_YYYYMMDD.txt
+cat crontab_mtf_nursery.snippet >> ~/crontab_backup_YYYYMMDD.txt
+crontab ~/crontab_backup_YYYYMMDD.txt
 
-# 14:30 IST — F&O universe scan (yfinance; ~3–5 min full run)
-0 9 * * 1-5 flock -n /tmp/mtf_scan.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh scan
-
-# 14:40 IST — sell gate (6.28% target, dry-run)
-10 9 * * 1-5 flock -n /tmp/mtf_sell.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh sell
-
-# 14:50 IST — buy gate from last_scan.json (dry-run; before fire_shop 15:00 buy)
-20 9 * * 1-5 flock -n /tmp/mtf_buy.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh buy
-
-# 16:00 IST — EOD status Telegram
-30 10 * * 1-5 flock -n /tmp/mtf_status.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh status
+# Confirmed present:
+# fire_shop buy 30 9 UTC (15:00 IST)
+# fire_shop token 30 3 UTC (09:00 IST)
+# MTF emi_funding 15 4 | rms 30 4 | scan 0 9 | sell 10 9 | buy 20 9 | status 30 10
 
 ================================================================================
 SUMMARY
 ================================================================================
-- Full scan: 9 D1=A candidates; top = ALKEM (1.97% above 200 DMA)
-- Dry-run: mode=dry_run, RMS OK, cash ~₹131k, no MTF, buy gate would pick ALKEM
-- Buy job: DRY-RUN intent buy 2 ALKEM MTF (ticket ~₹15k) — no live order
-- Cron snippet reviewed; install separately if desired (keep fire_shop lines)
+- Full scan: 9 D1=A candidates
+- Ticket sizing: prefer ~₹15k+ → GAIL 86 × ~₹15,035 (not ALKEM 2 × ~₹11k)
+- Dry-run only; live flags off
+- MTF cron installed beside fire_shop

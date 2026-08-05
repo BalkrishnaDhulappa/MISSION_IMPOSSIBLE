@@ -1,8 +1,7 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
-**Status:** ✅ Requirements frozen → ✅ **Design accepted for dry-run/demo** (`DESIGN.md`)  
-**In progress:** Implementation **C1** complete → next **C2** scanner  
-**Not started:** C3+ broker/Telegram, live trading  
+**Status:** ✅ Requirements frozen → ✅ Design accepted → ✅ **C0–C6 implemented** (`mtf_nursery/`)  
+**Runtime:** dry-run by default on Oracle VM beside `fire_shop`; live MTF behind explicit gates  
 **Accepted non-negotiables:** no client SL; handle Zerodha margin force-square; fault tolerant; instant Telegram  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
@@ -239,8 +238,8 @@ Requirements are frozen when:
 
 ## 9. Next actions
 
-**You:** review `DESIGN.md` and reply with the acceptance checklist (or requested changes).  
-**Me (after accept):** implement C0 scaffold + math tests — still **dry-run only**, no live MTF.
+**Done:** C0–C6 on branch merged to `master`.  
+**Ops:** dry-run cron installed; enable live only with `mode=live` + `live_mtf_enabled` + `LIVE_CONFIRM=YES`.
 
 ---
 
