@@ -196,12 +196,13 @@ def _run_buy_gate_check(
         max_mtf_buys_per_month=int(cfg.get("max_mtf_buys_per_month", 2)),
         buy_blocked_by_rms=rms_block,
     )
-    top_symbol = _load_top_scan_candidate(cfg)
+    top = _load_best_scan_buy(cfg)
     if gate.allowed:
-        if top_symbol:
+        if top:
+            symbol, _cmp, qty, notional = top
             report.buy_gate_message = (
-                f"DRY-RUN would consider MTF buy: {top_symbol} "
-                f"ticket ~₹{ticket:,.0f} (top D1=A scan)"
+                f"DRY-RUN would consider MTF buy: {symbol} "
+                f"qty={qty} ~₹{notional:,.0f} (ticket ₹{ticket:,.0f})"
             )
         else:
             report.buy_gate_message = (
@@ -209,14 +210,21 @@ def _run_buy_gate_check(
                 f"— run jobs/run_scan.py for candidates"
             )
     else:
-        sym = top_symbol or "?"
+        sym = top[0] if top else "?"
         report.buy_gate_message = format_gate_block("BUY", sym, gate)
 
 
 def _load_top_scan_candidate(cfg: dict) -> str | None:
+    picked = _load_best_scan_buy(cfg)
+    return picked[0] if picked else None
+
+
+def _load_best_scan_buy(cfg: dict) -> tuple[str, float, int, float] | None:
+    """Return (symbol, cmp, qty, notional) best ticket fill from last scan."""
     from pathlib import Path
 
     from scanner_fetch import load_scan_result
+    from ticket_size import pick_best_ticket_fill
 
     scan_path = Path(cfg.get("scan_output", "data/last_scan.json"))
     if not scan_path.is_absolute():
@@ -226,6 +234,21 @@ def _load_top_scan_candidate(cfg: dict) -> str | None:
     try:
         data = load_scan_result(scan_path)
         cands = data.get("candidates") or []
-        return cands[0]["symbol"] if cands else None
-    except (OSError, KeyError, IndexError, TypeError):
+        if not cands:
+            return None
+        ticket = float(cfg.get("ticket_start", 15000))
+        among = cfg.get("buy_among_top_scan")
+        among_top = int(among) if among is not None else None
+        picked = pick_best_ticket_fill(
+            cands,
+            ticket,
+            prefer_above=bool(cfg.get("ticket_prefer_above", True)),
+            max_overshoot_pct=float(cfg.get("ticket_max_overshoot_pct", 0.25)),
+            among_top=among_top,
+        )
+        if not picked:
+            return None
+        cand, fill = picked
+        return cand["symbol"], fill.cmp, fill.qty, fill.notional
+    except (OSError, KeyError, IndexError, TypeError, ValueError):
         return None

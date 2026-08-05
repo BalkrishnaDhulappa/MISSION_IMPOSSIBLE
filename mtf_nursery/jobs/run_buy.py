@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""MTF buy (≤1/day) from top scan candidate — dry-run or live (C6)."""
+"""MTF buy (≤1/day) — size ~ticket (≥ when reasonable), dry-run or live (C6)."""
 
 from __future__ import annotations
 
 import argparse
-import math
 import sys
 from datetime import date
 from pathlib import Path
@@ -17,12 +16,13 @@ from _execution import run_order_with_ledger
 from broker_read import build_account_snapshot
 from calendar_ist import is_trading_day, load_market_calendar
 from config import load_config
-from dry_run import _load_top_scan_candidate
+from dry_run import _load_best_scan_buy
 from executor import OrderIntent, format_gate_block
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
 from live_trading import mtf_live_enabled
 from notify import Level, send_telegram
+from ticket_size import qty_for_ticket
 
 
 def main() -> int:
@@ -52,10 +52,13 @@ def main() -> int:
     except FileNotFoundError:
         pass
 
-    symbol = _load_top_scan_candidate(cfg)
-    if not symbol:
+    ticket = ledger.current_ticket(cfg.get("ticket_start", 15000))
+    picked = _load_best_scan_buy({**cfg, "ticket_start": ticket})
+    if not picked:
         send_telegram("Buy skip: no scan candidates (run scan first).", level=Level.INFO)
         return 0
+
+    symbol, cmp, qty, notional = picked
 
     try:
         kite = get_kite(token_path=args.token_path or cfg.get("kite_token_path"))
@@ -68,8 +71,18 @@ def main() -> int:
     snap = build_account_snapshot(
         holdings, margins, liquid_etf_symbol=cfg.get("liquid_etf_symbol", "LIQUIDCASE")
     )
-    ticket = ledger.current_ticket(cfg.get("ticket_start", 15000))
-    est_margin = ticket * 0.30
+    # Recompute fill with live CMP if available
+    live_cmp = _live_cmp(symbol, holdings)
+    if live_cmp > 0:
+        fill = qty_for_ticket(
+            ticket,
+            live_cmp,
+            prefer_above=bool(cfg.get("ticket_prefer_above", True)),
+            max_overshoot_pct=float(cfg.get("ticket_max_overshoot_pct", 0.25)),
+        )
+        cmp, qty, notional = fill.cmp, fill.qty, fill.notional
+
+    est_margin = notional * 0.30
     buffer = ticket * float(cfg.get("buffer_pct", 0.10))
     immediate = est_margin + buffer
 
@@ -89,18 +102,16 @@ def main() -> int:
         print(msg)
         return 0
 
-    cmp = _cmp_for_symbol(symbol, holdings, cfg)
-    if cmp <= 0:
-        send_telegram(f"Buy skip {symbol}: no price", level=Level.WARN)
+    if cmp <= 0 or qty <= 0:
+        send_telegram(f"Buy skip {symbol}: no price/qty", level=Level.WARN)
         return 0
 
-    qty = max(1, int(math.floor(ticket / cmp)))
     intent = OrderIntent(
         side="buy",
         symbol=symbol,
         qty=qty,
         product="MTF",
-        reason=f"top D1=A scan ticket ~{ticket}",
+        reason=f"D1=A ticket fill ~₹{notional:,.0f} (target ₹{ticket:,.0f})",
         limit_price=round(cmp * 1.001, 2),
     )
     idem = f"{today}|buy|{symbol}"
@@ -119,8 +130,7 @@ def main() -> int:
         return 1
 
     if result and result.executed and mtf_live_enabled(cfg):
-        buy_value = round(qty * cmp, 2)
-        initial_margin = round(buy_value * 0.30, 2)
+        initial_margin = round(notional * 0.30, 2)
         ledger.add_position(
             symbol,
             today,
@@ -134,25 +144,15 @@ def main() -> int:
 
     level = Level.CRITICAL if result and result.executed else Level.INFO
     if not already:
-        send_telegram(f"{msg} qty={qty} ~₹{qty * cmp:,.0f}", level=level)
-    print(msg)
+        send_telegram(f"{msg} qty={qty} ~₹{notional:,.0f}", level=level)
+    print(f"{msg} | notional ~₹{notional:,.0f} (ticket ₹{ticket:,.0f})")
     return 0
 
 
-def _cmp_for_symbol(symbol: str, holdings: list, cfg: dict) -> float:
-    from scanner_fetch import load_scan_result
-
+def _live_cmp(symbol: str, holdings: list) -> float:
     for h in holdings:
         if h.get("tradingsymbol") == symbol:
             return float(h.get("last_price") or 0)
-    path = Path(cfg.get("scan_output", "data/last_scan.json"))
-    if not path.is_absolute():
-        path = root / path
-    if path.exists():
-        data = load_scan_result(path)
-        for c in data.get("candidates", []):
-            if c.get("symbol") == symbol:
-                return float(c.get("cmp") or 0)
     return 0.0
 
 

@@ -46,6 +46,8 @@ Sells **LIQUIDCASE (CNC) → cash** when free cash cannot cover EMI obligation +
 
 **Dry-run:** logs exact `qty` and ₹ estimate; no live order until `live_liquid_topup=true` + C6 sign-off.
 
+**Ticket sizing:** buy qty aims for notional **≥ ticket** (default ₹15k) when overshoot ≤ 25%. Among D1=A candidates, pick the fill closest to ticket (not always lowest dist_200).
+
 ```bash
 # Manual test (needs Kite token on VM)
 python3 jobs/run_liquid_funding.py \
