@@ -1,7 +1,8 @@
 # MTF→F&O Zerodha System — Plan & Requirements
 
-**Status:** Requirements / planning phase  
-**Not started:** Design sign-off, implementation, live trading  
+**Status:** ✅ Requirements frozen → ✅ Design accepted → ✅ **C0–C6 implemented** (`mtf_nursery/`)  
+**Runtime:** dry-run by default on Oracle VM beside `fire_shop`; live MTF behind explicit gates  
+**Accepted non-negotiables:** no client SL; handle Zerodha margin force-square; fault tolerant; instant Telegram  
 **Broker:** Zerodha only  
 **Source of truth:** Course Classes 1–5 + CAR averaging transcript + uploaded Excel/Colab artifacts
 
@@ -148,6 +149,9 @@ Captured from `CAR_Avg` for later:
 | NFR4 | Zerodha rate limits / daily token login handled safely |
 | NFR5 | Idempotent daily jobs (re-run same day doesn’t double-buy) |
 | NFR6 | Human approval gate before first live order |
+| NFR7 | No client stop-loss orders; handle Zerodha RMS margin crunch via monitor/alert/block |
+| NFR8 | Fault tolerant cron jobs (isolate failures, retries, idempotency, safe block-on-unknown) |
+| NFR9 | Instant Telegram alerts on CRITICAL/ERROR (not end-of-day only) |
 
 ---
 
@@ -234,8 +238,8 @@ Requirements are frozen when:
 
 ## 9. Next actions
 
-**You:** say **“Requirements frozen — go to Design”** (or note any last changes).  
-**Me:** write **Design doc** (modules, data model, Oracle deploy, LIQUIDCASE→cash EMI flow, dry-run order intents) — **no live trading code yet**.
+**Done:** C0–C6 on branch merged to `master`.  
+**Ops:** dry-run cron installed; enable live only with `mode=live` + `live_mtf_enabled` + `LIVE_CONFIRM=YES`.
 
 ---
 

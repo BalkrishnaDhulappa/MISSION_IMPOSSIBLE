@@ -1,0 +1,21 @@
+# MTF nursery (dry-run) — append to existing crontab on Oracle VM.
+# Paths: /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery
+# IST times in comments; crontab uses UTC (VM is UTC per fire_shop).
+
+# 09:45 IST — EMI funding check + LIQUIDCASE intent (dry-run)
+15 4 * * 1-5 flock -n /tmp/mtf_emi_funding.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh emi_funding
+
+# 10:00 IST — RMS / margin Telegram (no client SL)
+30 4 * * 1-5 flock -n /tmp/mtf_rms_guard.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh rms_guard
+
+# 14:30 IST — F&O universe scan (yfinance; ~3–5 min full run)
+0 9 * * 1-5 flock -n /tmp/mtf_scan.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh scan
+
+# 14:40 IST — sell gate (6.28% target, dry-run)
+10 9 * * 1-5 flock -n /tmp/mtf_sell.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh sell
+
+# 14:50 IST — buy gate from last_scan.json (dry-run; before fire_shop 15:00 buy)
+20 9 * * 1-5 flock -n /tmp/mtf_buy.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh buy
+
+# 16:00 IST — EOD status Telegram
+30 10 * * 1-5 flock -n /tmp/mtf_status.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh status
