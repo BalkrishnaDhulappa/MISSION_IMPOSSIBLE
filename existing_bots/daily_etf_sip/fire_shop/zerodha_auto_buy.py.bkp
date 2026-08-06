@@ -1,0 +1,946 @@
+#!/usr/bin/env python3
+"""
+FIRE Shop 3.0 — Zerodha Auto Buyer
+Reads today's picks from fire_shop_automation.py and places limit orders on Zerodha Kite.
+
+HOW AUTHENTICATION WORKS (important — read this):
+  Kite Connect requires a fresh access_token every single day.
+  You cannot reuse yesterday's token. Two ways to handle this:
+
+  Option A — Manual token (simplest):
+    1. Each morning, run:  python zerodha_auto_buy.py --get-token
+    2. It opens a browser → you log in → copy the token from the URL
+    3. Paste it when prompted (saved to .kite_token file for the day)
+    4. At 3 PM cron runs the actual buy automatically
+
+  Option B — Fully automated token (advanced):
+    Requires storing your Zerodha password + TOTP secret.
+    Run:  python zerodha_auto_buy.py --setup-auto-login
+    This uses selenium to log in headlessly and grab the token.
+
+Usage:
+    python zerodha_auto_buy.py --get-token
+    python zerodha_auto_buy.py --xlsx FIRE_shop.xlsx --email you@gmail.com [--paper]
+    python zerodha_auto_buy.py --setup-auto-login
+"""
+
+import argparse
+import json
+import os
+import sys
+import time
+import webbrowser
+import requests
+from datetime import date, datetime
+from pathlib import Path
+
+# Always look for fire_shop_automation.py in the same folder as this script
+_script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(_script_dir))
+os.chdir(_script_dir)   # also set working directory to script folder
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CONFIG — fill these in once
+# ──────────────────────────────────────────────────────────────────────────────
+
+KITE_API_KEY        = os.environ.get("KITE_API_KEY", "")
+KITE_API_SECRET     = os.environ.get("KITE_API_SECRET", "")
+
+# ── Zerodha login credentials ─────────────────────────────────────────────────
+ZERODHA_USER_ID     = os.environ.get("ZERODHA_USER_ID", "")
+ZERODHA_PASSWORD    = os.environ.get("ZERODHA_PASSWORD", "")
+ZERODHA_TOTP_SECRET = os.environ.get("ZERODHA_TOTP_SECRET", "")
+
+TOKEN_FILE       = Path(".kite_token")
+ORDER_LOG_FILE   = Path("order_log.json")
+BALANCE_LOG_FILE = Path("balance_log.csv")
+
+# ── Notifications ─────────────────────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "")
+
+# Safety limits — script will REFUSE to buy if these are breached
+MAX_ORDER_VALUE   = 10_000    # ₹ — single order cannot exceed this
+MAX_DAILY_SPEND   = 15_000    # ₹ — total spend across all orders today
+MIN_AVAILABLE_CASH = 5_000    # ₹ — always leave this much cash untouched
+
+# Limit order config
+LIMIT_PRICE_BUFFER = 0.001    # 0.1% above CMP to improve fill chance (still a limit order)
+
+
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TELEGRAM ALERTS
+# ──────────────────────────────────────────────────────────────────────────────
+
+def send_telegram(message):
+    """Send a Telegram message to the configured chat."""
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    try:
+        r = requests.post(url, data={
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": message,
+            "parse_mode": "HTML"
+        }, timeout=10)
+        if r.json().get("ok"):
+            print(f"  ✅ Telegram alert sent")
+        else:
+            print(f"  ⚠️  Telegram error: {r.json()}")
+    except Exception as e:
+        print(f"  ⚠️  Telegram failed: {e}")
+
+# ──────────────────────────────────────────────────────────────────────────────
+# BALANCE LOGGING
+# ──────────────────────────────────────────────────────────────────────────────
+
+def fetch_balance(kite, paper_mode=False):
+    """Fetch available cash and total balance from Kite. Returns dict."""
+    if paper_mode:
+        return {"available": 99999.0, "used": 0.0, "total": 99999.0, "source": "paper"}
+    try:
+        margins = kite.margins(segment="equity")
+        # Use opening_balance as available cash (Zerodha puts funds here, not "cash")
+        available = float(margins["available"]["opening_balance"])
+        used      = float(margins["utilised"]["debits"])
+        total     = float(margins["net"])
+        return {"available": available, "used": used, "total": total, "source": "live"}
+    except Exception as e:
+        print(f"  ⚠️  Could not fetch balance: {e}")
+        return None
+
+
+def log_balance(label, balance, order_results=None):
+    """Append a balance entry to balance_log.csv."""
+    if not balance:
+        return
+    row = (f"{date.today().isoformat()},"
+           f"{datetime.now().strftime('%H:%M:%S')},"
+           f"{label},"
+           f"{balance['available']:.2f},"
+           f"{balance['used']:.2f},"
+           f"{balance['total']:.2f}\n")
+    if not BALANCE_LOG_FILE.exists():
+        BALANCE_LOG_FILE.write_text("date,time,label,available,used,total\n")
+    with open(BALANCE_LOG_FILE, "a") as f:
+        f.write(row)
+    print(f"  💾 Balance logged [{label}]: available=₹{balance['available']:,.0f}  used=₹{balance['used']:,.0f}  total=₹{balance['total']:,.0f}")
+
+
+def balance_telegram_msg(label, balance, order_results=None):
+    """Build a Telegram message for balance alert."""
+    if not balance:
+        return None
+    emoji = "💰" if label == "BEFORE" else "🏦"
+    msg = (f"{emoji} <b>Fund Balance — {label}</b>\n"
+           f"📅 {datetime.now().strftime('%d %b %Y %H:%M')}\n\n"
+           f"✅ Available : ₹{balance['available']:,.0f}\n"
+           f"📤 Used      : ₹{balance['used']:,.0f}\n"
+           f"💼 Total     : ₹{balance['total']:,.0f}")
+    if order_results and label == "AFTER":
+        spent = sum(r["qty"] * round(r["pick"]["cmp"] * (1 + LIMIT_PRICE_BUFFER), 1)
+                    for r in order_results if r["order_id"])
+        msg += f"\n\n🛒 Spent today : ₹{spent:,.0f}"
+    return msg
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# TOKEN MANAGEMENT
+# ──────────────────────────────────────────────────────────────────────────────
+
+def save_token(access_token):
+    TOKEN_FILE.write_text(json.dumps({
+        "access_token": access_token,
+        "date": date.today().isoformat()
+    }))
+    print(f"  ✅ Token saved to {TOKEN_FILE}")
+
+
+def load_token():
+    """Load today's token. Returns None if missing or expired."""
+    if not TOKEN_FILE.exists():
+        return None
+    data = json.loads(TOKEN_FILE.read_text())
+    if data.get("date") != date.today().isoformat():
+        print("  ⚠️  Token expired (from a previous day). Need to re-authenticate.")
+        return None
+    return data["access_token"]
+
+
+def get_token_flow(api_key):
+    """
+    Step 1: Open login URL in browser.
+    Step 2: User logs in, gets redirected to redirect URL with ?request_token=XXX
+    Step 3: User pastes the full redirect URL here.
+    Step 4: Script exchanges request_token for access_token.
+    """
+    login_url = f"https://kite.zerodha.com/connect/login?api_key={api_key}&v=3"
+    print(f"\n  Opening Zerodha login in your browser...")
+    print(f"  URL: {login_url}\n")
+    webbrowser.open(login_url)
+
+    print("  After logging in, you'll be redirected to a URL like:")
+    print("  https://127.0.0.1/?request_token=XXXXXXXX&action=login&status=success\n")
+    redirect_url = input("  Paste the full redirect URL here: ").strip()
+
+    # Extract request_token from URL
+    from urllib.parse import urlparse, parse_qs
+    params = parse_qs(urlparse(redirect_url).query)
+    request_tokens = params.get("request_token", [])
+    if not request_tokens:
+        print("  ❌ Could not find request_token in URL. Please try again.")
+        sys.exit(1)
+    request_token = request_tokens[0]
+
+    # Exchange for access token
+    try:
+        from kiteconnect import KiteConnect
+        kite = KiteConnect(api_key=api_key)
+        session = kite.generate_session(request_token, api_secret=KITE_API_SECRET)
+        access_token = session["access_token"]
+        save_token(access_token)
+        print(f"  ✅ Access token obtained successfully.")
+        return access_token
+    except Exception as e:
+        print(f"  ❌ Failed to generate session: {e}")
+        sys.exit(1)
+
+
+def setup_auto_login():
+    """
+    Automated daily login using selenium + pyotp (TOTP).
+    Stores credentials encrypted locally.
+    """
+    print("\n  === Auto Login Setup ===")
+    print("  This stores your Zerodha credentials locally to auto-login daily.")
+    print("  ⚠️  Your password and TOTP secret will be saved to .kite_credentials (local only)\n")
+
+    user_id  = input("  Zerodha User ID (e.g. AB1234): ").strip()
+    password = input("  Zerodha Password: ").strip()
+    print("\n  For TOTP: go to Zerodha → Profile → Account Security → Enable TOTP")
+    print("  When setting up TOTP, you'll see a 'secret key' — paste that here.")
+    totp_secret = input("  TOTP Secret Key: ").strip()
+
+    creds = {"user_id": user_id, "password": password, "totp_secret": totp_secret}
+    Path(".kite_credentials").write_text(json.dumps(creds))
+    print("\n  ✅ Credentials saved. Run with --auto-login tomorrow to test.")
+
+
+def auto_login():
+    """
+    Fully automated Zerodha login using selenium + pyotp.
+    Uses credentials hardcoded in CONFIG section above.
+    """
+    import re
+    try:
+        import pyotp
+        from selenium import webdriver
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.chrome.options import Options
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+    except ImportError:
+        print("  ❌ Missing packages. Run:  pip install selenium pyotp")
+        sys.exit(1)
+
+    if not ZERODHA_USER_ID or ZERODHA_USER_ID == "your_zerodha_user_id":
+        print("  ❌ Fill in ZERODHA_USER_ID and ZERODHA_PASSWORD in the script config.")
+        sys.exit(1)
+
+    print("  🔐 Starting auto-login...")
+    totp = pyotp.TOTP(ZERODHA_TOTP_SECRET).now()
+    print(f"  🔑 TOTP generated: {totp}")
+
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+    driver = webdriver.Chrome(options=options)
+    wait   = WebDriverWait(driver, 20)
+
+    try:
+        login_url = f"https://kite.zerodha.com/connect/login?api_key={KITE_API_KEY}&v=3"
+        driver.get(login_url)
+        time.sleep(2)
+
+        # Enter user ID
+        wait.until(EC.presence_of_element_located((By.ID, "userid"))).send_keys(ZERODHA_USER_ID)
+        driver.find_element(By.ID, "password").send_keys(ZERODHA_PASSWORD)
+        driver.find_element(By.XPATH, "//button[@type='submit']").click()
+        print("  ✅ User ID and password submitted")
+        time.sleep(2)
+
+        # Enter TOTP
+        totp_input = wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//input[@type='text' or @inputmode='numeric']")
+        ))
+        totp_input.send_keys(pyotp.TOTP(ZERODHA_TOTP_SECRET).now())   # fresh code
+        driver.find_element(By.XPATH, "//button[@type='submit']").click()
+        print("  ✅ TOTP submitted")
+        time.sleep(3)
+
+        # Wait for redirect with request_token
+        for _ in range(30):
+            url = driver.current_url
+            match = re.search(r"request_token=([^&]+)", url)
+            if match:
+                request_token = match.group(1)
+                from kiteconnect import KiteConnect
+                kite = KiteConnect(api_key=KITE_API_KEY)
+                session = kite.generate_session(request_token, api_secret=KITE_API_SECRET)
+                access_token = session["access_token"]
+                save_token(access_token)
+                print("  ✅ Auto-login successful. Token saved.")
+                send_telegram("🔐 <b>FIRE Shop — Auto Login</b>\n✅ Zerodha token generated successfully.")
+                return access_token
+            time.sleep(1)
+
+        # Debug: take screenshot if failed
+        driver.save_screenshot("login_failed.png")
+        print("  ❌ Auto-login failed. Screenshot saved to login_failed.png")
+        send_telegram("🔐 <b>FIRE Shop — Auto Login FAILED</b>\n❌ Could not get token. Check login_failed.png")
+        sys.exit(1)
+
+    finally:
+        driver.quit()
+
+
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# SELL LOGIC
+# ──────────────────────────────────────────────────────────────────────────────
+
+PROFIT_TARGET_PCT = 0.0628   # 6.28% profit threshold for sell
+
+def get_sell_candidate(holdings, live_cmp):
+    """
+    Find ETF eligible for selling:
+      - CMP > avg_price * (1 + PROFIT_TARGET_PCT)
+      - Among eligible, pick the one with highest total invested
+    Returns dict with sell details or None.
+    """
+    eligible = []
+    for code, h in holdings.items():
+        avg   = h.get("avg_price")
+        total = h.get("total_invested", 0)
+        qty   = h.get("total_qty", 0)
+        cmp   = live_cmp.get(code)
+        if not avg or not cmp or not qty:
+            continue
+        target = round(avg * (1 + PROFIT_TARGET_PCT), 2)
+        profit_pct = (cmp - avg) / avg
+        if cmp >= target:
+            eligible.append({
+                "code":        code,
+                "name":        h.get("name", code),
+                "cmp":         cmp,
+                "avg_price":   avg,
+                "total_qty":   qty,
+                "total_invested": total,
+                "profit_pct":  profit_pct,
+                "target":      target,
+                "shop":        h.get("shop", "etf"),
+            })
+            print(f"  💰 Sell eligible: {code}  CMP=₹{cmp}  avg=₹{avg}  "
+                  f"profit={profit_pct:.2%}  invested=₹{total:,.0f}")
+
+    if not eligible:
+        return None
+
+    # Pick highest capital invested
+    eligible.sort(key=lambda x: x["total_invested"], reverse=True)
+    chosen = eligible[0]
+    print(f"  ✅ Sell candidate: {chosen['code']} (highest invested ₹{chosen['total_invested']:,.0f})")
+    return chosen
+
+
+def place_limit_sell(kite, code, cmp, qty, paper_mode=False):
+    """Place a limit SELL order slightly below CMP to ensure fill."""
+    from kiteconnect import KiteConnect
+    symbol      = nse_symbol(code)
+    limit_price = round(cmp * (1 - LIMIT_PRICE_BUFFER), 1)   # slight discount for fill
+    proceeds    = round(limit_price * qty, 2)
+
+    print(f"  {'[PAPER] ' if paper_mode else ''}Placing LIMIT SELL: {symbol} × {qty} @ ₹{limit_price}  (≈₹{proceeds})")
+
+    if paper_mode:
+        entry = {
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": qty,
+            "limit_price": limit_price, "proceeds": proceeds,
+            "order_id": f"PAPER_SELL_{datetime.now().strftime('%H%M%S')}",
+            "status": "paper", "side": "SELL"
+        }
+        log = load_order_log()
+        log.append(entry)
+        save_order_log(log)
+        print(f"    ✅ [PAPER] Simulated SELL logged.")
+        return entry["order_id"]
+
+    try:
+        order_id = kite.place_order(
+            variety=KiteConnect.VARIETY_REGULAR,
+            exchange=KiteConnect.EXCHANGE_NSE,
+            tradingsymbol=symbol,
+            transaction_type=KiteConnect.TRANSACTION_TYPE_SELL,
+            quantity=int(qty),
+            order_type=KiteConnect.ORDER_TYPE_LIMIT,
+            price=limit_price,
+            product=KiteConnect.PRODUCT_CNC,
+            validity=KiteConnect.VALIDITY_DAY,
+        )
+        entry = {
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": int(qty),
+            "limit_price": limit_price, "proceeds": proceeds,
+            "order_id": order_id, "status": "PLACED", "side": "SELL"
+        }
+        log = load_order_log()
+        log.append(entry)
+        save_order_log(log)
+        print(f"    ✅ SELL order placed. Order ID: {order_id}")
+        return order_id
+    except Exception as e:
+        print(f"    ❌ SELL order FAILED for {symbol}: {e}")
+        log = load_order_log()
+        log.append({
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": int(qty),
+            "limit_price": limit_price, "proceeds": proceeds,
+            "order_id": None, "status": "FAILED", "side": "SELL", "error": str(e)
+        })
+        save_order_log(log)
+        return None
+
+
+def remove_from_holdings(xlsx_path, code):
+    """Remove all rows for a sold ETF from Current Holdings sheet."""
+    import openpyxl
+    wb = openpyxl.load_workbook(xlsx_path)
+    ws = wb["Current Holdings"]
+    rows_to_delete = []
+    for row in ws.iter_rows(min_row=7):
+        if row[2].value == code:
+            rows_to_delete.append(row[0].row)
+    for r in reversed(rows_to_delete):
+        ws.delete_rows(r)
+    wb.save(xlsx_path)
+    print(f"  ✅ Removed {len(rows_to_delete)} rows for {code} from Current Holdings")
+
+# ──────────────────────────────────────────────────────────────────────────────
+# KITE ORDER PLACEMENT
+# ──────────────────────────────────────────────────────────────────────────────
+
+def get_kite_client(access_token):
+    from kiteconnect import KiteConnect
+    kite = KiteConnect(api_key=KITE_API_KEY)
+    kite.set_access_token(access_token)
+    return kite
+
+
+def get_available_cash(kite):
+    """Returns available cash in the trading account."""
+    try:
+        margins = kite.margins(segment="equity")
+        return float(margins["available"]["opening_balance"])
+    except Exception as e:
+        print(f"  ⚠️  Could not fetch margins: {e}")
+        return 0.0
+
+
+def nse_symbol(code):
+    """Strip 'NSE:' prefix for Kite API."""
+    return code.replace("NSE:", "")
+
+
+def load_holdings_from_zerodha(kite, investment_per_tx, paper_mode=False):
+    """
+    Fetch current holdings directly from Zerodha Kite API.
+    Returns same dict format as load_current_holdings() from Excel:
+      { "NSE:AUTOIETF": { "avg_price": 24.95, "next_bid": 24.20,
+                          "total_qty": 120, "total_invested": 2994,
+                          "shop": "etf", "name": "NIFTY Auto" } }
+    Falls back to Excel if Kite fails.
+    """
+    if paper_mode:
+        return None   # paper mode — caller will use Excel
+
+    try:
+        positions  = kite.holdings()   # long-term CNC holdings
+        holdings   = {}
+        for p in positions:
+            symbol   = p.get("tradingsymbol", "")
+            exchange = p.get("exchange", "")
+            if exchange != "NSE":
+                continue
+            code     = f"NSE:{symbol}"
+            avg      = float(p.get("average_price", 0))
+            qty      = float(p.get("quantity", 0))
+            t1_qty   = float(p.get("t1_quantity", 0))   # unsettled qty
+            total_qty = qty + t1_qty
+            if total_qty <= 0:
+                continue
+            total_invested = round(avg * total_qty, 2)
+            next_bid_price = round(avg * 0.97, 4)
+
+            holdings[code] = {
+                "avg_price":      avg,
+                "next_bid":       next_bid_price,
+                "total_qty":      total_qty,
+                "total_invested": total_invested,
+                "shop":           "etf",
+                "name":           p.get("instrument_token", symbol),
+            }
+
+        print(f"  ✅ Loaded {len(holdings)} holdings from Zerodha")
+        return holdings
+
+    except Exception as e:
+        print(f"  ⚠️  Could not fetch holdings from Zerodha: {e}")
+        print(f"  ↩️  Falling back to Excel holdings")
+        return None
+
+
+def load_order_log():
+    if ORDER_LOG_FILE.exists():
+        return json.loads(ORDER_LOG_FILE.read_text())
+    return []
+
+
+def save_order_log(log):
+    ORDER_LOG_FILE.write_text(json.dumps(log, indent=2, default=str))
+
+
+def already_ordered_today(code):
+    """Check if we already placed an order for this code today (prevents duplicates)."""
+    log = load_order_log()
+    today = date.today().isoformat()
+    return any(e["date"] == today and e["code"] == code and e["status"] != "CANCELLED"
+               for e in log)
+
+
+def total_spent_today():
+    """Sum of all successful orders placed today."""
+    log = load_order_log()
+    today = date.today().isoformat()
+    return sum(e.get("invested", 0) for e in log
+               if e["date"] == today and e["status"] not in ("CANCELLED", "REJECTED", "paper"))
+
+
+def place_limit_order(kite, code, cmp, qty, paper_mode=False):
+    """
+    Place a limit order on Kite.
+    limit_price = CMP + 0.1% buffer to improve fill chance.
+    Returns order_id or None.
+    """
+    symbol      = nse_symbol(code)
+    limit_price = round(cmp * (1 + LIMIT_PRICE_BUFFER), 1)
+    invested    = round(limit_price * qty, 2)
+
+    print(f"  {'[PAPER] ' if paper_mode else ''}Placing LIMIT BUY: {symbol} × {qty} @ ₹{limit_price}  (≈₹{invested})")
+
+    if paper_mode:
+        entry = {
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": qty,
+            "limit_price": limit_price, "invested": invested,
+            "order_id": f"PAPER_{datetime.now().strftime('%H%M%S')}",
+            "status": "paper", "note": "Paper trade — no real order placed"
+        }
+        log = load_order_log()
+        log.append(entry)
+        save_order_log(log)
+        print(f"    ✅ [PAPER] Simulated order logged.")
+        return entry["order_id"]
+
+    try:
+        from kiteconnect import KiteConnect
+        order_id = kite.place_order(
+            variety=KiteConnect.VARIETY_REGULAR,
+            exchange=KiteConnect.EXCHANGE_NSE,
+            tradingsymbol=symbol,
+            transaction_type=KiteConnect.TRANSACTION_TYPE_BUY,
+            quantity=qty,
+            order_type=KiteConnect.ORDER_TYPE_LIMIT,
+            price=limit_price,
+            product=KiteConnect.PRODUCT_CNC,         # Cash and Carry (delivery)
+            validity=KiteConnect.VALIDITY_DAY,        # auto-cancel if not filled by EOD
+        )
+        entry = {
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": qty,
+            "limit_price": limit_price, "invested": invested,
+            "order_id": order_id, "status": "PLACED"
+        }
+        log = load_order_log()
+        log.append(entry)
+        save_order_log(log)
+        print(f"    ✅ Order placed. Order ID: {order_id}")
+        return order_id
+
+    except Exception as e:
+        print(f"    ❌ Order FAILED for {symbol}: {e}")
+        log = load_order_log()
+        log.append({
+            "date": date.today().isoformat(), "time": datetime.now().strftime("%H:%M:%S"),
+            "code": code, "symbol": symbol, "qty": qty,
+            "limit_price": limit_price, "invested": invested,
+            "order_id": None, "status": "FAILED", "error": str(e)
+        })
+        save_order_log(log)
+        return None
+
+
+def check_order_status(kite, order_id):
+    """Poll order status. Returns final status string."""
+    try:
+        orders = kite.orders()
+        for o in orders:
+            if str(o["order_id"]) == str(order_id):
+                return o["status"]
+    except Exception as e:
+        return f"ERROR: {e}"
+    return "NOT_FOUND"
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# SAFETY CHECKS
+# ──────────────────────────────────────────────────────────────────────────────
+
+# No hardcoded holiday list needed — market status is checked dynamically
+
+
+def run_safety_checks(kite, picks, investment_per_tx, paper_mode):
+    """
+    Run all safety checks before placing any order.
+    Returns (safe: bool, reason: str)
+    """
+    if paper_mode:
+        return True, "Paper mode — safety checks skipped"
+
+    # 1. Check available cash
+    cash = get_available_cash(kite)
+    print(f"\n  Available cash: ₹{cash:,.0f}")
+    if cash < MIN_AVAILABLE_CASH:
+        return False, f"Available cash ₹{cash:,.0f} is below minimum buffer ₹{MIN_AVAILABLE_CASH:,.0f}"
+
+    # 2. Check daily spend cap
+    spent_today = total_spent_today()
+    total_new_spend = sum(
+        round((p["cmp"] * (1 + LIMIT_PRICE_BUFFER)) * max(1, int(investment_per_tx // p["cmp"])), 2)
+        for p in picks
+    )
+    if spent_today + total_new_spend > MAX_DAILY_SPEND:
+        return False, (f"Total spend today ₹{spent_today + total_new_spend:,.0f} would exceed "
+                       f"daily cap ₹{MAX_DAILY_SPEND:,.0f}")
+
+    # 3. Dynamically check if market is open by fetching a live quote from Kite
+    # This handles weekends, holidays, and market hours automatically — no hardcoded lists
+    try:
+        from datetime import timezone, timedelta
+        IST     = timezone(timedelta(hours=5, minutes=30))
+        now_ist = datetime.now(IST)
+
+        # Quick sanity check — don't even try outside broad hours
+        if now_ist.weekday() >= 5:
+            return False, "Today is a weekend. NSE is closed."
+
+        hour_ist = now_ist.hour + now_ist.minute / 60
+        if hour_ist < 9.0 or hour_ist > 15.6:
+            return False, f"Outside market hours ({now_ist.strftime('%H:%M')} IST). Orders only between 9:15–15:30 IST."
+
+        # Fetch a live quote for NIFTYBEES — if market is open it returns last traded price
+        quote = kite.quote("NSE:NIFTYBEES")
+        last_price = quote.get("NSE:NIFTYBEES", {}).get("last_price", 0)
+        if last_price and last_price > 0:
+            print(f"  ✅ Market is open (NIFTYBEES last price: ₹{last_price})")
+        else:
+            return False, "Market appears closed — live quote returned no price."
+
+    except Exception as e:
+        err = str(e).lower()
+        if "holiday" in err or "closed" in err or "market" in err:
+            return False, f"Market is closed today: {e}"
+        # If it's a different error (network etc), allow through and let order fail naturally
+        print(f"  ⚠️  Could not verify market status: {e} — proceeding anyway")
+
+    return True, "All checks passed"
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# MAIN
+# ──────────────────────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(description="FIRE Shop 3.0 — Zerodha Auto Buyer")
+    parser.add_argument("--xlsx",             default="FIRE_shop_3_0_with_Jewels_-_BID_Investment_-_24_JUL_2024_Balkrishna.xlsx")
+
+    parser.add_argument("--paper",            action="store_true", help="Paper trade mode — no real orders placed")
+    parser.add_argument("--get-token",        action="store_true", help="Run the manual login flow to get today's token")
+    parser.add_argument("--auto-login",       action="store_true", help="Headless auto-login (requires --setup-auto-login first)")
+    parser.add_argument("--setup-auto-login", action="store_true", help="One-time setup: save credentials for auto-login")
+    args = parser.parse_args()
+
+    # ── Special modes ────────────────────────────────────────────────────────
+    if args.setup_auto_login:
+        setup_auto_login()
+        return
+
+    if args.get_token:
+        if not KITE_API_KEY:
+            print("❌ Set KITE_API_KEY environment variable first.")
+            sys.exit(1)
+        get_token_flow(KITE_API_KEY)
+        return
+
+    # ── Validate API keys ────────────────────────────────────────────────────
+    if not args.paper and (not KITE_API_KEY or not KITE_API_SECRET):
+        print("❌ KITE_API_KEY and KITE_API_SECRET must be set.")
+        print("   export KITE_API_KEY=your_key")
+        print("   export KITE_API_SECRET=your_secret")
+        print("   Or run with --paper to simulate without real orders.")
+        sys.exit(1)
+
+    print("=" * 60)
+    print(f"  FIRE Shop 3.0 — Auto Buyer  [{datetime.now().strftime('%d %b %Y %H:%M')}]")
+    print(f"  Mode: {'📄 PAPER TRADE' if args.paper else '💰 LIVE TRADING'}")
+    print("=" * 60)
+
+    # ── Get access token ─────────────────────────────────────────────────────
+    kite = None
+    if not args.paper:
+        if args.auto_login:
+            access_token = auto_login()
+        else:
+            access_token = load_token()
+            if not access_token:
+                print("\n  No valid token found for today.")
+                print("  Run:  python zerodha_auto_buy.py --get-token")
+                print("  Or:   python zerodha_auto_buy.py --auto-login  (if set up)")
+                sys.exit(1)
+        kite = get_kite_client(access_token)
+        print("  ✅ Kite client initialised")
+
+    # ── Import and run the main FIRE shop logic to get today's picks ─────────
+    # We import the ranking + holdings filter from fire_shop_automation.py
+    try:
+        from fire_shop_automation import (
+            get_nse_session, rank_instruments, load_investment_per_tx,
+            load_current_holdings, apply_holdings_filter,
+            log_to_excel,
+            MASTER_ETFS, JEWELLERY_ETFS, TOP_STOCKS
+        )
+    except ImportError:
+        print("❌ fire_shop_automation.py not found in same folder.")
+        sys.exit(1)
+
+    investment_per_tx = load_investment_per_tx(args.xlsx)
+    print(f"\n  Investment per transaction: ₹{investment_per_tx:,.0f}")
+
+    # Fetch live data — Equity ETFs only (Gold/Silver/Stocks excluded)
+    print("\n  ℹ️  Mode: Equity ETFs only (Jewellery & Stocks skipped)")
+    session    = get_nse_session()
+    etf_ranked = rank_instruments(MASTER_ETFS, session, "Equity ETFs")
+
+    # Apply holdings filter — fetch from Zerodha directly, fall back to Excel
+    print("\n  Loading holdings filter...")
+    holdings = load_holdings_from_zerodha(kite, investment_per_tx, args.paper)
+    if holdings is None:
+        from fire_shop_automation import load_current_holdings
+        holdings = load_current_holdings(args.xlsx)
+        print(f"  📊 Using Excel holdings: {len(holdings)} positions")
+    live_cmp = {r["code"]: r["cmp"] for r in etf_ranked}
+
+    etf_f = apply_holdings_filter(etf_ranked, holdings, {}, live_cmp)
+
+    # Today's pick: top ETF that hasn't been ordered today already
+    # If top pick was already ordered today, fall through to next ranked ETF
+    today_picks = []
+    for candidate in etf_f:
+        code = candidate["code"]
+        if already_ordered_today(code) and not args.paper:
+            print(f"  ⏭️  {code} already ordered today — trying next ranked ETF...")
+            continue
+        today_picks.append({**candidate, "shop": "etf"})
+        break   # pick only 1
+
+    # ── Check for SELL candidates first ─────────────────────────────────────
+    print("\n" + "=" * 60)
+    print("  SELL CHECK (6.28% profit target)")
+    print("=" * 60)
+    sell_candidate = get_sell_candidate(holdings, live_cmp)
+    if sell_candidate:
+        print(f"  📊 Sell candidate from Zerodha holdings: {sell_candidate['code']}")
+    if not sell_candidate:
+        print("  ℹ️  No ETF hit 6.28% profit target today — no sell.")
+
+    print("\n" + "=" * 60)
+    print("  TODAY'S BUY PICKS")
+    print("=" * 60)
+    if not today_picks:
+        print("  ⚠️  No picks today — all top instruments already held or ordered.")
+
+    for p in today_picks:
+        qty  = max(1, int(investment_per_tx // p["cmp"]))
+        note = f"  ← {p['note']}" if p.get("note") else ""
+        print(f"  {p['code']:<25} CMP=₹{p['cmp']}  Qty={qty}  "
+              f"Invest≈₹{round(qty * p['cmp'], 2)}{note}")
+
+    # ── Fund balance BEFORE ──────────────────────────────────────────────────
+    balance_before = fetch_balance(kite, args.paper)
+    log_balance("BEFORE", balance_before)
+    msg_before = balance_telegram_msg("BEFORE", balance_before)
+    if msg_before:
+        send_telegram(msg_before)
+
+    # ── Execute SELL if candidate found ──────────────────────────────────────
+    sell_result = None
+    if sell_candidate:
+        print(f"\n  Placing SELL order for {sell_candidate['code']}...")
+        sell_order_id = place_limit_sell(
+            kite, sell_candidate["code"], sell_candidate["cmp"],
+            sell_candidate["total_qty"], paper_mode=args.paper
+        )
+        sell_result = {"candidate": sell_candidate, "order_id": sell_order_id}
+
+        if not args.paper and sell_order_id:
+            print("  Waiting 30s to check sell fill status...")
+            time.sleep(30)
+            sell_status = check_order_status(kite, sell_order_id)
+            print(f"  SELL {sell_candidate['code']}  →  {sell_status}")
+            sell_result["status"] = sell_status
+            log = load_order_log()
+            for entry in log:
+                if str(entry.get("order_id")) == str(sell_order_id):
+                    entry["status"] = sell_status
+            save_order_log(log)
+
+            if sell_status == "COMPLETE" and not args.paper:
+                remove_from_holdings(args.xlsx, sell_candidate["code"])
+                send_telegram(
+                    f"💸 <b>FIRE Shop — SELL Executed</b>\n"
+                    f"📅 {datetime.now().strftime('%d %b %Y %H:%M')}\n\n"
+                    f"✅ {sell_candidate['code']} × {int(sell_candidate['total_qty'])} @ ₹{sell_candidate['cmp']}\n"
+                    f"💰 Profit: {sell_candidate['profit_pct']:.2%}\n"
+                    f"💼 Total invested: ₹{sell_candidate['total_invested']:,.0f}"
+                )
+
+    # ── Safety checks ─────────────────────────────────────────────────────────
+    safe, reason = run_safety_checks(kite, today_picks, investment_per_tx, args.paper)
+    print(f"\n  Safety check: {reason}")
+    if not safe:
+        print(f"  🚫 Aborting. No orders placed.")
+        sys.exit(1)
+
+    # ── Place orders ──────────────────────────────────────────────────────────
+    print(f"\n  Placing orders{'  [PAPER MODE]' if args.paper else ''}...")
+    order_results = []
+
+    for p in today_picks:
+        code = p["code"]
+        cmp  = p["cmp"]
+        qty  = max(1, int(investment_per_tx // cmp))
+
+        # Per-order value check
+        order_val = round(cmp * qty, 2)
+        if order_val > MAX_ORDER_VALUE and not args.paper:
+            print(f"  ⚠️  {code} order value ₹{order_val:,.0f} exceeds cap ₹{MAX_ORDER_VALUE:,.0f} — skipping.")
+            continue
+
+        order_id = place_limit_order(kite, code, cmp, qty, paper_mode=args.paper)
+        order_results.append({"pick": p, "order_id": order_id, "qty": qty})
+        time.sleep(0.5)   # small gap between orders
+
+    # ── Poll order status after 60s ───────────────────────────────────────────
+    if not args.paper and order_results:
+        print("\n  Waiting 60s to check fill status...")
+        time.sleep(60)
+        for r in order_results:
+            if r["order_id"]:
+                status = check_order_status(kite, r["order_id"])
+                print(f"  {r['pick']['code']}  Order {r['order_id']}  →  {status}")
+                # Update log with final status
+                log = load_order_log()
+                for entry in log:
+                    if str(entry.get("order_id")) == str(r["order_id"]):
+                        entry["status"] = status
+                save_order_log(log)
+
+    # ── Update Excel — only for successfully placed orders ──────────────────
+    all_ranked = {"etf": etf_f, "jewellery": [], "stock": []}
+    successful_picks = [
+        r["pick"] for r in order_results
+        if r["order_id"] is not None and r.get("status") != "FAILED"
+    ] if not args.paper else []
+
+    if not args.paper and successful_picks:
+        updated_xlsx = log_to_excel(args.xlsx, successful_picks, all_ranked, investment_per_tx)
+    elif not args.paper and not successful_picks:
+        print("  ℹ️  No successful orders — Excel not updated")
+        updated_xlsx = args.xlsx
+    else:
+        print("  ℹ️  Paper mode — Excel not updated")
+        updated_xlsx = args.xlsx
+
+    # ── Telegram — order placed alert ────────────────────────────────────────
+    sell_line = ""
+    if sell_result:
+        sc = sell_result["candidate"]
+        sell_line = (f"\n💸 SELL: {sc['code']} × {int(sc['total_qty'])} @ ₹{sc['cmp']} "
+                     f"| profit={sc['profit_pct']:.2%}\n")
+
+    placed_lines = sell_line + "\n".join(
+        f"{'✅' if r['order_id'] else '❌'} {r['pick']['code']} × {r['qty']} @ ₹{round(r['pick']['cmp'] * (1 + LIMIT_PRICE_BUFFER), 1)}"
+        f"  |  Order ID: {r['order_id'] or 'FAILED'}"
+        for r in order_results
+    )
+    mode_tag = "📄 PAPER" if args.paper else "💰 LIVE"
+    send_telegram(
+        f"🔥 <b>FIRE Shop — Orders Placed [{mode_tag}]</b>\n"
+        f"📅 {datetime.now().strftime('%d %b %Y %H:%M')}\n\n"
+        f"{placed_lines}\n\n"
+        f"⏳ Will confirm fill status in 60s..."
+    )
+
+    # ── Poll fill status + Telegram follow-up ────────────────────────────────
+    if not args.paper and order_results:
+        print("\n  Waiting 60s to check fill status...")
+        time.sleep(60)
+        fill_lines = []
+        for r in order_results:
+            if r["order_id"]:
+                status = check_order_status(kite, r["order_id"])
+                print(f"  {r['pick']['code']}  Order {r['order_id']}  →  {status}")
+                fill_lines.append(
+                    f"{'✅ FILLED' if status == 'COMPLETE' else '⏳ ' + status}  "
+                    f"{r['pick']['code']} × {r['qty']}"
+                )
+                log = load_order_log()
+                for entry in log:
+                    if str(entry.get("order_id")) == str(r["order_id"]):
+                        entry["status"] = status
+                save_order_log(log)
+
+        send_telegram(
+            f"🔥 <b>FIRE Shop — Fill Update</b>\n"
+            f"📅 {datetime.now().strftime('%d %b %Y %H:%M')}\n\n"
+            + "\n".join(fill_lines)
+        )
+
+    # ── Fund balance AFTER ───────────────────────────────────────────────────
+    balance_after = fetch_balance(kite, args.paper)
+    log_balance("AFTER", balance_after, order_results)
+    msg_after = balance_telegram_msg("AFTER", balance_after, order_results)
+    if msg_after:
+        send_telegram(msg_after)
+
+    print("\n✅ Done.")
+
+
+if __name__ == "__main__":
+    main()

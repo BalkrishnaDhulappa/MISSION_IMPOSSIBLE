@@ -1,0 +1,468 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import time
+import requests
+from datetime import datetime, date
+import math
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+BASE_DIR = Path(__file__).resolve().parent
+
+CONFIG_FILE = BASE_DIR / "config.json"
+TOKEN_FILE  = BASE_DIR / ".kite_token"
+ETF_FILE    = BASE_DIR / "etf_universe.json"
+STATE_FILE  = BASE_DIR / "positions_state.json"
+MARKET_CALENDAR_FILE = BASE_DIR / "market_calendar_2026.json"
+
+KITE_API_KEY       = os.environ.get("KITE_API_KEY", "")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "")
+
+# How long to wait for an order to fill before trying next ETF (seconds)
+ORDER_FILL_TIMEOUT = 90
+IST = ZoneInfo("Asia/Kolkata")
+
+# ───────────────────────── CONFIG ─────────────────────────
+def load_config():
+    if not CONFIG_FILE.exists():
+        return {
+            "investment_per_tx": 6000,
+            "profit_target_pct": 0.0628,
+            "decay":             0.008,
+            "floor":             0.0314,
+            "bid_threshold":     0.04,
+            "max_bid":           3,
+            "limit_price_buffer": 0.001
+        }
+    return json.loads(CONFIG_FILE.read_text())
+
+
+def load_etf_map():
+    return json.loads(ETF_FILE.read_text())
+
+
+def load_market_calendar():
+    """Load market hours and holiday dates from the external calendar file."""
+    if not MARKET_CALENDAR_FILE.exists():
+        raise FileNotFoundError(f"Missing market calendar file: {MARKET_CALENDAR_FILE}")
+
+    data = json.loads(MARKET_CALENDAR_FILE.read_text())
+    holidays = {date.fromisoformat(d) for d in data["holidays"]}
+    open_hour, open_minute = [int(part) for part in data["market_open"].split(":")]
+    close_hour, close_minute = [int(part) for part in data["market_close"].split(":")]
+    return {
+        "holidays": holidays,
+        "market_open_minutes": open_hour * 60 + open_minute,
+        "market_close_minutes": close_hour * 60 + close_minute
+    }
+
+
+# ───────────────────────── STATE ─────────────────────────
+def load_state():
+    if not STATE_FILE.exists():
+        return {}
+    return json.loads(STATE_FILE.read_text())
+
+
+def save_state(state):
+    STATE_FILE.write_text(json.dumps(state, indent=2))
+
+
+def reconcile_state_with_holdings(state, holdings):
+    """Keep local state aligned with broker holdings.
+
+    - Remove stale state entries for positions that were sold manually.
+    - Create default state for live holdings that are missing from disk.
+    - Refresh invested capital from the broker view so partial manual sells
+      do not leave stale sizing behind.
+    """
+    removed = []
+    added = []
+    changed = False
+
+    for code in list(state.keys()):
+        if code not in holdings:
+            removed.append(code)
+            del state[code]
+            changed = True
+
+    for code, h in holdings.items():
+        s = state.setdefault(code, {})
+
+        if not s.get("last_buy"):
+            s["last_buy"] = h["avg"]
+            added.append(code)
+            changed = True
+
+        if "bid_count" not in s:
+            s["bid_count"] = 0
+            changed = True
+
+        fresh_invested = h["avg"] * h["qty"]
+        if abs(float(s.get("invested", 0)) - fresh_invested) > 1e-9:
+            s["invested"] = fresh_invested
+            changed = True
+
+        if "last_sip" not in s:
+            s["last_sip"] = None
+            changed = True
+
+    return changed, removed, added
+
+
+# ───────────────────────── TELEGRAM ─────────────────────────
+def send_telegram(msg):
+    if not TELEGRAM_BOT_TOKEN:
+        return
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+            data={"chat_id": TELEGRAM_CHAT_ID, "text": msg},
+            timeout=10
+        )
+    except Exception:
+        pass
+
+
+# ───────────────────────── KITE ─────────────────────────
+def get_kite():
+    from kiteconnect import KiteConnect
+    data = json.loads(TOKEN_FILE.read_text())
+    kite = KiteConnect(api_key=KITE_API_KEY)
+    kite.set_access_token(data["access_token"])
+    return kite
+
+
+def get_order_status(kite, order_id):
+    """Return the latest known Kite status and average fill price for an order."""
+    try:
+        for o in kite.orders():
+            if str(o["order_id"]) == str(order_id):
+                avg_price = o.get("average_price") or 0
+                return (
+                    o.get("status"),
+                    float(avg_price) if avg_price else None,
+                    o.get("status_message") or o.get("status_message_raw")
+                )
+    except Exception:
+        pass
+    return None, None, None
+
+
+def is_market_session_open(kite=None, probe_code="NSE:NIFTYBEES"):
+    """Return True only during a scheduled NSE cash-market session."""
+    now_ist = datetime.now(IST)
+    today_ist = now_ist.date()
+    calendar = load_market_calendar()
+
+    # NSE cash market trades Monday-Friday, 09:15-15:30 IST.
+    if now_ist.weekday() >= 5:
+        return False
+
+    if today_ist in calendar["holidays"]:
+        return False
+
+    now_minutes = now_ist.hour * 60 + now_ist.minute
+    return calendar["market_open_minutes"] <= now_minutes <= calendar["market_close_minutes"]
+
+
+def cancel_order(kite, order_id):
+    """Cancel a pending order."""
+    try:
+        from kiteconnect import KiteConnect
+        kite.cancel_order(variety=KiteConnect.VARIETY_REGULAR, order_id=order_id)
+        print(f"  🚫 Cancelled order {order_id}")
+    except Exception as e:
+        print(f"  ⚠️  Could not cancel order {order_id}: {e}")
+
+
+# ───────────────────────── ORDER ─────────────────────────
+def place_order(kite, code, cmp, qty, buffer, side):
+    from kiteconnect import KiteConnect
+
+    symbol  = code.replace("NSE:", "")
+    variety = KiteConnect.VARIETY_REGULAR
+
+    if side == "BUY":
+        price = round(cmp * (1 + buffer), 1)
+    else:
+        price = round(cmp * (1 - buffer), 1)
+
+    txn = KiteConnect.TRANSACTION_TYPE_BUY if side == "BUY" else KiteConnect.TRANSACTION_TYPE_SELL
+
+    try:
+        oid = kite.place_order(
+            variety=variety,
+            exchange=KiteConnect.EXCHANGE_NSE,
+            tradingsymbol=symbol,
+            transaction_type=txn,
+            quantity=int(qty),
+            order_type=KiteConnect.ORDER_TYPE_LIMIT,
+            price=price,
+            product=KiteConnect.PRODUCT_CNC,
+            validity=KiteConnect.VALIDITY_DAY
+        )
+        print(f"✅ {side} {code} @ {price}  order_id={oid}")
+        send_telegram(f"✅ {side} {code} @ {price}")
+        return oid, price
+
+    except Exception as e:
+        err = str(e)
+
+        # Upper circuit retry for BUY (ETF-specific — worth retrying)
+        if "upper circuit" in err.lower() and side == "BUY":
+            try:
+                price = round(cmp, 1)
+                oid = kite.place_order(
+                    variety=variety,
+                    exchange=KiteConnect.EXCHANGE_NSE,
+                    tradingsymbol=symbol,
+                    transaction_type=txn,
+                    quantity=int(qty),
+                    order_type=KiteConnect.ORDER_TYPE_LIMIT,
+                    price=price,
+                    product=KiteConnect.PRODUCT_CNC,
+                    validity=KiteConnect.VALIDITY_DAY
+                )
+                print(f"✅ RETRY BUY {code} @ {price}")
+                send_telegram(f"✅ RETRY BUY {code} @ {price}")
+                return oid, price
+            except Exception as e2:
+                print(f"❌ Retry failed {code}: {e2}")
+                return None, price
+
+        print(f"❌ Order failed {code}: {e}")
+        send_telegram(f"❌ Order failed {code}: {e}")
+
+        # Account/session-level errors — same error will hit every ETF, stop immediately
+        if any(kw in err.lower() for kw in (
+            "insufficient", "margin", "balance", "funds",
+            "after market order", "amo"
+        )):
+            return "HARD_STOP", price
+
+        return None, price
+
+
+def place_and_confirm(kite, code, cmp, qty, buffer, side, timeout=ORDER_FILL_TIMEOUT):
+    """
+    Place an order and wait up to `timeout` seconds for it to fill.
+    Returns ("FILLED", fill_price) on success, ("FAILED", None) on ETF-specific
+    failure or timeout, or ("HARD_STOP", None) on account-level errors.
+    """
+    oid, price = place_order(kite, code, cmp, qty, buffer, side)
+
+    if oid == "HARD_STOP":
+        return "HARD_STOP", None
+
+    if oid is None:
+        return "FAILED", None
+
+    print(f"  ⏳ Waiting up to {timeout}s for fill...")
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        time.sleep(10)
+        status, fill_price, status_message = get_order_status(kite, oid)
+        if status == "COMPLETE":
+            actual_price = fill_price or price
+            print(f"  ✅ Order {oid} filled @ {actual_price}!")
+            return "FILLED", actual_price
+        if status in {"CANCELLED", "REJECTED"}:
+            detail = f" ({status_message})" if status_message else ""
+            print(f"  ❌ Order {oid} {status.lower()}{detail}")
+            return "FAILED", None
+
+    # Timed out — cancel the unfilled order
+    print(f"  ⌛ Order {oid} not filled after {timeout}s — cancelling")
+    send_telegram(f"⌛ {code} not filled in {timeout}s — cancelled, trying next ETF")
+    cancel_order(kite, oid)
+    return "FAILED", None
+
+
+# ───────────────────────── HOLDINGS ─────────────────────────
+def load_holdings(kite):
+    holdings = {}
+    for p in kite.holdings():
+        qty = float(p["quantity"]) + float(p["t1_quantity"])
+        if qty <= 0:
+            continue
+        code = f"NSE:{p['tradingsymbol']}"
+        holdings[code] = {
+            "qty": qty,
+            "avg": float(p["average_price"])
+        }
+    return holdings
+
+
+# ───────────────────────── MAIN ─────────────────────────
+def main(run_sell=True, run_buy=True):
+
+    print("🚀 Starting ETF engine...")
+
+    config   = load_config()
+    etf_map  = load_etf_map()
+    state    = load_state()
+    kite     = get_kite()
+
+    if (run_sell or run_buy) and not is_market_session_open(kite):
+        print("⏸ Market closed, skipping execution")
+        send_telegram("⏸ FIRE Shop — Market closed. Skipping run.")
+        return
+
+    from fire_shop_automation import get_nse_session, rank_instruments
+    session     = get_nse_session()
+    instruments = [(code, code.replace("NSE:", "")) for code in etf_map.keys()]
+    ranked      = rank_instruments(instruments, session, "ETF")
+
+    holdings = load_holdings(kite)
+    reconciled, removed, added = reconcile_state_with_holdings(state, holdings)
+    if reconciled:
+        save_state(state)
+        print("🧾 Reconciled local state with broker holdings")
+        if removed:
+            print(f"  removed stale state: {', '.join(sorted(removed))}")
+        if added:
+            print(f"  initialized missing state: {', '.join(sorted(added))}")
+
+    # ─────────────────────────────────────────────────────
+    # 🔴 SELL — check all holdings, sell first eligible one
+    # ─────────────────────────────────────────────────────
+    if run_sell:
+        for code, h in holdings.items():
+            cmp = next((r["cmp"] for r in ranked if r["code"] == code), None)
+            if not cmp:
+                continue
+
+            bid_count = state.get(code, {}).get("bid_count", 0)
+            base      = config["profit_target_pct"]
+            decay     = config["decay"]
+            floor     = config["floor"]
+            target    = max(floor, base - decay * bid_count)
+
+            if cmp >= h["avg"] * (1 + target):
+                print(f"🔴 SELL {code} (target={round(target*100,2)}%)")
+                sell_status, sell_price = place_and_confirm(
+                    kite, code, cmp, h["qty"],
+                    config["limit_price_buffer"], "SELL"
+                )
+                if sell_status == "HARD_STOP":
+                    print("🛑 Hard stop during sell — account/session-level error")
+                    send_telegram("🛑 FIRE Shop — Hard stop during sell. No further action attempted.")
+                    return
+                if sell_status == "FILLED":
+                    if sell_price:
+                        print(f"✅ Sold {code} @ ₹{sell_price}")
+                    state.pop(code, None)
+                    save_state(state)
+                return   # only one sell per run regardless
+
+    # ─────────────────────────────────────────────────────
+    # 🟢 BUY — try NEW BUY first, then BID, with fallback
+    # ─────────────────────────────────────────────────────
+    if run_buy:
+
+        # Build ordered list of buy candidates
+        buy_candidates = []   # list of (code, qty, label)
+
+        # ── NEW BUY candidates first (ranked by dip) ───────
+        for r in ranked:
+            code = r["code"]
+            if code in holdings:
+                continue
+            qty = int(math.ceil(config["investment_per_tx"] / r["cmp"]))
+            if qty > 0:
+                buy_candidates.append({
+                    "type":  "NEW",
+                    "code":  code,
+                    "cmp":   r["cmp"],
+                    "qty":   qty,
+                    "state": None,
+                    "amt":   None,
+                    "label": "NEW BUY"
+                })
+
+        # ── BID candidates second — fallback average-down ───
+        for code, h in holdings.items():
+            if code not in state:
+                state[code] = {
+                    "last_buy":  h["avg"],
+                    "bid_count": 0,
+                    "invested":  h["avg"] * h["qty"],
+                    "last_sip":  None
+                }
+
+            s   = state[code]
+            cmp = next((r["cmp"] for r in ranked if r["code"] == code), None)
+            if not cmp:
+                continue
+
+            if (cmp <= s["last_buy"] * (1 - config["bid_threshold"])
+                    and s["bid_count"] < config["max_bid"]):
+                amt = max(s["invested"] / 2, config["investment_per_tx"])
+                qty = int(math.ceil(amt / cmp))
+                if qty > 0:
+                    buy_candidates.append({
+                        "type":  "BID",
+                        "code":  code,
+                        "cmp":   cmp,
+                        "qty":   qty,
+                        "state": s,
+                        "amt":   amt,
+                        "label": f"BID level {s['bid_count']+1}"
+                    })
+
+        # ── Try candidates in order, move to next if not filled ──
+        for candidate in buy_candidates:
+            code  = candidate["code"]
+            cmp   = candidate["cmp"]
+            qty   = candidate["qty"]
+            label = candidate["label"]
+
+            print()
+            print(f"{'🔁' if candidate['type'] == 'BID' else '🟢'} {label}: {code} × {qty} @ ₹{cmp}")
+
+            buy_status, fill_price = place_and_confirm(
+                kite, code, cmp, qty,
+                config["limit_price_buffer"], "BUY",
+                timeout=ORDER_FILL_TIMEOUT
+            )
+
+            if buy_status == "HARD_STOP":
+                print("🛑 Hard stop — account-level error (AMO not allowed / insufficient balance / margin issue)")
+                send_telegram("🛑 FIRE Shop — Hard stop. No further buys attempted.")
+                return
+
+            if buy_status == "FILLED":
+                # Update state on success
+                executed_price = fill_price or cmp
+                executed_value = qty * executed_price
+                if candidate["type"] == "BID":
+                    s = candidate["state"]
+                    s["last_buy"]   = executed_price
+                    s["invested"]  += executed_value
+                    s["bid_count"] += 1
+                else:
+                    state[code] = {
+                        "last_buy":  executed_price,
+                        "bid_count": 0,
+                        "invested":  executed_value,
+                        "last_sip":  None
+                    }
+                save_state(state)
+                print(f"✅ Done — {code} bought successfully @ ₹{executed_price}")
+                return
+
+            else:
+                print(f"⏭️  {code} not filled — trying next candidate...")
+                continue
+
+        print("⚠️  No ETF could be bought today — all candidates timed out or failed")
+        send_telegram("⚠️ FIRE Shop — No ETF bought today. All candidates timed out.")
+
+
+
+if __name__ == "__main__":
+    main()

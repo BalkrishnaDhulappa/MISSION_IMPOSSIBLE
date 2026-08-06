@@ -1,0 +1,5661 @@
+{
+  "generated": "20260322_101013",
+  "metrics": [
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Reliance",
+      "cagr": 1.03,
+      "total_return": 22.82,
+      "final_value": 122817.0,
+      "max_dd": 9.4,
+      "sharpe": 0.53,
+      "calmar": 0.11,
+      "win_rate": 48.1,
+      "total_trades": 27,
+      "avg_win": 5.04,
+      "avg_loss": -2.93,
+      "profit_factor": 1.56,
+      "avg_duration": 8.7,
+      "total_costs": 6433.0,
+      "expectancy": 0.91,
+      "avg_rsi_entry": 40.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 27,
+          "win_rate": 48.1,
+          "avg_pnl": 0.91,
+          "total_pnl": 22817.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -4479.0,
+        "2007": -4918.0,
+        "2008": 6115.0,
+        "2013": -2228.0,
+        "2014": 104.0,
+        "2017": 12068.0,
+        "2018": 10362.0,
+        "2019": 4573.0,
+        "2020": 5500.0,
+        "2021": -3789.0,
+        "2024": -489.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 11,
+        "RSI Target 60": 16
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Reliance",
+      "cagr": 0.2,
+      "total_return": 4.06,
+      "final_value": 104059.0,
+      "max_dd": 10.96,
+      "sharpe": 0.17,
+      "calmar": 0.02,
+      "win_rate": 40.0,
+      "total_trades": 15,
+      "avg_win": 5.5,
+      "avg_loss": -3.02,
+      "profit_factor": 1.16,
+      "avg_duration": 8.1,
+      "total_costs": 3283.0,
+      "expectancy": 0.39,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 40.0,
+          "avg_pnl": 0.39,
+          "total_pnl": 4059.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -4479.0,
+        "2007": -6476.0,
+        "2008": 5521.0,
+        "2013": -2179.0,
+        "2014": -3062.0,
+        "2017": 7243.0,
+        "2018": 9378.0,
+        "2020": -2161.0,
+        "2021": -2339.0,
+        "2024": 2614.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 8,
+        "RSI Target 60": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "TCS",
+      "cagr": -1.56,
+      "total_return": -26.88,
+      "final_value": 73118.0,
+      "max_dd": 32.33,
+      "sharpe": -0.57,
+      "calmar": -0.05,
+      "win_rate": 32.3,
+      "total_trades": 31,
+      "avg_win": 4.36,
+      "avg_loss": -3.53,
+      "profit_factor": 0.59,
+      "avg_duration": 8.2,
+      "total_costs": 6468.0,
+      "expectancy": -0.98,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 30,
+          "win_rate": 30.0,
+          "avg_pnl": -1.26,
+          "total_pnl": -33895.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 7.49,
+          "total_pnl": 7013.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -7966.0,
+        "2007": -83.0,
+        "2010": 4465.0,
+        "2011": 9417.0,
+        "2012": -3451.0,
+        "2013": -1907.0,
+        "2014": -10656.0,
+        "2015": -1715.0,
+        "2018": -1028.0,
+        "2019": -3225.0,
+        "2020": -200.0,
+        "2021": -2220.0,
+        "2022": -1958.0,
+        "2023": -1951.0,
+        "2024": -4404.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 18,
+        "RSI Target 60": 13
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "TCS",
+      "cagr": -0.78,
+      "total_return": -14.42,
+      "final_value": 85584.0,
+      "max_dd": 20.48,
+      "sharpe": -0.54,
+      "calmar": -0.04,
+      "win_rate": 25.0,
+      "total_trades": 16,
+      "avg_win": 4.74,
+      "avg_loss": -2.86,
+      "profit_factor": 0.55,
+      "avg_duration": 9.0,
+      "total_costs": 3484.0,
+      "expectancy": -0.96,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 25.0,
+          "avg_pnl": -0.96,
+          "total_pnl": -14416.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -1636.0,
+        "2010": 7043.0,
+        "2012": 464.0,
+        "2013": -5695.0,
+        "2014": -3542.0,
+        "2015": -1859.0,
+        "2019": -415.0,
+        "2020": -222.0,
+        "2021": 611.0,
+        "2022": -2211.0,
+        "2023": -1756.0,
+        "2024": -5199.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 9,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "HDFC Bank",
+      "cagr": -1.89,
+      "total_return": -31.7,
+      "final_value": 68301.0,
+      "max_dd": 35.39,
+      "sharpe": -0.9,
+      "calmar": -0.05,
+      "win_rate": 31.7,
+      "total_trades": 41,
+      "avg_win": 2.89,
+      "avg_loss": -2.71,
+      "profit_factor": 0.5,
+      "avg_duration": 7.7,
+      "total_costs": 8241.0,
+      "expectancy": -0.93,
+      "avg_rsi_entry": 41.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 40,
+          "win_rate": 32.5,
+          "avg_pnl": -0.73,
+          "total_pnl": -25128.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -9.01,
+          "total_pnl": -6571.0
+        }
+      },
+      "annual_returns": {
+        "2006": 4551.0,
+        "2007": -2699.0,
+        "2009": -2437.0,
+        "2010": 1674.0,
+        "2011": -1511.0,
+        "2012": -4878.0,
+        "2013": -3045.0,
+        "2014": -1958.0,
+        "2015": -5812.0,
+        "2016": -495.0,
+        "2017": -1333.0,
+        "2018": -855.0,
+        "2019": -1039.0,
+        "2020": -2296.0,
+        "2021": -650.0,
+        "2024": -6571.0,
+        "2025": -2343.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 15,
+        "Stop Loss (candle low)": 25,
+        "Weekly RSI < 50": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "HDFC Bank",
+      "cagr": -1.94,
+      "total_return": -32.42,
+      "final_value": 67576.0,
+      "max_dd": 35.09,
+      "sharpe": -1.2,
+      "calmar": -0.06,
+      "win_rate": 21.7,
+      "total_trades": 23,
+      "avg_win": 2.73,
+      "avg_loss": -2.98,
+      "profit_factor": 0.25,
+      "avg_duration": 6.3,
+      "total_costs": 4438.0,
+      "expectancy": -1.74,
+      "avg_rsi_entry": 41.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 22,
+          "win_rate": 22.7,
+          "avg_pnl": -1.41,
+          "total_pnl": -26148.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -9.01,
+          "total_pnl": -6276.0
+        }
+      },
+      "annual_returns": {
+        "2007": -2147.0,
+        "2009": -1769.0,
+        "2010": -4765.0,
+        "2011": -623.0,
+        "2012": -2511.0,
+        "2013": -2314.0,
+        "2014": -3511.0,
+        "2015": -6315.0,
+        "2016": 567.0,
+        "2017": -3029.0,
+        "2018": -771.0,
+        "2019": 2590.0,
+        "2021": -1550.0,
+        "2024": -6276.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 2,
+        "Stop Loss (candle low)": 16,
+        "RSI Target 60": 5
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Infosys",
+      "cagr": -1.04,
+      "total_return": -18.91,
+      "final_value": 81086.0,
+      "max_dd": 36.29,
+      "sharpe": -0.42,
+      "calmar": -0.03,
+      "win_rate": 53.3,
+      "total_trades": 30,
+      "avg_win": 2.68,
+      "avg_loss": -4.38,
+      "profit_factor": 0.66,
+      "avg_duration": 9.0,
+      "total_costs": 6256.0,
+      "expectancy": -0.62,
+      "avg_rsi_entry": 41.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 30,
+          "win_rate": 53.3,
+          "avg_pnl": -0.62,
+          "total_pnl": -18914.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -3183.0,
+        "2007": 2812.0,
+        "2009": -4202.0,
+        "2010": 503.0,
+        "2013": 4918.0,
+        "2014": 11217.0,
+        "2015": -7974.0,
+        "2018": -10106.0,
+        "2019": -19253.0,
+        "2020": -1647.0,
+        "2021": 9947.0,
+        "2024": -1945.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 13,
+        "RSI Target 60": 17
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Infosys",
+      "cagr": -0.26,
+      "total_return": -5.0,
+      "final_value": 95003.0,
+      "max_dd": 10.9,
+      "sharpe": -0.25,
+      "calmar": -0.02,
+      "win_rate": 50.0,
+      "total_trades": 16,
+      "avg_win": 1.71,
+      "avg_loss": -2.34,
+      "profit_factor": 0.71,
+      "avg_duration": 8.1,
+      "total_costs": 3487.0,
+      "expectancy": -0.31,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 50.0,
+          "avg_pnl": -0.31,
+          "total_pnl": -4997.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 402.0,
+        "2007": -731.0,
+        "2009": -4202.0,
+        "2010": 503.0,
+        "2013": 3231.0,
+        "2014": 1900.0,
+        "2018": -3432.0,
+        "2019": -3438.0,
+        "2020": -2070.0,
+        "2021": 1143.0,
+        "2024": 1697.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 6,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "ICICI Bank",
+      "cagr": -1.48,
+      "total_return": -25.79,
+      "final_value": 74209.0,
+      "max_dd": 34.22,
+      "sharpe": -0.64,
+      "calmar": -0.04,
+      "win_rate": 41.4,
+      "total_trades": 29,
+      "avg_win": 3.45,
+      "avg_loss": -4.12,
+      "profit_factor": 0.58,
+      "avg_duration": 7.9,
+      "total_costs": 5679.0,
+      "expectancy": -0.99,
+      "avg_rsi_entry": 41.0,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 28,
+          "win_rate": 42.9,
+          "avg_pnl": -0.83,
+          "total_pnl": -20848.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -5.5,
+          "total_pnl": -4943.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -6525.0,
+        "2007": 12110.0,
+        "2008": 4496.0,
+        "2010": -15394.0,
+        "2011": -4943.0,
+        "2014": -329.0,
+        "2015": 2620.0,
+        "2017": -2315.0,
+        "2018": -3217.0,
+        "2019": -5460.0,
+        "2020": -1778.0,
+        "2021": -2573.0,
+        "2022": -1423.0,
+        "2023": -1861.0,
+        "2024": 329.0,
+        "2025": 471.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 17,
+        "RSI Target 60": 12
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "ICICI Bank",
+      "cagr": -0.29,
+      "total_return": -5.68,
+      "final_value": 94323.0,
+      "max_dd": 13.67,
+      "sharpe": -0.18,
+      "calmar": -0.02,
+      "win_rate": 33.3,
+      "total_trades": 15,
+      "avg_win": 4.86,
+      "avg_loss": -2.92,
+      "profit_factor": 0.8,
+      "avg_duration": 5.5,
+      "total_costs": 3305.0,
+      "expectancy": -0.33,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 33.3,
+          "avg_pnl": -0.33,
+          "total_pnl": -5677.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -6525.0,
+        "2007": 12110.0,
+        "2010": -6071.0,
+        "2014": 5518.0,
+        "2015": -2251.0,
+        "2017": -2586.0,
+        "2018": -3584.0,
+        "2020": -1653.0,
+        "2022": -1713.0,
+        "2023": -2089.0,
+        "2024": 4515.0,
+        "2025": -1348.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 7,
+        "RSI Target 60": 5,
+        "Price < 50 EMA": 3
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "HUL",
+      "cagr": -2.43,
+      "total_return": -38.81,
+      "final_value": 61194.0,
+      "max_dd": 38.81,
+      "sharpe": -0.9,
+      "calmar": -0.06,
+      "win_rate": 23.1,
+      "total_trades": 26,
+      "avg_win": 4.03,
+      "avg_loss": -3.68,
+      "profit_factor": 0.29,
+      "avg_duration": 8.3,
+      "total_costs": 4392.0,
+      "expectancy": -1.91,
+      "avg_rsi_entry": 40.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 26,
+          "win_rate": 23.1,
+          "avg_pnl": -1.91,
+          "total_pnl": -38806.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -7683.0,
+        "2008": -12773.0,
+        "2009": -2558.0,
+        "2010": -2897.0,
+        "2011": -1512.0,
+        "2012": -2145.0,
+        "2013": 2081.0,
+        "2014": -2064.0,
+        "2015": -213.0,
+        "2017": 5098.0,
+        "2018": -2238.0,
+        "2019": -5741.0,
+        "2020": -5195.0,
+        "2021": -965.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 20,
+        "RSI Target 60": 6
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "HUL",
+      "cagr": -1.2,
+      "total_return": -21.37,
+      "final_value": 78626.0,
+      "max_dd": 21.76,
+      "sharpe": -0.81,
+      "calmar": -0.06,
+      "win_rate": 26.7,
+      "total_trades": 15,
+      "avg_win": 3.35,
+      "avg_loss": -3.43,
+      "profit_factor": 0.32,
+      "avg_duration": 5.2,
+      "total_costs": 2860.0,
+      "expectancy": -1.62,
+      "avg_rsi_entry": 39.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 26.7,
+          "avg_pnl": -1.62,
+          "total_pnl": -21375.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -7683.0,
+        "2008": -3579.0,
+        "2009": -2402.0,
+        "2010": -3249.0,
+        "2012": -2711.0,
+        "2013": 2081.0,
+        "2014": -2797.0,
+        "2015": -232.0,
+        "2017": 4119.0,
+        "2019": -3399.0,
+        "2021": -1522.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 10,
+        "Price < 50 EMA": 1,
+        "RSI Target 60": 4
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "ITC",
+      "cagr": -0.61,
+      "total_return": -11.44,
+      "final_value": 88565.0,
+      "max_dd": 18.17,
+      "sharpe": -0.28,
+      "calmar": -0.03,
+      "win_rate": 39.4,
+      "total_trades": 33,
+      "avg_win": 3.56,
+      "avg_loss": -2.85,
+      "profit_factor": 0.78,
+      "avg_duration": 8.5,
+      "total_costs": 7102.0,
+      "expectancy": -0.33,
+      "avg_rsi_entry": 41.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 32,
+          "win_rate": 40.6,
+          "avg_pnl": -0.27,
+          "total_pnl": -9402.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.31,
+          "total_pnl": -2033.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 52.0,
+        "2007": -7236.0,
+        "2009": 9330.0,
+        "2010": -3077.0,
+        "2011": -2565.0,
+        "2012": -10162.0,
+        "2014": 586.0,
+        "2017": 1823.0,
+        "2019": -1849.0,
+        "2021": 5571.0,
+        "2022": 6504.0,
+        "2023": -3480.0,
+        "2024": -6933.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 15,
+        "Stop Loss (candle low)": 18
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "ITC",
+      "cagr": -0.33,
+      "total_return": -6.36,
+      "final_value": 93639.0,
+      "max_dd": 19.3,
+      "sharpe": -0.17,
+      "calmar": -0.02,
+      "win_rate": 42.1,
+      "total_trades": 19,
+      "avg_win": 3.45,
+      "avg_loss": -3.02,
+      "profit_factor": 0.78,
+      "avg_duration": 9.2,
+      "total_costs": 3932.0,
+      "expectancy": -0.3,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 42.1,
+          "avg_pnl": -0.3,
+          "total_pnl": -6361.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -397.0,
+        "2007": -7203.0,
+        "2009": 3106.0,
+        "2010": -5881.0,
+        "2011": -2050.0,
+        "2012": -4486.0,
+        "2014": -1358.0,
+        "2017": 4108.0,
+        "2021": 5506.0,
+        "2022": 3040.0,
+        "2023": -747.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 6,
+        "Price < 50 EMA": 4
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "SBI",
+      "cagr": 0.8,
+      "total_return": 17.13,
+      "final_value": 117127.0,
+      "max_dd": 11.84,
+      "sharpe": 0.41,
+      "calmar": 0.07,
+      "win_rate": 56.7,
+      "total_trades": 30,
+      "avg_win": 3.84,
+      "avg_loss": -3.55,
+      "profit_factor": 1.34,
+      "avg_duration": 10.2,
+      "total_costs": 7634.0,
+      "expectancy": 0.64,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 29,
+          "win_rate": 55.2,
+          "avg_pnl": 0.44,
+          "total_pnl": 10444.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 6.46,
+          "total_pnl": 6683.0
+        }
+      },
+      "annual_returns": {
+        "2007": 4110.0,
+        "2008": -5855.0,
+        "2009": 4898.0,
+        "2010": 20370.0,
+        "2013": -2504.0,
+        "2014": -3186.0,
+        "2015": -3537.0,
+        "2017": 1429.0,
+        "2018": -3580.0,
+        "2019": 3730.0,
+        "2021": -2566.0,
+        "2022": 8444.0,
+        "2023": -8674.0,
+        "2024": 3518.0,
+        "2025": 530.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 17,
+        "Stop Loss (candle low)": 13
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "SBI",
+      "cagr": -0.4,
+      "total_return": -7.65,
+      "final_value": 92353.0,
+      "max_dd": 10.09,
+      "sharpe": -0.25,
+      "calmar": -0.04,
+      "win_rate": 45.5,
+      "total_trades": 22,
+      "avg_win": 2.7,
+      "avg_loss": -2.86,
+      "profit_factor": 0.76,
+      "avg_duration": 6.9,
+      "total_costs": 4751.0,
+      "expectancy": -0.33,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 21,
+          "win_rate": 42.9,
+          "avg_pnl": -0.44,
+          "total_pnl": -9404.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 1.98,
+          "total_pnl": 1757.0
+        }
+      },
+      "annual_returns": {
+        "2007": -4011.0,
+        "2008": 2333.0,
+        "2009": -4395.0,
+        "2010": 1201.0,
+        "2015": -2860.0,
+        "2017": -1188.0,
+        "2019": 4424.0,
+        "2021": -2114.0,
+        "2022": 2908.0,
+        "2023": -3034.0,
+        "2024": -1327.0,
+        "2025": 415.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 10,
+        "Stop Loss (candle low)": 11,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Bharti Airtel",
+      "cagr": -1.16,
+      "total_return": -20.86,
+      "final_value": 79144.0,
+      "max_dd": 31.56,
+      "sharpe": -0.61,
+      "calmar": -0.04,
+      "win_rate": 43.3,
+      "total_trades": 30,
+      "avg_win": 2.45,
+      "avg_loss": -3.23,
+      "profit_factor": 0.57,
+      "avg_duration": 8.0,
+      "total_costs": 6161.0,
+      "expectancy": -0.77,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 30,
+          "win_rate": 43.3,
+          "avg_pnl": -0.77,
+          "total_pnl": -20856.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 2012.0,
+        "2007": 5813.0,
+        "2011": -2028.0,
+        "2017": -11422.0,
+        "2018": -7575.0,
+        "2020": -6004.0,
+        "2021": -1788.0,
+        "2022": -1492.0,
+        "2023": 5588.0,
+        "2024": -634.0,
+        "2025": -3890.0,
+        "2026": 564.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 16,
+        "Stop Loss (candle low)": 14
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Bharti Airtel",
+      "cagr": -0.59,
+      "total_return": -11.07,
+      "final_value": 88926.0,
+      "max_dd": 21.65,
+      "sharpe": -0.46,
+      "calmar": -0.03,
+      "win_rate": 45.0,
+      "total_trades": 20,
+      "avg_win": 2.46,
+      "avg_loss": -3.04,
+      "profit_factor": 0.62,
+      "avg_duration": 7.6,
+      "total_costs": 4031.0,
+      "expectancy": -0.57,
+      "avg_rsi_entry": 41.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 20,
+          "win_rate": 45.0,
+          "avg_pnl": -0.57,
+          "total_pnl": -11074.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -4129.0,
+        "2011": -1409.0,
+        "2017": -2322.0,
+        "2020": -5952.0,
+        "2021": -4551.0,
+        "2022": -1540.0,
+        "2023": 3428.0,
+        "2024": 4129.0,
+        "2025": 626.0,
+        "2026": 646.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 11,
+        "Stop Loss (candle low)": 7,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Kotak Bank",
+      "cagr": 0.59,
+      "total_return": 12.4,
+      "final_value": 112405.0,
+      "max_dd": 21.7,
+      "sharpe": 0.28,
+      "calmar": 0.03,
+      "win_rate": 42.9,
+      "total_trades": 35,
+      "avg_win": 6.09,
+      "avg_loss": -3.66,
+      "profit_factor": 1.16,
+      "avg_duration": 7.5,
+      "total_costs": 8542.0,
+      "expectancy": 0.52,
+      "avg_rsi_entry": 40.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 33,
+          "win_rate": 42.4,
+          "avg_pnl": 0.51,
+          "total_pnl": 11390.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": 0.68,
+          "total_pnl": 1015.0
+        }
+      },
+      "annual_returns": {
+        "2006": -3215.0,
+        "2007": 9382.0,
+        "2008": 17546.0,
+        "2010": -8775.0,
+        "2012": 2347.0,
+        "2013": -11056.0,
+        "2014": 8027.0,
+        "2015": -5818.0,
+        "2016": -11210.0,
+        "2017": 2886.0,
+        "2018": 416.0,
+        "2019": 11890.0,
+        "2020": 2697.0,
+        "2021": 894.0,
+        "2023": -2789.0,
+        "2025": -819.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 20,
+        "RSI Target 60": 15
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Kotak Bank",
+      "cagr": 0.68,
+      "total_return": 14.39,
+      "final_value": 114388.0,
+      "max_dd": 13.57,
+      "sharpe": 0.42,
+      "calmar": 0.05,
+      "win_rate": 44.4,
+      "total_trades": 18,
+      "avg_win": 5.82,
+      "avg_loss": -3.01,
+      "profit_factor": 1.44,
+      "avg_duration": 7.2,
+      "total_costs": 4494.0,
+      "expectancy": 0.91,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 18,
+          "win_rate": 44.4,
+          "avg_pnl": 0.91,
+          "total_pnl": 14388.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 5522.0,
+        "2008": 14895.0,
+        "2010": -4359.0,
+        "2012": 2371.0,
+        "2013": -8171.0,
+        "2014": -5761.0,
+        "2015": 2539.0,
+        "2016": -2531.0,
+        "2017": 3109.0,
+        "2018": 3796.0,
+        "2021": 3202.0,
+        "2025": -222.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 2,
+        "RSI Target 60": 8,
+        "Stop Loss (candle low)": 8
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "L&T",
+      "cagr": -0.78,
+      "total_return": -14.41,
+      "final_value": 85587.0,
+      "max_dd": 21.99,
+      "sharpe": -0.37,
+      "calmar": -0.04,
+      "win_rate": 40.9,
+      "total_trades": 22,
+      "avg_win": 3.76,
+      "avg_loss": -3.75,
+      "profit_factor": 0.69,
+      "avg_duration": 7.0,
+      "total_costs": 4814.0,
+      "expectancy": -0.68,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 22,
+          "win_rate": 40.9,
+          "avg_pnl": -0.68,
+          "total_pnl": -14413.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 5865.0,
+        "2007": -1792.0,
+        "2008": 137.0,
+        "2009": -5696.0,
+        "2010": -272.0,
+        "2014": -3471.0,
+        "2017": 3136.0,
+        "2018": -3597.0,
+        "2021": 252.0,
+        "2022": -6316.0,
+        "2023": -208.0,
+        "2024": -2449.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 12,
+        "Weekly RSI < 50": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "L&T",
+      "cagr": 0.03,
+      "total_return": 0.5,
+      "final_value": 100502.0,
+      "max_dd": 12.55,
+      "sharpe": 0.06,
+      "calmar": 0.0,
+      "win_rate": 47.4,
+      "total_trades": 19,
+      "avg_win": 3.36,
+      "avg_loss": -2.87,
+      "profit_factor": 1.02,
+      "avg_duration": 7.5,
+      "total_costs": 4458.0,
+      "expectancy": 0.08,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 47.4,
+          "avg_pnl": 0.08,
+          "total_pnl": 502.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 5865.0,
+        "2007": -1792.0,
+        "2008": 5350.0,
+        "2010": -1167.0,
+        "2014": -3834.0,
+        "2017": 2220.0,
+        "2018": -3872.0,
+        "2021": 259.0,
+        "2022": -1047.0,
+        "2023": -253.0,
+        "2024": -1228.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 7,
+        "Price < 50 EMA": 3
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Axis Bank",
+      "cagr": -2.1,
+      "total_return": -34.51,
+      "final_value": 65488.0,
+      "max_dd": 34.51,
+      "sharpe": -0.91,
+      "calmar": -0.06,
+      "win_rate": 39.3,
+      "total_trades": 28,
+      "avg_win": 2.85,
+      "avg_loss": -4.33,
+      "profit_factor": 0.42,
+      "avg_duration": 7.6,
+      "total_costs": 5260.0,
+      "expectancy": -1.51,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 27,
+          "win_rate": 37.0,
+          "avg_pnl": -1.68,
+          "total_pnl": -36728.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 3.23,
+          "total_pnl": 2217.0
+        }
+      },
+      "annual_returns": {
+        "2006": -5887.0,
+        "2007": -1976.0,
+        "2008": -8739.0,
+        "2009": 75.0,
+        "2010": 5849.0,
+        "2013": -2682.0,
+        "2014": -3571.0,
+        "2015": -4532.0,
+        "2018": -8456.0,
+        "2019": 4610.0,
+        "2020": -1682.0,
+        "2023": -1649.0,
+        "2024": -5873.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 16,
+        "RSI Target 60": 12
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Axis Bank",
+      "cagr": -1.43,
+      "total_return": -24.97,
+      "final_value": 75030.0,
+      "max_dd": 26.35,
+      "sharpe": -0.84,
+      "calmar": -0.05,
+      "win_rate": 37.5,
+      "total_trades": 16,
+      "avg_win": 2.28,
+      "avg_loss": -4.25,
+      "profit_factor": 0.29,
+      "avg_duration": 6.2,
+      "total_costs": 2997.0,
+      "expectancy": -1.8,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 37.5,
+          "avg_pnl": -1.8,
+          "total_pnl": -24970.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -5887.0,
+        "2007": -4591.0,
+        "2008": -8488.0,
+        "2010": 1042.0,
+        "2013": -2467.0,
+        "2014": -3295.0,
+        "2018": -2670.0,
+        "2019": 2510.0,
+        "2024": -1128.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 9,
+        "RSI Target 60": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Asian Paints",
+      "cagr": 0.05,
+      "total_return": 1.09,
+      "final_value": 101093.0,
+      "max_dd": 17.27,
+      "sharpe": 0.09,
+      "calmar": 0.0,
+      "win_rate": 44.7,
+      "total_trades": 38,
+      "avg_win": 4.25,
+      "avg_loss": -3.21,
+      "profit_factor": 1.02,
+      "avg_duration": 8.6,
+      "total_costs": 9332.0,
+      "expectancy": 0.12,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 38,
+          "win_rate": 44.7,
+          "avg_pnl": 0.12,
+          "total_pnl": 1092.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 1603.0,
+        "2007": -1520.0,
+        "2008": 10017.0,
+        "2009": 971.0,
+        "2010": 4112.0,
+        "2011": 3051.0,
+        "2012": -4927.0,
+        "2013": -6045.0,
+        "2014": 386.0,
+        "2015": 822.0,
+        "2016": 8935.0,
+        "2017": 2652.0,
+        "2018": -6155.0,
+        "2019": -465.0,
+        "2020": -4489.0,
+        "2021": -7855.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 20,
+        "RSI Target 60": 18
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Asian Paints",
+      "cagr": -0.29,
+      "total_return": -5.63,
+      "final_value": 94367.0,
+      "max_dd": 17.82,
+      "sharpe": -0.14,
+      "calmar": -0.02,
+      "win_rate": 40.0,
+      "total_trades": 20,
+      "avg_win": 3.47,
+      "avg_loss": -2.73,
+      "profit_factor": 0.82,
+      "avg_duration": 7.3,
+      "total_costs": 4542.0,
+      "expectancy": -0.25,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 20,
+          "win_rate": 40.0,
+          "avg_pnl": -0.25,
+          "total_pnl": -5633.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 4620.0,
+        "2007": -9202.0,
+        "2008": 5762.0,
+        "2009": 890.0,
+        "2011": 8695.0,
+        "2012": -3363.0,
+        "2013": -2840.0,
+        "2014": -2432.0,
+        "2015": -2971.0,
+        "2016": -1747.0,
+        "2017": 243.0,
+        "2018": -5010.0,
+        "2019": -1620.0,
+        "2020": 3341.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Price < 50 EMA": 3,
+        "Stop Loss (candle low)": 9
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Maruti",
+      "cagr": -1.42,
+      "total_return": -24.76,
+      "final_value": 75238.0,
+      "max_dd": 26.94,
+      "sharpe": -0.64,
+      "calmar": -0.05,
+      "win_rate": 39.4,
+      "total_trades": 33,
+      "avg_win": 3.14,
+      "avg_loss": -3.49,
+      "profit_factor": 0.56,
+      "avg_duration": 7.8,
+      "total_costs": 6233.0,
+      "expectancy": -0.88,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 31,
+          "win_rate": 41.9,
+          "avg_pnl": -0.77,
+          "total_pnl": -21266.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 0.0,
+          "avg_pnl": -2.57,
+          "total_pnl": -3497.0
+        }
+      },
+      "annual_returns": {
+        "2006": -1457.0,
+        "2007": -7391.0,
+        "2009": 2192.0,
+        "2013": -4396.0,
+        "2014": 2863.0,
+        "2015": -2539.0,
+        "2016": -4511.0,
+        "2017": -99.0,
+        "2018": -9025.0,
+        "2021": -1842.0,
+        "2022": -400.0,
+        "2023": 4122.0,
+        "2024": -2326.0,
+        "2025": 43.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 13,
+        "Stop Loss (candle low)": 20
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Maruti",
+      "cagr": -0.58,
+      "total_return": -10.97,
+      "final_value": 89028.0,
+      "max_dd": 13.39,
+      "sharpe": -0.41,
+      "calmar": -0.04,
+      "win_rate": 31.6,
+      "total_trades": 19,
+      "avg_win": 3.93,
+      "avg_loss": -2.67,
+      "profit_factor": 0.65,
+      "avg_duration": 5.5,
+      "total_costs": 4039.0,
+      "expectancy": -0.59,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 31.6,
+          "avg_pnl": -0.59,
+          "total_pnl": -10972.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -3833.0,
+        "2009": 2287.0,
+        "2014": 3128.0,
+        "2015": -9381.0,
+        "2016": 2025.0,
+        "2017": -63.0,
+        "2018": -1070.0,
+        "2022": -792.0,
+        "2023": 2214.0,
+        "2024": -5486.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 4,
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 9
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Bajaj Finance",
+      "cagr": -0.86,
+      "total_return": -15.88,
+      "final_value": 84118.0,
+      "max_dd": 32.02,
+      "sharpe": -0.21,
+      "calmar": -0.03,
+      "win_rate": 43.2,
+      "total_trades": 37,
+      "avg_win": 4.27,
+      "avg_loss": -3.91,
+      "profit_factor": 0.8,
+      "avg_duration": 7.1,
+      "total_costs": 8290.0,
+      "expectancy": -0.37,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 33,
+          "win_rate": 48.5,
+          "avg_pnl": -0.0,
+          "total_pnl": -3365.0
+        },
+        "bear": {
+          "trades": 2,
+          "win_rate": 0.0,
+          "avg_pnl": -4.42,
+          "total_pnl": -8228.0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 0.0,
+          "avg_pnl": -2.44,
+          "total_pnl": -4289.0
+        }
+      },
+      "annual_returns": {
+        "2006": -8227.0,
+        "2009": 7177.0,
+        "2010": -2433.0,
+        "2011": -1765.0,
+        "2012": -2071.0,
+        "2013": -4520.0,
+        "2014": 9573.0,
+        "2015": 2041.0,
+        "2016": 15190.0,
+        "2017": -205.0,
+        "2018": -8943.0,
+        "2019": -8304.0,
+        "2020": 366.0,
+        "2021": -7196.0,
+        "2022": -2524.0,
+        "2025": -4041.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 18,
+        "Stop Loss (candle low)": 19
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Bajaj Finance",
+      "cagr": -0.04,
+      "total_return": -0.87,
+      "final_value": 99131.0,
+      "max_dd": 22.15,
+      "sharpe": 0.04,
+      "calmar": -0.0,
+      "win_rate": 47.4,
+      "total_trades": 19,
+      "avg_win": 4.34,
+      "avg_loss": -3.78,
+      "profit_factor": 0.98,
+      "avg_duration": 6.6,
+      "total_costs": 4732.0,
+      "expectancy": 0.07,
+      "avg_rsi_entry": 41.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 18,
+          "win_rate": 50.0,
+          "avg_pnl": 0.23,
+          "total_pnl": 2115.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.95,
+          "total_pnl": -2984.0
+        }
+      },
+      "annual_returns": {
+        "2009": 7822.0,
+        "2010": -4687.0,
+        "2012": 1573.0,
+        "2013": -313.0,
+        "2014": 630.0,
+        "2015": 4672.0,
+        "2016": 8916.0,
+        "2017": 599.0,
+        "2018": -9301.0,
+        "2019": 829.0,
+        "2021": -3873.0,
+        "2022": -2984.0,
+        "2025": -4751.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 10,
+        "Stop Loss (candle low)": 9
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Nestle",
+      "cagr": -2.06,
+      "total_return": -27.01,
+      "final_value": 72993.0,
+      "max_dd": 34.4,
+      "sharpe": -0.97,
+      "calmar": -0.06,
+      "win_rate": 33.3,
+      "total_trades": 30,
+      "avg_win": 3.4,
+      "avg_loss": -3.26,
+      "profit_factor": 0.51,
+      "avg_duration": 7.3,
+      "total_costs": 5828.0,
+      "expectancy": -1.04,
+      "avg_rsi_entry": 41.3,
+      "years": 15.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 29,
+          "win_rate": 34.5,
+          "avg_pnl": -1.02,
+          "total_pnl": -25954.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -1.48,
+          "total_pnl": -1052.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2011": -290.0,
+        "2012": -2226.0,
+        "2013": -16085.0,
+        "2014": -3132.0,
+        "2015": -3124.0,
+        "2017": 319.0,
+        "2018": -1539.0,
+        "2019": 4541.0,
+        "2020": -333.0,
+        "2021": -671.0,
+        "2022": -2095.0,
+        "2023": -622.0,
+        "2024": -1747.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 12,
+        "Stop Loss (candle low)": 16,
+        "Weekly RSI < 50": 2
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Nestle",
+      "cagr": -1.49,
+      "total_return": -20.33,
+      "final_value": 79669.0,
+      "max_dd": 23.74,
+      "sharpe": -1.08,
+      "calmar": -0.06,
+      "win_rate": 23.1,
+      "total_trades": 13,
+      "avg_win": 3.57,
+      "avg_loss": -3.38,
+      "profit_factor": 0.31,
+      "avg_duration": 4.3,
+      "total_costs": 2653.0,
+      "expectancy": -1.78,
+      "avg_rsi_entry": 40.6,
+      "years": 15.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 13,
+          "win_rate": 23.1,
+          "avg_pnl": -1.78,
+          "total_pnl": -20331.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2011": 2098.0,
+        "2012": -3176.0,
+        "2013": -9098.0,
+        "2014": -3449.0,
+        "2015": -3151.0,
+        "2019": -2014.0,
+        "2020": 3060.0,
+        "2021": -1988.0,
+        "2023": -681.0,
+        "2024": -1933.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 3,
+        "Stop Loss (candle low)": 9,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "HCL Tech",
+      "cagr": 0.64,
+      "total_return": 13.54,
+      "final_value": 113537.0,
+      "max_dd": 15.48,
+      "sharpe": 0.34,
+      "calmar": 0.04,
+      "win_rate": 45.5,
+      "total_trades": 33,
+      "avg_win": 4.75,
+      "avg_loss": -3.02,
+      "profit_factor": 1.24,
+      "avg_duration": 7.1,
+      "total_costs": 7969.0,
+      "expectancy": 0.51,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 33,
+          "win_rate": 45.5,
+          "avg_pnl": 0.51,
+          "total_pnl": 13537.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 6222.0,
+        "2009": -5581.0,
+        "2010": 5929.0,
+        "2011": -1280.0,
+        "2012": -2857.0,
+        "2013": 8360.0,
+        "2014": 2613.0,
+        "2015": -5293.0,
+        "2017": -3334.0,
+        "2018": 1744.0,
+        "2019": 4432.0,
+        "2020": 5064.0,
+        "2021": -9809.0,
+        "2023": -473.0,
+        "2024": 5119.0,
+        "2025": 2677.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 20,
+        "Weekly RSI < 50": 1,
+        "Stop Loss (candle low)": 12
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "HCL Tech",
+      "cagr": 0.61,
+      "total_return": 12.86,
+      "final_value": 112863.0,
+      "max_dd": 14.0,
+      "sharpe": 0.4,
+      "calmar": 0.04,
+      "win_rate": 50.0,
+      "total_trades": 16,
+      "avg_win": 5.46,
+      "avg_loss": -3.58,
+      "profit_factor": 1.46,
+      "avg_duration": 5.4,
+      "total_costs": 3680.0,
+      "expectancy": 0.94,
+      "avg_rsi_entry": 40.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 50.0,
+          "avg_pnl": 0.94,
+          "total_pnl": 12863.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 6222.0,
+        "2009": -4992.0,
+        "2011": -4732.0,
+        "2013": 5525.0,
+        "2014": 2399.0,
+        "2015": -4880.0,
+        "2020": 11980.0,
+        "2021": -2139.0,
+        "2024": 3480.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Wipro",
+      "cagr": -1.02,
+      "total_return": -18.48,
+      "final_value": 81523.0,
+      "max_dd": 23.58,
+      "sharpe": -0.49,
+      "calmar": -0.04,
+      "win_rate": 36.8,
+      "total_trades": 19,
+      "avg_win": 3.36,
+      "avg_loss": -3.63,
+      "profit_factor": 0.53,
+      "avg_duration": 6.7,
+      "total_costs": 4158.0,
+      "expectancy": -1.05,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 36.8,
+          "avg_pnl": -1.05,
+          "total_pnl": -18477.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 5970.0,
+        "2007": -4497.0,
+        "2009": 4729.0,
+        "2013": -495.0,
+        "2014": -4057.0,
+        "2015": -4216.0,
+        "2018": -4230.0,
+        "2019": -2110.0,
+        "2021": 1272.0,
+        "2024": -8329.0,
+        "2025": -2512.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Weekly RSI < 50": 1,
+        "Stop Loss (candle low)": 10
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Wipro",
+      "cagr": -0.52,
+      "total_return": -9.85,
+      "final_value": 90147.0,
+      "max_dd": 11.92,
+      "sharpe": -0.37,
+      "calmar": -0.04,
+      "win_rate": 33.3,
+      "total_trades": 12,
+      "avg_win": 4.19,
+      "avg_loss": -3.33,
+      "profit_factor": 0.6,
+      "avg_duration": 6.9,
+      "total_costs": 2632.0,
+      "expectancy": -0.82,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 12,
+          "win_rate": 33.3,
+          "avg_pnl": -0.82,
+          "total_pnl": -9853.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -2473.0,
+        "2009": 4545.0,
+        "2013": -476.0,
+        "2015": -4216.0,
+        "2018": -4230.0,
+        "2021": 5669.0,
+        "2024": -5892.0,
+        "2025": -2780.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 5,
+        "Price < 50 EMA": 2,
+        "Stop Loss (candle low)": 5
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "UltraCemco",
+      "cagr": -0.51,
+      "total_return": -9.74,
+      "final_value": 90261.0,
+      "max_dd": 15.25,
+      "sharpe": -0.18,
+      "calmar": -0.03,
+      "win_rate": 37.5,
+      "total_trades": 24,
+      "avg_win": 4.95,
+      "avg_loss": -3.56,
+      "profit_factor": 0.79,
+      "avg_duration": 10.3,
+      "total_costs": 4877.0,
+      "expectancy": -0.37,
+      "avg_rsi_entry": 39.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 24,
+          "win_rate": 37.5,
+          "avg_pnl": -0.37,
+          "total_pnl": -9739.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -7548.0,
+        "2007": -4407.0,
+        "2010": 2541.0,
+        "2011": 3470.0,
+        "2012": -2377.0,
+        "2014": -3237.0,
+        "2015": 10242.0,
+        "2016": -5046.0,
+        "2017": -1821.0,
+        "2021": -410.0,
+        "2023": 619.0,
+        "2024": -1763.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 9
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "UltraCemco",
+      "cagr": 0.49,
+      "total_return": 10.24,
+      "final_value": 110239.0,
+      "max_dd": 10.05,
+      "sharpe": 0.32,
+      "calmar": 0.05,
+      "win_rate": 46.2,
+      "total_trades": 13,
+      "avg_win": 6.16,
+      "avg_loss": -3.49,
+      "profit_factor": 1.43,
+      "avg_duration": 9.0,
+      "total_costs": 2975.0,
+      "expectancy": 0.97,
+      "avg_rsi_entry": 40.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 13,
+          "win_rate": 46.2,
+          "avg_pnl": 0.97,
+          "total_pnl": 10239.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": 2882.0,
+        "2011": -3392.0,
+        "2012": -3807.0,
+        "2015": 10949.0,
+        "2017": -2079.0,
+        "2021": 2381.0,
+        "2023": -2401.0,
+        "2024": 5706.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 5,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "ONGC",
+      "cagr": -1.23,
+      "total_return": -21.95,
+      "final_value": 78045.0,
+      "max_dd": 25.4,
+      "sharpe": -0.51,
+      "calmar": -0.05,
+      "win_rate": 31.6,
+      "total_trades": 19,
+      "avg_win": 4.31,
+      "avg_loss": -3.8,
+      "profit_factor": 0.48,
+      "avg_duration": 13.6,
+      "total_costs": 3787.0,
+      "expectancy": -1.24,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 18,
+          "win_rate": 27.8,
+          "avg_pnl": -1.4,
+          "total_pnl": -23308.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 1.58,
+          "total_pnl": 1502.0
+        }
+      },
+      "annual_returns": {
+        "2006": 1502.0,
+        "2010": -3635.0,
+        "2013": -6003.0,
+        "2014": -6401.0,
+        "2016": -2127.0,
+        "2017": -2003.0,
+        "2021": -4187.0,
+        "2022": 6215.0,
+        "2023": -1810.0,
+        "2024": -3355.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Stop Loss (candle low)": 11
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "ONGC",
+      "cagr": -0.5,
+      "total_return": -9.46,
+      "final_value": 90544.0,
+      "max_dd": 19.68,
+      "sharpe": -0.2,
+      "calmar": -0.03,
+      "win_rate": 46.2,
+      "total_trades": 13,
+      "avg_win": 4.19,
+      "avg_loss": -4.76,
+      "profit_factor": 0.69,
+      "avg_duration": 12.8,
+      "total_costs": 2707.0,
+      "expectancy": -0.63,
+      "avg_rsi_entry": 40.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 13,
+          "win_rate": 46.2,
+          "avg_pnl": -0.63,
+          "total_pnl": -9284.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -3579.0,
+        "2013": -5021.0,
+        "2014": -6366.0,
+        "2016": 275.0,
+        "2017": 956.0,
+        "2021": -1240.0,
+        "2022": 9143.0,
+        "2024": -3451.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Power Grid",
+      "cagr": -1.06,
+      "total_return": -15.86,
+      "final_value": 84138.0,
+      "max_dd": 25.95,
+      "sharpe": -0.56,
+      "calmar": -0.04,
+      "win_rate": 34.8,
+      "total_trades": 23,
+      "avg_win": 3.85,
+      "avg_loss": -3.16,
+      "profit_factor": 0.59,
+      "avg_duration": 7.4,
+      "total_costs": 4408.0,
+      "expectancy": -0.72,
+      "avg_rsi_entry": 42.0,
+      "years": 16.2,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 34.8,
+          "avg_pnl": -0.72,
+          "total_pnl": -15862.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2012": -7687.0,
+        "2014": -1663.0,
+        "2015": -3562.0,
+        "2016": -4097.0,
+        "2017": -5349.0,
+        "2021": 4592.0,
+        "2022": -6216.0,
+        "2023": 2994.0,
+        "2024": 5126.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 8
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Power Grid",
+      "cagr": -0.62,
+      "total_return": -9.56,
+      "final_value": 90440.0,
+      "max_dd": 18.84,
+      "sharpe": -0.46,
+      "calmar": -0.03,
+      "win_rate": 42.9,
+      "total_trades": 14,
+      "avg_win": 2.5,
+      "avg_loss": -3.12,
+      "profit_factor": 0.56,
+      "avg_duration": 5.1,
+      "total_costs": 2835.0,
+      "expectancy": -0.71,
+      "avg_rsi_entry": 42.0,
+      "years": 16.2,
+      "regime_stats": {
+        "bull": {
+          "trades": 14,
+          "win_rate": 42.9,
+          "avg_pnl": -0.71,
+          "total_pnl": -9560.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2012": -4711.0,
+        "2014": -2104.0,
+        "2015": -3661.0,
+        "2016": -4211.0,
+        "2017": -4149.0,
+        "2021": 1762.0,
+        "2022": -117.0,
+        "2023": 4034.0,
+        "2024": 3597.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 7,
+        "RSI Target 60": 6,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "NTPC",
+      "cagr": -0.22,
+      "total_return": -4.08,
+      "final_value": 95919.0,
+      "max_dd": 18.63,
+      "sharpe": -0.1,
+      "calmar": -0.01,
+      "win_rate": 44.4,
+      "total_trades": 18,
+      "avg_win": 3.84,
+      "avg_loss": -3.37,
+      "profit_factor": 0.88,
+      "avg_duration": 10.7,
+      "total_costs": 4235.0,
+      "expectancy": -0.17,
+      "avg_rsi_entry": 39.9,
+      "years": 19.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 18,
+          "win_rate": 44.4,
+          "avg_pnl": -0.16,
+          "total_pnl": -4081.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 5692.0,
+        "2015": 5741.0,
+        "2016": -2441.0,
+        "2017": 5309.0,
+        "2018": 244.0,
+        "2021": -11644.0,
+        "2022": 644.0,
+        "2023": -4916.0,
+        "2024": -2714.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 9
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "NTPC",
+      "cagr": -0.73,
+      "total_return": -13.14,
+      "final_value": 86861.0,
+      "max_dd": 13.14,
+      "sharpe": -0.77,
+      "calmar": -0.06,
+      "win_rate": 22.2,
+      "total_trades": 9,
+      "avg_win": 2.47,
+      "avg_loss": -2.77,
+      "profit_factor": 0.24,
+      "avg_duration": 7.0,
+      "total_costs": 1894.0,
+      "expectancy": -1.61,
+      "avg_rsi_entry": 40.0,
+      "years": 19.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 9,
+          "win_rate": 22.2,
+          "avg_pnl": -1.61,
+          "total_pnl": -13139.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -3444.0,
+        "2015": -2227.0,
+        "2017": -680.0,
+        "2022": -728.0,
+        "2023": -4415.0,
+        "2024": -1645.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 3,
+        "Stop Loss (candle low)": 4,
+        "RSI Target 60": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "M&M",
+      "cagr": 0.28,
+      "total_return": 5.79,
+      "final_value": 105790.0,
+      "max_dd": 22.07,
+      "sharpe": 0.19,
+      "calmar": 0.01,
+      "win_rate": 52.9,
+      "total_trades": 34,
+      "avg_win": 3.67,
+      "avg_loss": -3.56,
+      "profit_factor": 1.1,
+      "avg_duration": 7.6,
+      "total_costs": 7647.0,
+      "expectancy": 0.27,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 33,
+          "win_rate": 54.5,
+          "avg_pnl": 0.33,
+          "total_pnl": 7509.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -1.82,
+          "total_pnl": -1719.0
+        }
+      },
+      "annual_returns": {
+        "2006": 13240.0,
+        "2007": -8378.0,
+        "2009": -6090.0,
+        "2010": 1344.0,
+        "2011": -910.0,
+        "2012": 6301.0,
+        "2014": -4082.0,
+        "2016": 1104.0,
+        "2017": -2465.0,
+        "2018": -7083.0,
+        "2021": -2488.0,
+        "2022": -2244.0,
+        "2023": 5724.0,
+        "2024": 7324.0,
+        "2025": 4492.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 19,
+        "Stop Loss (candle low)": 15
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "M&M",
+      "cagr": -0.05,
+      "total_return": -1.01,
+      "final_value": 98990.0,
+      "max_dd": 14.52,
+      "sharpe": 0.0,
+      "calmar": -0.0,
+      "win_rate": 47.1,
+      "total_trades": 17,
+      "avg_win": 3.58,
+      "avg_loss": -3.14,
+      "profit_factor": 0.96,
+      "avg_duration": 6.6,
+      "total_costs": 3774.0,
+      "expectancy": 0.02,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 47.1,
+          "avg_pnl": 0.02,
+          "total_pnl": -1010.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 2195.0,
+        "2009": -4324.0,
+        "2010": -1958.0,
+        "2011": 1729.0,
+        "2012": 6202.0,
+        "2014": -5081.0,
+        "2018": -3124.0,
+        "2021": -2465.0,
+        "2022": -3284.0,
+        "2024": 5268.0,
+        "2025": 3831.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 7,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Titan",
+      "cagr": -0.45,
+      "total_return": -8.67,
+      "final_value": 91333.0,
+      "max_dd": 20.56,
+      "sharpe": -0.18,
+      "calmar": -0.02,
+      "win_rate": 46.4,
+      "total_trades": 28,
+      "avg_win": 3.9,
+      "avg_loss": -3.71,
+      "profit_factor": 0.87,
+      "avg_duration": 7.8,
+      "total_costs": 6302.0,
+      "expectancy": -0.18,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 28,
+          "win_rate": 46.4,
+          "avg_pnl": -0.18,
+          "total_pnl": -6771.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -3392.0,
+        "2007": -5769.0,
+        "2010": -1459.0,
+        "2011": 5943.0,
+        "2012": 6912.0,
+        "2014": 8381.0,
+        "2015": -2586.0,
+        "2017": 2048.0,
+        "2018": -9475.0,
+        "2019": 678.0,
+        "2020": -4976.0,
+        "2021": -1295.0,
+        "2023": -1863.0,
+        "2024": -1812.0,
+        "2026": 1895.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 13,
+        "RSI Target 60": 15
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Titan",
+      "cagr": -0.49,
+      "total_return": -9.29,
+      "final_value": 90705.0,
+      "max_dd": 12.28,
+      "sharpe": -0.38,
+      "calmar": -0.04,
+      "win_rate": 50.0,
+      "total_trades": 16,
+      "avg_win": 2.64,
+      "avg_loss": -3.82,
+      "profit_factor": 0.66,
+      "avg_duration": 6.6,
+      "total_costs": 3391.0,
+      "expectancy": -0.59,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 50.0,
+          "avg_pnl": -0.59,
+          "total_pnl": -9295.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -1866.0,
+        "2007": -9951.0,
+        "2011": 6782.0,
+        "2012": -2885.0,
+        "2014": 2898.0,
+        "2015": 1570.0,
+        "2017": 1835.0,
+        "2018": -2717.0,
+        "2019": 2232.0,
+        "2020": -4783.0,
+        "2021": -2582.0,
+        "2023": -2806.0,
+        "2024": 1085.0,
+        "2026": 1895.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 1,
+        "Stop Loss (candle low)": 7,
+        "RSI Target 60": 8
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Sun Pharma",
+      "cagr": -2.8,
+      "total_return": -43.31,
+      "final_value": 56689.0,
+      "max_dd": 45.41,
+      "sharpe": -1.08,
+      "calmar": -0.06,
+      "win_rate": 36.8,
+      "total_trades": 38,
+      "avg_win": 2.54,
+      "avg_loss": -3.87,
+      "profit_factor": 0.4,
+      "avg_duration": 9.4,
+      "total_costs": 6950.0,
+      "expectancy": -1.51,
+      "avg_rsi_entry": 40.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 38,
+          "win_rate": 36.8,
+          "avg_pnl": -1.51,
+          "total_pnl": -43311.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -5955.0,
+        "2007": -4835.0,
+        "2008": 1981.0,
+        "2010": -54.0,
+        "2011": -4078.0,
+        "2012": -2754.0,
+        "2013": -2588.0,
+        "2014": -3068.0,
+        "2015": -3885.0,
+        "2021": -12297.0,
+        "2022": -380.0,
+        "2023": -551.0,
+        "2024": -4845.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 16,
+        "Stop Loss (candle low)": 22
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Sun Pharma",
+      "cagr": -1.11,
+      "total_return": -20.02,
+      "final_value": 79982.0,
+      "max_dd": 22.98,
+      "sharpe": -0.74,
+      "calmar": -0.05,
+      "win_rate": 31.8,
+      "total_trades": 22,
+      "avg_win": 2.37,
+      "avg_loss": -2.63,
+      "profit_factor": 0.43,
+      "avg_duration": 8.1,
+      "total_costs": 4599.0,
+      "expectancy": -1.04,
+      "avg_rsi_entry": 39.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 22,
+          "win_rate": 31.8,
+          "avg_pnl": -1.03,
+          "total_pnl": -20018.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 274.0,
+        "2007": -2650.0,
+        "2008": 2411.0,
+        "2012": -4047.0,
+        "2013": -2214.0,
+        "2021": -9508.0,
+        "2022": 1575.0,
+        "2023": -715.0,
+        "2024": -5142.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Price < 50 EMA": 6,
+        "Stop Loss (candle low)": 8
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Tech Mahindra",
+      "cagr": -1.82,
+      "total_return": -27.28,
+      "final_value": 72721.0,
+      "max_dd": 27.77,
+      "sharpe": -0.7,
+      "calmar": -0.07,
+      "win_rate": 33.3,
+      "total_trades": 24,
+      "avg_win": 4.14,
+      "avg_loss": -4.02,
+      "profit_factor": 0.48,
+      "avg_duration": 8.1,
+      "total_costs": 4589.0,
+      "expectancy": -1.3,
+      "avg_rsi_entry": 40.4,
+      "years": 17.4,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 34.8,
+          "avg_pnl": -1.27,
+          "total_pnl": -25806.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.1,
+          "total_pnl": -1473.0
+        }
+      },
+      "annual_returns": {
+        "2011": -8727.0,
+        "2012": -2513.0,
+        "2013": 1841.0,
+        "2014": -5827.0,
+        "2015": -4578.0,
+        "2017": -3622.0,
+        "2018": 3315.0,
+        "2019": -4837.0,
+        "2021": 6424.0,
+        "2022": -4000.0,
+        "2023": -2614.0,
+        "2024": -669.0,
+        "2025": -1473.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 7,
+        "Weekly RSI < 50": 2
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Tech Mahindra",
+      "cagr": -0.95,
+      "total_return": -15.2,
+      "final_value": 84797.0,
+      "max_dd": 17.54,
+      "sharpe": -0.47,
+      "calmar": -0.05,
+      "win_rate": 21.4,
+      "total_trades": 14,
+      "avg_win": 6.57,
+      "avg_loss": -3.26,
+      "profit_factor": 0.53,
+      "avg_duration": 6.8,
+      "total_costs": 2992.0,
+      "expectancy": -1.16,
+      "avg_rsi_entry": 41.0,
+      "years": 17.4,
+      "regime_stats": {
+        "bull": {
+          "trades": 13,
+          "win_rate": 23.1,
+          "avg_pnl": -1.08,
+          "total_pnl": -13493.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.1,
+          "total_pnl": -1710.0
+        }
+      },
+      "annual_returns": {
+        "2012": -2755.0,
+        "2013": 3511.0,
+        "2014": -6061.0,
+        "2015": -1813.0,
+        "2018": -467.0,
+        "2019": -4273.0,
+        "2021": 7645.0,
+        "2022": -4717.0,
+        "2023": -3067.0,
+        "2024": -1496.0,
+        "2025": -1710.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 9,
+        "RSI Target 60": 3,
+        "Weekly RSI < 50": 1,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Adani Ent.",
+      "cagr": -1.75,
+      "total_return": -29.77,
+      "final_value": 70233.0,
+      "max_dd": 34.22,
+      "sharpe": -0.55,
+      "calmar": -0.05,
+      "win_rate": 35.7,
+      "total_trades": 28,
+      "avg_win": 5.47,
+      "avg_loss": -4.85,
+      "profit_factor": 0.55,
+      "avg_duration": 6.9,
+      "total_costs": 5008.0,
+      "expectancy": -1.16,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 27,
+          "win_rate": 37.0,
+          "avg_pnl": -0.8,
+          "total_pnl": -20664.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -10.79,
+          "total_pnl": -9103.0
+        }
+      },
+      "annual_returns": {
+        "2006": -3598.0,
+        "2007": -7592.0,
+        "2008": -9103.0,
+        "2010": 2116.0,
+        "2014": -5973.0,
+        "2015": -3034.0,
+        "2017": -1301.0,
+        "2018": 903.0,
+        "2019": -86.0,
+        "2020": 6407.0,
+        "2022": -4742.0,
+        "2023": -3763.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 18,
+        "RSI Target 60": 10
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Adani Ent.",
+      "cagr": -1.77,
+      "total_return": -30.01,
+      "final_value": 69993.0,
+      "max_dd": 32.14,
+      "sharpe": -0.99,
+      "calmar": -0.06,
+      "win_rate": 23.5,
+      "total_trades": 17,
+      "avg_win": 4.5,
+      "avg_loss": -4.16,
+      "profit_factor": 0.33,
+      "avg_duration": 6.6,
+      "total_costs": 3348.0,
+      "expectancy": -2.12,
+      "avg_rsi_entry": 41.0,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 23.5,
+          "avg_pnl": -2.12,
+          "total_pnl": -30007.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -3598.0,
+        "2007": -3379.0,
+        "2010": 2475.0,
+        "2014": -2033.0,
+        "2015": -3738.0,
+        "2017": -1597.0,
+        "2018": -5340.0,
+        "2020": -3926.0,
+        "2022": -8873.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 10,
+        "RSI Target 60": 5,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "JSW Steel",
+      "cagr": 0.87,
+      "total_return": 18.94,
+      "final_value": 118944.0,
+      "max_dd": 28.07,
+      "sharpe": 0.38,
+      "calmar": 0.03,
+      "win_rate": 51.7,
+      "total_trades": 29,
+      "avg_win": 5.23,
+      "avg_loss": -4.05,
+      "profit_factor": 1.31,
+      "avg_duration": 11.0,
+      "total_costs": 7323.0,
+      "expectancy": 0.75,
+      "avg_rsi_entry": 40.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 29,
+          "win_rate": 51.7,
+          "avg_pnl": 0.75,
+          "total_pnl": 18944.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 15706.0,
+        "2009": 3556.0,
+        "2010": 11736.0,
+        "2013": -6142.0,
+        "2014": -10462.0,
+        "2016": -1684.0,
+        "2017": -3605.0,
+        "2018": -13638.0,
+        "2020": 5311.0,
+        "2021": 14607.0,
+        "2023": -3700.0,
+        "2024": -632.0,
+        "2025": 7891.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 15,
+        "Stop Loss (candle low)": 14
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "JSW Steel",
+      "cagr": -0.1,
+      "total_return": -2.0,
+      "final_value": 98001.0,
+      "max_dd": 16.44,
+      "sharpe": 0.01,
+      "calmar": -0.01,
+      "win_rate": 42.1,
+      "total_trades": 19,
+      "avg_win": 4.91,
+      "avg_loss": -3.58,
+      "profit_factor": 0.95,
+      "avg_duration": 9.9,
+      "total_costs": 4168.0,
+      "expectancy": -0.01,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 42.1,
+          "avg_pnl": -0.01,
+          "total_pnl": -1999.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 2140.0,
+        "2009": 3137.0,
+        "2014": -8827.0,
+        "2016": -1319.0,
+        "2017": -1805.0,
+        "2018": -5054.0,
+        "2021": 12784.0,
+        "2023": -3246.0,
+        "2024": -2321.0,
+        "2025": 2510.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 9,
+        "RSI Target 60": 8,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Tata Steel",
+      "cagr": -2.63,
+      "total_return": -41.26,
+      "final_value": 58745.0,
+      "max_dd": 41.26,
+      "sharpe": -0.99,
+      "calmar": -0.06,
+      "win_rate": 25.0,
+      "total_trades": 20,
+      "avg_win": 5.9,
+      "avg_loss": -5.45,
+      "profit_factor": 0.3,
+      "avg_duration": 7.5,
+      "total_costs": 3226.0,
+      "expectancy": -2.61,
+      "avg_rsi_entry": 41.0,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 26.3,
+          "avg_pnl": -2.22,
+          "total_pnl": -34742.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -10.02,
+          "total_pnl": -6513.0
+        }
+      },
+      "annual_returns": {
+        "2006": -11576.0,
+        "2007": -6031.0,
+        "2010": -2034.0,
+        "2014": -5135.0,
+        "2016": -9525.0,
+        "2017": -2420.0,
+        "2021": 5219.0,
+        "2022": -6513.0,
+        "2023": 3248.0,
+        "2024": -1433.0,
+        "2025": -1341.0,
+        "2026": -3714.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 5
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Tata Steel",
+      "cagr": -0.04,
+      "total_return": -0.72,
+      "final_value": 99276.0,
+      "max_dd": 11.66,
+      "sharpe": 0.0,
+      "calmar": -0.0,
+      "win_rate": 40.0,
+      "total_trades": 10,
+      "avg_win": 5.11,
+      "avg_loss": -3.37,
+      "profit_factor": 0.96,
+      "avg_duration": 6.9,
+      "total_costs": 2184.0,
+      "expectancy": 0.02,
+      "avg_rsi_entry": 40.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 10,
+          "win_rate": 40.0,
+          "avg_pnl": 0.02,
+          "total_pnl": -724.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -2467.0,
+        "2016": -2797.0,
+        "2017": -84.0,
+        "2021": -333.0,
+        "2023": 4957.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 5,
+        "Price < 50 EMA": 1,
+        "RSI Target 60": 4
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Coal India",
+      "cagr": 0.96,
+      "total_return": 13.35,
+      "final_value": 113348.0,
+      "max_dd": 6.39,
+      "sharpe": 0.71,
+      "calmar": 0.15,
+      "win_rate": 85.7,
+      "total_trades": 7,
+      "avg_win": 3.44,
+      "avg_loss": -6.73,
+      "profit_factor": 3.09,
+      "avg_duration": 13.1,
+      "total_costs": 1616.0,
+      "expectancy": 1.98,
+      "avg_rsi_entry": 41.3,
+      "years": 13.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 7,
+          "win_rate": 85.7,
+          "avg_pnl": 1.98,
+          "total_pnl": 13348.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2014": -6391.0,
+        "2015": 5962.0,
+        "2021": 989.0,
+        "2022": 4932.0,
+        "2024": 7855.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 1,
+        "RSI Target 60": 6
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Coal India",
+      "cagr": 0.36,
+      "total_return": 4.84,
+      "final_value": 104844.0,
+      "max_dd": 2.86,
+      "sharpe": 0.54,
+      "calmar": 0.13,
+      "win_rate": 50.0,
+      "total_trades": 4,
+      "avg_win": 4.84,
+      "avg_loss": -2.2,
+      "profit_factor": 2.15,
+      "avg_duration": 5.0,
+      "total_costs": 914.0,
+      "expectancy": 1.32,
+      "avg_rsi_entry": 43.1,
+      "years": 13.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 4,
+          "win_rate": 50.0,
+          "avg_pnl": 1.32,
+          "total_pnl": 4844.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2014": -2863.0,
+        "2015": 5792.0,
+        "2024": 1915.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 1,
+        "RSI Target 60": 2,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Bajaj Finserv",
+      "cagr": -4.46,
+      "total_return": -59.77,
+      "final_value": 40230.0,
+      "max_dd": 59.77,
+      "sharpe": -1.4,
+      "calmar": -0.07,
+      "win_rate": 28.2,
+      "total_trades": 39,
+      "avg_win": 4.1,
+      "avg_loss": -4.87,
+      "profit_factor": 0.29,
+      "avg_duration": 8.7,
+      "total_costs": 5469.0,
+      "expectancy": -2.34,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 38,
+          "win_rate": 28.9,
+          "avg_pnl": -2.27,
+          "total_pnl": -57155.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -4.77,
+          "total_pnl": -2616.0
+        }
+      },
+      "annual_returns": {
+        "2006": -12424.0,
+        "2010": -14205.0,
+        "2011": 1167.0,
+        "2012": -8654.0,
+        "2013": -2762.0,
+        "2014": 1632.0,
+        "2015": -6932.0,
+        "2016": -4059.0,
+        "2017": 779.0,
+        "2018": -1973.0,
+        "2019": -6387.0,
+        "2020": 1071.0,
+        "2021": -3312.0,
+        "2024": -804.0,
+        "2025": -2907.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 25,
+        "RSI Target 60": 14
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Bajaj Finserv",
+      "cagr": -3.12,
+      "total_return": -46.86,
+      "final_value": 53137.0,
+      "max_dd": 46.86,
+      "sharpe": -1.52,
+      "calmar": -0.07,
+      "win_rate": 15.0,
+      "total_trades": 20,
+      "avg_win": 3.4,
+      "avg_loss": -4.4,
+      "profit_factor": 0.1,
+      "avg_duration": 5.8,
+      "total_costs": 3140.0,
+      "expectancy": -3.23,
+      "avg_rsi_entry": 40.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 20,
+          "win_rate": 15.0,
+          "avg_pnl": -3.23,
+          "total_pnl": -46863.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -17715.0,
+        "2011": -2257.0,
+        "2012": -9760.0,
+        "2013": -2943.0,
+        "2014": -2590.0,
+        "2015": -8447.0,
+        "2016": 740.0,
+        "2018": 1681.0,
+        "2019": 1567.0,
+        "2021": -4138.0,
+        "2024": -1019.0,
+        "2025": -1980.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 4,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Dr. Reddy's",
+      "cagr": -1.32,
+      "total_return": -23.37,
+      "final_value": 76632.0,
+      "max_dd": 36.51,
+      "sharpe": -0.48,
+      "calmar": -0.04,
+      "win_rate": 29.4,
+      "total_trades": 17,
+      "avg_win": 5.87,
+      "avg_loss": -4.56,
+      "profit_factor": 0.55,
+      "avg_duration": 9.2,
+      "total_costs": 3940.0,
+      "expectancy": -1.49,
+      "avg_rsi_entry": 40.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 29.4,
+          "avg_pnl": -1.49,
+          "total_pnl": -23368.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 17059.0,
+        "2010": -286.0,
+        "2013": -1304.0,
+        "2014": -15219.0,
+        "2015": -5339.0,
+        "2018": -2491.0,
+        "2020": -947.0,
+        "2021": -9678.0,
+        "2023": -2301.0,
+        "2024": -2862.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 5,
+        "Stop Loss (candle low)": 12
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Dr. Reddy's",
+      "cagr": -1.01,
+      "total_return": -18.37,
+      "final_value": 81627.0,
+      "max_dd": 28.39,
+      "sharpe": -0.53,
+      "calmar": -0.04,
+      "win_rate": 11.1,
+      "total_trades": 9,
+      "avg_win": 14.72,
+      "avg_loss": -4.3,
+      "profit_factor": 0.43,
+      "avg_duration": 5.2,
+      "total_costs": 1977.0,
+      "expectancy": -2.19,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 9,
+          "win_rate": 11.1,
+          "avg_pnl": -2.19,
+          "total_pnl": -18373.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 13982.0,
+        "2010": -5544.0,
+        "2013": -4015.0,
+        "2014": -11753.0,
+        "2020": -5558.0,
+        "2023": -2434.0,
+        "2024": -3052.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 1,
+        "Stop Loss (candle low)": 7,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Cipla",
+      "cagr": -2.87,
+      "total_return": -44.14,
+      "final_value": 55856.0,
+      "max_dd": 44.14,
+      "sharpe": -1.49,
+      "calmar": -0.07,
+      "win_rate": 23.3,
+      "total_trades": 30,
+      "avg_win": 2.74,
+      "avg_loss": -3.44,
+      "profit_factor": 0.22,
+      "avg_duration": 7.0,
+      "total_costs": 5156.0,
+      "expectancy": -2.0,
+      "avg_rsi_entry": 41.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 29,
+          "win_rate": 20.7,
+          "avg_pnl": -2.25,
+          "total_pnl": -47668.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 5.36,
+          "total_pnl": 3524.0
+        }
+      },
+      "annual_returns": {
+        "2006": -9182.0,
+        "2009": 407.0,
+        "2010": -2078.0,
+        "2012": -6296.0,
+        "2013": -5284.0,
+        "2014": -6136.0,
+        "2015": 1413.0,
+        "2017": -2120.0,
+        "2018": -2316.0,
+        "2020": -3421.0,
+        "2021": -956.0,
+        "2022": -3869.0,
+        "2023": -95.0,
+        "2024": -4211.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 22,
+        "RSI Target 60": 8
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Cipla",
+      "cagr": -2.33,
+      "total_return": -37.57,
+      "final_value": 62429.0,
+      "max_dd": 37.57,
+      "sharpe": -1.48,
+      "calmar": -0.06,
+      "win_rate": 15.0,
+      "total_trades": 20,
+      "avg_win": 2.67,
+      "avg_loss": -3.33,
+      "profit_factor": 0.14,
+      "avg_duration": 5.8,
+      "total_costs": 3687.0,
+      "expectancy": -2.43,
+      "avg_rsi_entry": 42.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 20,
+          "win_rate": 15.0,
+          "avg_pnl": -2.43,
+          "total_pnl": -37571.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -5583.0,
+        "2009": -2899.0,
+        "2010": 1597.0,
+        "2012": -6561.0,
+        "2013": -2919.0,
+        "2014": -6599.0,
+        "2017": -1912.0,
+        "2018": -2467.0,
+        "2020": -3640.0,
+        "2022": -2069.0,
+        "2023": -690.0,
+        "2024": -3830.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 14,
+        "Price < 50 EMA": 2,
+        "RSI Target 60": 4
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Divi's Lab",
+      "cagr": 0.41,
+      "total_return": 8.5,
+      "final_value": 108504.0,
+      "max_dd": 23.42,
+      "sharpe": 0.21,
+      "calmar": 0.02,
+      "win_rate": 48.5,
+      "total_trades": 33,
+      "avg_win": 4.9,
+      "avg_loss": -3.87,
+      "profit_factor": 1.12,
+      "avg_duration": 8.5,
+      "total_costs": 8000.0,
+      "expectancy": 0.39,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 32,
+          "win_rate": 50.0,
+          "avg_pnl": 0.76,
+          "total_pnl": 22340.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -11.72,
+          "total_pnl": -13836.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 1194.0,
+        "2007": 23273.0,
+        "2008": -13836.0,
+        "2010": -2331.0,
+        "2012": 6797.0,
+        "2014": -8479.0,
+        "2015": 117.0,
+        "2016": 5355.0,
+        "2018": -7881.0,
+        "2019": 1044.0,
+        "2020": -9935.0,
+        "2024": 18429.0,
+        "2025": -5245.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 17,
+        "Stop Loss (candle low)": 16
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Divi's Lab",
+      "cagr": 0.41,
+      "total_return": 8.61,
+      "final_value": 108613.0,
+      "max_dd": 14.26,
+      "sharpe": 0.28,
+      "calmar": 0.03,
+      "win_rate": 43.8,
+      "total_trades": 16,
+      "avg_win": 5.25,
+      "avg_loss": -2.88,
+      "profit_factor": 1.34,
+      "avg_duration": 8.2,
+      "total_costs": 3696.0,
+      "expectancy": 0.67,
+      "avg_rsi_entry": 40.5,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 43.8,
+          "avg_pnl": 0.67,
+          "total_pnl": 8613.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": 8024.0,
+        "2010": -1870.0,
+        "2012": 1755.0,
+        "2014": -4456.0,
+        "2015": 2096.0,
+        "2016": -2678.0,
+        "2018": -6713.0,
+        "2020": -2908.0,
+        "2024": 17771.0,
+        "2025": -2408.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 7,
+        "Price < 50 EMA": 3,
+        "Stop Loss (candle low)": 6
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Eicher Motors",
+      "cagr": -2.58,
+      "total_return": -40.63,
+      "final_value": 59371.0,
+      "max_dd": 40.63,
+      "sharpe": -0.92,
+      "calmar": -0.06,
+      "win_rate": 38.9,
+      "total_trades": 36,
+      "avg_win": 3.23,
+      "avg_loss": -4.44,
+      "profit_factor": 0.41,
+      "avg_duration": 7.9,
+      "total_costs": 5766.0,
+      "expectancy": -1.45,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 34,
+          "win_rate": 38.2,
+          "avg_pnl": -1.54,
+          "total_pnl": -40671.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": 0.05,
+          "total_pnl": 43.0
+        }
+      },
+      "annual_returns": {
+        "2006": -6547.0,
+        "2007": -12591.0,
+        "2009": -4125.0,
+        "2010": -688.0,
+        "2011": -3789.0,
+        "2012": -10608.0,
+        "2013": -1306.0,
+        "2014": 8223.0,
+        "2015": 831.0,
+        "2016": -1815.0,
+        "2017": 3303.0,
+        "2018": -2519.0,
+        "2020": -4543.0,
+        "2021": 1821.0,
+        "2022": 2785.0,
+        "2023": -3135.0,
+        "2024": 2043.0,
+        "2025": -4034.0,
+        "2026": -3934.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 19,
+        "RSI Target 60": 17
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Eicher Motors",
+      "cagr": -1.19,
+      "total_return": -21.29,
+      "final_value": 78712.0,
+      "max_dd": 21.29,
+      "sharpe": -0.51,
+      "calmar": -0.06,
+      "win_rate": 40.0,
+      "total_trades": 25,
+      "avg_win": 3.73,
+      "avg_loss": -4.05,
+      "profit_factor": 0.58,
+      "avg_duration": 7.8,
+      "total_costs": 4939.0,
+      "expectancy": -0.94,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 24,
+          "win_rate": 41.7,
+          "avg_pnl": -0.88,
+          "total_pnl": -19383.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.26,
+          "total_pnl": -1905.0
+        }
+      },
+      "annual_returns": {
+        "2006": -6547.0,
+        "2007": -2899.0,
+        "2009": -4617.0,
+        "2010": -763.0,
+        "2011": -2929.0,
+        "2012": 2331.0,
+        "2013": -3991.0,
+        "2014": 11280.0,
+        "2015": -1578.0,
+        "2016": -2470.0,
+        "2017": 839.0,
+        "2018": -1905.0,
+        "2020": -3305.0,
+        "2022": 3563.0,
+        "2023": -4001.0,
+        "2024": 2676.0,
+        "2025": -1360.0,
+        "2026": -5613.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 13,
+        "RSI Target 60": 11,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Hero MotoCorp",
+      "cagr": 0.5,
+      "total_return": 10.54,
+      "final_value": 110540.0,
+      "max_dd": 12.05,
+      "sharpe": 0.32,
+      "calmar": 0.04,
+      "win_rate": 50.0,
+      "total_trades": 28,
+      "avg_win": 3.98,
+      "avg_loss": -3.08,
+      "profit_factor": 1.25,
+      "avg_duration": 7.4,
+      "total_costs": 6437.0,
+      "expectancy": 0.45,
+      "avg_rsi_entry": 40.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 25,
+          "win_rate": 52.0,
+          "avg_pnl": 0.63,
+          "total_pnl": 13520.0
+        },
+        "bear": {
+          "trades": 3,
+          "win_rate": 33.3,
+          "avg_pnl": -1.0,
+          "total_pnl": -2980.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -380.0,
+        "2008": -3938.0,
+        "2009": -976.0,
+        "2010": -3786.0,
+        "2014": 8718.0,
+        "2015": -3534.0,
+        "2016": 8172.0,
+        "2017": 4923.0,
+        "2023": 8676.0,
+        "2024": -7334.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 14,
+        "Stop Loss (candle low)": 14
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Hero MotoCorp",
+      "cagr": 0.53,
+      "total_return": 11.16,
+      "final_value": 111157.0,
+      "max_dd": 7.21,
+      "sharpe": 0.48,
+      "calmar": 0.07,
+      "win_rate": 57.1,
+      "total_trades": 14,
+      "avg_win": 3.28,
+      "avg_loss": -2.31,
+      "profit_factor": 1.82,
+      "avg_duration": 9.1,
+      "total_costs": 3192.0,
+      "expectancy": 0.89,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 14,
+          "win_rate": 57.1,
+          "avg_pnl": 0.89,
+          "total_pnl": 11157.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": -4735.0,
+        "2010": -2473.0,
+        "2014": 5886.0,
+        "2016": 5306.0,
+        "2017": -557.0,
+        "2023": 7977.0,
+        "2024": -248.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 2,
+        "Stop Loss (candle low)": 4,
+        "RSI Target 60": 8
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "BPCL",
+      "cagr": -1.43,
+      "total_return": -25.03,
+      "final_value": 74966.0,
+      "max_dd": 28.21,
+      "sharpe": -0.6,
+      "calmar": -0.05,
+      "win_rate": 34.8,
+      "total_trades": 23,
+      "avg_win": 4.79,
+      "avg_loss": -4.39,
+      "profit_factor": 0.57,
+      "avg_duration": 8.8,
+      "total_costs": 4797.0,
+      "expectancy": -1.2,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 34.8,
+          "avg_pnl": -1.2,
+          "total_pnl": -25034.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -2199.0,
+        "2012": 2274.0,
+        "2013": -6095.0,
+        "2014": 780.0,
+        "2015": -7045.0,
+        "2016": -2866.0,
+        "2017": 4453.0,
+        "2019": -4012.0,
+        "2021": -167.0,
+        "2024": -7393.0,
+        "2026": -2763.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 13,
+        "Weekly RSI < 50": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "BPCL",
+      "cagr": -0.71,
+      "total_return": -13.24,
+      "final_value": 86765.0,
+      "max_dd": 21.95,
+      "sharpe": -0.36,
+      "calmar": -0.03,
+      "win_rate": 33.3,
+      "total_trades": 12,
+      "avg_win": 4.92,
+      "avg_loss": -4.15,
+      "profit_factor": 0.55,
+      "avg_duration": 4.8,
+      "total_costs": 2493.0,
+      "expectancy": -1.12,
+      "avg_rsi_entry": 41.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 12,
+          "win_rate": 33.3,
+          "avg_pnl": -1.12,
+          "total_pnl": -13235.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -2199.0,
+        "2012": -1955.0,
+        "2013": -5837.0,
+        "2014": -2229.0,
+        "2015": -4925.0,
+        "2016": 3424.0,
+        "2024": 486.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 5,
+        "Stop Loss (candle low)": 5,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Apollo Hosp.",
+      "cagr": -1.34,
+      "total_return": -23.65,
+      "final_value": 76352.0,
+      "max_dd": 27.4,
+      "sharpe": -0.69,
+      "calmar": -0.05,
+      "win_rate": 33.3,
+      "total_trades": 24,
+      "avg_win": 2.97,
+      "avg_loss": -3.17,
+      "profit_factor": 0.43,
+      "avg_duration": 7.8,
+      "total_costs": 4649.0,
+      "expectancy": -1.12,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 34.8,
+          "avg_pnl": -1.05,
+          "total_pnl": -20861.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.94,
+          "total_pnl": -2787.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -2787.0,
+        "2010": 2891.0,
+        "2011": -5383.0,
+        "2012": -5843.0,
+        "2013": -2225.0,
+        "2014": -2593.0,
+        "2015": -3249.0,
+        "2016": 2801.0,
+        "2020": -4411.0,
+        "2021": -4371.0,
+        "2023": 1717.0,
+        "2024": -937.0,
+        "2025": 739.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 14,
+        "RSI Target 60": 10
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Apollo Hosp.",
+      "cagr": -0.61,
+      "total_return": -11.44,
+      "final_value": 88556.0,
+      "max_dd": 19.45,
+      "sharpe": -0.35,
+      "calmar": -0.03,
+      "win_rate": 37.5,
+      "total_trades": 16,
+      "avg_win": 3.18,
+      "avg_loss": -3.1,
+      "profit_factor": 0.57,
+      "avg_duration": 9.6,
+      "total_costs": 3250.0,
+      "expectancy": -0.75,
+      "avg_rsi_entry": 42.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 37.5,
+          "avg_pnl": -0.75,
+          "total_pnl": -11444.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": -1282.0,
+        "2011": -4198.0,
+        "2012": -3209.0,
+        "2014": -2712.0,
+        "2015": -3410.0,
+        "2016": 2955.0,
+        "2020": -4648.0,
+        "2021": -57.0,
+        "2023": 4025.0,
+        "2024": 187.0,
+        "2025": 906.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Stop Loss (candle low)": 7,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Tata Consumer",
+      "cagr": -0.83,
+      "total_return": -15.29,
+      "final_value": 84709.0,
+      "max_dd": 24.61,
+      "sharpe": -0.33,
+      "calmar": -0.03,
+      "win_rate": 52.4,
+      "total_trades": 21,
+      "avg_win": 3.58,
+      "avg_loss": -5.4,
+      "profit_factor": 0.66,
+      "avg_duration": 9.8,
+      "total_costs": 3991.0,
+      "expectancy": -0.7,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 21,
+          "win_rate": 52.4,
+          "avg_pnl": -0.7,
+          "total_pnl": -15291.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2008": -10148.0,
+        "2009": -2866.0,
+        "2010": -11591.0,
+        "2012": 14656.0,
+        "2013": -3502.0,
+        "2017": -2704.0,
+        "2018": -5528.0,
+        "2020": -686.0,
+        "2021": 2628.0,
+        "2023": 3168.0,
+        "2024": 1284.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 10,
+        "RSI Target 60": 11
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Tata Consumer",
+      "cagr": -0.18,
+      "total_return": -3.57,
+      "final_value": 96434.0,
+      "max_dd": 15.16,
+      "sharpe": -0.07,
+      "calmar": -0.01,
+      "win_rate": 46.7,
+      "total_trades": 15,
+      "avg_win": 4.4,
+      "avg_loss": -4.1,
+      "profit_factor": 0.89,
+      "avg_duration": 8.4,
+      "total_costs": 3313.0,
+      "expectancy": -0.14,
+      "avg_rsi_entry": 41.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 46.7,
+          "avg_pnl": -0.14,
+          "total_pnl": -3566.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": -2792.0,
+        "2010": -6752.0,
+        "2012": 16800.0,
+        "2017": -3350.0,
+        "2018": -6841.0,
+        "2020": -1739.0,
+        "2021": 829.0,
+        "2023": -1186.0,
+        "2024": 1465.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 6,
+        "Price < 50 EMA": 2,
+        "RSI Target 60": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Britannia",
+      "cagr": -1.84,
+      "total_return": -30.91,
+      "final_value": 69086.0,
+      "max_dd": 31.78,
+      "sharpe": -0.88,
+      "calmar": -0.06,
+      "win_rate": 37.5,
+      "total_trades": 32,
+      "avg_win": 3.28,
+      "avg_loss": -3.83,
+      "profit_factor": 0.48,
+      "avg_duration": 8.9,
+      "total_costs": 5692.0,
+      "expectancy": -1.16,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 31,
+          "win_rate": 38.7,
+          "avg_pnl": -0.93,
+          "total_pnl": -23784.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -8.48,
+          "total_pnl": -7130.0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -4031.0,
+        "2007": -7426.0,
+        "2008": -7130.0,
+        "2009": -3488.0,
+        "2010": -3022.0,
+        "2011": 65.0,
+        "2012": -3867.0,
+        "2013": 722.0,
+        "2014": 7886.0,
+        "2015": 3609.0,
+        "2017": -3410.0,
+        "2020": -2827.0,
+        "2023": -3660.0,
+        "2024": -2554.0,
+        "2025": -1783.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "Weekly RSI < 50": 2,
+        "RSI Target 60": 15
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Britannia",
+      "cagr": -0.97,
+      "total_return": -17.67,
+      "final_value": 82330.0,
+      "max_dd": 18.7,
+      "sharpe": -0.65,
+      "calmar": -0.05,
+      "win_rate": 36.8,
+      "total_trades": 19,
+      "avg_win": 3.12,
+      "avg_loss": -3.43,
+      "profit_factor": 0.5,
+      "avg_duration": 7.5,
+      "total_costs": 3831.0,
+      "expectancy": -1.02,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 36.8,
+          "avg_pnl": -1.02,
+          "total_pnl": -17670.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -2365.0,
+        "2007": -4482.0,
+        "2009": -196.0,
+        "2010": -3601.0,
+        "2011": -2478.0,
+        "2012": -3281.0,
+        "2013": 1183.0,
+        "2014": 4679.0,
+        "2015": 802.0,
+        "2017": -905.0,
+        "2020": -3229.0,
+        "2024": -1531.0,
+        "2025": -2265.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 3,
+        "Stop Loss (candle low)": 9,
+        "RSI Target 60": 7
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Grasim",
+      "cagr": -1.69,
+      "total_return": -28.79,
+      "final_value": 71206.0,
+      "max_dd": 35.77,
+      "sharpe": -1.02,
+      "calmar": -0.05,
+      "win_rate": 26.3,
+      "total_trades": 19,
+      "avg_win": 4.03,
+      "avg_loss": -3.89,
+      "profit_factor": 0.35,
+      "avg_duration": 6.9,
+      "total_costs": 3597.0,
+      "expectancy": -1.8,
+      "avg_rsi_entry": 41.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 19,
+          "win_rate": 26.3,
+          "avg_pnl": -1.8,
+          "total_pnl": -28794.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 988.0,
+        "2007": -9791.0,
+        "2010": -5753.0,
+        "2011": -3103.0,
+        "2012": -9165.0,
+        "2015": 2796.0,
+        "2016": -1448.0,
+        "2017": -3207.0,
+        "2021": -2549.0,
+        "2023": 2438.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 13
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Grasim",
+      "cagr": -1.05,
+      "total_return": -18.98,
+      "final_value": 81024.0,
+      "max_dd": 21.77,
+      "sharpe": -0.99,
+      "calmar": -0.05,
+      "win_rate": 20.0,
+      "total_trades": 10,
+      "avg_win": 3.08,
+      "avg_loss": -3.47,
+      "profit_factor": 0.2,
+      "avg_duration": 4.0,
+      "total_costs": 1946.0,
+      "expectancy": -2.16,
+      "avg_rsi_entry": 41.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 10,
+          "win_rate": 20.0,
+          "avg_pnl": -2.16,
+          "total_pnl": -18976.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -9531.0,
+        "2010": -5703.0,
+        "2012": -4437.0,
+        "2016": 1818.0,
+        "2017": -603.0,
+        "2021": -3318.0,
+        "2023": 2799.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 6,
+        "Price < 50 EMA": 1,
+        "RSI Target 60": 3
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Hindalco",
+      "cagr": -1.28,
+      "total_return": -22.67,
+      "final_value": 77333.0,
+      "max_dd": 28.61,
+      "sharpe": -0.46,
+      "calmar": -0.04,
+      "win_rate": 36.0,
+      "total_trades": 25,
+      "avg_win": 5.8,
+      "avg_loss": -4.71,
+      "profit_factor": 0.65,
+      "avg_duration": 8.8,
+      "total_costs": 4957.0,
+      "expectancy": -0.93,
+      "avg_rsi_entry": 40.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 25,
+          "win_rate": 36.0,
+          "avg_pnl": -0.93,
+          "total_pnl": -22667.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -3288.0,
+        "2010": 4093.0,
+        "2011": -6294.0,
+        "2014": -5614.0,
+        "2016": -655.0,
+        "2017": -1875.0,
+        "2021": 966.0,
+        "2022": -5223.0,
+        "2023": -3145.0,
+        "2024": -3843.0,
+        "2025": -1286.0,
+        "2026": 3495.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 14,
+        "RSI Target 60": 10,
+        "Weekly RSI < 50": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Hindalco",
+      "cagr": -0.07,
+      "total_return": -1.47,
+      "final_value": 98533.0,
+      "max_dd": 10.97,
+      "sharpe": 0.0,
+      "calmar": -0.01,
+      "win_rate": 38.5,
+      "total_trades": 13,
+      "avg_win": 6.95,
+      "avg_loss": -4.25,
+      "profit_factor": 0.96,
+      "avg_duration": 7.8,
+      "total_costs": 3059.0,
+      "expectancy": 0.06,
+      "avg_rsi_entry": 41.4,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 13,
+          "win_rate": 38.5,
+          "avg_pnl": 0.06,
+          "total_pnl": -1467.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2010": 4230.0,
+        "2014": -6194.0,
+        "2016": 5785.0,
+        "2017": 527.0,
+        "2021": 3646.0,
+        "2023": -4144.0,
+        "2024": -3613.0,
+        "2025": -1705.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 6,
+        "Stop Loss (candle low)": 5,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "IndusInd Bank",
+      "cagr": 0.13,
+      "total_return": 2.61,
+      "final_value": 102606.0,
+      "max_dd": 14.22,
+      "sharpe": 0.11,
+      "calmar": 0.01,
+      "win_rate": 59.3,
+      "total_trades": 27,
+      "avg_win": 2.81,
+      "avg_loss": -3.66,
+      "profit_factor": 1.07,
+      "avg_duration": 8.4,
+      "total_costs": 5795.0,
+      "expectancy": 0.17,
+      "avg_rsi_entry": 41.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 25,
+          "win_rate": 60.0,
+          "avg_pnl": -0.02,
+          "total_pnl": -1901.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": 2.62,
+          "total_pnl": 4507.0
+        }
+      },
+      "annual_returns": {
+        "2008": -5912.0,
+        "2010": 371.0,
+        "2011": 4507.0,
+        "2012": -5645.0,
+        "2013": -4592.0,
+        "2014": 1745.0,
+        "2015": -624.0,
+        "2016": 1283.0,
+        "2017": 7063.0,
+        "2018": 1449.0,
+        "2021": 469.0,
+        "2023": 2963.0,
+        "2024": -470.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 10,
+        "RSI Target 60": 15,
+        "Weekly RSI < 50": 2
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "IndusInd Bank",
+      "cagr": -0.55,
+      "total_return": -10.5,
+      "final_value": 89501.0,
+      "max_dd": 18.34,
+      "sharpe": -0.42,
+      "calmar": -0.03,
+      "win_rate": 56.2,
+      "total_trades": 16,
+      "avg_win": 1.74,
+      "avg_loss": -3.8,
+      "profit_factor": 0.54,
+      "avg_duration": 8.2,
+      "total_costs": 3178.0,
+      "expectancy": -0.68,
+      "avg_rsi_entry": 42.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 56.2,
+          "avg_pnl": -0.68,
+          "total_pnl": -10499.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2008": -5912.0,
+        "2010": -3290.0,
+        "2012": -2496.0,
+        "2013": -5567.0,
+        "2014": 1627.0,
+        "2015": -2698.0,
+        "2016": 2473.0,
+        "2017": 4084.0,
+        "2018": 1280.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 6,
+        "Price < 50 EMA": 1,
+        "RSI Target 60": 9
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "SBI Life",
+      "cagr": -0.25,
+      "total_return": -1.55,
+      "final_value": 98450.0,
+      "max_dd": 5.52,
+      "sharpe": -0.21,
+      "calmar": -0.05,
+      "win_rate": 57.1,
+      "total_trades": 7,
+      "avg_win": 1.98,
+      "avg_loss": -3.13,
+      "profit_factor": 0.82,
+      "avg_duration": 8.9,
+      "total_costs": 1544.0,
+      "expectancy": -0.21,
+      "avg_rsi_entry": 41.3,
+      "years": 6.2,
+      "regime_stats": {
+        "bull": {
+          "trades": 6,
+          "win_rate": 66.7,
+          "avg_pnl": 0.3,
+          "total_pnl": 1569.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -3.29,
+          "total_pnl": -3118.0
+        }
+      },
+      "annual_returns": {
+        "2020": -3118.0,
+        "2021": -2404.0,
+        "2022": 2192.0,
+        "2024": 2348.0,
+        "2025": 2114.0,
+        "2026": -2681.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 3,
+        "RSI Target 60": 4
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "SBI Life",
+      "cagr": 0.13,
+      "total_return": 0.79,
+      "final_value": 100790.0,
+      "max_dd": 3.12,
+      "sharpe": 0.18,
+      "calmar": 0.04,
+      "win_rate": 66.7,
+      "total_trades": 6,
+      "avg_win": 1.51,
+      "avg_loss": -2.54,
+      "profit_factor": 1.16,
+      "avg_duration": 7.7,
+      "total_costs": 1347.0,
+      "expectancy": 0.16,
+      "avg_rsi_entry": 40.8,
+      "years": 6.2,
+      "regime_stats": {
+        "bull": {
+          "trades": 5,
+          "win_rate": 80.0,
+          "avg_pnl": 0.85,
+          "total_pnl": 3908.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -3.29,
+          "total_pnl": -3118.0
+        }
+      },
+      "annual_returns": {
+        "2020": -3118.0,
+        "2021": 569.0,
+        "2022": 2288.0,
+        "2024": 654.0,
+        "2025": 2114.0,
+        "2026": -1717.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 1,
+        "RSI Target 60": 4,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "HDFC Life",
+      "cagr": -0.06,
+      "total_return": -0.38,
+      "final_value": 99617.0,
+      "max_dd": 4.46,
+      "sharpe": -0.03,
+      "calmar": -0.01,
+      "win_rate": 25.0,
+      "total_trades": 4,
+      "avg_win": 6.74,
+      "avg_loss": -2.29,
+      "profit_factor": 0.94,
+      "avg_duration": 4.2,
+      "total_costs": 913.0,
+      "expectancy": -0.03,
+      "avg_rsi_entry": 42.5,
+      "years": 6.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 4,
+          "win_rate": 25.0,
+          "avg_pnl": -0.03,
+          "total_pnl": -383.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2020": -1996.0,
+        "2024": 6265.0,
+        "2025": -4652.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 3,
+        "RSI Target 60": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "HDFC Life",
+      "cagr": 0.37,
+      "total_return": 2.26,
+      "final_value": 102260.0,
+      "max_dd": 3.85,
+      "sharpe": 0.37,
+      "calmar": 0.1,
+      "win_rate": 33.3,
+      "total_trades": 3,
+      "avg_win": 6.74,
+      "avg_loss": -2.06,
+      "profit_factor": 1.55,
+      "avg_duration": 4.7,
+      "total_costs": 701.0,
+      "expectancy": 0.88,
+      "avg_rsi_entry": 42.9,
+      "years": 6.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 3,
+          "win_rate": 33.3,
+          "avg_pnl": 0.88,
+          "total_pnl": 2260.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2024": 6358.0,
+        "2025": -4098.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 1,
+        "Stop Loss (candle low)": 1,
+        "Price < 50 EMA": 1
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Bajaj Auto",
+      "cagr": 0.05,
+      "total_return": 0.94,
+      "final_value": 100942.0,
+      "max_dd": 15.98,
+      "sharpe": 0.08,
+      "calmar": 0.0,
+      "win_rate": 54.1,
+      "total_trades": 37,
+      "avg_win": 3.43,
+      "avg_loss": -3.77,
+      "profit_factor": 1.02,
+      "avg_duration": 11.1,
+      "total_costs": 7878.0,
+      "expectancy": 0.12,
+      "avg_rsi_entry": 41.3,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 35,
+          "win_rate": 51.4,
+          "avg_pnl": 0.01,
+          "total_pnl": -2372.0
+        },
+        "bear": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 1.17,
+          "total_pnl": 945.0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 2.92,
+          "total_pnl": 2369.0
+        }
+      },
+      "annual_returns": {
+        "2006": -12546.0,
+        "2009": 1297.0,
+        "2010": 10203.0,
+        "2011": -4839.0,
+        "2012": 8383.0,
+        "2013": -7486.0,
+        "2014": -2448.0,
+        "2015": -2247.0,
+        "2016": -3680.0,
+        "2017": 7618.0,
+        "2019": 2453.0,
+        "2020": -2439.0,
+        "2021": -7373.0,
+        "2023": 15983.0,
+        "2024": 1601.0,
+        "2026": -3538.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 13,
+        "RSI Target 60": 23,
+        "Weekly RSI < 50": 1
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Bajaj Auto",
+      "cagr": 0.27,
+      "total_return": 5.51,
+      "final_value": 105513.0,
+      "max_dd": 11.62,
+      "sharpe": 0.23,
+      "calmar": 0.02,
+      "win_rate": 53.3,
+      "total_trades": 15,
+      "avg_win": 3.46,
+      "avg_loss": -3.0,
+      "profit_factor": 1.27,
+      "avg_duration": 10.7,
+      "total_costs": 3384.0,
+      "expectancy": 0.44,
+      "avg_rsi_entry": 41.6,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 14,
+          "win_rate": 57.1,
+          "avg_pnl": 0.66,
+          "total_pnl": 7990.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.66,
+          "total_pnl": -2477.0
+        }
+      },
+      "annual_returns": {
+        "2009": 1494.0,
+        "2010": 2789.0,
+        "2011": -2529.0,
+        "2012": 2121.0,
+        "2013": -3076.0,
+        "2014": -2610.0,
+        "2017": -2255.0,
+        "2019": 2528.0,
+        "2023": 7281.0,
+        "2024": -230.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 8,
+        "Stop Loss (candle low)": 5,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "UPL",
+      "cagr": -1.8,
+      "total_return": -30.45,
+      "final_value": 69546.0,
+      "max_dd": 36.55,
+      "sharpe": -0.85,
+      "calmar": -0.05,
+      "win_rate": 31.8,
+      "total_trades": 22,
+      "avg_win": 3.88,
+      "avg_loss": -4.21,
+      "profit_factor": 0.41,
+      "avg_duration": 6.3,
+      "total_costs": 4183.0,
+      "expectancy": -1.64,
+      "avg_rsi_entry": 39.9,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 22,
+          "win_rate": 31.8,
+          "avg_pnl": -1.64,
+          "total_pnl": -30454.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": 2151.0,
+        "2007": -13924.0,
+        "2014": -10089.0,
+        "2015": 986.0,
+        "2016": -2206.0,
+        "2017": -2591.0,
+        "2019": -3966.0,
+        "2021": 434.0,
+        "2025": -1249.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 7
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "UPL",
+      "cagr": -2.02,
+      "total_return": -33.4,
+      "final_value": 66598.0,
+      "max_dd": 33.4,
+      "sharpe": -1.15,
+      "calmar": -0.06,
+      "win_rate": 23.5,
+      "total_trades": 17,
+      "avg_win": 3.31,
+      "avg_loss": -4.19,
+      "profit_factor": 0.22,
+      "avg_duration": 6.5,
+      "total_costs": 3113.0,
+      "expectancy": -2.43,
+      "avg_rsi_entry": 39.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 23.5,
+          "avg_pnl": -2.43,
+          "total_pnl": -33402.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -6066.0,
+        "2007": -12808.0,
+        "2014": -8218.0,
+        "2015": 925.0,
+        "2016": 78.0,
+        "2017": -1426.0,
+        "2019": -3861.0,
+        "2021": -2026.0
+      },
+      "exit_breakdown": {
+        "Price < 50 EMA": 2,
+        "Stop Loss (candle low)": 11,
+        "RSI Target 60": 4
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Adani Ports",
+      "cagr": 0.61,
+      "total_return": 10.23,
+      "final_value": 110231.0,
+      "max_dd": 20.3,
+      "sharpe": 0.29,
+      "calmar": 0.03,
+      "win_rate": 50.0,
+      "total_trades": 16,
+      "avg_win": 5.87,
+      "avg_loss": -4.21,
+      "profit_factor": 1.31,
+      "avg_duration": 9.9,
+      "total_costs": 3639.0,
+      "expectancy": 0.83,
+      "avg_rsi_entry": 40.1,
+      "years": 16.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 53.3,
+          "avg_pnl": 1.2,
+          "total_pnl": 14706.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -4.71,
+          "total_pnl": -4475.0
+        }
+      },
+      "annual_returns": {
+        "2010": 9.0,
+        "2013": -4475.0,
+        "2014": -11733.0,
+        "2015": 2083.0,
+        "2017": 10508.0,
+        "2021": 15508.0,
+        "2022": -7037.0,
+        "2024": 5368.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 9,
+        "Stop Loss (candle low)": 7
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Adani Ports",
+      "cagr": 1.05,
+      "total_return": 18.23,
+      "final_value": 118231.0,
+      "max_dd": 8.16,
+      "sharpe": 0.51,
+      "calmar": 0.13,
+      "win_rate": 44.4,
+      "total_trades": 9,
+      "avg_win": 8.68,
+      "avg_loss": -2.98,
+      "profit_factor": 2.19,
+      "avg_duration": 9.3,
+      "total_costs": 2171.0,
+      "expectancy": 2.2,
+      "avg_rsi_entry": 40.5,
+      "years": 16.1,
+      "regime_stats": {
+        "bull": {
+          "trades": 8,
+          "win_rate": 50.0,
+          "avg_pnl": 3.06,
+          "total_pnl": 22578.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -4.71,
+          "total_pnl": -4347.0
+        }
+      },
+      "annual_returns": {
+        "2010": -2770.0,
+        "2013": -4347.0,
+        "2017": 6951.0,
+        "2021": 16258.0,
+        "2022": -4160.0,
+        "2024": 6299.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 3,
+        "RSI Target 60": 4,
+        "Price < 50 EMA": 2
+      }
+    },
+    {
+      "strategy": "GFS Basic",
+      "instrument": "Shree Cement",
+      "cagr": -0.98,
+      "total_return": -17.77,
+      "final_value": 82233.0,
+      "max_dd": 23.39,
+      "sharpe": -0.36,
+      "calmar": -0.04,
+      "win_rate": 51.4,
+      "total_trades": 35,
+      "avg_win": 3.54,
+      "avg_loss": -4.75,
+      "profit_factor": 0.72,
+      "avg_duration": 8.3,
+      "total_costs": 6316.0,
+      "expectancy": -0.49,
+      "avg_rsi_entry": 40.8,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 34,
+          "win_rate": 52.9,
+          "avg_pnl": -0.44,
+          "total_pnl": -16255.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.02,
+          "total_pnl": -1512.0
+        }
+      },
+      "annual_returns": {
+        "2006": -11592.0,
+        "2007": -838.0,
+        "2009": 4659.0,
+        "2012": -2537.0,
+        "2013": -9651.0,
+        "2014": 4746.0,
+        "2015": -6379.0,
+        "2016": 2146.0,
+        "2017": -3073.0,
+        "2019": 1339.0,
+        "2020": -1631.0,
+        "2021": 6828.0,
+        "2023": 2197.0,
+        "2024": -2987.0,
+        "2025": -990.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 17,
+        "RSI Target 60": 18
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "Shree Cement",
+      "cagr": -0.62,
+      "total_return": -11.75,
+      "final_value": 88247.0,
+      "max_dd": 17.41,
+      "sharpe": -0.24,
+      "calmar": -0.04,
+      "win_rate": 48.4,
+      "total_trades": 31,
+      "avg_win": 3.94,
+      "avg_loss": -4.34,
+      "profit_factor": 0.8,
+      "avg_duration": 7.3,
+      "total_costs": 6173.0,
+      "expectancy": -0.33,
+      "avg_rsi_entry": 40.7,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 30,
+          "win_rate": 50.0,
+          "avg_pnl": -0.28,
+          "total_pnl": -10075.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -2.02,
+          "total_pnl": -1678.0
+        }
+      },
+      "annual_returns": {
+        "2006": -5816.0,
+        "2007": -1057.0,
+        "2009": 4998.0,
+        "2012": -2669.0,
+        "2013": -6037.0,
+        "2014": 5270.0,
+        "2015": -7288.0,
+        "2016": 2146.0,
+        "2017": -2857.0,
+        "2019": 1796.0,
+        "2020": -2996.0,
+        "2021": 7820.0,
+        "2023": 402.0,
+        "2024": -4473.0,
+        "2025": -990.0
+      },
+      "exit_breakdown": {
+        "Stop Loss (candle low)": 15,
+        "RSI Target 60": 15,
+        "Price < 50 EMA": 1
+      }
+    }
+  ]
+}

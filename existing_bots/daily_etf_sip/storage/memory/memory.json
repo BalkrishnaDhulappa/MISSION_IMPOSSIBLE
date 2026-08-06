@@ -1,0 +1,1183 @@
+[
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 30,
+                "exit": 45
+            }
+        },
+        "score": 1.9981911340298142,
+        "timestamp": "20260320_173205"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 10,
+                "slow": 100
+            }
+        },
+        "score": 15.275652746448799,
+        "timestamp": "20260320_173208"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 10,
+                "slow": 30
+            }
+        },
+        "score": 8.784364106417435,
+        "timestamp": "20260320_173210"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 40,
+                "exit": 65
+            }
+        },
+        "score": 2.325733698088079,
+        "timestamp": "20260320_173211"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 40,
+                "exit": 50
+            }
+        },
+        "score": 2.57988605728271,
+        "timestamp": "20260320_173212"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 20,
+                "exit": 55
+            }
+        },
+        "score": 0.9078116611488904,
+        "timestamp": "20260320_173213"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 10,
+                "slow": 50
+            }
+        },
+        "score": 6.871522230664658,
+        "timestamp": "20260320_173215"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 30,
+                "exit": 50
+            }
+        },
+        "score": 2.500654503179086,
+        "timestamp": "20260320_173216"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 15,
+                "slow": 30
+            }
+        },
+        "score": 7.609494350082695,
+        "timestamp": "20260320_173218"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 25,
+                "exit": 65
+            }
+        },
+        "score": 3.161723462606819,
+        "timestamp": "20260320_173219"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 15,
+                "slow": 200
+            }
+        },
+        "score": 8.943692935974191,
+        "timestamp": "20260320_173222"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 30,
+                "exit": 65
+            }
+        },
+        "score": 4.3138879944484065,
+        "timestamp": "20260320_173223"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 25,
+                "exit": 70
+            }
+        },
+        "score": 3.3103291989171284,
+        "timestamp": "20260320_173224"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 20,
+                "exit": 50
+            }
+        },
+        "score": 1.7534993017735856,
+        "timestamp": "20260320_173225"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 30,
+                "exit": 50
+            }
+        },
+        "score": 0.31666902114730894,
+        "timestamp": "20260320_173226"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 15,
+                "slow": 100
+            }
+        },
+        "score": 14.593904762068481,
+        "timestamp": "20260320_173228"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 5,
+                "slow": 100
+            }
+        },
+        "score": 6.7939005501620136,
+        "timestamp": "20260320_173230"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 20,
+                "exit": 50
+            }
+        },
+        "score": 1.0370979170623364,
+        "timestamp": "20260320_173231"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 15,
+                "slow": 50
+            }
+        },
+        "score": 7.96824506669417,
+        "timestamp": "20260320_173234"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 5,
+                "slow": 200
+            }
+        },
+        "score": 14.760843820701357,
+        "timestamp": "20260320_173236"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 4.370062597666175,
+        "timestamp": "20260320_173237"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 15,
+                "slow": 150
+            }
+        },
+        "score": 15.656550100114014,
+        "timestamp": "20260320_173239"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 35,
+                "exit": 45
+            }
+        },
+        "score": 2.0226952917849457,
+        "timestamp": "20260320_173240"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 20,
+                "slow": 100
+            }
+        },
+        "score": 10.3048548801029,
+        "timestamp": "20260320_173242"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 40,
+                "exit": 70
+            }
+        },
+        "score": 2.61162562458781,
+        "timestamp": "20260320_173243"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 40,
+                "exit": 45
+            }
+        },
+        "score": 1.4538864771723312,
+        "timestamp": "20260320_173244"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 40,
+                "exit": 45
+            }
+        },
+        "score": -0.14403154471444532,
+        "timestamp": "20260320_173246"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 30,
+                "exit": 60
+            }
+        },
+        "score": 2.044626651106315,
+        "timestamp": "20260320_173247"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 5,
+                "slow": 30
+            }
+        },
+        "score": 6.314492507706238,
+        "timestamp": "20260320_173249"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 35,
+                "exit": 60
+            }
+        },
+        "score": 3.1772762141162785,
+        "timestamp": "20260320_173250"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 20,
+                "exit": 65
+            }
+        },
+        "score": 2.4260661033037567,
+        "timestamp": "20260320_173304"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 5,
+                "slow": 50
+            }
+        },
+        "score": 8.970241561025944,
+        "timestamp": "20260320_173306"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 30,
+                "exit": 45
+            }
+        },
+        "score": 1.2809737356974165,
+        "timestamp": "20260320_173307"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 0.31512089831996637,
+        "timestamp": "20260320_173308"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 35,
+                "exit": 45
+            }
+        },
+        "score": 1.1990569788669665,
+        "timestamp": "20260320_173309"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 20,
+                "exit": 65
+            }
+        },
+        "score": 1.5417371274687806,
+        "timestamp": "20260320_173310"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 30,
+                "exit": 55
+            }
+        },
+        "score": 3.919551714405414,
+        "timestamp": "20260320_173311"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 35,
+                "exit": 50
+            }
+        },
+        "score": 2.3825644420625403,
+        "timestamp": "20260320_173312"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 35,
+                "exit": 65
+            }
+        },
+        "score": 6.485261291638841,
+        "timestamp": "20260320_173313"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 20,
+                "exit": 45
+            }
+        },
+        "score": 0.5294250930954721,
+        "timestamp": "20260320_173314"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 40,
+                "exit": 60
+            }
+        },
+        "score": 3.8783722889038397,
+        "timestamp": "20260320_173315"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 20,
+                "exit": 45
+            }
+        },
+        "score": 1.228911951738695,
+        "timestamp": "20260320_173316"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 20,
+                "exit": 65
+            }
+        },
+        "score": 1.219503280105777,
+        "timestamp": "20260320_173317"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 35,
+                "exit": 45
+            }
+        },
+        "score": 0.8159749217235677,
+        "timestamp": "20260320_173318"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 35,
+                "exit": 70
+            }
+        },
+        "score": 3.132877504954283,
+        "timestamp": "20260320_173319"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 20,
+                "slow": 200
+            }
+        },
+        "score": 18.592621524977417,
+        "timestamp": "20260320_173322"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 20,
+                "slow": 50
+            }
+        },
+        "score": 12.901120003499365,
+        "timestamp": "20260320_173324"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 20,
+                "exit": 55
+            }
+        },
+        "score": 0.5043732692520931,
+        "timestamp": "20260320_173325"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 20,
+                "exit": 45
+            }
+        },
+        "score": 1.5470027792540295,
+        "timestamp": "20260320_173326"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 5,
+                "slow": 150
+            }
+        },
+        "score": 13.696695436877102,
+        "timestamp": "20260320_173328"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 40,
+                "exit": 50
+            }
+        },
+        "score": 0.18748768903455218,
+        "timestamp": "20260320_173329"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 30,
+                "exit": 65
+            }
+        },
+        "score": 1.0328889884575445,
+        "timestamp": "20260320_173330"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 1.5261903174911098,
+        "timestamp": "20260320_173331"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 25,
+                "exit": 65
+            }
+        },
+        "score": 31.213562204258675,
+        "timestamp": "20260320_173332"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 20,
+                "exit": 60
+            }
+        },
+        "score": 2.0665905441991272,
+        "timestamp": "20260320_173333"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 25,
+                "exit": 55
+            }
+        },
+        "score": 0.677354796721055,
+        "timestamp": "20260320_173334"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 20,
+                "slow": 30
+            }
+        },
+        "score": 10.958302894611998,
+        "timestamp": "20260320_173336"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 25,
+                "exit": 65
+            }
+        },
+        "score": 2.707019321443129,
+        "timestamp": "20260320_173337"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 35,
+                "exit": 65
+            }
+        },
+        "score": 1.6368708630346231,
+        "timestamp": "20260320_173338"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 25,
+                "exit": 70
+            }
+        },
+        "score": 1.4075629247018693,
+        "timestamp": "20260320_173339"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 10,
+                "slow": 150
+            }
+        },
+        "score": 13.660529850870908,
+        "timestamp": "20260321_023005"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 35,
+                "exit": 65
+            }
+        },
+        "score": 3.753618237060458,
+        "timestamp": "20260321_023006"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 35,
+                "exit": 60
+            }
+        },
+        "score": 2.6708540192931096,
+        "timestamp": "20260321_023007"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 20,
+                "exit": 70
+            }
+        },
+        "score": 1.047190303158922,
+        "timestamp": "20260321_023008"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 35,
+                "exit": 45
+            }
+        },
+        "score": 0.5099127335157179,
+        "timestamp": "20260321_023010"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 35,
+                "exit": 65
+            }
+        },
+        "score": 3.44547536773909,
+        "timestamp": "20260321_023011"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 30,
+                "exit": 45
+            }
+        },
+        "score": 2.5586202792608765,
+        "timestamp": "20260321_023012"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 40,
+                "exit": 45
+            }
+        },
+        "score": 1.6598299081004875,
+        "timestamp": "20260321_023013"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 25,
+                "exit": 65
+            }
+        },
+        "score": 2.480032511479717,
+        "timestamp": "20260321_023014"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 25,
+                "exit": 55
+            }
+        },
+        "score": 15.185132956965509,
+        "timestamp": "20260321_023015"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 2.0756829807070294,
+        "timestamp": "20260321_023016"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 25,
+                "entry": 40,
+                "exit": 50
+            }
+        },
+        "score": 0.6865726736474437,
+        "timestamp": "20260321_023017"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 20,
+                "exit": 60
+            }
+        },
+        "score": 2.125195660774786,
+        "timestamp": "20260321_023018"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 25,
+                "exit": 70
+            }
+        },
+        "score": 5.574178023952182,
+        "timestamp": "20260321_023020"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 40,
+                "exit": 55
+            }
+        },
+        "score": 3.326343561575885,
+        "timestamp": "20260321_023021"
+    },
+    {
+        "strategy": {
+            "type": "EMA",
+            "params": {
+                "fast": 20,
+                "slow": 150
+            }
+        },
+        "score": 14.517246065041647,
+        "timestamp": "20260321_023023"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 30,
+                "exit": 60
+            }
+        },
+        "score": 3.4900007893206997,
+        "timestamp": "20260321_023024"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 20,
+                "exit": 50
+            }
+        },
+        "score": 0.45229341373297904,
+        "timestamp": "20260321_023025"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 20,
+                "exit": 60
+            }
+        },
+        "score": 0.593188793302148,
+        "timestamp": "20260321_023026"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 35,
+                "exit": 50
+            }
+        },
+        "score": 1.6258600784186146,
+        "timestamp": "20260321_023027"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 30,
+                "exit": 70
+            }
+        },
+        "score": 2.90508946048729,
+        "timestamp": "20260322_023006"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 35,
+                "exit": 55
+            }
+        },
+        "score": 2.6920293429349327,
+        "timestamp": "20260322_023009"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 40,
+                "exit": 60
+            }
+        },
+        "score": 3.184586021970596,
+        "timestamp": "20260322_023010"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 20,
+                "exit": 60
+            }
+        },
+        "score": 1.90351196585521,
+        "timestamp": "20260322_023011"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 30,
+                "exit": 50
+            }
+        },
+        "score": 1.6166898081086851,
+        "timestamp": "20260322_023012"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 35,
+                "exit": 55
+            }
+        },
+        "score": 0.9743507646917149,
+        "timestamp": "20260322_023013"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 40,
+                "exit": 45
+            }
+        },
+        "score": 2.120916388081965,
+        "timestamp": "20260322_023014"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 20,
+                "exit": 45
+            }
+        },
+        "score": 0.3194312485666546,
+        "timestamp": "20260322_023015"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 30,
+                "exit": 55
+            }
+        },
+        "score": 0.553587574764546,
+        "timestamp": "20260322_023016"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 35,
+                "exit": 70
+            }
+        },
+        "score": 8.130531958296933,
+        "timestamp": "20260322_023018"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 40,
+                "exit": 55
+            }
+        },
+        "score": 2.1226111475683163,
+        "timestamp": "20260322_023019"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 30,
+                "exit": 45
+            }
+        },
+        "score": 0.2189108559034677,
+        "timestamp": "20260322_023020"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 1.6069806561734883,
+        "timestamp": "20260322_023021"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 30,
+                "exit": 55
+            }
+        },
+        "score": 1.274585998684761,
+        "timestamp": "20260322_023022"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 25,
+                "exit": 45
+            }
+        },
+        "score": 0.2516528365776304,
+        "timestamp": "20260322_023023"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 14,
+                "entry": 35,
+                "exit": 50
+            }
+        },
+        "score": 1.3472153515122265,
+        "timestamp": "20260322_023024"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 10,
+                "entry": 35,
+                "exit": 70
+            }
+        },
+        "score": 3.9935085701184856,
+        "timestamp": "20260322_023025"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 7,
+                "entry": 25,
+                "exit": 70
+            }
+        },
+        "score": 2.6963831004492613,
+        "timestamp": "20260322_023027"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 5,
+                "entry": 25,
+                "exit": 70
+            }
+        },
+        "score": 2.3406552166732055,
+        "timestamp": "20260322_023028"
+    },
+    {
+        "strategy": {
+            "type": "RSI",
+            "params": {
+                "period": 20,
+                "entry": 30,
+                "exit": 60
+            }
+        },
+        "score": 1.3464490550813393,
+        "timestamp": "20260322_023029"
+    }
+]

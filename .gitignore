@@ -1,0 +1,16 @@
+# Repo-wide ignores for secrets and local runtime artifacts
+.env
+.env_*
+**/.env
+**/.kite_token
+**/access_token*
+**/*secret*
+**/*credentials*
+**/*.log
+**/logs/
+**/__pycache__/
+**/*.pyc
+**/venv/
+**/.venv/
+mtf_nursery/data/
+mtf_nursery/config.json

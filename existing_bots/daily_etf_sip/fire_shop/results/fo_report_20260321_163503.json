@@ -1,0 +1,531 @@
+{
+  "generated": "20260321_163503",
+  "metrics": [
+    {
+      "strategy": "F1 Trend Futures",
+      "cagr": -0.97,
+      "total_return": -15.18,
+      "final_value": 424081.0,
+      "max_dd": 44.56,
+      "sharpe": -0.03,
+      "calmar": -0.02,
+      "win_rate": 49.8,
+      "total_trades": 225,
+      "avg_win": 3.71,
+      "avg_loss": -3.69,
+      "profit_factor": 0.92,
+      "avg_duration": 27.3,
+      "total_costs": 57206.0,
+      "expectancy": -0.01,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 148,
+          "win_rate": 55.4,
+          "avg_pnl": 0.58,
+          "total_pnl": 126674.0
+        },
+        "bear": {
+          "trades": 52,
+          "win_rate": 34.6,
+          "avg_pnl": -1.66,
+          "total_pnl": -201507.0
+        },
+        "sideways": {
+          "trades": 25,
+          "win_rate": 48.0,
+          "avg_pnl": -0.06,
+          "total_pnl": -31419.0
+        }
+      },
+      "annual_returns": {
+        "2009": 22190.0,
+        "2010": 20983.0,
+        "2011": 2818.0,
+        "2012": -11149.0,
+        "2013": -29923.0,
+        "2014": 46141.0,
+        "2015": -5208.0,
+        "2016": -7068.0,
+        "2017": 23007.0,
+        "2018": -67.0,
+        "2019": -43898.0,
+        "2020": -112023.0,
+        "2021": 77055.0,
+        "2022": -12652.0,
+        "2023": 41815.0,
+        "2024": 44387.0,
+        "2025": 448.0,
+        "2026": -163108.0
+      },
+      "exit_breakdown": {
+        "Expiry Rollover": 202,
+        "Signal Flip": 23
+      }
+    },
+    {
+      "strategy": "F2 MACD Futures",
+      "cagr": -5.48,
+      "total_return": -61.23,
+      "final_value": 193871.0,
+      "max_dd": 63.05,
+      "sharpe": -1.09,
+      "calmar": -0.09,
+      "win_rate": 27.2,
+      "total_trades": 162,
+      "avg_win": 2.89,
+      "avg_loss": -2.0,
+      "profit_factor": 0.54,
+      "avg_duration": 17.4,
+      "total_costs": 36472.0,
+      "expectancy": -0.67,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 121,
+          "win_rate": 28.1,
+          "avg_pnl": -0.5,
+          "total_pnl": -137163.0
+        },
+        "bear": {
+          "trades": 24,
+          "win_rate": 25.0,
+          "avg_pnl": -1.4,
+          "total_pnl": -102772.0
+        },
+        "sideways": {
+          "trades": 17,
+          "win_rate": 23.5,
+          "avg_pnl": -0.82,
+          "total_pnl": -66193.0
+        }
+      },
+      "annual_returns": {
+        "2009": -5188.0,
+        "2010": -1743.0,
+        "2011": 23807.0,
+        "2012": -3996.0,
+        "2013": -13434.0,
+        "2014": -39485.0,
+        "2015": -24897.0,
+        "2016": -16595.0,
+        "2017": -32158.0,
+        "2018": 22531.0,
+        "2019": -38084.0,
+        "2020": -85474.0,
+        "2021": -26191.0,
+        "2022": 32664.0,
+        "2023": -16632.0,
+        "2024": -14921.0,
+        "2025": -66335.0
+      },
+      "exit_breakdown": {
+        "Stop Loss": 6,
+        "Signal Exit": 156
+      }
+    },
+    {
+      "strategy": "D1 ATM Weekly Buy",
+      "cagr": -7.75,
+      "total_return": -74.25,
+      "final_value": 128750.0,
+      "max_dd": 81.26,
+      "sharpe": -1.4,
+      "calmar": -0.1,
+      "win_rate": 32.2,
+      "total_trades": 942,
+      "avg_win": 87.36,
+      "avg_loss": -60.38,
+      "profit_factor": 0.65,
+      "avg_duration": 3.2,
+      "total_costs": 90892.0,
+      "expectancy": -12.86,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 749,
+          "win_rate": 32.4,
+          "avg_pnl": -15.48,
+          "total_pnl": -374153.0
+        },
+        "bear": {
+          "trades": 171,
+          "win_rate": 29.2,
+          "avg_pnl": -6.95,
+          "total_pnl": -9830.0
+        },
+        "sideways": {
+          "trades": 22,
+          "win_rate": 45.5,
+          "avg_pnl": 30.16,
+          "total_pnl": 8076.0
+        }
+      },
+      "annual_returns": {
+        "2009": -15810.0,
+        "2010": -554.0,
+        "2011": -7062.0,
+        "2012": -10683.0,
+        "2013": -16128.0,
+        "2014": 1772.0,
+        "2015": -3014.0,
+        "2016": -5566.0,
+        "2017": -13096.0,
+        "2018": -9803.0,
+        "2019": -44998.0,
+        "2020": -10459.0,
+        "2021": -39559.0,
+        "2022": -19644.0,
+        "2023": 14972.0,
+        "2024": -55380.0,
+        "2025": -158469.0,
+        "2026": 17581.0
+      },
+      "exit_breakdown": {
+        "Near Expiry": 808,
+        "Stop Loss 50%": 102,
+        "Target 100%": 32
+      }
+    },
+    {
+      "strategy": "D1 ATM Monthly Buy",
+      "cagr": -2.92,
+      "total_return": -39.26,
+      "final_value": 303723.0,
+      "max_dd": 44.97,
+      "sharpe": -0.85,
+      "calmar": -0.06,
+      "win_rate": 31.6,
+      "total_trades": 547,
+      "avg_win": 89.84,
+      "avg_loss": -60.76,
+      "profit_factor": 0.74,
+      "avg_duration": 5.8,
+      "total_costs": 54397.0,
+      "expectancy": -13.13,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 396,
+          "win_rate": 31.8,
+          "avg_pnl": -14.34,
+          "total_pnl": -169007.0
+        },
+        "bear": {
+          "trades": 130,
+          "win_rate": 28.5,
+          "avg_pnl": -18.01,
+          "total_pnl": -55815.0
+        },
+        "sideways": {
+          "trades": 21,
+          "win_rate": 47.6,
+          "avg_pnl": 39.97,
+          "total_pnl": 12506.0
+        }
+      },
+      "annual_returns": {
+        "2009": -15810.0,
+        "2010": -554.0,
+        "2011": -7062.0,
+        "2012": -10683.0,
+        "2013": -16128.0,
+        "2014": 1772.0,
+        "2015": -3014.0,
+        "2016": -5566.0,
+        "2017": -13096.0,
+        "2018": -9803.0,
+        "2019": -38836.0,
+        "2020": -2592.0,
+        "2021": -8418.0,
+        "2022": -26906.0,
+        "2023": 27891.0,
+        "2024": -38827.0,
+        "2025": -42827.0,
+        "2026": -1864.0
+      },
+      "exit_breakdown": {
+        "Near Expiry": 359,
+        "Stop Loss 50%": 142,
+        "Target 100%": 46
+      }
+    },
+    {
+      "strategy": "T1 ATM Straddle",
+      "cagr": 9.7,
+      "total_return": 374.12,
+      "final_value": 2370593.0,
+      "max_dd": 3.53,
+      "sharpe": 7.82,
+      "calmar": 2.75,
+      "win_rate": 57.0,
+      "total_trades": 300,
+      "avg_win": 54.98,
+      "avg_loss": -64.5,
+      "profit_factor": 1.13,
+      "avg_duration": 3.0,
+      "total_costs": 32202.0,
+      "expectancy": 3.6,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 202,
+          "win_rate": 57.9,
+          "avg_pnl": 3.37,
+          "total_pnl": 50327.0
+        },
+        "bear": {
+          "trades": 43,
+          "win_rate": 48.8,
+          "avg_pnl": 1.3,
+          "total_pnl": 5691.0
+        },
+        "sideways": {
+          "trades": 55,
+          "win_rate": 60.0,
+          "avg_pnl": 6.28,
+          "total_pnl": 7495.0
+        }
+      },
+      "annual_returns": {
+        "2019": 18814.0,
+        "2020": -13985.0,
+        "2021": -9305.0,
+        "2022": 2441.0,
+        "2023": 14147.0,
+        "2024": -3269.0,
+        "2025": 52359.0,
+        "2026": 2317.0
+      },
+      "exit_breakdown": {
+        "Expiry": 292,
+        "Stop Loss 2x": 8
+      }
+    },
+    {
+      "strategy": "T2 Strangle",
+      "cagr": 5.66,
+      "total_return": 152.39,
+      "final_value": 1261961.0,
+      "max_dd": 3.82,
+      "sharpe": 5.62,
+      "calmar": 1.48,
+      "win_rate": 66.4,
+      "total_trades": 298,
+      "avg_win": 83.42,
+      "avg_loss": -136.66,
+      "profit_factor": 1.09,
+      "avg_duration": 2.9,
+      "total_costs": 28399.0,
+      "expectancy": 9.57,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 200,
+          "win_rate": 68.5,
+          "avg_pnl": 11.08,
+          "total_pnl": 33358.0
+        },
+        "bear": {
+          "trades": 43,
+          "win_rate": 51.2,
+          "avg_pnl": -0.23,
+          "total_pnl": 1899.0
+        },
+        "sideways": {
+          "trades": 55,
+          "win_rate": 70.9,
+          "avg_pnl": 11.74,
+          "total_pnl": -3174.0
+        }
+      },
+      "annual_returns": {
+        "2019": 14337.0,
+        "2020": -10775.0,
+        "2021": -8030.0,
+        "2022": -11796.0,
+        "2023": 16854.0,
+        "2024": -14290.0,
+        "2025": 40198.0,
+        "2026": 5582.0
+      },
+      "exit_breakdown": {
+        "Expiry": 275,
+        "Stop Loss 2x": 23
+      }
+    },
+    {
+      "strategy": "T3 Iron Condor",
+      "cagr": 4.56,
+      "total_return": 111.66,
+      "final_value": 1058302.0,
+      "max_dd": 0.96,
+      "sharpe": 6.82,
+      "calmar": 4.75,
+      "win_rate": 62.5,
+      "total_trades": 347,
+      "avg_win": 82.44,
+      "avg_loss": -148.6,
+      "profit_factor": 1.02,
+      "avg_duration": 3.0,
+      "total_costs": 48132.0,
+      "expectancy": -4.12,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 248,
+          "win_rate": 64.9,
+          "avg_pnl": -5.43,
+          "total_pnl": 12175.0
+        },
+        "bear": {
+          "trades": 43,
+          "win_rate": 48.8,
+          "avg_pnl": -19.17,
+          "total_pnl": -12347.0
+        },
+        "sideways": {
+          "trades": 56,
+          "win_rate": 62.5,
+          "avg_pnl": 13.24,
+          "total_pnl": 5613.0
+        }
+      },
+      "annual_returns": {
+        "2019": 355.0,
+        "2020": 24.0,
+        "2021": -15911.0,
+        "2022": -10698.0,
+        "2023": -3471.0,
+        "2024": -1767.0,
+        "2025": 46008.0,
+        "2026": -9096.0
+      },
+      "exit_breakdown": {
+        "Expiry": 340,
+        "Stop Loss 3x": 7
+      }
+    },
+    {
+      "strategy": "S1 Bull Call Spread",
+      "cagr": -3.14,
+      "total_return": -41.53,
+      "final_value": 292340.0,
+      "max_dd": 42.05,
+      "sharpe": -2.21,
+      "calmar": -0.07,
+      "win_rate": 33.4,
+      "total_trades": 506,
+      "avg_win": 69.65,
+      "avg_loss": -60.86,
+      "profit_factor": 0.54,
+      "avg_duration": 3.3,
+      "total_costs": 94126.0,
+      "expectancy": -17.27,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 499,
+          "win_rate": 33.1,
+          "avg_pnl": -17.61,
+          "total_pnl": -216907.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 7,
+          "win_rate": 57.1,
+          "avg_pnl": 6.9,
+          "total_pnl": 1301.0
+        }
+      },
+      "annual_returns": {
+        "2009": -4125.0,
+        "2010": -1477.0,
+        "2011": -2015.0,
+        "2012": -2420.0,
+        "2013": -4660.0,
+        "2014": -3582.0,
+        "2015": -6324.0,
+        "2016": -1054.0,
+        "2017": -5290.0,
+        "2018": 4422.0,
+        "2019": -15816.0,
+        "2020": -3339.0,
+        "2021": -17219.0,
+        "2022": -21510.0,
+        "2023": 9581.0,
+        "2024": -39864.0,
+        "2025": -86723.0,
+        "2026": -14186.0
+      },
+      "exit_breakdown": {
+        "Near Expiry": 359,
+        "Signal Exit": 69,
+        "Target 80%": 35,
+        "Stop Loss 50%": 43
+      }
+    },
+    {
+      "strategy": "S2 Bear Put Spread",
+      "cagr": -0.25,
+      "total_return": -4.06,
+      "final_value": 479683.0,
+      "max_dd": 7.68,
+      "sharpe": -0.45,
+      "calmar": -0.03,
+      "win_rate": 28.3,
+      "total_trades": 138,
+      "avg_win": 113.12,
+      "avg_loss": -67.6,
+      "profit_factor": 0.83,
+      "avg_duration": 2.9,
+      "total_costs": 25890.0,
+      "expectancy": -16.52,
+      "years": 16.8,
+      "regime_stats": {
+        "bull": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "bear": {
+          "trades": 124,
+          "win_rate": 25.8,
+          "avg_pnl": -20.74,
+          "total_pnl": -21737.0
+        },
+        "sideways": {
+          "trades": 14,
+          "win_rate": 50.0,
+          "avg_pnl": 20.83,
+          "total_pnl": 3514.0
+        }
+      },
+      "annual_returns": {
+        "2011": -4279.0,
+        "2012": -1175.0,
+        "2013": -983.0,
+        "2015": -3413.0,
+        "2016": -5773.0,
+        "2018": -1686.0,
+        "2019": -5565.0,
+        "2020": -8773.0,
+        "2022": 10043.0,
+        "2025": -15378.0,
+        "2026": 18757.0
+      },
+      "exit_breakdown": {
+        "Signal Exit": 20,
+        "Near Expiry": 80,
+        "Target 80%": 15,
+        "Stop Loss 50%": 23
+      }
+    }
+  ]
+}

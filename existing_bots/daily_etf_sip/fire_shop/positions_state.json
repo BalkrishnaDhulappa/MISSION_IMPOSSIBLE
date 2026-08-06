@@ -1,0 +1,260 @@
+{
+  "NSE:AWL": {
+    "last_buy": 344.422068,
+    "bid_count": 0,
+    "invested": 9988.239972000001,
+    "last_sip": null
+  },
+  "NSE:IRCTC": {
+    "last_buy": 851.614814,
+    "bid_count": 0,
+    "invested": 27360.09997,
+    "last_sip": null
+  },
+  "NSE:CPSEETF": {
+    "last_buy": 97.09,
+    "bid_count": 3,
+    "invested": 9944.199944,
+    "last_sip": null
+  },
+  "NSE:TOP10ADD": {
+    "last_buy": 86.25,
+    "bid_count": 1,
+    "invested": 4291.939988,
+    "last_sip": null
+  },
+  "NSE:NV20IETF": {
+    "last_buy": 13.58,
+    "bid_count": 1,
+    "invested": 4493.86993,
+    "last_sip": null
+  },
+  "NSE:HNGSNGBEES": {
+    "last_buy": 463.0,
+    "bid_count": 3,
+    "invested": 8368.779992,
+    "last_sip": null
+  },
+  "NSE:ICICIB22": {
+    "last_buy": 117.75,
+    "bid_count": 2,
+    "invested": 6680.72999,
+    "last_sip": null
+  },
+  "NSE:GROWWRAIL": {
+    "last_buy": 29.57,
+    "bid_count": 2,
+    "invested": 6737.749876000001,
+    "last_sip": null
+  },
+  "NSE:FMCGIETF": {
+    "last_buy": 51.76,
+    "bid_count": 1,
+    "invested": 4400.25994,
+    "last_sip": null
+  },
+  "NSE:ABSLPSE": {
+    "last_buy": 10.3,
+    "bid_count": 2,
+    "invested": 6710.9394,
+    "last_sip": null
+  },
+  "NSE:TOP15IETF": {
+    "last_buy": 9.69,
+    "bid_count": 0,
+    "invested": 2994.21,
+    "last_sip": null
+  },
+  "NSE:ITIETF": {
+    "last_buy": 34.55,
+    "bid_count": 0,
+    "invested": 6046.249999999999,
+    "last_sip": null
+  },
+  "NSE:GROWWPOWER": {
+    "last_buy": 12.0,
+    "bid_count": 0,
+    "invested": 4492.5,
+    "last_sip": null
+  },
+  "NSE:METALIETF": {
+    "last_buy": 12.68,
+    "bid_count": 1,
+    "invested": 6755.359792,
+    "last_sip": null
+  },
+  "NSE:MON100": {
+    "last_buy": 331.75,
+    "bid_count": 0,
+    "invested": 4312.75,
+    "last_sip": null
+  },
+  "NSE:QUAL30IETF": {
+    "last_buy": 20.76,
+    "bid_count": 0,
+    "invested": 4485.119904,
+    "last_sip": null
+  },
+  "NSE:MOVALUE": {
+    "last_buy": 114.65,
+    "bid_count": 0,
+    "invested": 4477.189977,
+    "last_sip": null
+  },
+  "NSE:AONETMMQ50": {
+    "last_buy": 10.15,
+    "bid_count": 0,
+    "invested": 6038.4,
+    "last_sip": null
+  },
+  "NSE:VAL30IETF": {
+    "last_buy": 15.5,
+    "bid_count": 0,
+    "invested": 6014.0,
+    "last_sip": null
+  },
+  "NSE:VALUEAXIS": {
+    "last_buy": 33.657688,
+    "bid_count": 0,
+    "invested": 6697.879912,
+    "last_sip": null
+  },
+  "NSE:PSUBNKBEES": {
+    "last_buy": 94.15,
+    "bid_count": 0,
+    "invested": 6026.88,
+    "last_sip": null
+  },
+  "NSE:MOMIDMTM": {
+    "last_buy": 63.45,
+    "bid_count": 0,
+    "invested": 6027.75,
+    "last_sip": null
+  },
+  "NSE:MOMENTUM50": {
+    "last_buy": 52.19,
+    "bid_count": 0,
+    "invested": 5999.55,
+    "last_sip": null
+  },
+  "NSE:ENERGY": {
+    "last_buy": 38.62,
+    "bid_count": 0,
+    "invested": 6030.959999999999,
+    "last_sip": null
+  },
+  "NSE:MOM30IETF": {
+    "last_buy": 30.81,
+    "bid_count": 0,
+    "invested": 6006.0,
+    "last_sip": null
+  },
+  "NSE:GROWWEV": {
+    "last_buy": 31.24,
+    "bid_count": 0,
+    "invested": 6030.589940000001,
+    "last_sip": null
+  },
+  "NSE:DEFENCE": {
+    "last_buy": 78.44,
+    "bid_count": 0,
+    "invested": 6039.88,
+    "last_sip": null
+  },
+  "NSE:MODEFENCE": {
+    "last_buy": 102.14,
+    "bid_count": 0,
+    "invested": 6029.21,
+    "last_sip": null
+  },
+  "NSE:INFRAIETF": {
+    "last_buy": 96.21,
+    "bid_count": 0,
+    "invested": 6055.56,
+    "last_sip": null
+  },
+  "NSE:GOLDBEES": {
+    "last_buy": 116.45,
+    "bid_count": 0,
+    "invested": 6055.400000000001,
+    "last_sip": null
+  },
+  "NSE:SILVERBEES": {
+    "last_buy": 208.95,
+    "bid_count": 0,
+    "invested": 6059.549999999999,
+    "last_sip": null
+  },
+  "NSE:MOCAPITAL": {
+    "last_buy": 54.31,
+    "bid_count": 0,
+    "invested": 6030.63,
+    "last_sip": null
+  },
+  "NSE:MOMENTUM30": {
+    "last_buy": 30.25,
+    "bid_count": 0,
+    "invested": 6017.759999999999,
+    "last_sip": null
+  },
+  "NSE:PVTBANIETF": {
+    "last_buy": 28.12,
+    "bid_count": 0,
+    "invested": 6013.400000000001,
+    "last_sip": null
+  },
+  "NSE:BFSI": {
+    "last_buy": 27.6,
+    "bid_count": 0,
+    "invested": 6016.8,
+    "last_sip": null
+  },
+  "NSE:BANKBEES": {
+    "last_buy": 591.78,
+    "bid_count": 0,
+    "invested": 6508.700000000001,
+    "last_sip": null
+  },
+  "NSE:ALPHAETF": {
+    "last_buy": 25.64,
+    "bid_count": 0,
+    "invested": 6032.450000000001,
+    "last_sip": null
+  },
+  "NSE:FINIETF": {
+    "last_buy": 31.97,
+    "bid_count": 0,
+    "invested": 6010.36,
+    "last_sip": null
+  },
+  "NSE:OILIETF": {
+    "last_buy": 11.26,
+    "bid_count": 0,
+    "invested": 6001.58,
+    "last_sip": null
+  },
+  "NSE:MOREALTY": {
+    "last_buy": 90.01,
+    "bid_count": 0,
+    "invested": 6030.67,
+    "last_sip": null
+  },
+  "NSE:SMALLCAP": {
+    "last_buy": 47.04,
+    "bid_count": 0,
+    "invested": 6021.12,
+    "last_sip": null
+  },
+  "NSE:SGBFEB32IV-GB": {
+    "last_buy": 6213.0,
+    "bid_count": 0,
+    "invested": 6213.0,
+    "last_sip": null
+  },
+  "NSE:GROWWHOSPI": {
+    "last_buy": 54.1,
+    "bid_count": 0,
+    "invested": 6005.1,
+    "last_sip": null
+  }
+}

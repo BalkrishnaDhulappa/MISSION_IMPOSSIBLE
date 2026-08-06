@@ -1,0 +1,118 @@
+{
+  "generated": "20260321_172142",
+  "metrics": [
+    {
+      "strategy": "GFS Basic",
+      "instrument": "RELIANCE",
+      "cagr": -5.2,
+      "total_return": -65.56,
+      "final_value": 34440.0,
+      "max_dd": 65.56,
+      "sharpe": -1.17,
+      "calmar": -0.08,
+      "win_rate": 34.6,
+      "total_trades": 52,
+      "avg_win": 4.09,
+      "avg_loss": -5.24,
+      "profit_factor": 0.41,
+      "avg_duration": 11.4,
+      "total_costs": 7884.0,
+      "expectancy": -2.01,
+      "avg_rsi_entry": 40.2,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 52,
+          "win_rate": 34.6,
+          "avg_pnl": -2.01,
+          "total_pnl": -65560.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2006": -13320.0,
+        "2007": -6395.0,
+        "2008": 2174.0,
+        "2013": -14956.0,
+        "2014": -7463.0,
+        "2017": 3843.0,
+        "2018": -5803.0,
+        "2019": -3917.0,
+        "2020": -6643.0,
+        "2021": -3480.0,
+        "2022": -3655.0,
+        "2024": -2989.0,
+        "2026": -2954.0
+      },
+      "exit_breakdown": {
+        "RSI Stop <30": 26,
+        "RSI Target 60": 26
+      }
+    },
+    {
+      "strategy": "GFS Advanced",
+      "instrument": "RELIANCE",
+      "cagr": -0.6,
+      "total_return": -11.34,
+      "final_value": 88661.0,
+      "max_dd": 14.97,
+      "sharpe": -0.51,
+      "calmar": -0.04,
+      "win_rate": 44.4,
+      "total_trades": 9,
+      "avg_win": 2.49,
+      "avg_loss": -4.38,
+      "profit_factor": 0.43,
+      "avg_duration": 10.0,
+      "total_costs": 1917.0,
+      "expectancy": -1.33,
+      "avg_rsi_entry": 40.1,
+      "years": 20.0,
+      "regime_stats": {
+        "bull": {
+          "trades": 9,
+          "win_rate": 44.4,
+          "avg_pnl": -1.33,
+          "total_pnl": -11339.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2007": -10233.0,
+        "2008": 5571.0,
+        "2013": 137.0,
+        "2017": -1518.0,
+        "2020": -2575.0,
+        "2021": -4026.0,
+        "2024": 1305.0
+      },
+      "exit_breakdown": {
+        "RSI Target 60": 5,
+        "Price < 50 EMA": 3,
+        "RSI Stop <30": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+strategy,instrument,cagr,total_return,final_value,max_dd,sharpe,calmar,win_rate,total_trades,avg_win,avg_loss,profit_factor,avg_duration,total_costs,expectancy,avg_rsi_entry,years,bull_wr,bull_pnl,bear_wr,bear_pnl,sideways_wr,sideways_pnl
+GFS Advanced,RELIANCE,-0.64,-11.96,88042.0,16.96,-0.45,-0.04,30.0,10,4.97,-3.89,0.53,7.8,2172.0,-1.23,40.5,20.0,30.0,-1.23,0.0,0.0,0.0,0.0
+GFS Basic,RELIANCE,-9.24,-85.56,14445.0,85.56,-1.69,-0.11,17.3,81,7.87,-4.54,0.36,6.8,8772.0,-2.39,40.1,20.0,17.3,-2.39,0.0,0.0,0.0,0.0

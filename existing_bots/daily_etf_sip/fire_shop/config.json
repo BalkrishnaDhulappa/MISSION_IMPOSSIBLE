@@ -1,0 +1,9 @@
+{
+  "investment_per_tx": 6000,
+  "profit_target_pct": 0.0628,
+  "decay": 0.008,
+  "floor": 0.0314,
+  "bid_threshold": 0.04,
+  "max_bid": 3,
+  "limit_price_buffer": 0.001
+}

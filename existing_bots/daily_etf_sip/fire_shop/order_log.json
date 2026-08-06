@@ -1,0 +1,147 @@
+[
+  {
+    "date": "2026-03-23",
+    "time": "09:33:03",
+    "code": "NSE:MOREALTY",
+    "symbol": "MOREALTY",
+    "qty": 45,
+    "limit_price": 66.5,
+    "invested": 2992.5,
+    "order_id": "2036013346649579520",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-03-24",
+    "time": "09:30:32",
+    "code": "NSE:MOVALUE",
+    "symbol": "MOVALUE",
+    "qty": 27,
+    "limit_price": 107.6,
+    "invested": 2905.2,
+    "order_id": "2036375098797105152",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-03-25",
+    "time": "09:30:31",
+    "code": "NSE:BANKBEES",
+    "symbol": "BANKBEES",
+    "qty": 5,
+    "limit_price": 554.5,
+    "invested": 2772.5,
+    "order_id": "2036737484058042368",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-03-26",
+    "time": "09:30:33",
+    "code": "NSE:BFSI",
+    "symbol": "BFSI",
+    "qty": 115,
+    "limit_price": 25.9,
+    "invested": 2978.5,
+    "order_id": null,
+    "status": "FAILED",
+    "error": "Markets are closed right now. Use GTT for placing long standing orders instead. [Read more.](https://support.zerodha.com/category/trading-and-markets/gtt/articles/what-is-the-good-till-triggered-gtt-feature)"
+  },
+  {
+    "date": "2026-03-27",
+    "time": "09:30:31",
+    "code": "NSE:NEXT50IETF",
+    "symbol": "NEXT50IETF",
+    "qty": 45,
+    "limit_price": 65.6,
+    "invested": 2952.0,
+    "order_id": "2037462260649074688",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-03-30",
+    "time": "09:30:35",
+    "code": "NSE:PSUBNKBEES",
+    "symbol": "PSUBNKBEES",
+    "qty": 34,
+    "limit_price": 87.8,
+    "invested": 2985.2,
+    "order_id": "2038549437936082944",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-03-31",
+    "time": "09:30:34",
+    "code": "NSE:PSUBNKBEES",
+    "symbol": "PSUBNKBEES",
+    "qty": 34,
+    "limit_price": 87.5,
+    "invested": 2975.0,
+    "order_id": null,
+    "status": "FAILED",
+    "error": "Markets are closed right now. Use GTT for placing long standing orders instead. [Read more.](https://support.zerodha.com/category/trading-and-markets/gtt/articles/what-is-the-good-till-triggered-gtt-feature)"
+  },
+  {
+    "date": "2026-04-01",
+    "time": "09:30:34",
+    "code": "NSE:PSUBNKBEES",
+    "symbol": "PSUBNKBEES",
+    "qty": 33,
+    "limit_price": 90.8,
+    "invested": 2996.4,
+    "order_id": null,
+    "status": "FAILED",
+    "error": "No IPs configured for this app. Add allowed IPs on the Kite developer console (https://developers.kite.trade)."
+  },
+  {
+    "date": "2026-04-01",
+    "time": "13:55:18",
+    "code": "NSE:BFSI",
+    "symbol": "BFSI",
+    "qty": 121,
+    "limit_price": 24.8,
+    "invested": 3000.8,
+    "order_id": "PAPER_135518",
+    "status": "paper",
+    "note": "Paper trade \u2014 no real order placed"
+  },
+  {
+    "date": "2026-04-02",
+    "time": "06:00:47",
+    "code": "NSE:PSUBNKBEES",
+    "symbol": "PSUBNKBEES",
+    "qty": 34,
+    "limit_price": 87.9,
+    "invested": 2988.6,
+    "order_id": "2039583807107014656",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-04-02",
+    "time": "09:30:35",
+    "code": "NSE:BANKBEES",
+    "symbol": "BANKBEES",
+    "qty": 5,
+    "limit_price": 530.4,
+    "invested": 2652.0,
+    "order_id": "2039636604624084992",
+    "status": "COMPLETE"
+  },
+  {
+    "date": "2026-04-03",
+    "time": "09:30:34",
+    "code": "NSE:BFSI",
+    "symbol": "BFSI",
+    "qty": 120,
+    "limit_price": 24.9,
+    "invested": 2988.0,
+    "order_id": null,
+    "status": "FAILED",
+    "error": "Markets are closed right now. Use GTT for placing long standing orders instead. [Read more.](https://support.zerodha.com/category/trading-and-markets/gtt/articles/what-is-the-good-till-triggered-gtt-feature)"
+  },
+  {
+    "date": "2026-04-07",
+    "code": "NSE:HEALTHY",
+    "qty": 211,
+    "price": 14.2,
+    "order_id": "2041362711262044160",
+    "invested": 2996.2
+  }
+]

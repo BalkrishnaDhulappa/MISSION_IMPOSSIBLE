@@ -1,0 +1,1345 @@
+{
+  "generated": "20260321_142645",
+  "config": {
+    "start": "2004-01-01",
+    "end": "2026-03-21",
+    "capital": 100000
+  },
+  "metrics": [
+    {
+      "strategy": "Golden Cross",
+      "instrument": "Nifty 50",
+      "cagr": 2.52,
+      "total_return": 55.25,
+      "final_value": 155252.0,
+      "max_dd": 18.18,
+      "sharpe": 0.43,
+      "calmar": 0.14,
+      "win_rate": 37.5,
+      "total_trades": 8,
+      "avg_win": 25.0,
+      "avg_loss": -3.48,
+      "profit_factor": 4.04,
+      "avg_duration": 243.0,
+      "expectancy": 7.2,
+      "years": 17.7,
+      "gross_cagr": 2.59,
+      "cagr_drag": 0.07,
+      "total_costs": 2001.0,
+      "total_stt": 1694.0,
+      "total_dp": 123.0,
+      "total_stamp": 123.0,
+      "total_txn": 50.0,
+      "total_gst": 9.0,
+      "avg_cost_pct": 0.245,
+      "regime_stats": {
+        "bull": {
+          "trades": 8,
+          "win_rate": 37.5,
+          "avg_pnl": 7.2,
+          "total_pnl": 55252.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": -434.0,
+        "2012": -6785.0,
+        "2015": 25567.0,
+        "2016": -339.0,
+        "2018": 15752.0,
+        "2020": -6407.0,
+        "2023": -4228.0,
+        "2024": 32125.0
+      },
+      "exit_breakdown": {
+        "TrailingStop": 7,
+        "StopLoss": 1
+      }
+    },
+    {
+      "strategy": "MACD Trend",
+      "instrument": "Nifty 50",
+      "cagr": -0.85,
+      "total_return": -13.96,
+      "final_value": 86037.0,
+      "max_dd": 28.04,
+      "sharpe": -0.12,
+      "calmar": -0.03,
+      "win_rate": 33.3,
+      "total_trades": 87,
+      "avg_win": 2.72,
+      "avg_loss": -1.62,
+      "profit_factor": 0.82,
+      "avg_duration": 15.0,
+      "expectancy": -0.17,
+      "years": 17.7,
+      "gross_cagr": 0.15,
+      "cagr_drag": 1.0,
+      "total_costs": 16657.0,
+      "total_stt": 13791.0,
+      "total_dp": 1335.0,
+      "total_stamp": 1034.0,
+      "total_txn": 410.0,
+      "total_gst": 74.0,
+      "avg_cost_pct": 0.242,
+      "regime_stats": {
+        "bull": {
+          "trades": 75,
+          "win_rate": 34.7,
+          "avg_pnl": -0.02,
+          "total_pnl": -1701.0
+        },
+        "bear": {
+          "trades": 4,
+          "win_rate": 50.0,
+          "avg_pnl": -1.94,
+          "total_pnl": -7689.0
+        },
+        "sideways": {
+          "trades": 8,
+          "win_rate": 12.5,
+          "avg_pnl": -0.72,
+          "total_pnl": -4573.0
+        }
+      },
+      "annual_returns": {
+        "2009": 4528.0,
+        "2010": 3596.0,
+        "2011": -7982.0,
+        "2012": -7323.0,
+        "2013": -4323.0,
+        "2014": 1797.0,
+        "2015": -7178.0,
+        "2016": 1169.0,
+        "2017": 818.0,
+        "2018": 1291.0,
+        "2019": -1469.0,
+        "2020": 5323.0,
+        "2021": 1666.0,
+        "2022": -1282.0,
+        "2023": -667.0,
+        "2024": -3188.0,
+        "2025": -737.0
+      },
+      "exit_breakdown": {
+        "TrailingStop": 2,
+        "Signal": 84,
+        "StopLoss": 1
+      }
+    },
+    {
+      "strategy": "Triple MA Momentum",
+      "instrument": "Nifty 50",
+      "cagr": -0.31,
+      "total_return": -5.35,
+      "final_value": 94646.0,
+      "max_dd": 16.88,
+      "sharpe": -0.04,
+      "calmar": -0.02,
+      "win_rate": 29.4,
+      "total_trades": 17,
+      "avg_win": 6.07,
+      "avg_loss": -2.84,
+      "profit_factor": 0.82,
+      "avg_duration": 33.0,
+      "expectancy": -0.22,
+      "years": 17.7,
+      "gross_cagr": -0.11,
+      "cagr_drag": 0.2,
+      "total_costs": 3488.0,
+      "total_stt": 2904.0,
+      "total_dp": 261.0,
+      "total_stamp": 218.0,
+      "total_txn": 86.0,
+      "total_gst": 16.0,
+      "avg_cost_pct": 0.24,
+      "regime_stats": {
+        "bull": {
+          "trades": 16,
+          "win_rate": 31.2,
+          "avg_pnl": -0.13,
+          "total_pnl": -3957.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -1.61,
+          "total_pnl": -1397.0
+        }
+      },
+      "annual_returns": {
+        "2009": 1323.0,
+        "2010": -3053.0,
+        "2012": -7796.0,
+        "2013": -1352.0,
+        "2019": -175.0,
+        "2021": 13990.0,
+        "2022": -1397.0,
+        "2023": -1274.0,
+        "2024": -7490.0,
+        "2025": 1869.0
+      },
+      "exit_breakdown": {
+        "StopLoss": 3,
+        "TrailingStop": 5,
+        "Signal": 9
+      }
+    },
+    {
+      "strategy": "ADX Breakout",
+      "instrument": "Nifty 50",
+      "cagr": -0.44,
+      "total_return": -7.45,
+      "final_value": 92550.0,
+      "max_dd": 16.59,
+      "sharpe": -0.07,
+      "calmar": -0.03,
+      "win_rate": 26.7,
+      "total_trades": 45,
+      "avg_win": 3.52,
+      "avg_loss": -1.46,
+      "profit_factor": 0.83,
+      "avg_duration": 12.0,
+      "expectancy": -0.13,
+      "years": 17.7,
+      "gross_cagr": 0.11,
+      "cagr_drag": 0.54,
+      "total_costs": 9363.0,
+      "total_stt": 7806.0,
+      "total_dp": 690.0,
+      "total_stamp": 585.0,
+      "total_txn": 232.0,
+      "total_gst": 42.0,
+      "avg_cost_pct": 0.24,
+      "regime_stats": {
+        "bull": {
+          "trades": 40,
+          "win_rate": 27.5,
+          "avg_pnl": -0.03,
+          "total_pnl": -3280.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 5,
+          "win_rate": 20.0,
+          "avg_pnl": -0.92,
+          "total_pnl": -4169.0
+        }
+      },
+      "annual_returns": {
+        "2009": 5797.0,
+        "2010": -3518.0,
+        "2011": -1375.0,
+        "2012": -8552.0,
+        "2013": 1788.0,
+        "2014": 2936.0,
+        "2015": -372.0,
+        "2017": -1597.0,
+        "2018": -1005.0,
+        "2019": -317.0,
+        "2020": 363.0,
+        "2021": 6221.0,
+        "2022": -4565.0,
+        "2023": -2013.0,
+        "2024": 540.0,
+        "2025": -750.0,
+        "2026": -1032.0
+      },
+      "exit_breakdown": {
+        "Signal": 43,
+        "StopLoss": 2
+      }
+    },
+    {
+      "strategy": "RSI Oversold Bounce",
+      "instrument": "Nifty 50",
+      "cagr": 1.12,
+      "total_return": 21.78,
+      "final_value": 121777.0,
+      "max_dd": 14.93,
+      "sharpe": 0.28,
+      "calmar": 0.07,
+      "win_rate": 65.2,
+      "total_trades": 23,
+      "avg_win": 4.11,
+      "avg_loss": -4.66,
+      "profit_factor": 1.57,
+      "avg_duration": 30.0,
+      "expectancy": 1.06,
+      "years": 17.7,
+      "gross_cagr": 1.37,
+      "cagr_drag": 0.25,
+      "total_costs": 5518.0,
+      "total_stt": 4651.0,
+      "total_dp": 353.0,
+      "total_stamp": 347.0,
+      "total_txn": 138.0,
+      "total_gst": 25.0,
+      "avg_cost_pct": 0.239,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 65.2,
+          "avg_pnl": 1.06,
+          "total_pnl": 21777.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": 5523.0,
+        "2010": 7251.0,
+        "2012": -5659.0,
+        "2013": -2779.0,
+        "2014": 6184.0,
+        "2015": 6980.0,
+        "2016": -5483.0,
+        "2017": 6182.0,
+        "2018": -10931.0,
+        "2019": 531.0,
+        "2020": 1649.0,
+        "2021": 4558.0,
+        "2022": 6989.0,
+        "2023": 529.0,
+        "2025": 254.0
+      },
+      "exit_breakdown": {
+        "Signal": 16,
+        "StopLoss": 7
+      }
+    },
+    {
+      "strategy": "Bollinger Band Bounce",
+      "instrument": "Nifty 50",
+      "cagr": 1.21,
+      "total_return": 23.77,
+      "final_value": 123772.0,
+      "max_dd": 12.96,
+      "sharpe": 0.3,
+      "calmar": 0.09,
+      "win_rate": 71.1,
+      "total_trades": 38,
+      "avg_win": 2.63,
+      "avg_loss": -4.02,
+      "profit_factor": 1.57,
+      "avg_duration": 12.0,
+      "expectancy": 0.7,
+      "years": 17.7,
+      "gross_cagr": 1.6,
+      "cagr_drag": 0.38,
+      "total_costs": 8554.0,
+      "total_stt": 7177.0,
+      "total_dp": 583.0,
+      "total_stamp": 536.0,
+      "total_txn": 213.0,
+      "total_gst": 38.0,
+      "avg_cost_pct": 0.24,
+      "regime_stats": {
+        "bull": {
+          "trades": 36,
+          "win_rate": 72.2,
+          "avg_pnl": 0.79,
+          "total_pnl": 25376.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": -0.92,
+          "total_pnl": -1604.0
+        }
+      },
+      "annual_returns": {
+        "2009": 9263.0,
+        "2010": -7664.0,
+        "2011": -3973.0,
+        "2012": 2148.0,
+        "2013": -4070.0,
+        "2014": 71.0,
+        "2015": 6895.0,
+        "2016": -7099.0,
+        "2017": 4099.0,
+        "2018": -1432.0,
+        "2019": -528.0,
+        "2020": 4968.0,
+        "2021": 12649.0,
+        "2022": 1426.0,
+        "2023": 989.0,
+        "2024": 3942.0,
+        "2025": 450.0,
+        "2026": 1637.0
+      },
+      "exit_breakdown": {
+        "Signal": 28,
+        "StopLoss": 10
+      }
+    },
+    {
+      "strategy": "Stochastic Reversal",
+      "instrument": "Nifty 50",
+      "cagr": 0.21,
+      "total_return": 3.83,
+      "final_value": 103830.0,
+      "max_dd": 5.81,
+      "sharpe": 0.12,
+      "calmar": 0.04,
+      "win_rate": 41.4,
+      "total_trades": 29,
+      "avg_win": 1.87,
+      "avg_loss": -1.06,
+      "profit_factor": 1.23,
+      "avg_duration": 4.0,
+      "expectancy": 0.15,
+      "years": 17.7,
+      "gross_cagr": 0.55,
+      "cagr_drag": 0.34,
+      "total_costs": 6445.0,
+      "total_stt": 5401.0,
+      "total_dp": 445.0,
+      "total_stamp": 404.0,
+      "total_txn": 160.0,
+      "total_gst": 29.0,
+      "avg_cost_pct": 0.239,
+      "regime_stats": {
+        "bull": {
+          "trades": 22,
+          "win_rate": 36.4,
+          "avg_pnl": -0.02,
+          "total_pnl": -703.0
+        },
+        "bear": {
+          "trades": 2,
+          "win_rate": 0.0,
+          "avg_pnl": -0.3,
+          "total_pnl": -532.0
+        },
+        "sideways": {
+          "trades": 5,
+          "win_rate": 80.0,
+          "avg_pnl": 1.08,
+          "total_pnl": 5065.0
+        }
+      },
+      "annual_returns": {
+        "2009": -2453.0,
+        "2010": 1833.0,
+        "2012": -140.0,
+        "2013": 1841.0,
+        "2014": -972.0,
+        "2015": 1099.0,
+        "2016": -948.0,
+        "2017": 1469.0,
+        "2018": -770.0,
+        "2019": 1657.0,
+        "2020": 3502.0,
+        "2022": -115.0,
+        "2023": -2175.0
+      },
+      "exit_breakdown": {
+        "Signal": 29
+      }
+    },
+    {
+      "strategy": "BB Squeeze Breakout",
+      "instrument": "Nifty 50",
+      "cagr": 2.04,
+      "total_return": 43.08,
+      "final_value": 143076.0,
+      "max_dd": 18.26,
+      "sharpe": 0.37,
+      "calmar": 0.11,
+      "win_rate": 40.7,
+      "total_trades": 59,
+      "avg_win": 4.92,
+      "avg_loss": -2.12,
+      "profit_factor": 1.52,
+      "avg_duration": 27.0,
+      "expectancy": 0.74,
+      "years": 17.7,
+      "gross_cagr": 2.63,
+      "cagr_drag": 0.59,
+      "total_costs": 15244.0,
+      "total_stt": 12910.0,
+      "total_dp": 905.0,
+      "total_stamp": 964.0,
+      "total_txn": 383.0,
+      "total_gst": 69.0,
+      "avg_cost_pct": 0.238,
+      "regime_stats": {
+        "bull": {
+          "trades": 42,
+          "win_rate": 42.9,
+          "avg_pnl": 0.88,
+          "total_pnl": 35612.0
+        },
+        "bear": {
+          "trades": 6,
+          "win_rate": 16.7,
+          "avg_pnl": -0.03,
+          "total_pnl": -2097.0
+        },
+        "sideways": {
+          "trades": 11,
+          "win_rate": 45.5,
+          "avg_pnl": 0.63,
+          "total_pnl": 9561.0
+        }
+      },
+      "annual_returns": {
+        "2010": 5377.0,
+        "2011": -5876.0,
+        "2012": 2832.0,
+        "2013": -4841.0,
+        "2014": 12653.0,
+        "2015": -3686.0,
+        "2016": -1091.0,
+        "2017": 6731.0,
+        "2018": 1724.0,
+        "2019": -2319.0,
+        "2020": 7845.0,
+        "2021": 27511.0,
+        "2022": 9954.0,
+        "2023": 8419.0,
+        "2024": -5948.0,
+        "2025": -13513.0,
+        "2026": -2695.0
+      },
+      "exit_breakdown": {
+        "Signal": 56,
+        "StopLoss": 2,
+        "TakeProfit": 1
+      }
+    },
+    {
+      "strategy": "52-Week High Breakout",
+      "instrument": "Nifty 50",
+      "cagr": 0.1,
+      "total_return": 1.73,
+      "final_value": 101731.0,
+      "max_dd": 15.24,
+      "sharpe": 0.05,
+      "calmar": 0.01,
+      "win_rate": 40.0,
+      "total_trades": 15,
+      "avg_win": 5.81,
+      "avg_loss": -3.46,
+      "profit_factor": 1.06,
+      "avg_duration": 54.0,
+      "expectancy": 0.25,
+      "years": 17.7,
+      "gross_cagr": 0.27,
+      "cagr_drag": 0.18,
+      "total_costs": 3245.0,
+      "total_stt": 2714.0,
+      "total_dp": 230.0,
+      "total_stamp": 203.0,
+      "total_txn": 81.0,
+      "total_gst": 15.0,
+      "avg_cost_pct": 0.24,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 40.0,
+          "avg_pnl": 0.25,
+          "total_pnl": 1731.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2013": -2459.0,
+        "2014": 14254.0,
+        "2015": -3678.0,
+        "2016": -2468.0,
+        "2017": 1070.0,
+        "2018": -2605.0,
+        "2021": 1380.0,
+        "2023": 1145.0,
+        "2024": -4415.0,
+        "2025": -493.0
+      },
+      "exit_breakdown": {
+        "Signal": 14,
+        "StopLoss": 1
+      }
+    },
+    {
+      "strategy": "Trend + RSI Pullback",
+      "instrument": "Nifty 50",
+      "cagr": 0.07,
+      "total_return": 1.17,
+      "final_value": 101171.0,
+      "max_dd": 9.4,
+      "sharpe": 0.04,
+      "calmar": 0.01,
+      "win_rate": 42.9,
+      "total_trades": 14,
+      "avg_win": 2.41,
+      "avg_loss": -1.58,
+      "profit_factor": 1.1,
+      "avg_duration": 12.0,
+      "expectancy": 0.13,
+      "years": 17.7,
+      "gross_cagr": 0.24,
+      "cagr_drag": 0.17,
+      "total_costs": 3081.0,
+      "total_stt": 2580.0,
+      "total_dp": 215.0,
+      "total_stamp": 193.0,
+      "total_txn": 77.0,
+      "total_gst": 14.0,
+      "avg_cost_pct": 0.239,
+      "regime_stats": {
+        "bull": {
+          "trades": 14,
+          "win_rate": 42.9,
+          "avg_pnl": 0.13,
+          "total_pnl": 1171.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": 1575.0,
+        "2010": -358.0,
+        "2012": 5005.0,
+        "2013": -926.0,
+        "2014": -2369.0,
+        "2016": -1112.0,
+        "2018": 4230.0,
+        "2019": -843.0,
+        "2020": -173.0,
+        "2023": -1589.0,
+        "2024": -4529.0,
+        "2025": 2260.0
+      },
+      "exit_breakdown": {
+        "Signal": 13,
+        "TrailingStop": 1
+      }
+    },
+    {
+      "strategy": "Golden Cross",
+      "instrument": "Bank Nifty",
+      "cagr": -0.16,
+      "total_return": -2.77,
+      "final_value": 97233.0,
+      "max_dd": 11.59,
+      "sharpe": -0.03,
+      "calmar": -0.01,
+      "win_rate": 60.0,
+      "total_trades": 5,
+      "avg_win": 3.12,
+      "avg_loss": -5.67,
+      "profit_factor": 0.71,
+      "avg_duration": 133.0,
+      "expectancy": -0.4,
+      "years": 17.7,
+      "gross_cagr": -0.11,
+      "cagr_drag": 0.05,
+      "total_costs": 918.0,
+      "total_stt": 757.0,
+      "total_dp": 77.0,
+      "total_stamp": 57.0,
+      "total_txn": 22.0,
+      "total_gst": 4.0,
+      "avg_cost_pct": 0.243,
+      "regime_stats": {
+        "bull": {
+          "trades": 5,
+          "win_rate": 60.0,
+          "avg_pnl": -0.4,
+          "total_pnl": -2767.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2012": -6365.0,
+        "2018": 182.0,
+        "2019": 4959.0,
+        "2022": -3190.0,
+        "2026": 1647.0
+      },
+      "exit_breakdown": {
+        "StopLoss": 1,
+        "TrailingStop": 4
+      }
+    },
+    {
+      "strategy": "MACD Trend",
+      "instrument": "Bank Nifty",
+      "cagr": 1.12,
+      "total_return": 21.82,
+      "final_value": 121816.0,
+      "max_dd": 19.5,
+      "sharpe": 0.2,
+      "calmar": 0.06,
+      "win_rate": 38.6,
+      "total_trades": 83,
+      "avg_win": 4.17,
+      "avg_loss": -2.11,
+      "profit_factor": 1.21,
+      "avg_duration": 14.0,
+      "expectancy": 0.31,
+      "years": 17.7,
+      "gross_cagr": 1.93,
+      "cagr_drag": 0.81,
+      "total_costs": 18396.0,
+      "total_stt": 15414.0,
+      "total_dp": 1273.0,
+      "total_stamp": 1153.0,
+      "total_txn": 458.0,
+      "total_gst": 82.0,
+      "avg_cost_pct": 0.24,
+      "regime_stats": {
+        "bull": {
+          "trades": 73,
+          "win_rate": 37.0,
+          "avg_pnl": 0.33,
+          "total_pnl": 20352.0
+        },
+        "bear": {
+          "trades": 4,
+          "win_rate": 25.0,
+          "avg_pnl": -2.15,
+          "total_pnl": -8348.0
+        },
+        "sideways": {
+          "trades": 6,
+          "win_rate": 66.7,
+          "avg_pnl": 1.66,
+          "total_pnl": 9812.0
+        }
+      },
+      "annual_returns": {
+        "2009": 6356.0,
+        "2010": 6034.0,
+        "2011": -1684.0,
+        "2012": 1180.0,
+        "2013": -4643.0,
+        "2014": 12759.0,
+        "2015": -12295.0,
+        "2016": 765.0,
+        "2017": 574.0,
+        "2018": -378.0,
+        "2019": -5007.0,
+        "2020": 19869.0,
+        "2021": -730.0,
+        "2022": 716.0,
+        "2023": -1987.0,
+        "2024": -6004.0,
+        "2025": 7318.0,
+        "2026": -1026.0
+      },
+      "exit_breakdown": {
+        "Signal": 77,
+        "StopLoss": 1,
+        "TrailingStop": 5
+      }
+    },
+    {
+      "strategy": "Triple MA Momentum",
+      "instrument": "Bank Nifty",
+      "cagr": -0.61,
+      "total_return": -10.27,
+      "final_value": 89726.0,
+      "max_dd": 12.73,
+      "sharpe": -0.16,
+      "calmar": -0.05,
+      "win_rate": 33.3,
+      "total_trades": 18,
+      "avg_win": 3.35,
+      "avg_loss": -2.9,
+      "profit_factor": 0.6,
+      "avg_duration": 22.0,
+      "expectancy": -0.82,
+      "years": 17.7,
+      "gross_cagr": -0.41,
+      "cagr_drag": 0.2,
+      "total_costs": 3192.0,
+      "total_stt": 2624.0,
+      "total_dp": 276.0,
+      "total_stamp": 197.0,
+      "total_txn": 78.0,
+      "total_gst": 14.0,
+      "avg_cost_pct": 0.243,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 35.3,
+          "avg_pnl": -0.58,
+          "total_pnl": -6600.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -4.85,
+          "total_pnl": -3674.0
+        }
+      },
+      "annual_returns": {
+        "2009": -9162.0,
+        "2012": -3571.0,
+        "2014": 7343.0,
+        "2015": -3674.0,
+        "2017": 1587.0,
+        "2018": 565.0,
+        "2019": -622.0,
+        "2020": -1234.0,
+        "2021": 4478.0,
+        "2023": -351.0,
+        "2024": -2596.0,
+        "2026": -3038.0
+      },
+      "exit_breakdown": {
+        "StopLoss": 3,
+        "Signal": 12,
+        "TrailingStop": 3
+      }
+    },
+    {
+      "strategy": "ADX Breakout",
+      "instrument": "Bank Nifty",
+      "cagr": 0.5,
+      "total_return": 9.16,
+      "final_value": 109160.0,
+      "max_dd": 19.56,
+      "sharpe": 0.14,
+      "calmar": 0.03,
+      "win_rate": 33.3,
+      "total_trades": 45,
+      "avg_win": 4.69,
+      "avg_loss": -1.73,
+      "profit_factor": 1.19,
+      "avg_duration": 13.0,
+      "expectancy": 0.41,
+      "years": 17.7,
+      "gross_cagr": 0.96,
+      "cagr_drag": 0.46,
+      "total_costs": 9259.0,
+      "total_stt": 7713.0,
+      "total_dp": 690.0,
+      "total_stamp": 577.0,
+      "total_txn": 229.0,
+      "total_gst": 41.0,
+      "avg_cost_pct": 0.241,
+      "regime_stats": {
+        "bull": {
+          "trades": 43,
+          "win_rate": 32.6,
+          "avg_pnl": 0.4,
+          "total_pnl": 9068.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": 0.59,
+          "total_pnl": 93.0
+        }
+      },
+      "annual_returns": {
+        "2009": -1267.0,
+        "2010": 12617.0,
+        "2011": -5487.0,
+        "2012": -1682.0,
+        "2013": -4121.0,
+        "2014": -6547.0,
+        "2017": 8212.0,
+        "2018": -2442.0,
+        "2019": 3915.0,
+        "2020": 12361.0,
+        "2021": -3350.0,
+        "2022": -290.0,
+        "2023": -3273.0,
+        "2024": -871.0,
+        "2025": 588.0,
+        "2026": 796.0
+      },
+      "exit_breakdown": {
+        "Signal": 45
+      }
+    },
+    {
+      "strategy": "RSI Oversold Bounce",
+      "instrument": "Bank Nifty",
+      "cagr": -0.59,
+      "total_return": -9.9,
+      "final_value": 90104.0,
+      "max_dd": 22.92,
+      "sharpe": -0.11,
+      "calmar": -0.03,
+      "win_rate": 53.8,
+      "total_trades": 26,
+      "avg_win": 3.74,
+      "avg_loss": -4.88,
+      "profit_factor": 0.78,
+      "avg_duration": 24.0,
+      "expectancy": -0.24,
+      "years": 17.7,
+      "gross_cagr": -0.32,
+      "cagr_drag": 0.27,
+      "total_costs": 4365.0,
+      "total_stt": 3570.0,
+      "total_dp": 399.0,
+      "total_stamp": 268.0,
+      "total_txn": 106.0,
+      "total_gst": 19.0,
+      "avg_cost_pct": 0.246,
+      "regime_stats": {
+        "bull": {
+          "trades": 23,
+          "win_rate": 56.5,
+          "avg_pnl": -0.2,
+          "total_pnl": -6390.0
+        },
+        "bear": {
+          "trades": 2,
+          "win_rate": 50.0,
+          "avg_pnl": 1.89,
+          "total_pnl": 1175.0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 0.0,
+          "avg_pnl": -5.31,
+          "total_pnl": -4680.0
+        }
+      },
+      "annual_returns": {
+        "2010": -2642.0,
+        "2011": -4733.0,
+        "2012": 2168.0,
+        "2014": -4680.0,
+        "2016": -4175.0,
+        "2017": 4460.0,
+        "2018": -5783.0,
+        "2019": 3717.0,
+        "2020": 2612.0,
+        "2021": -7575.0,
+        "2022": 3213.0,
+        "2023": -1340.0,
+        "2024": 4974.0,
+        "2025": -112.0
+      },
+      "exit_breakdown": {
+        "Signal": 15,
+        "StopLoss": 11
+      }
+    },
+    {
+      "strategy": "Bollinger Band Bounce",
+      "instrument": "Bank Nifty",
+      "cagr": 2.18,
+      "total_return": 46.49,
+      "final_value": 146485.0,
+      "max_dd": 7.44,
+      "sharpe": 0.44,
+      "calmar": 0.29,
+      "win_rate": 67.5,
+      "total_trades": 40,
+      "avg_win": 3.33,
+      "avg_loss": -3.52,
+      "profit_factor": 1.9,
+      "avg_duration": 14.0,
+      "expectancy": 1.1,
+      "years": 17.7,
+      "gross_cagr": 2.59,
+      "cagr_drag": 0.41,
+      "total_costs": 10640.0,
+      "total_stt": 9028.0,
+      "total_dp": 614.0,
+      "total_stamp": 673.0,
+      "total_txn": 268.0,
+      "total_gst": 48.0,
+      "avg_cost_pct": 0.237,
+      "regime_stats": {
+        "bull": {
+          "trades": 39,
+          "win_rate": 66.7,
+          "avg_pnl": 1.11,
+          "total_pnl": 45548.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 1,
+          "win_rate": 100.0,
+          "avg_pnl": 0.74,
+          "total_pnl": 937.0
+        }
+      },
+      "annual_returns": {
+        "2009": 12537.0,
+        "2010": 5057.0,
+        "2012": -304.0,
+        "2013": -1471.0,
+        "2014": 8180.0,
+        "2015": 5895.0,
+        "2016": 3582.0,
+        "2017": 7434.0,
+        "2018": -4715.0,
+        "2019": 3742.0,
+        "2020": -5351.0,
+        "2021": 11076.0,
+        "2022": 6351.0,
+        "2023": 5093.0,
+        "2024": -2300.0,
+        "2025": -5118.0,
+        "2026": -3203.0
+      },
+      "exit_breakdown": {
+        "Signal": 30,
+        "StopLoss": 10
+      }
+    },
+    {
+      "strategy": "Stochastic Reversal",
+      "instrument": "Bank Nifty",
+      "cagr": 0.68,
+      "total_return": 12.7,
+      "final_value": 112699.0,
+      "max_dd": 6.06,
+      "sharpe": 0.26,
+      "calmar": 0.11,
+      "win_rate": 52.0,
+      "total_trades": 25,
+      "avg_win": 2.27,
+      "avg_loss": -1.3,
+      "profit_factor": 1.86,
+      "avg_duration": 4.0,
+      "expectancy": 0.56,
+      "years": 17.7,
+      "gross_cagr": 0.96,
+      "cagr_drag": 0.28,
+      "total_costs": 5676.0,
+      "total_stt": 4765.0,
+      "total_dp": 383.0,
+      "total_stamp": 356.0,
+      "total_txn": 142.0,
+      "total_gst": 25.0,
+      "avg_cost_pct": 0.239,
+      "regime_stats": {
+        "bull": {
+          "trades": 17,
+          "win_rate": 47.1,
+          "avg_pnl": 0.18,
+          "total_pnl": 2064.0
+        },
+        "bear": {
+          "trades": 5,
+          "win_rate": 40.0,
+          "avg_pnl": 0.18,
+          "total_pnl": 1431.0
+        },
+        "sideways": {
+          "trades": 3,
+          "win_rate": 100.0,
+          "avg_pnl": 3.36,
+          "total_pnl": 9204.0
+        }
+      },
+      "annual_returns": {
+        "2009": 6216.0,
+        "2012": 6041.0,
+        "2013": 3284.0,
+        "2015": 2187.0,
+        "2016": -2596.0,
+        "2017": -1704.0,
+        "2018": -802.0,
+        "2019": 2395.0,
+        "2020": -2122.0,
+        "2021": -265.0,
+        "2025": 65.0
+      },
+      "exit_breakdown": {
+        "Signal": 25
+      }
+    },
+    {
+      "strategy": "BB Squeeze Breakout",
+      "instrument": "Bank Nifty",
+      "cagr": 3.84,
+      "total_return": 94.67,
+      "final_value": 194668.0,
+      "max_dd": 19.32,
+      "sharpe": 0.47,
+      "calmar": 0.2,
+      "win_rate": 46.6,
+      "total_trades": 73,
+      "avg_win": 5.73,
+      "avg_loss": -2.89,
+      "profit_factor": 1.54,
+      "avg_duration": 25.0,
+      "expectancy": 1.12,
+      "years": 17.7,
+      "gross_cagr": 4.58,
+      "cagr_drag": 0.75,
+      "total_costs": 26345.0,
+      "total_stt": 22713.0,
+      "total_dp": 1120.0,
+      "total_stamp": 1694.0,
+      "total_txn": 675.0,
+      "total_gst": 121.0,
+      "avg_cost_pct": 0.234,
+      "regime_stats": {
+        "bull": {
+          "trades": 54,
+          "win_rate": 51.9,
+          "avg_pnl": 1.06,
+          "total_pnl": 64135.0
+        },
+        "bear": {
+          "trades": 7,
+          "win_rate": 14.3,
+          "avg_pnl": 0.17,
+          "total_pnl": -3337.0
+        },
+        "sideways": {
+          "trades": 12,
+          "win_rate": 41.7,
+          "avg_pnl": 1.96,
+          "total_pnl": 33870.0
+        }
+      },
+      "annual_returns": {
+        "2009": 10817.0,
+        "2010": 23044.0,
+        "2011": 2562.0,
+        "2012": 21479.0,
+        "2013": -6210.0,
+        "2014": 33297.0,
+        "2015": -12381.0,
+        "2016": -7162.0,
+        "2017": 13867.0,
+        "2018": -3906.0,
+        "2019": -1694.0,
+        "2020": 20600.0,
+        "2021": 9389.0,
+        "2022": 5222.0,
+        "2023": 5467.0,
+        "2024": -14358.0,
+        "2025": -2075.0,
+        "2026": -3291.0
+      },
+      "exit_breakdown": {
+        "TakeProfit": 5,
+        "StopLoss": 8,
+        "Signal": 60
+      }
+    },
+    {
+      "strategy": "52-Week High Breakout",
+      "instrument": "Bank Nifty",
+      "cagr": -0.5,
+      "total_return": -8.45,
+      "final_value": 91552.0,
+      "max_dd": 22.65,
+      "sharpe": -0.09,
+      "calmar": -0.02,
+      "win_rate": 33.3,
+      "total_trades": 15,
+      "avg_win": 2.77,
+      "avg_loss": -2.79,
+      "profit_factor": 0.57,
+      "avg_duration": 47.0,
+      "expectancy": -0.94,
+      "years": 17.7,
+      "gross_cagr": -0.33,
+      "cagr_drag": 0.17,
+      "total_costs": 2844.0,
+      "total_stt": 2352.0,
+      "total_dp": 230.0,
+      "total_stamp": 177.0,
+      "total_txn": 70.0,
+      "total_gst": 13.0,
+      "avg_cost_pct": 0.242,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 33.3,
+          "avg_pnl": -0.94,
+          "total_pnl": -8448.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2013": -1604.0,
+        "2014": 6136.0,
+        "2015": 3490.0,
+        "2016": 212.0,
+        "2019": -3693.0,
+        "2020": -2979.0,
+        "2021": 122.0,
+        "2022": -321.0,
+        "2023": -1881.0,
+        "2024": -7803.0,
+        "2025": -690.0,
+        "2026": 564.0
+      },
+      "exit_breakdown": {
+        "Signal": 12,
+        "TrailingStop": 2,
+        "StopLoss": 1
+      }
+    },
+    {
+      "strategy": "Trend + RSI Pullback",
+      "instrument": "Bank Nifty",
+      "cagr": -1.02,
+      "total_return": -16.64,
+      "final_value": 83356.0,
+      "max_dd": 17.79,
+      "sharpe": -0.46,
+      "calmar": -0.06,
+      "win_rate": 13.3,
+      "total_trades": 15,
+      "avg_win": 2.87,
+      "avg_loss": -2.13,
+      "profit_factor": 0.18,
+      "avg_duration": 11.0,
+      "expectancy": -1.47,
+      "years": 17.7,
+      "gross_cagr": -0.85,
+      "cagr_drag": 0.17,
+      "total_costs": 2574.0,
+      "total_stt": 2109.0,
+      "total_dp": 230.0,
+      "total_stamp": 159.0,
+      "total_txn": 63.0,
+      "total_gst": 11.0,
+      "avg_cost_pct": 0.243,
+      "regime_stats": {
+        "bull": {
+          "trades": 15,
+          "win_rate": 13.3,
+          "avg_pnl": -1.47,
+          "total_pnl": -16644.0
+        },
+        "bear": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        },
+        "sideways": {
+          "trades": 0,
+          "win_rate": 0.0,
+          "avg_pnl": 0.0,
+          "total_pnl": 0
+        }
+      },
+      "annual_returns": {
+        "2009": -4742.0,
+        "2010": -565.0,
+        "2012": -1798.0,
+        "2014": -1569.0,
+        "2015": -2773.0,
+        "2017": 2065.0,
+        "2018": -1091.0,
+        "2019": -1061.0,
+        "2021": -2233.0,
+        "2024": -922.0,
+        "2026": -1955.0
+      },
+      "exit_breakdown": {
+        "Signal": 14,
+        "TrailingStop": 1
+      }
+    }
+  ]
+}

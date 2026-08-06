@@ -1,0 +1,78 @@
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+
+BASH_ENV=/home/ubuntu/.bashrc
+
+# NOTE: All times below are in UTC
+
+# PKP Automation v2 (Sell every 10m + Buy at 3PM IST)
+# Updated: 2026-04-10
+
+# ─────────────────────────────────────────────
+# LEGACY PKP ENGINE (temporarily disabled)
+# Different strategy. Kept for fallback/testing.
+# */5 4-9 * * 1-5 cd /home/ubuntu/fire_shop && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 pkp_engine.py >> /home/ubuntu/fire_shop/logs/pkp_engine.log 2>&1
+# ─────────────────────────────────────────────
+
+# 🟢 BUY at 3:00 PM IST (09:30 UTC)
+30 9 * * 1-5 flock -n /tmp/pkp_buy.lock -c "cd /home/ubuntu/fire_shop && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 buy_engine.py >> /home/ubuntu/fire_shop/logs/buy.log 2>&1"
+
+# 🔴 SELL check once at 3:15 PM IST (09:45 UTC)
+45 9 * * 1-5 flock -n /tmp/pkp_sell.lock -c "cd /home/ubuntu/fire_shop && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 sell_engine.py >> /home/ubuntu/fire_shop/logs/sell.log 2>&1"
+
+# 📩 Daily notification (9:30 AM IST → 04:00 UTC)
+0 4 * * 1-5 cd /home/ubuntu/fire_shop && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 daily_notify.py >> /home/ubuntu/fire_shop/logs/notify.log 2>&1
+
+# 🔐 Token generation (10:30 AM IST → 05:00 UTC)
+30 3 * * 1-5 cd /home/ubuntu/fire_shop && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 server_generate_token.py >> /home/ubuntu/fire_shop/logs/token.log 2>&1
+
+# 📊 Weekly summary (Sunday 6:00 PM IST → 12:30 UTC)
+30 12 * * 0 cd /home/ubuntu/fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 weekly_market_summary.py >> /home/ubuntu/fire_shop/logs/weekly_summary.log 2>&1
+
+
+
+# 📊 Crypto Algo (Every 5 min)
+# DISABLED 2026-06-29 stop algo trader: */5 * * * * /home/ubuntu/fire_shop/venv/bin/python3 /home/ubuntu/algo_trader/paper_trade.py >> /home/ubuntu/algo_trader/cron.log 2>&1
+
+# ── Algo Trader — BTC Paper Trading ─────────────────────────────────────
+# DISABLED 2026-06-29 stop algo trader: */30 * * * * flock -n /tmp/claude_paper_btc_sell.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 claude_paper_btc_sell.py >> /home/ubuntu/algo_trader/logs/claude_paper_btc_sell.log 2>&1"
+
+# DISABLED 2026-06-29 stop algo trader: 0 * * * * flock -n /tmp/claude_paper_btc_buy.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 claude_paper_btc_buy.py >> /home/ubuntu/algo_trader/logs/claude_paper_btc_buy.log 2>&1"
+
+# DISABLED 2026-06-29 stop algo trader: 0 4 * * * cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 claude_paper_trade.py --instrument btc --mode status >> /home/ubuntu/algo_trader/logs/claude_paper_status.log 2>&1
+
+# ── Algo Trader — Gold Paper Trading (MCX hours: 9AM-11:30PM IST = 3:30-18:00 UTC) ──
+# DISABLED 2026-06-29 stop algo trader: */30 3-18 * * 1-5 flock -n /tmp/claude_paper_gold_sell.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 claude_paper_trade.py --instrument gold --mode sell >> /home/ubuntu/algo_trader/logs/claude_paper_gold_sell.log 2>&1"
+
+# DISABLED 2026-06-29 stop algo trader: 0 3-18 * * 1-5 flock -n /tmp/claude_paper_gold_buy.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 claude_paper_trade.py --instrument gold --mode buy >> /home/ubuntu/algo_trader/logs/claude_paper_gold_buy.log 2>&1"
+
+# Delta BTC Options — signal check every 90 min (BTC trades 24/7)
+# DISABLED 2026-06-29 stop algo trader: 0 */1 * * * flock -n /tmp/delta_btc_signal.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 delta_btc_options.py --mode signal --paper >> /home/ubuntu/algo_trader/logs/delta_btc_signal.log 2>&1"
+
+# Delta BTC Options — SL/TP monitor every 15 min
+# DISABLED 2026-06-29 stop algo trader: */15 * * * * flock -n /tmp/delta_btc_monitor.lock -c "cd /home/ubuntu/algo_trader/claude && . /home/ubuntu/.env_fire_shop && /home/ubuntu/fire_shop/venv/bin/python3 delta_btc_options.py --mode monitor --paper >> /home/ubuntu/algo_trader/logs/delta_btc_monitor.log 2>&1"
+
+
+
+
