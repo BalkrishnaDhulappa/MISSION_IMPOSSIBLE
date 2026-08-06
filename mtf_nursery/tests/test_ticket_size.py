@@ -1,43 +1,49 @@
-"""Tests for ticket qty sizing (prefer ~₹15k+, not undershoot)."""
+"""Tests for ticket qty — ≥ ticket, ≤ max_notional, top affordable D1=A."""
 
-from ticket_size import pick_best_ticket_fill, qty_for_ticket
+from ticket_size import pick_top_affordable, qty_for_ticket
 
 
-def test_alkem_prefers_ceil_above_ticket():
-    # floor 2×5654=11308 under; ceil 3×5654=16962 (~13% over) → 3
+def test_alkem_ceil_meets_ticket():
     fill = qty_for_ticket(15000, 5654.0)
+    assert fill is not None
     assert fill.qty == 3
     assert fill.notional == 16962.0
-    assert not fill.undershoot
 
 
-def test_ultracemco_stays_one_when_ceil_overshoots_hard():
-    # 1×12146 under; 2×24292 = 62% over → keep 1
-    fill = qty_for_ticket(15000, 12146.0, max_overshoot_pct=0.25)
+def test_twenty_k_share_ok():
+    fill = qty_for_ticket(15000, 20000.0, max_notional=30000)
+    assert fill is not None
     assert fill.qty == 1
-    assert fill.undershoot
+    assert fill.notional == 20000.0
 
 
-def test_cheap_stock_meets_ticket():
-    fill = qty_for_ticket(15000, 1451.7)  # CIPLA-like
-    assert fill.notional >= 15000
-    assert fill.qty == 11  # ceil(15000/1451.7)
+def test_over_30k_share_skipped():
+    assert qty_for_ticket(15000, 31000.0, max_notional=30000) is None
 
 
-def test_share_already_above_ticket():
-    fill = qty_for_ticket(15000, 16000.0)
-    assert fill.qty == 1
+def test_ultracemco_two_shares_under_30k():
+    fill = qty_for_ticket(15000, 12146.0, max_notional=30000)
+    assert fill is not None
+    assert fill.qty == 2
+    assert fill.notional <= 30000
 
 
-def test_pick_best_prefers_closer_above():
+def test_pick_skips_too_expensive_keeps_rank_order():
     cands = [
-        {"symbol": "ALKEM", "cmp": 5654.0},
+        {"symbol": "EXPENSIVE", "cmp": 35000.0},
+        {"symbol": "RECLTD", "cmp": 362.05},
         {"symbol": "GAIL", "cmp": 174.82},
-        {"symbol": "ULTRACEMCO", "cmp": 12146.0},
     ]
-    picked = pick_best_ticket_fill(cands, 15000)
+    picked = pick_top_affordable(cands, 15000, max_notional=30000)
     assert picked is not None
     sym, fill = picked
-    assert sym["symbol"] == "GAIL"
+    assert sym["symbol"] == "RECLTD"
     assert fill.notional >= 15000
-    assert abs(fill.notional - 15000) < 100
+    assert fill.notional <= 30000
+
+
+def test_recltd_style():
+    fill = qty_for_ticket(15000, 362.05)
+    assert fill is not None
+    assert fill.qty == 42
+    assert fill.notional >= 15000

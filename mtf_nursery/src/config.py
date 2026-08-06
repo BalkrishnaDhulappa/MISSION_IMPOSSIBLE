@@ -10,9 +10,7 @@ from typing import Any
 DEFAULT_CONFIG: dict[str, Any] = {
     "mode": "dry_run",
     "ticket_start": 15000,
-    "ticket_prefer_above": True,
-    "ticket_max_overshoot_pct": 0.25,
-    "buy_among_top_scan": None,  # None = all D1=A candidates; int = top N by dist_200
+    "ticket_max_notional": 30000,
     "max_buys_per_day": 1,
     "max_sells_per_day": 1,
     "max_mtf_buys_per_month": 2,

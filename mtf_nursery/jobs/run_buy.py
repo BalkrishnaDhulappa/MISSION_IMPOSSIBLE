@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MTF buy (≤1/day) — size ~ticket (≥ when reasonable), dry-run or live (C6)."""
+"""MTF buy (≤1/day) — top D1=A scan, notional always ≥ ticket."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from _execution import run_order_with_ledger
 from broker_read import build_account_snapshot
 from calendar_ist import is_trading_day, load_market_calendar
 from config import load_config
-from dry_run import _load_best_scan_buy
+from dry_run import _load_top_scan_buy
 from executor import OrderIntent, format_gate_block
 from kite_client import KiteConfigError, get_kite
 from ledger import Ledger
@@ -53,7 +53,7 @@ def main() -> int:
         pass
 
     ticket = ledger.current_ticket(cfg.get("ticket_start", 15000))
-    picked = _load_best_scan_buy({**cfg, "ticket_start": ticket})
+    picked = _load_top_scan_buy({**cfg, "ticket_start": ticket})
     if not picked:
         send_telegram("Buy skip: no scan candidates (run scan first).", level=Level.INFO)
         return 0
@@ -71,15 +71,20 @@ def main() -> int:
     snap = build_account_snapshot(
         holdings, margins, liquid_etf_symbol=cfg.get("liquid_etf_symbol", "LIQUIDCASE")
     )
-    # Recompute fill with live CMP if available
     live_cmp = _live_cmp(symbol, holdings)
     if live_cmp > 0:
         fill = qty_for_ticket(
             ticket,
             live_cmp,
-            prefer_above=bool(cfg.get("ticket_prefer_above", True)),
-            max_overshoot_pct=float(cfg.get("ticket_max_overshoot_pct", 0.25)),
+            max_notional=float(cfg.get("ticket_max_notional", 30000)),
         )
+        if fill is None:
+            send_telegram(
+                f"Buy skip {symbol}: CMP ₹{live_cmp:,.0f} outside ticket "
+                f"₹{ticket:,.0f}–₹{float(cfg.get('ticket_max_notional', 30000)):,.0f}",
+                level=Level.WARN,
+            )
+            return 0
         cmp, qty, notional = fill.cmp, fill.qty, fill.notional
 
     est_margin = notional * 0.30
@@ -111,7 +116,7 @@ def main() -> int:
         symbol=symbol,
         qty=qty,
         product="MTF",
-        reason=f"D1=A ticket fill ~₹{notional:,.0f} (target ₹{ticket:,.0f})",
+        reason=f"top D1=A {symbol} notional ~₹{notional:,.0f} (ticket ₹{ticket:,.0f})",
         limit_price=round(cmp * 1.001, 2),
     )
     idem = f"{today}|buy|{symbol}"
