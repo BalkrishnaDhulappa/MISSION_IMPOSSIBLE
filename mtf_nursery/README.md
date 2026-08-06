@@ -2,7 +2,31 @@
 
 Automated MTF→F&O nursery system per course rules. **v1 = dry-run / demo only.**
 
-## Phase C6 (current) — Live MTF orders (explicit sign-off)
+## Phase C7 (current) — Genius Stock CAR (delivered losers)
+
+Automates `Copy of Genius Stock CAR.xlsx` (reference only; logic lives in code):
+
+```bash
+# After ~16 weeks / full margin — move to CAR book
+python3 jobs/run_car_check.py --mark-delivered RELIANCE
+
+# Check one symbol (sheet-style)
+python3 jobs/run_car_check.py --symbol POWERGRID --no-telegram --json
+
+# Weekly: config.car.watchlist + ledger status=delivered
+python3 jobs/run_car_check.py
+./scripts/mtf_cron.sh car_check
+```
+
+| Signal | Action (dry-run) |
+|--------|------------------|
+| `BUY / AVERAGE OUT` | CNC buy intent ≈ 1/10th original capital |
+| `AVOID / HOLD` | No add |
+| CMP ≥ avg cost | CNC sell intent (in profit) |
+
+Cron: Sunday **10:00 IST** (`30 4 * * 0` UTC) in `crontab_mtf_nursery.snippet`.
+
+## Phase C6 — Live MTF orders (explicit sign-off)
 
 Live placement is **off by default**. Three gates must all pass:
 

@@ -448,6 +448,7 @@ Rationale unchanged: finish MTF cash decisions **before** the 15:00 ₹6k CNC bu
 | C4 | LIQUIDCASE funding dry-run | ✅ Done |
 | C5 | Cron on Oracle beside fire_shop | ✅ Done |
 | C6 | Live MTF (optional, separate approval) | ✅ Done |
+| C7 | Genius Stock CAR Average Out (dry-run) | ✅ Done |
 
 ---
 

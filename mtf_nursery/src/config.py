@@ -37,6 +37,12 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "emi_verify_tolerance": 50.0,
     "ledger_db": "data/ledger.sqlite",
     "scan_output": "data/last_scan.json",
+    "car": {
+        "rising_days": 10,
+        "average_fraction": 0.10,
+        "exit_when_cmp_ge_avg_cost": True,
+        "watchlist": [],
+    },
     "kite_token_path": "/home/ubuntu/fire_shop/.kite_token",
     "env_file": "/home/ubuntu/.env_fire_shop",
     "market_calendar_dir": "/home/ubuntu/fire_shop",

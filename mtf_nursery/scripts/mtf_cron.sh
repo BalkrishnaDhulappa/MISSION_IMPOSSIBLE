@@ -52,6 +52,9 @@ case "$JOB" in
   status)
     run_job jobs/run_status_day.py --env-file "$ENV_FILE" --token-path "$TOKEN_PATH"
     ;;
+  car_check)
+    run_job jobs/run_car_check.py --env-file "$ENV_FILE"
+    ;;
   dry_run)
     run_job jobs/run_dry_run.py --env-file "$ENV_FILE" --token-path "$TOKEN_PATH"
     ;;

@@ -19,3 +19,6 @@
 
 # 16:00 IST — EOD status Telegram
 30 10 * * 1-5 flock -n /tmp/mtf_status.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh status
+
+# Sunday 10:00 IST — weekly CAR Average Out / Avoid Hold (delivered losers)
+30 4 * * 0 flock -n /tmp/mtf_car_check.lock /home/ubuntu/MISSION_IMPOSSIBLE/mtf_nursery/scripts/mtf_cron.sh car_check

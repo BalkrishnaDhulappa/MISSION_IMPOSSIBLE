@@ -129,13 +129,19 @@ Fees: Zerodha MTF brokerage + pledge/unpledge as in §7.1 (not the Class 5 Excel
 v1 delivery target: Rules engine + scanner (option A filters) + EMI/LIQUIDCASE funding plan + Force/RF ledger + dry-run order intents on Oracle Always Free.  
 CAR averaging and live orders = later phases.
 
-### FR9 — CAR averaging for losers (DEFERRED from v1)
-Captured from `CAR_Avg` for later:
-- Average Out iff last 10 CA values strictly rising; else Avoid Hold  
-- Weekly 1/10th of original invested capital  
-- Exit-after-average rule still unspecified in source video  
+### FR9 — CAR averaging for losers (C7 — dry-run)
 
-**v1:** do not implement CAR buys/exits. Losers: hold ≤16 weeks → delivery; manual handling until CAR phase.
+Automates **Genius Stock CAR** sheet (reference only; bot does not depend on Excel):
+
+| Rule | Value |
+|------|--------|
+| Book | Delivered CNC after ~16-week MTF (mark via `run_car_check.py --mark-delivered`) |
+| Signal | Last 10 CA from 52w high strictly rising → `BUY / AVERAGE OUT` else `AVOID / HOLD` |
+| Size | 1/10th of original invested capital (skip if 1 share > budget) |
+| Cadence | Weekly (`car_check` cron Sunday 10:00 IST) |
+| Exit | CMP ≥ avg cost → dry-run CNC sell intent (`exit_when_cmp_ge_avg_cost`) |
+
+**v1 live CAR orders:** still off (dry-run intents only).
 
 ---
 

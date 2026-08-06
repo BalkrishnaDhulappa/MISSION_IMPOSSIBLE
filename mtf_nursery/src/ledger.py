@@ -633,6 +633,23 @@ class Ledger:
             "growth": compound.growth,
         }
 
+    def mark_delivered(self, position_id: int) -> bool:
+        """Mark open MTF position as delivered (post 16-week / full margin)."""
+        with self._tx() as conn:
+            cur = conn.execute(
+                """
+                UPDATE positions
+                SET status = 'delivered', product = 'CNC'
+                WHERE id = ? AND status = 'open_mtf'
+                """,
+                (position_id,),
+            )
+            return cur.rowcount > 0
+
+    def list_car_book(self) -> list[Position]:
+        """Positions managed by CAR sheet logic (delivered CNC losers / holds)."""
+        return self.list_positions(status="delivered")
+
     def set_cash_reservation(self, res_date: date, purpose: str, amount: float) -> None:
         with self._tx() as conn:
             conn.execute(

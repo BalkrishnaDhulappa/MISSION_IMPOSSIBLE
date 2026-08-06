@@ -31,6 +31,12 @@
   "emi_verify_tolerance": 50.0,
   "ledger_db": "data/ledger.sqlite",
   "scan_output": "data/last_scan.json",
+  "car": {
+    "rising_days": 10,
+    "average_fraction": 0.10,
+    "exit_when_cmp_ge_avg_cost": true,
+    "watchlist": []
+  },
   "scanner": {
     "require_dma30_gt_dma50": true,
     "max_dist_200_pct": 10.0,
