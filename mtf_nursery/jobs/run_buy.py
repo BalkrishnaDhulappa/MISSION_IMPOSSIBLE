@@ -73,7 +73,18 @@ def main() -> int:
     )
     live_cmp = _live_cmp(symbol, holdings)
     if live_cmp > 0:
-        fill = qty_for_ticket(ticket, live_cmp)
+        fill = qty_for_ticket(
+            ticket,
+            live_cmp,
+            max_notional=float(cfg.get("ticket_max_notional", 30000)),
+        )
+        if fill is None:
+            send_telegram(
+                f"Buy skip {symbol}: CMP ₹{live_cmp:,.0f} outside ticket "
+                f"₹{ticket:,.0f}–₹{float(cfg.get('ticket_max_notional', 30000)):,.0f}",
+                level=Level.WARN,
+            )
+            return 0
         cmp, qty, notional = fill.cmp, fill.qty, fill.notional
 
     est_margin = notional * 0.30

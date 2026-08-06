@@ -202,7 +202,7 @@ def _run_buy_gate_check(
             symbol, _cmp, qty, notional = top
             report.buy_gate_message = (
                 f"DRY-RUN would consider MTF buy: {symbol} "
-                f"qty={qty} ~₹{notional:,.0f} (ticket ₹{ticket:,.0f}, top D1=A)"
+                f"qty={qty} ~₹{notional:,.0f} (ticket ₹{ticket:,.0f}, top affordable D1=A)"
             )
         else:
             report.buy_gate_message = (
@@ -220,11 +220,11 @@ def _load_top_scan_candidate(cfg: dict) -> str | None:
 
 
 def _load_top_scan_buy(cfg: dict) -> tuple[str, float, int, float] | None:
-    """Return (symbol, cmp, qty, notional) for #1 D1=A candidate (dist_200 rank)."""
+    """Return (symbol, cmp, qty, notional) for top affordable D1=A candidate."""
     from pathlib import Path
 
     from scanner_fetch import load_scan_result
-    from ticket_size import qty_for_ticket
+    from ticket_size import pick_top_affordable
 
     scan_path = Path(cfg.get("scan_output", "data/last_scan.json"))
     if not scan_path.is_absolute():
@@ -236,17 +236,16 @@ def _load_top_scan_buy(cfg: dict) -> tuple[str, float, int, float] | None:
         cands = data.get("candidates") or []
         if not cands:
             return None
-        cand = cands[0]
-        cmp = float(cand.get("cmp") or 0)
-        if cmp <= 0:
-            return None
         ticket = float(cfg.get("ticket_start", 15000))
-        # Prefer ledger current ticket if caller already set it on cfg
-        fill = qty_for_ticket(ticket, cmp)
+        max_notional = float(cfg.get("ticket_max_notional", 30000))
+        picked = pick_top_affordable(cands, ticket, max_notional=max_notional)
+        if not picked:
+            return None
+        cand, fill = picked
         return cand["symbol"], fill.cmp, fill.qty, fill.notional
     except (OSError, KeyError, IndexError, TypeError, ValueError):
         return None
 
 
-# Back-compat alias used by run_buy
+# Back-compat alias
 _load_best_scan_buy = _load_top_scan_buy

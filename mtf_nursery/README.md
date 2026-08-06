@@ -46,7 +46,10 @@ Sells **LIQUIDCASE (CNC) → cash** when free cash cannot cover EMI obligation +
 
 **Dry-run:** logs exact `qty` and ₹ estimate; no live order until `live_liquid_topup=true` + C6 sign-off.
 
-**Ticket sizing:** always buy the **#1 D1=A scan** (lowest dist_200). Qty is `ceil(ticket/cmp)` so notional is **never below** ticket; if one share is already ≥ ticket (e.g. ₹20k), buy 1.
+**Ticket sizing:** take D1=A names in scan order (lowest dist_200 first). Buy the first that fits:
+- notional **≥ ticket** (default ₹15k) via `ceil(ticket/cmp)`
+- notional **≤ `ticket_max_notional`** (default ₹30k)
+- if 1 share is ₹15k–₹30k → buy 1; if 1 share > ₹30k → skip to next candidate
 
 ```bash
 # Manual test (needs Kite token on VM)

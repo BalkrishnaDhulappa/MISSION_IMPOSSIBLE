@@ -4,6 +4,7 @@
   "env_file": "/home/ubuntu/.env_fire_shop",
   "market_calendar_dir": "/home/ubuntu/fire_shop",
   "ticket_start": 15000,
+  "ticket_max_notional": 30000,
   "max_buys_per_day": 1,
   "max_sells_per_day": 1,
   "max_mtf_buys_per_month": 2,

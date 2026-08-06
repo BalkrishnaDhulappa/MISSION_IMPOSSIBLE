@@ -10,6 +10,7 @@ from typing import Any
 DEFAULT_CONFIG: dict[str, Any] = {
     "mode": "dry_run",
     "ticket_start": 15000,
+    "ticket_max_notional": 30000,
     "max_buys_per_day": 1,
     "max_sells_per_day": 1,
     "max_mtf_buys_per_month": 2,
