@@ -29,9 +29,12 @@ def check_symbol_car(
     *,
     avg_cost: float | None = None,
     original_invested: float | None = None,
+    capital_deployed: float | None = None,
     fetcher: Any = None,
     rising_days: int = 10,
     average_fraction: float = 0.10,
+    profit_target_pct: float = 0.0628,
+    profit_target_pct_doubled: float = 0.0314,
 ) -> CarCheckResult | None:
     ticker = yfinance_ticker(symbol)
     if fetcher is not None:
@@ -50,8 +53,11 @@ def check_symbol_car(
         cmp=cmp,
         avg_cost=avg_cost,
         original_invested=original_invested,
+        capital_deployed=capital_deployed,
         rising_days=rising_days,
         average_fraction=average_fraction,
+        profit_target_pct=profit_target_pct,
+        profit_target_pct_doubled=profit_target_pct_doubled,
     )
 
 
@@ -62,6 +68,11 @@ def format_car_telegram(result: CarCheckResult) -> str:
     ]
     if result.avg_cost is not None:
         lines.append(f"avg cost ₹{result.avg_cost:,.2f}")
+        if result.profit_target_pct is not None:
+            pct_label = f"{result.profit_target_pct * 100:.2f}%"
+            if result.capital_doubled:
+                pct_label += " (capital doubled)"
+            lines.append(f"target {pct_label}")
         lines.append("in profit → consider SELL" if result.in_profit else "not in profit yet")
     if result.signal == CarSignal.AVERAGE_OUT and result.average_out_amount:
         lines.append(f"Average Out size ~₹{result.average_out_amount:,.0f} (1/10th original)")

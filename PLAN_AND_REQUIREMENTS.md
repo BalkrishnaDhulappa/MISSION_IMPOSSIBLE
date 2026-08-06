@@ -139,7 +139,8 @@ Automates **Genius Stock CAR** sheet (reference only; bot does not depend on Exc
 | Signal | Last 10 CA from 52w high strictly rising → `BUY / AVERAGE OUT` else `AVOID / HOLD` |
 | Size | 1/10th of original invested capital (skip if 1 share > budget) |
 | Cadence | Weekly (`car_check` cron Sunday 10:00 IST) |
-| Exit | CMP ≥ avg cost → dry-run CNC sell intent (`exit_when_cmp_ge_avg_cost`) |
+| Exit profit % | **6.28%** above avg cost while capital < 2× original; **3.14%** once capital ≥ 2× original (via Average Out adds) |
+| Exit action | CMP ≥ avg_cost × (1 + target%) → dry-run CNC sell intent |
 
 **v1 live CAR orders:** still off (dry-run intents only).
 
@@ -185,8 +186,8 @@ Automates **Genius Stock CAR** sheet (reference only; bot does not depend on Exc
 | **D7** | Liquid ETF | ✅ Prefer **LIQUIDCASE** (Zerodha Nifty 1D Rate Liquid ETF); EMI float parked here; see §7.3 |
 | **D8** | Runtime host | ✅ **Oracle Cloud** Free Tier (Always Free VM); see §7.4 |
 | **D9** | Language stack | ✅ **Python** |
-| **D10** | CAR in v1 | ✅ **Defer** |
-| **D11** | CAR exit rule | ✅ **Defer** |
+| **D10** | CAR in v1 | ✅ **C7 dry-run** (Genius Stock CAR Average Out) |
+| **D11** | CAR exit rule | ✅ **6.28%** profit vs avg cost; if capital ≥ **2×** original → **3.14%** |
 | **D12** | 1/10th base capital | ✅ Per video: **1/10 of original invested capital** on that name (first-buy cost base) |
 
 ### 7.1 Zerodha MTF cost model (from your FAQ screenshots)
@@ -261,7 +262,7 @@ D6: min(0.3%, ₹20); pledge ₹15+GST
 D7: LIQUIDCASE; sell→cash for MTF (collateral ≠ MTF cash)
 D8: Oracle Always Free (not 1-year-only)
 D9: Python
-D10: defer CAR
-D11: defer CAR exit
+D10: C7 CAR dry-run (Genius Stock)
+D11: CAR exit 6.28%; 3.14% when capital doubled
 D12: 1/10th of original (first) invested capital per video
 ```

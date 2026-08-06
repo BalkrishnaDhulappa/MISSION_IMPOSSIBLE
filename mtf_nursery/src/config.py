@@ -40,7 +40,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "car": {
         "rising_days": 10,
         "average_fraction": 0.10,
-        "exit_when_cmp_ge_avg_cost": True,
+        "profit_target_pct": 0.0628,
+        "profit_target_pct_when_capital_doubled": 0.0314,
         "watchlist": [],
     },
     "kite_token_path": "/home/ubuntu/fire_shop/.kite_token",

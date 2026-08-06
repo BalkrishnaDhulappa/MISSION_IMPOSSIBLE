@@ -115,6 +115,28 @@ def test_overdue_emi_status(ledger: Ledger):
     assert any(e.status == EmiStatus.OVERDUE.value for e in alerts)
 
 
+def test_mark_delivered_freezes_car_original(ledger: Ledger):
+    pos = ledger.add_position("INFY", date(2026, 2, 1), qty=10, avg_price=1500, initial_margin=4500)
+    assert ledger.mark_delivered(pos.id)
+    book = ledger.list_car_book()
+    assert len(book) == 1
+    assert book[0].status == "delivered"
+    assert book[0].product == "CNC"
+    assert book[0].car_original_value == 15000.0
+    assert book[0].buy_value == 15000.0
+
+
+def test_apply_car_average_out_updates_capital(ledger: Ledger):
+    pos = ledger.add_position("INFY", date(2026, 2, 1), qty=10, avg_price=1500, initial_margin=4500)
+    ledger.mark_delivered(pos.id)
+    updated = ledger.apply_car_average_out(pos.id, add_qty=5, add_price=1200.0)
+    assert updated is not None
+    assert updated.qty == 15
+    assert updated.buy_value == 21000.0  # 15000 + 5*1200
+    assert abs(updated.avg_price - 1400.0) < 1e-6
+    assert updated.car_original_value == 15000.0
+
+
 def test_status_summary(ledger: Ledger):
     ledger.add_position("INFY", date(2026, 2, 1), qty=10, avg_price=1500, initial_margin=4500)
     summary = ledger.status_summary(date(2026, 2, 1))

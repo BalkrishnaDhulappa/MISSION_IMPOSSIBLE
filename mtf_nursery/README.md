@@ -22,7 +22,7 @@ python3 jobs/run_car_check.py
 |--------|------------------|
 | `BUY / AVERAGE OUT` | CNC buy intent ≈ 1/10th original capital |
 | `AVOID / HOLD` | No add |
-| CMP ≥ avg cost | CNC sell intent (in profit) |
+| Profit ≥ **6.28%** vs avg cost | CNC sell intent (or **3.14%** once capital ≥ 2× original) |
 
 Cron: Sunday **10:00 IST** (`30 4 * * 0` UTC) in `crontab_mtf_nursery.snippet`.
 

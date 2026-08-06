@@ -8,6 +8,7 @@ from car import (
     evaluate_car_position,
     is_in_profit,
     qty_for_average_out,
+    select_profit_target_pct,
 )
 
 
@@ -38,9 +39,20 @@ def test_qty_skips_if_one_share_above_budget():
     assert qty_for_average_out(1600.0, 800.0) == 2
 
 
-def test_in_profit_exit_guide():
-    assert is_in_profit(100, 95)
-    assert not is_in_profit(90, 95)
+def test_profit_target_6_28_until_capital_doubles():
+    assert select_profit_target_pct(15000, 15000) == 0.0628
+    assert select_profit_target_pct(15000, 29999) == 0.0628
+    assert select_profit_target_pct(15000, 30000) == 0.0314
+    assert select_profit_target_pct(15000, 45000) == 0.0314
+
+
+def test_in_profit_uses_percentage_target():
+    # 6.28% of 100 = 106.28
+    assert not is_in_profit(106.0, 100.0, profit_pct=0.0628)
+    assert is_in_profit(106.28, 100.0, profit_pct=0.0628)
+    # 3.14% of 100 = 103.14
+    assert not is_in_profit(103.0, 100.0, profit_pct=0.0314)
+    assert is_in_profit(103.14, 100.0, profit_pct=0.0314)
 
 
 def test_evaluate_average_out_with_rising_closes():
@@ -51,7 +63,38 @@ def test_evaluate_average_out_with_rising_closes():
         rising_closes,
         avg_cost=110.0,
         original_invested=15000.0,
+        capital_deployed=15000.0,
     )
     assert r.signal == CarSignal.AVERAGE_OUT
     assert r.average_out_amount == 1500.0
-    assert r.in_profit  # last close 129 >= 110
+    assert r.profit_target_pct == 0.0628
+    assert not r.capital_doubled
+    # last close 129; need 110 * 1.0628 = 116.908 → in profit
+    assert r.in_profit
+
+
+def test_evaluate_halves_target_when_capital_doubled():
+    rising_closes = [100.0 + i for i in range(30)]
+    # CMP 129; avg 126 → 6.28% needs ~133.9 (not in profit), 3.14% needs ~129.96
+    # Use avg 125: 6.28% → 132.85 (not), 3.14% → 128.925 (yes at 129)
+    r = evaluate_car_position(
+        "TEST",
+        rising_closes,
+        avg_cost=125.0,
+        original_invested=15000.0,
+        capital_deployed=30000.0,
+    )
+    assert r.capital_doubled
+    assert r.profit_target_pct == 0.0314
+    assert r.in_profit
+
+    r2 = evaluate_car_position(
+        "TEST",
+        rising_closes,
+        avg_cost=125.0,
+        original_invested=15000.0,
+        capital_deployed=15000.0,
+    )
+    assert not r2.capital_doubled
+    assert r2.profit_target_pct == 0.0628
+    assert not r2.in_profit

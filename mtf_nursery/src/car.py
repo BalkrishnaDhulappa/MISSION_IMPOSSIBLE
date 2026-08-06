@@ -8,6 +8,10 @@ from typing import Sequence
 
 from scanner import is_car_rising
 
+# Frozen exit targets (D11): 6.28% until capital doubles, then 3.14%.
+DEFAULT_PROFIT_TARGET_PCT = 0.0628
+DOUBLED_CAPITAL_PROFIT_TARGET_PCT = 0.0314
+
 
 class CarSignal(str, Enum):
     AVERAGE_OUT = "BUY / AVERAGE OUT"
@@ -22,6 +26,8 @@ class CarCheckResult:
     cmp: float
     avg_cost: float | None = None
     in_profit: bool = False
+    profit_target_pct: float | None = None
+    capital_doubled: bool = False
     average_out_amount: float | None = None
 
 
@@ -68,11 +74,45 @@ def qty_for_average_out(notional: float, cmp: float) -> int:
     return max(1, int(notional // cmp))
 
 
-def is_in_profit(cmp: float, avg_cost: float) -> bool:
-    """Exit guide (your rule): sell when CMP >= average cost."""
+def capital_is_doubled(original_invested: float, capital_deployed: float) -> bool:
+    """True when total capital in the book is ≥ 2× original CAR entry capital."""
+    if original_invested <= 0:
+        return False
+    return capital_deployed >= 2.0 * original_invested
+
+
+def select_profit_target_pct(
+    original_invested: float | None,
+    capital_deployed: float | None = None,
+    *,
+    base_pct: float = DEFAULT_PROFIT_TARGET_PCT,
+    doubled_pct: float = DOUBLED_CAPITAL_PROFIT_TARGET_PCT,
+) -> float:
+    """
+    CAR exit profit % on avg cost:
+    - 6.28% while capital_deployed < 2× original
+    - 3.14% once capital has doubled (via Average Out adds)
+    """
+    if original_invested is None or original_invested <= 0:
+        return base_pct
+    deployed = capital_deployed if capital_deployed is not None else original_invested
+    if capital_is_doubled(original_invested, deployed):
+        return doubled_pct
+    return base_pct
+
+
+def target_exit_price(avg_cost: float, *, profit_pct: float = DEFAULT_PROFIT_TARGET_PCT) -> float:
+    """Round target to paise: avg_cost × (1 + profit_pct)."""
     if avg_cost <= 0:
         raise ValueError("avg_cost must be positive")
-    return cmp >= avg_cost
+    if profit_pct < 0:
+        raise ValueError("profit_pct must be >= 0")
+    return round(avg_cost * (1.0 + profit_pct), 2)
+
+
+def is_in_profit(cmp: float, avg_cost: float, *, profit_pct: float = DEFAULT_PROFIT_TARGET_PCT) -> bool:
+    """Sell when CMP ≥ avg_cost × (1 + profit_pct) (paise-rounded target)."""
+    return cmp >= target_exit_price(avg_cost, profit_pct=profit_pct)
 
 
 def evaluate_car_position(
@@ -82,17 +122,30 @@ def evaluate_car_position(
     cmp: float | None = None,
     avg_cost: float | None = None,
     original_invested: float | None = None,
+    capital_deployed: float | None = None,
     rising_days: int = 10,
     average_fraction: float = 0.10,
+    profit_target_pct: float = DEFAULT_PROFIT_TARGET_PCT,
+    profit_target_pct_doubled: float = DOUBLED_CAPITAL_PROFIT_TARGET_PCT,
 ) -> CarCheckResult:
     """Full check for one delivered (or watchlist) symbol."""
     cas = cumulative_averages(closes_from_year_high)
     signal = car_signal_from_last_n(cas, rising_days=rising_days)
     last_n = cas[-rising_days:] if len(cas) >= rising_days else cas
     px = float(cmp if cmp is not None else (closes_from_year_high[-1] if closes_from_year_high else 0))
+    target = select_profit_target_pct(
+        original_invested,
+        capital_deployed,
+        base_pct=profit_target_pct,
+        doubled_pct=profit_target_pct_doubled,
+    )
+    doubled = False
+    if original_invested is not None and original_invested > 0:
+        deployed = capital_deployed if capital_deployed is not None else original_invested
+        doubled = capital_is_doubled(original_invested, deployed)
     profit = False
     if avg_cost is not None and px > 0:
-        profit = is_in_profit(px, avg_cost)
+        profit = is_in_profit(px, avg_cost, profit_pct=target)
     add_amt = None
     if signal == CarSignal.AVERAGE_OUT and original_invested is not None:
         add_amt = average_out_notional(original_invested, fraction=average_fraction)
@@ -103,5 +156,7 @@ def evaluate_car_position(
         cmp=px,
         avg_cost=avg_cost,
         in_profit=profit,
+        profit_target_pct=target if avg_cost is not None else None,
+        capital_doubled=doubled,
         average_out_amount=add_amt,
     )

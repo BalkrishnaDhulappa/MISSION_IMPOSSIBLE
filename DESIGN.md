@@ -78,7 +78,7 @@
 | **jobs** | CLI entrypoints for cron | buy / sell / emi / scan / status / rms |
 
 ### Out of v1
-- CAR averaging (deferred)  
+- CAR averaging (C7 dry-run): exit **6.28%** vs avg cost; **3.14%** once capital ≥ 2× original  
 - Covered-call writer  
 - Live mode default-on  
 - Groww / multi-broker  

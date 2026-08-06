@@ -15,7 +15,7 @@ from emi import compute_emi_schedule
 from emi_verify import EmiStatus, PaidVia, VerifyResult, verify_emi_repaid
 from gates import BuyGateInput, GateResult, SellGateInput, evaluate_buy_gate, evaluate_sell_gate
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS schema_meta (
@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS positions (
     force_tag TEXT,
     product TEXT NOT NULL DEFAULT 'MTF',
     created_at TEXT NOT NULL,
+    car_original_value REAL,
     FOREIGN KEY (step_id) REFERENCES steps(step_no)
 );
 
@@ -124,6 +125,7 @@ class Position:
     step_id: int
     force_tag: str | None
     product: str
+    car_original_value: float | None = None
 
 
 @dataclass(frozen=True)
@@ -175,10 +177,16 @@ class Ledger:
     def _init_schema(self) -> None:
         with self._tx() as conn:
             conn.executescript(_SCHEMA)
+            self._migrate(conn)
             conn.execute(
-                "INSERT OR IGNORE INTO schema_meta(key, value) VALUES (?, ?)",
+                "INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)",
                 ("version", str(SCHEMA_VERSION)),
             )
+
+    def _migrate(self, conn: sqlite3.Connection) -> None:
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(positions)").fetchall()}
+        if "car_original_value" not in cols:
+            conn.execute("ALTER TABLE positions ADD COLUMN car_original_value REAL")
 
     def ensure_step(self, step_no: int, ticket_amount: float) -> Step:
         with self._tx() as conn:
@@ -634,17 +642,61 @@ class Ledger:
         }
 
     def mark_delivered(self, position_id: int) -> bool:
-        """Mark open MTF position as delivered (post 16-week / full margin)."""
+        """Mark open MTF position as delivered (post 16-week / full margin).
+
+        Freezes car_original_value = buy_value so Average Out 2× capital checks
+        still use the entry capital after later adds.
+        """
         with self._tx() as conn:
             cur = conn.execute(
                 """
                 UPDATE positions
-                SET status = 'delivered', product = 'CNC'
+                SET status = 'delivered',
+                    product = 'CNC',
+                    car_original_value = COALESCE(car_original_value, buy_value)
                 WHERE id = ? AND status = 'open_mtf'
                 """,
                 (position_id,),
             )
             return cur.rowcount > 0
+
+    def apply_car_average_out(
+        self, position_id: int, add_qty: int, add_price: float
+    ) -> Position | None:
+        """Book a CAR Average Out add into a delivered position (updates avg/capital)."""
+        if add_qty <= 0:
+            raise ValueError("add_qty must be positive")
+        if add_price <= 0:
+            raise ValueError("add_price must be positive")
+        with self._tx() as conn:
+            row = conn.execute(
+                "SELECT * FROM positions WHERE id = ? AND status = 'delivered'",
+                (position_id,),
+            ).fetchone()
+            if row is None:
+                return None
+            old_qty = int(row["qty"])
+            old_value = float(row["buy_value"])
+            add_value = round(add_qty * add_price, 2)
+            new_qty = old_qty + add_qty
+            new_value = round(old_value + add_value, 2)
+            new_avg = round(new_value / new_qty, 8) if new_qty else 0.0
+            original = row["car_original_value"]
+            if original is None:
+                original = old_value
+            conn.execute(
+                """
+                UPDATE positions
+                SET qty = ?, avg_price = ?, buy_value = ?,
+                    car_original_value = ?, product = 'CNC'
+                WHERE id = ?
+                """,
+                (new_qty, new_avg, new_value, float(original), position_id),
+            )
+            updated = conn.execute(
+                "SELECT * FROM positions WHERE id = ?", (position_id,)
+            ).fetchone()
+        return _row_to_position(updated) if updated else None
 
     def list_car_book(self) -> list[Position]:
         """Positions managed by CAR sheet logic (delivered CNC losers / holds)."""
@@ -768,6 +820,8 @@ class Ledger:
 
 
 def _row_to_position(row: sqlite3.Row) -> Position:
+    keys = row.keys()
+    car_orig = row["car_original_value"] if "car_original_value" in keys else None
     return Position(
         id=row["id"],
         symbol=row["symbol"],
@@ -785,6 +839,7 @@ def _row_to_position(row: sqlite3.Row) -> Position:
         step_id=row["step_id"],
         force_tag=row["force_tag"],
         product=row["product"],
+        car_original_value=float(car_orig) if car_orig is not None else None,
     )
 
 
