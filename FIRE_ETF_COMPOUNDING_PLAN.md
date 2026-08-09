@@ -389,8 +389,8 @@ Sell (≤1/day)
 |---|---|---|
 | Read / understand Class 3 | Agent + you | ✅ |
 | Freeze decisions (D/B/S/R/T) | **You** | ✅ frozen |
-| Design v1 modules/files | Agent | **next** — short signed design |
-| Code | Agent | **only after** you say design accepted |
+| Design v1 modules/files | Agent | ✅ `FIRE_ETF_DESIGN.md` drafted — **awaiting your acceptance** |
+| Code | Agent | **only after** you say **design accepted** |
 
 **Strategy leftovers cleared.** Filesystem org remains deferred. Next step: write signed design (still no code).
 
