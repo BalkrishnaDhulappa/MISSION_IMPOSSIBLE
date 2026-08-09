@@ -96,6 +96,59 @@ Assume start capital ₹5,00,000 → tranche ₹10,000.
 
 ---
 
+## 4b. Compounding plan (in discussion — you want this to take effect)
+
+**Intent:** After each qualifying sell (≥6.28%), book growth into FIRE working capital so the **next daily buy ticket rises**. Without sells + this ledger, compounding cannot run.
+
+### Proposed flow (Class 3 melted to FIRE)
+
+```text
+SELL fill (one/day, most profitable ≥ 6.28%)
+    │
+    ├─ gross_profit = sell_value − cost_basis
+    ├─ after_brokerage = gross − brokerage_estimate   (config rate or flat)
+    ├─ tax = after_brokerage × 0.20 × 1.04            (20% + 4% cess)
+    ├─ net = after_brokerage − tax
+    ├─ self_dividend = net × 0.50                     (logged; no auto-withdraw v1)
+    └─ growth        = net × 0.50
+            │
+            ▼
+    working_capital += growth
+    ticket = working_capital / parts                  (parts default 50)
+            │
+            ▼
+    next BUY uses new ticket (NEW + BID sizing)
+```
+
+### Still need your call (compounding-critical)
+
+| ID | Question | Options | Suggest |
+|---|---|---|---|
+| **D3** | Starting working capital? | A declared config · B broker-derived · C `ticket×50` from today’s ₹6k → ₹3L | **C** easiest bootstrap, or **A** if you know sleeve size |
+| **D4** | Ticket grows with WC/parts? | A fixed 6k · **B grow** · C floor 6k then grow | **B** (you want compounding) |
+| **D5** | Parts? | **A 50** · B other | **A** |
+| **D6** | Post-sell split? | **A** tax+50/50 · B 100% growth · C skip tax in ledger | **A** |
+| **D8** | Sell cron? | **A re-enable** · B stay off | **A** — else no compounds |
+
+### Bootstrap example (if D3=C, D5=A)
+- Today ticket ₹6,000 → implied `initial_capital = 6,000 × 50 = ₹3,00,000`
+- First sell: say growth ₹300 → WC = 3,00,300 → ticket = **₹6,006**
+- Grows slowly at first, then accelerates (same as Class 3 sheet)
+
+### Code touchpoints (later — not now)
+1. Persist `working_capital`, `ticket`, `Σ growth`, `Σ self_div` (JSON or small ledger file)
+2. On sell fill → run compound math → update ticket
+3. Buy/BID use `ticket` instead of fixed `investment_per_tx`
+4. Telegram: sold / growth / self-div / next ticket
+5. Revert provisional 3.14% logic (D2)
+
+### Non-goals for compounding v1
+- Auto withdraw self-dividend to bank  
+- Filesystem reorg  
+- Changing rank signal (keep DMA-dip unless you say otherwise)  
+
+---
+
 ## 4. Melt to our needs — open decisions (must freeze)
 
 Answer each before design/code. Recommendations are starting points only.
