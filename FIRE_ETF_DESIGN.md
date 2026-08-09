@@ -1,6 +1,6 @@
 # FIRE ETF Shop — Signed Design (v1)
 
-**Status:** 🟡 AWAITING YOUR ACCEPTANCE · no strategy code until you say go  
+**Status:** 🟢 **DESIGN ACCEPTED** (2026-08-09) · **implemented on branch** `cursor/fire-etf-profit-double-d711`  
 **Based on:** `FIRE_ETF_COMPOUNDING_PLAN.md` (decisions frozen)  
 **Scope:** `existing_bots/daily_etf_sip/fire_shop` live ETF SIP only  
 **Out of scope v1:** filesystem reorg, RSI ranking, self-dividend, tax set-aside, MTF  

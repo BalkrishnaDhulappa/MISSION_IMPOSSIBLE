@@ -1,10 +1,13 @@
 {
+  "initial_capital": 300000,
+  "parts": 50,
   "investment_per_tx": 6000,
-  "profit_target_pct": 0.0628,
-  "profit_target_pct_when_capital_doubled": 0.0314,
-  "decay": 0.008,
-  "floor": 0.0314,
+  "profit_eligibility_pct": 0.0638,
+  "sell_limit_buffer": 0.001,
+  "buy_limit_buffer": 0.001,
+  "limit_price_buffer": 0.001,
   "bid_threshold": 0.04,
   "max_bid": 3,
-  "limit_price_buffer": 0.001
+  "order_fill_timeout_sec": 90,
+  "dp_flat_fallback": 15.34
 }
