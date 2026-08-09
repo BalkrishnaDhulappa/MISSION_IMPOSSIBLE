@@ -1,9 +1,16 @@
 # FIRE ETF Shop — Compounding Design Plan
 
-**Status:** 🟡 DRAFT — understand & agree first · **no code until accepted**  
+**Status:** 🟡 DRAFT — decisions in progress · **no code until full plan accepted**  
 **Source transcript:** `componding_v2` (Mahesh Chandra Kaushik — ETF Dukaan Updated Version, Class 3)  
-**Live system today:** Oracle `fire_shop` (CNC ETF SIP beside `mtf_nursery`)  
-**Related PR (provisional):** #6 capital-double 6.28→3.14 — **hold / revisit after this plan**; do not treat as final FIRE rule set  
+**Live system today:** Oracle `fire_shop` (CNC ETF SIP)  
+**Related PR (provisional):** #6 capital-double 6.28→3.14 — **superseded by D1/D2 below** (revert when coding)  
+**Org / filesystem:** deferred (`FIRE_SHOP_ORG_PLAN.md`) — strategy code plan first  
+
+### Frozen so far
+| ID | Decision | Notes |
+|---|---|---|
+| **D1** | Profit minimum = **6.28%** | Keep current FIRE target; do **not** switch to Class 3’s 4.71% |
+| **D2** | **No** 3.14% capital-double half-target | “6.28 only” — single exit threshold |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -94,17 +101,14 @@ Assume start capital ₹5,00,000 → tranche ₹10,000.
 Answer each before design/code. Recommendations are starting points only.
 
 ### D1 — Which profit minimum for FIRE ETF?
-- **A.** Keep **6.28%** (Nifty-style; matches current bot + MTF language)  
+- **A.** Keep **6.28%** ← **FROZEN**  
 - **B.** Switch to author ETF **4.71%**  
 - **C.** Configurable min; start at X%  
-- **Recommendation:** *your call* — transcript says ETF Shop = 4.71%; our live bot has always used 6.28%.
 
 ### D2 — Capital-double half-target (3.14%)?
-Author Class 3 does **not** teach 6.28→3.14. That came from CAR/MTF.  
-- **A.** Drop it for FIRE; single min only  
+- **A.** Drop it for FIRE; single min only ← **FROZEN** (“6.28 only”)  
 - **B.** Keep as optional overlay when a position’s invested ≥ 2× original  
-- **C.** Defer  
-- **Recommendation:** **A or C** until we know if FIRE should stay pure ETF-Dukaan.
+- **C.** Defer
 
 ### D3 — Working capital definition
 What is “₹5L” for us?
@@ -147,11 +151,11 @@ What is “₹5L” for us?
 - **C.** Docs/config only first  
 - **Recommendation:** **A** then **B**.
 
-### D10 — Relation to PR #6
-- **A.** Close / revert PR #6; replace with this plan’s exit rule  
+### D10 — Relation to PR #6 provisional engine tweak
+- **A.** Revert capital-double / 3.14% code when we implement ← **implied by D2=A**  
 - **B.** Keep PR #6 only if D2=B  
-- **C.** Leave PR #6 draft open until D1/D2 decided  
-- **Recommendation:** **C** now; **A** if D2≠B.
+- **C.** Leave draft open until D1/D2 decided  
+- **Status:** D1/D2 frozen → treat **A** as default at implement time (still no code until rest accepted).
 
 ---
 
