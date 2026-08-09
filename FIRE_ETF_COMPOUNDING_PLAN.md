@@ -11,6 +11,7 @@
 |---|---|---|
 | **D1** | Profit minimum = **6.28%** | Keep current FIRE target; do **not** switch to Class 3’s 4.71% |
 | **D2** | **No** 3.14% capital-double half-target | “6.28 only” — single exit threshold |
+| **D6** | **No self-dividend** — 100% of net → growth | Melt of Class 3: skip the 50/50 lifestyle split |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -107,14 +108,13 @@ SELL fill (one/day, most profitable ≥ 6.28%)
     │
     ├─ gross_profit = sell_value − cost_basis
     ├─ after_brokerage = gross − brokerage_estimate   (config rate or flat)
-    ├─ tax = after_brokerage × 0.20 × 1.04            (20% + 4% cess)
+    ├─ tax = after_brokerage × 0.20 × 1.04            (20% + 4% cess)  [TBD if we keep tax]
     ├─ net = after_brokerage − tax
-    ├─ self_dividend = net × 0.50                     (logged; no auto-withdraw v1)
-    └─ growth        = net × 0.50
+    └─ growth = net                                   ← D6 FROZEN: no self-div; 100% to growth
             │
             ▼
     working_capital += growth
-    ticket = working_capital / parts                  (parts default 50)
+    ticket = working_capital / parts                  (parts default 50 — TBD D5)
             │
             ▼
     next BUY uses new ticket (NEW + BID sizing)
@@ -127,7 +127,7 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 | **D3** | Starting working capital? | A declared config · B broker-derived · C `ticket×50` from today’s ₹6k → ₹3L | **C** easiest bootstrap, or **A** if you know sleeve size |
 | **D4** | Ticket grows with WC/parts? | A fixed 6k · **B grow** · C floor 6k then grow | **B** (you want compounding) |
 | **D5** | Parts? | **A 50** · B other | **A** |
-| **D6** | Post-sell split? | **A** tax+50/50 · B 100% growth · C skip tax in ledger | **A** |
+| **D6** | Post-sell split? | A tax+50/50 · **B 100% growth (no self-div)** · C skip tax in ledger | **B FROZEN** |
 | **D8** | Sell cron? | **A re-enable** · B stay off | **A** — else no compounds |
 
 ### Bootstrap example (if D3=C, D5=A)
@@ -183,9 +183,9 @@ What is “₹5L” for us?
 
 ### D6 — Post-sell split
 - **A.** Full Class 3: brokerage → tax 20.8% → 50% self-div / 50% growth  
-- **B.** Skip self-div (100% growth into ticket) — more aggressive compound  
+- **B.** **No self-div** — 100% of net into growth ← **FROZEN**  
 - **C.** Skip tax in ledger (track gross only); tax offline  
-- **Recommendation:** **A** in ledger for parity with sheet; self-div can be “logged” not auto-withdrawn.
+- **Open under B:** still deduct brokerage + tax before growth, or growth = gross? (clarify next)
 
 ### D7 — BID / average-down
 - **A.** Keep current: **4%** drop, max **3**, size max(invested/2, ticket)  
