@@ -11,7 +11,9 @@
 |---|---|---|
 | **D1** | Profit minimum = **6.28%** | Keep current FIRE target; do **not** switch to Class 3’s 4.71% |
 | **D2** | **No** 3.14% capital-double half-target | “6.28 only” — single exit threshold |
-| **D6** | **No self-dividend** — 100% of net → growth | Melt of Class 3: skip the 50/50 lifestyle split |
+| **D6** | **No self-dividend** — 100% of reusable net → growth | |
+| **D6b** | Brokerage = **actual Zerodha charges** on the sell | Not a manual estimate to “set aside” |
+| **D6c** | **No tax haircut in compounding ledger** | Can’t segregate tax into separate funds; reuse what remains after sell |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -106,19 +108,23 @@ Assume start capital ₹5,00,000 → tranche ₹10,000.
 ```text
 SELL fill (one/day, most profitable ≥ 6.28%)
     │
-    ├─ gross_profit = sell_value − cost_basis
-    ├─ after_brokerage = gross − brokerage_estimate   (config rate or flat)
-    ├─ tax = after_brokerage × 0.20 × 1.04            (20% + 4% cess)  [TBD if we keep tax]
-    ├─ net = after_brokerage − tax
-    └─ growth = net                                   ← D6 FROZEN: no self-div; 100% to growth
+    ├─ sell_credit = what actually lands after Zerodha brokerage/charges
+    │                 (from order charges / broker net — not a side fund)
+    ├─ cost_basis  = avg × qty (broker holding cost)
+    ├─ reusable_profit = sell_credit − cost_basis
+    │       (if ≤ 0, no growth bump)
+    └─ growth = reusable_profit              ← 100%; no self-div; no tax set-aside
             │
             ▼
     working_capital += growth
-    ticket = working_capital / parts                  (parts default 50 — TBD D5)
+    ticket = working_capital / parts         (parts TBD — D5)
             │
             ▼
     next BUY uses new ticket (NEW + BID sizing)
+    # Practical meaning: all money that remains after the sell is reusable
 ```
+
+**Rationale (your words):** brokerage is whatever Zerodha deducts; you can’t track a separate tax/self-div pocket — so whatever accumulates after selling, reuse all of it for the next tickets.
 
 ### Still need your call (compounding-critical)
 
@@ -127,7 +133,7 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 | **D3** | Starting working capital? | A declared config · B broker-derived · C `ticket×50` from today’s ₹6k → ₹3L | **C** easiest bootstrap, or **A** if you know sleeve size |
 | **D4** | Ticket grows with WC/parts? | A fixed 6k · **B grow** · C floor 6k then grow | **B** (you want compounding) |
 | **D5** | Parts? | **A 50** · B other | **A** |
-| **D6** | Post-sell split? | A tax+50/50 · **B 100% growth (no self-div)** · C skip tax in ledger | **B FROZEN** |
+| **D6** | Post-sell split? | **B FROZEN** — no self-div; + **D6b/D6c**: actual Zerodha net, no tax set-aside | |
 | **D8** | Sell cron? | **A re-enable** · B stay off | **A** — else no compounds |
 
 ### Bootstrap example (if D3=C, D5=A)
@@ -181,11 +187,14 @@ What is “₹5L” for us?
 - **B.** Other (e.g. 30 / 40) to match cash + MTF reserve  
 - **Recommendation:** **A** unless cash math forces otherwise.
 
-### D6 — Post-sell split
-- **A.** Full Class 3: brokerage → tax 20.8% → 50% self-div / 50% growth  
-- **B.** **No self-div** — 100% of net into growth ← **FROZEN**  
-- **C.** Skip tax in ledger (track gross only); tax offline  
-- **Open under B:** still deduct brokerage + tax before growth, or growth = gross? (clarify next)
+### D6 — Post-sell split / what counts as growth
+- **A.** Full Class 3: brokerage estimate → tax 20.8% → 50% self-div / 50% growth  
+- **B.** **No self-div** — 100% of reusable net into growth ← **FROZEN**  
+- **D6b FROZEN:** brokerage = **actual Zerodha deduction** on the fill (charges API / net credit), not a parallel estimate you fund separately  
+- **D6c FROZEN:** **no tax haircut** in the compounding ledger — you don’t segregate tax into another pot; reuse what remains after the sell  
+- **C.** (absorbed into D6c for FIRE)  
+
+**Implement hint (later):** prefer broker-reported charges on the order; fallback only if API missing.
 
 ### D7 — BID / average-down
 - **A.** Keep current: **4%** drop, max **3**, size max(invested/2, ticket)  
