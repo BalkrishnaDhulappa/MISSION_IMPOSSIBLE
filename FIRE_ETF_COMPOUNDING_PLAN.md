@@ -19,12 +19,20 @@
 | **B3** | Fallback = CNC **formula** if API fails | Rates aligned with `strategy_validator.calc_trade_costs` |
 | **B4** | **Include DP** on sell | From API if present, else flat ~₹15.34 |
 | **D3** | Start WC = **₹6,000 × 50 = ₹3,00,000** | Bootstrap from today’s ticket (option C) |
-| **D3b** | Extra cash = **buffer** (not in WC) | Keep WC simple at ₹3L; ₹1.19L available is not fully FIRE-sleeve |
+| **D3b** | Extra cash = **buffer** (not in WC) | Keep WC simple at ₹3L |
 | **D4** | Ticket **grows** = WC / parts | Compounding takes effect after each booked growth |
 | **D5** | Parts = **50** | Author Class 3 default |
+| **S1** | Sells per day = **one** | |
+| **S2** | Winner = **highest unrealized %** | |
+| **S4** | Qty = **full position** | |
+| **S5** | Order = **LIMIT @ CMP** | Exact CMP unless you want a small undercut buffer |
+| **S6** | Scan = **ETF universe only** | |
+| **S7** | Price for eligibility = **Kite LTP** | |
+| **S8** | Sell cron = **15:05 IST** | Independent of buy @ 15:00 |
+| **D8** | Re-enable sell cron after implement | Intent: yes |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
-| **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you; state ETF-like ≈ ₹2.30L (39 names). Non-ETF ~₹50k (IRCTC/AWL/…) out of scope |
-| **M0c** | Funds available (cash) ≈ **₹1,19,359** | Broker free cash snapshot from you — confirm if FIRE-only or shared |
+| **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you |
+| **M0c** | Funds available (cash) ≈ **₹1,19,359** | Buffer; not fully in WC |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
