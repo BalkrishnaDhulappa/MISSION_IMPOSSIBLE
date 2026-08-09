@@ -23,6 +23,7 @@
 | **D5** | Parts = **50** | Author Class 3 default |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
 | **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you; state ETF-like ≈ ₹2.30L (39 names). Non-ETF ~₹50k (IRCTC/AWL/…) out of scope |
+| **M0c** | Funds available (cash) ≈ **₹1,19,359** | Broker free cash snapshot from you — confirm if FIRE-only or shared |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -167,12 +168,21 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 ### Existing holdings (clarified)
 
 - **ETF capital already bought ≈ ₹2,30,000** (your number; matches state ETF-like sum ≈ ₹2.30L).
-- Proposed sleeve WC = **₹3,00,000** → about **₹70,000** of sleeve still “outside” as future daily tickets (~11× ₹6k).
+- **Funds available (cash) ≈ ₹1,19,359** (your number).
+- Arithmetic check: ETFs + cash ≈ **₹3,49,359** (before non-ETF holdings).
+- Proposed sleeve WC was **₹3,00,000** → cash alone already exceeds the “~₹70k remaining sleeve” story, so we should **revisit D3** lightly:
+
+| Option | Start WC | Ticket now | Fits your numbers how |
+|---|---|---|---|
+| **A** keep | ₹3,00,000 | ₹6,000 | Cash surplus treated as buffer / non-sleeve (shared account) |
+| **B'** | ₹2,30,000 + ₹1,19,359 = **₹3,49,359** | ≈ **₹6,987** | Whole ETF book + all free cash = sleeve |
+| **C'** | You name FIRE-only cash (≤ 1,19,359) + 2,30,000 | (sum)/50 | If only part of cash is for FIRE |
+
 - Non-ETF names in the same demat/state (e.g. IRCTC, AWL, SGB) are **not** part of FIRE WC / growth.
 - Existing ETF positions **stay as-is**; they do not reset ticket.
-- When an **ETF** holding is sold ≥ 6.28%, growth still increases WC → ticket (compounding starts on the live book).
+- When an **ETF** holding is sold ≥ 6.28%, growth still increases WC → ticket.
 
-**Still confirm M1:** keep start WC at **₹3L (A)** even with ₹2.30L already in ETFs? (Recommended: **yes / A** — already frozen D3.)
+**Need your call on cash:** Is the ₹1,19,359 **all for FIRE**, or shared with other uses? That picks A vs B'/C'.
 
 ---
 
