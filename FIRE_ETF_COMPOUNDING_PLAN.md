@@ -1,6 +1,6 @@
 # FIRE ETF Shop — Compounding Design Plan
 
-**Status:** 🟡 DRAFT — decisions in progress · **no code until full plan accepted**  
+**Status:** 🟢 **DECISIONS FROZEN** — ready for signed design · **no code until design accepted**  
 **Source transcript:** `componding_v2` (Mahesh Chandra Kaushik — ETF Dukaan Updated Version, Class 3)  
 **Live system today:** Oracle `fire_shop` (CNC ETF SIP)  
 **Related PR (provisional):** #6 capital-double 6.28→3.14 — **superseded by D1/D2 below** (revert when coding)  
@@ -325,27 +325,30 @@ What is “₹5L” for us?
 **Implement hint (later):** prefer broker-reported charges on the order; fallback only if API missing.
 
 ### D7 — BID / average-down
-- **A.** Keep current: **4%** drop, max **3**, size max(invested/2, ticket)  
+- **A.** Keep current: **4%** drop, max **3**, size max(invested/2, ticket) ← **FROZEN**  
 - **B.** Align closer to author ~**3%** threshold  
 - **C.** Change bid size to **1× current ticket** only (not half-invested)  
-- **Recommendation:** keep **A** unless you want stricter author parity.
+
+### R1 — Buy ranking
+- **A.** Keep **DMA-dip** (Yahoo CMP vs 20 DMA, volume filter) ← **FROZEN** for v1  
+- **B.** Switch to Class 3 lowest-RSI rank  
 
 ### D8 — Sell ops
-- **A.** Re-enable sell cron after rules freeze  
+- **A.** Re-enable sell cron after rules freeze ← **FROZEN** (15:05 IST)  
 - **B.** Keep sell manual / disabled  
-- **Recommendation:** **A** once D1–D6 frozen (else compounding never runs).
 
 ### D9 — Scope of first code change (after accept)
 - **A.** Ledger + ticket compound only (dry numbers / Telegram); buys still fixed until confidence  
-- **B.** Full: ticket grows + sell min + compound on every fill  
-- **C.** Docs/config only first  
-- **Recommendation:** **A** then **B**.
+- **B.** Full: ticket grows + sell min + compound on every fill ← **FROZEN**  
 
 ### D10 — Relation to PR #6 provisional engine tweak
-- **A.** Revert capital-double / 3.14% code when we implement ← **implied by D2=A**  
+- **A.** Revert capital-double / 3.14% code when we implement ← **FROZEN**  
 - **B.** Keep PR #6 only if D2=B  
 - **C.** Leave draft open until D1/D2 decided  
-- **Status:** D1/D2 frozen → treat **A** as default at implement time (still no code until rest accepted).
+
+### T1 — When does growth affect ticket?
+- **A.** Next buy session (sell 15:05 → ticket used from next day 15:00) ← **FROZEN**  
+- **B.** Same day (would require sell before buy)
 
 ---
 
@@ -384,12 +387,12 @@ Sell (≤1/day)
 
 | Gate | Owner | Done when |
 |---|---|---|
-| Read / understand Class 3 | Agent + you | ✅ this doc §2 |
-| Freeze D1–D10 | **You** | replies on each decision |
-| Design v1 modules/files | Agent | short design addendum after freeze |
+| Read / understand Class 3 | Agent + you | ✅ |
+| Freeze decisions (D/B/S/R/T) | **You** | ✅ frozen |
+| Design v1 modules/files | Agent | **next** — short signed design |
 | Code | Agent | **only after** you say design accepted |
 
-**No further fire_shop strategy code until you accept this plan (or a revised one).**
+**Strategy leftovers cleared.** Filesystem org remains deferred. Next step: write signed design (still no code).
 
 ---
 
