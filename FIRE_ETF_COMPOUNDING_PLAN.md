@@ -36,6 +36,7 @@
 | **D9** | First build = **full cutover (B)** | Sell logic + compounding + growing ticket on buys together |
 | **D10** | **Revert** provisional PR #6 6.28→3.14 capital-double code | Conflicts with frozen exit rules |
 | **T1** | Same-day: sell growth applies to **next** buy | Buy 15:00 / sell 15:05 → ticket bump used from next session |
+| **M2** | Manual sells: **detect via Kite day trades** and book growth | If symbol left holdings but state had it → look up today’s SELL trade(s); compound like bot sell |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
 | **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you |
 | **M0c** | Funds available (cash) ≈ **₹1,19,359** | Buffer; not fully in WC |

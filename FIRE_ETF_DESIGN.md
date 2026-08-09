@@ -40,6 +40,7 @@
 | Ticket timing | Growth from sell @ 15:05 applies to **next** buy session |
 | Cron | Buy 15:00 IST · Sell **15:05 IST** (re-enable) · token unchanged |
 | PR #6 tweak | Revert 6.28→3.14 capital-double paths |
+| Manual sell | **M2:** if ETF left holdings but was in state → match Kite **day trades** SELL → book charges + growth (same ledger path). If no trade found → Telegram warn, no growth. Manual sell does **not** consume the bot’s one-sell-per-day slot. |
 
 ---
 
@@ -110,6 +111,29 @@ Invested continues to reconcile from broker holdings for ETFs.
 ---
 
 ## 5. Flows
+
+### 5.4 Manual sell detection (M2)
+
+Runs at start of sell **and** buy jobs (after loading holdings + state):
+
+1. For each ETF symbol in `positions_state` that is **missing** from broker holdings (or qty→0):  
+2. Query Kite **today’s trades** (`kite.trades()` / order trades) for CNC SELL on that symbol.  
+3. If found:  
+   - `sell_value` from trade fill(s) (sum if partials)  
+   - `cost_basis` from last known broker avg in state / prior holding snapshot  
+   - charges via contract note (or formula fallback)  
+   - `apply_growth` → append ledger row with `source: "manual"`  
+   - remove from state  
+   - Telegram: manual sell booked / growth / next ticket  
+4. If **not** found (sold on prior day, off-platform, etc.):  
+   - remove from state (reconcile)  
+   - Telegram: “manual/external exit — **no growth booked**”  
+   - do **not** invent a price  
+5. Manual booking does **not** count as the bot’s S1 one-sell-per-day (bot may still sell another eligible name the same afternoon).
+
+**Cost-basis note:** prefer average stored at last reconcile (`invested/qty` or cached `avg`); if missing, skip growth and warn.
+
+---
 
 ### 5.1 Sell (15:05 IST)
 
