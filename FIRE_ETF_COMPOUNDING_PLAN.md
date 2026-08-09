@@ -204,12 +204,12 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 
 | ID | Question | Options | Recommend |
 |---|---|---|---|
-| **B1** | Meaning of “brokerage” for FIRE | A only brokerage line (₹0) · **B all Zerodha/statutory charges on the trade** | **B** |
-| **B2** | Source of truth | **A** Kite `/charges/orders` after fill · B formula only · C Console/manual | **A** |
-| **B3** | Fallback if API fails | **A** CNC formula (from `strategy_validator` rates) · B growth=gross (ignore charges) · C skip compound that day | **A** |
-| **B4** | DP charges | **A** include (API if present, else flat ~₹15.34) · B ignore DP | **A** |
+| **B1** | Meaning of “brokerage” for FIRE | A only brokerage line (₹0) · **B all Zerodha/statutory charges on the trade** | **B FROZEN** |
+| **B2** | Source of truth | **A** Kite `/charges/orders` after fill · B formula only · C Console/manual | **A FROZEN** |
+| **B3** | Fallback if API fails | **A** CNC formula (from `strategy_validator` rates) · B growth=gross (ignore charges) · C skip compound that day | **A FROZEN** |
+| **B4** | DP charges | **A** include (API if present, else flat ~₹15.34) · B ignore DP | **A FROZEN** |
 
-Reply e.g. `B1 B, B2 A, B3 A, B4 A` and we freeze charges before capital/parts.
+**Charges locked (2026-08-09).** Next: D3–D5 (starting capital / parts / ticket growth), then D8 (sell cron).
 
 ---
 
