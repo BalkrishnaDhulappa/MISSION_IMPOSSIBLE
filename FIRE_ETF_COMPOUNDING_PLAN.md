@@ -155,6 +155,60 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 
 ---
 
+## 4c. Brokerage / charges freeze (discuss before D3–D5)
+
+**Why pause here:** “Brokerage” on Zerodha **CNC equity/ETF delivery is ₹0**. What actually leaves the account is **statutory + DP charges**. If we only subtract the brokerage line, growth would be wrong.
+
+### What Zerodha deducts on FIRE sells (CNC delivery)
+
+| Item | CNC delivery (typical) | Notes |
+|---|---|---|
+| Brokerage | **₹0** | Discount broker delivery |
+| STT | 0.1% of sell value | Sell side |
+| Exchange txn | ~0.00297% | NSE |
+| SEBI | ~₹10/crore | Tiny |
+| GST | 18% on (brokerage + txn charges) | |
+| DP charges | ~₹13.5 + GST / scrip / day | On **sell** (demat debit); may not always appear in every API payload |
+| Stamp duty | buy-side only | Already paid when you bought |
+
+You already have a formula copy of this in `strategy_validator.py` (`calc_trade_costs`).
+
+### How Kite can give “whatever Zerodha calculates”
+
+After a fill, call **virtual contract note**:
+
+`kite.get_virtual_contract_note([...])` → `POST /charges/orders`
+
+Pass the filled order (`order_id`, symbol, CNC, qty, `average_price`).  
+Response includes `charges.total` plus breakup (brokerage, STT, txn, SEBI, GST, stamp).
+
+That matches your intent: **don’t invent a side fund — use Zerodha’s charge math**.
+
+### Proposed growth formula (sell event)
+
+```text
+sell_value   = fill_price × qty
+cost_basis   = holding_avg × qty          # already paid at buy time
+sell_charges = Kite charges.total for THIS sell   (+ DP if missing from API)
+gross_pnl    = sell_value − cost_basis
+growth       = max(0, gross_pnl − sell_charges)   # 100% to WC; no tax set-aside
+```
+
+Buy-side charges were already cash-out when the position was built; we don’t re-deduct them on sell (avg cost stays broker avg).
+
+### Decisions to freeze (B1–B4)
+
+| ID | Question | Options | Recommend |
+|---|---|---|---|
+| **B1** | Meaning of “brokerage” for FIRE | A only brokerage line (₹0) · **B all Zerodha/statutory charges on the trade** | **B** |
+| **B2** | Source of truth | **A** Kite `/charges/orders` after fill · B formula only · C Console/manual | **A** |
+| **B3** | Fallback if API fails | **A** CNC formula (from `strategy_validator` rates) · B growth=gross (ignore charges) · C skip compound that day | **A** |
+| **B4** | DP charges | **A** include (API if present, else flat ~₹15.34) · B ignore DP | **A** |
+
+Reply e.g. `B1 B, B2 A, B3 A, B4 A` and we freeze charges before capital/parts.
+
+---
+
 ## 4. Melt to our needs — open decisions (must freeze)
 
 Answer each before design/code. Recommendations are starting points only.
