@@ -104,7 +104,7 @@ Each booked sell appends a small record: date, code, qty, avg, ltp, limit, fill,
 
 ### 4.3 `positions_state.json` (existing)
 
-Keep: `last_buy`, `bid_count`, `invested`, `last_sip`.  
+Keep: `last_buy`, `bid_count`, `invested`, `last_sip`, and cache **`broker_avg`** (for M2 manual-sell cost basis).  
 Drop need for `original_invested` capital-double fields (revert).  
 Invested continues to reconcile from broker holdings for ETFs.
 
@@ -112,31 +112,9 @@ Invested continues to reconcile from broker holdings for ETFs.
 
 ## 5. Flows
 
-### 5.4 Manual sell detection (M2)
-
-Runs at start of sell **and** buy jobs (after loading holdings + state):
-
-1. For each ETF symbol in `positions_state` that is **missing** from broker holdings (or qty→0):  
-2. Query Kite **today’s trades** (`kite.trades()` / order trades) for CNC SELL on that symbol.  
-3. If found:  
-   - `sell_value` from trade fill(s) (sum if partials)  
-   - `cost_basis` from last known broker avg in state / prior holding snapshot  
-   - charges via contract note (or formula fallback)  
-   - `apply_growth` → append ledger row with `source: "manual"`  
-   - remove from state  
-   - Telegram: manual sell booked / growth / next ticket  
-4. If **not** found (sold on prior day, off-platform, etc.):  
-   - remove from state (reconcile)  
-   - Telegram: “manual/external exit — **no growth booked**”  
-   - do **not** invent a price  
-5. Manual booking does **not** count as the bot’s S1 one-sell-per-day (bot may still sell another eligible name the same afternoon).
-
-**Cost-basis note:** prefer average stored at last reconcile (`invested/qty` or cached `avg`); if missing, skip growth and warn.
-
----
-
 ### 5.1 Sell (15:05 IST)
 
+0. Run **§5.4 manual-sell reconcile** first.  
 1. Market session open? else skip + Telegram.  
 2. Load holdings; keep symbols in `etf_universe.json` only.  
 3. Batch/quote **Kite LTP** for those symbols.  
@@ -151,26 +129,49 @@ Runs at start of sell **and** buy jobs (after loading holdings + state):
    - else formula fallback  
    - `growth = max(0, sell_value - cost_basis - charges)`  
    - `working_capital += growth`; `ticket = working_capital / parts`  
-   - persist ledger; remove symbol from state  
+   - persist ledger (`source: "bot"`); remove symbol from state  
    - Telegram: sold / fill / charges / growth / next ticket  
 9. Hard-stop on account errors (unchanged).
 
 ### 5.2 Buy (15:00 IST)
 
+0. Run **§5.4 manual-sell reconcile** first (so overnight/manual exits book growth before sizing).  
 1. Session + calendar checks (unchanged).  
 2. Read **ticket** from compound ledger.  
 3. Rank via DMA-dip (unchanged).  
 4. NEW candidates: not in holdings; `qty = ceil(ticket / cmp)`.  
 5. BID candidates: current rules with **ticket** instead of fixed 6k.  
 6. Try until one FILLED; update state; Telegram.  
-7. Does **not** re-read growth from a same-day sell (sell runs later).
+7. Does **not** re-read growth from a same-day bot sell (bot sell runs later at 15:05).
 
 ### 5.3 Bootstrap / migration
 
 1. If `compound_ledger.json` missing → create with WC=300000, ticket=6000.  
 2. Existing ETF holdings unchanged.  
 3. Revert any capital-double helpers/tests from provisional work.  
-4. Non-ETF holdings ignored by sell scan and WC.
+4. Non-ETF holdings ignored by sell scan and WC.  
+5. On reconcile, cache `broker_avg` into state so manual-sell cost basis is available.
+
+### 5.4 Manual sell detection (M2)
+
+Runs at start of sell **and** buy jobs (after loading holdings + state):
+
+1. For each ETF symbol in `positions_state` that is **missing** from broker holdings (or qty→0):  
+2. Query Kite **today’s trades** (`kite.trades()` / order trades) for CNC SELL on that symbol.  
+3. If found:  
+   - `sell_value` from trade fill(s) (sum if partials)  
+   - `cost_basis` from cached `broker_avg` / `invested` in state  
+   - charges via contract note (or formula fallback)  
+   - `apply_growth` → append ledger row with `source: "manual"`  
+   - remove from state  
+   - Telegram: manual sell booked / growth / next ticket  
+4. If **not** found (sold on a prior day, etc.):  
+   - remove from state (reconcile)  
+   - Telegram: “manual/external exit — **no growth booked**”  
+   - do **not** invent a price  
+5. Manual booking does **not** count as the bot’s S1 one-sell-per-day (bot may still sell another eligible name the same afternoon).
+
+**Limit:** Kite day trade book is **same-day**. A manual sell yesterday that we only notice tomorrow → state cleaned, **no** auto growth (warn only).
 
 ---
 
