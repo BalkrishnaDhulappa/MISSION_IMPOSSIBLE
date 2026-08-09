@@ -244,8 +244,8 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 ## 4d. Sell logic (decide before re-enabling cron)
 
 **Already frozen that affect sells**
-- Min profit **6.28%** vs broker avg (D1); no 3.14% half-target (D2)
-- FIRE sleeve = **ETFs only** (M0)
+- Eligibility **6.38%** vs broker avg on Kite LTP (D1′); no 3.14% half-target (D2)
+- Limit **LTP − 0.1%**; FIRE sleeve = **ETFs only** (M0)
 - On fill → charges via Kite (B1–B4) → **100% growth** into WC (D6*) → ticket = WC/50
 
 **What live code does today (baseline)**
@@ -283,7 +283,8 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 Answer each before design/code. Recommendations are starting points only.
 
 ### D1 — Which profit minimum for FIRE ETF?
-- **A.** Keep **6.28%** ← **FROZEN**  
+- **A.** Keep **6.28%** on the *economic* target  
+- **A′.** Eligibility gate **6.38%** on LTP + sell limit LTP−0.1% ← **FROZEN** (realized ~6.28% if filled at limit)  
 - **B.** Switch to author ETF **4.71%**  
 - **C.** Configurable min; start at X%  
 
