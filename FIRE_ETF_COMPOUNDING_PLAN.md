@@ -19,6 +19,7 @@
 | **B3** | Fallback = CNC **formula** if API fails | Rates aligned with `strategy_validator.calc_trade_costs` |
 | **B4** | **Include DP** on sell | From API if present, else flat ~₹15.34 |
 | **D3** | Start WC = **₹6,000 × 50 = ₹3,00,000** | Bootstrap from today’s ticket (option C) |
+| **D3b** | Extra cash = **buffer** (not in WC) | Keep WC simple at ₹3L; ₹1.19L available is not fully FIRE-sleeve |
 | **D4** | Ticket **grows** = WC / parts | Compounding takes effect after each booked growth |
 | **D5** | Parts = **50** | Author Class 3 default |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
@@ -170,19 +171,10 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 - **ETF capital already bought ≈ ₹2,30,000** (your number; matches state ETF-like sum ≈ ₹2.30L).
 - **Funds available (cash) ≈ ₹1,19,359** (your number).
 - Arithmetic check: ETFs + cash ≈ **₹3,49,359** (before non-ETF holdings).
-- Proposed sleeve WC was **₹3,00,000** → cash alone already exceeds the “~₹70k remaining sleeve” story, so we should **revisit D3** lightly:
-
-| Option | Start WC | Ticket now | Fits your numbers how |
-|---|---|---|---|
-| **A** keep | ₹3,00,000 | ₹6,000 | Cash surplus treated as buffer / non-sleeve (shared account) |
-| **B'** | ₹2,30,000 + ₹1,19,359 = **₹3,49,359** | ≈ **₹6,987** | Whole ETF book + all free cash = sleeve |
-| **C'** | You name FIRE-only cash (≤ 1,19,359) + 2,30,000 | (sum)/50 | If only part of cash is for FIRE |
-
+- **D3 / D3b FROZEN:** keep sleeve WC = **₹3,00,000** (ticket starts ₹6,000). Treat cash above what’s needed for daily FIRE buys as a **buffer** — do **not** inflate WC to ₹3.49L.
 - Non-ETF names in the same demat/state (e.g. IRCTC, AWL, SGB) are **not** part of FIRE WC / growth.
 - Existing ETF positions **stay as-is**; they do not reset ticket.
 - When an **ETF** holding is sold ≥ 6.28%, growth still increases WC → ticket.
-
-**Need your call on cash:** Is the ₹1,19,359 **all for FIRE**, or shared with other uses? That picks A vs B'/C'.
 
 ---
 
