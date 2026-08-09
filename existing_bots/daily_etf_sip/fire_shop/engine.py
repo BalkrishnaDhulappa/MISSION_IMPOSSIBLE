@@ -25,11 +25,18 @@ ORDER_FILL_TIMEOUT = 90
 IST = ZoneInfo("Asia/Kolkata")
 
 # ───────────────────────── CONFIG ─────────────────────────
+# Frozen exit targets (aligned with mtf_nursery CAR): 6.28% until capital
+# doubles via BIDs, then 3.14%.
+DEFAULT_PROFIT_TARGET_PCT = 0.0628
+DOUBLED_CAPITAL_PROFIT_TARGET_PCT = 0.0314
+
+
 def load_config():
     if not CONFIG_FILE.exists():
         return {
             "investment_per_tx": 6000,
             "profit_target_pct": 0.0628,
+            "profit_target_pct_when_capital_doubled": 0.0314,
             "decay":             0.008,
             "floor":             0.0314,
             "bid_threshold":     0.04,
@@ -37,6 +44,93 @@ def load_config():
             "limit_price_buffer": 0.001
         }
     return json.loads(CONFIG_FILE.read_text())
+
+
+def capital_is_doubled(original_invested: float, capital_deployed: float) -> bool:
+    """True when deployed capital is ≥ 2× original entry capital."""
+    if original_invested is None or original_invested <= 0:
+        return False
+    return capital_deployed >= 2.0 * original_invested
+
+
+def select_profit_target_pct(
+    original_invested,
+    capital_deployed=None,
+    *,
+    base_pct=DEFAULT_PROFIT_TARGET_PCT,
+    doubled_pct=DOUBLED_CAPITAL_PROFIT_TARGET_PCT,
+):
+    """
+    FIRE ETF exit profit % on avg cost:
+    - 6.28% while capital_deployed < 2× original
+    - 3.14% once capital has doubled (via BID average-downs)
+    """
+    if original_invested is None or original_invested <= 0:
+        return base_pct
+    deployed = capital_deployed if capital_deployed is not None else original_invested
+    if capital_is_doubled(original_invested, deployed):
+        return doubled_pct
+    return base_pct
+
+
+def ensure_original_invested(state_entry, invested):
+    """Freeze original_invested on first sight; never raise it on BIDs."""
+    existing = state_entry.get("original_invested")
+    if existing is None or float(existing) <= 0:
+        state_entry["original_invested"] = float(invested)
+        return True
+    return False
+
+
+def pick_sell_candidate(holdings, ranked, state, config):
+    """
+    Among holdings at/above their profit target, pick the single most
+    profitable (highest unrealized %). One sell per run.
+    """
+    base_pct = float(config.get("profit_target_pct", DEFAULT_PROFIT_TARGET_PCT))
+    doubled_pct = float(
+        config.get(
+            "profit_target_pct_when_capital_doubled",
+            DOUBLED_CAPITAL_PROFIT_TARGET_PCT,
+        )
+    )
+    cmp_by_code = {r["code"]: r["cmp"] for r in ranked if r.get("cmp")}
+    best = None
+
+    for code, h in holdings.items():
+        cmp = cmp_by_code.get(code)
+        if not cmp or h["avg"] <= 0:
+            continue
+
+        s = state.get(code, {})
+        invested = float(s.get("invested") or (h["avg"] * h["qty"]))
+        original = float(s.get("original_invested") or invested)
+        target = select_profit_target_pct(
+            original,
+            invested,
+            base_pct=base_pct,
+            doubled_pct=doubled_pct,
+        )
+        profit_pct = (cmp / h["avg"]) - 1.0
+        # Compare on price (same as prior engine) to avoid float drift on % edges.
+        if cmp < h["avg"] * (1.0 + target):
+            continue
+
+        candidate = {
+            "code": code,
+            "cmp": cmp,
+            "qty": h["qty"],
+            "avg": h["avg"],
+            "target": target,
+            "profit_pct": profit_pct,
+            "capital_doubled": capital_is_doubled(original, invested),
+            "original_invested": original,
+            "invested": invested,
+        }
+        if best is None or candidate["profit_pct"] > best["profit_pct"]:
+            best = candidate
+
+    return best
 
 
 def load_etf_map():
@@ -110,6 +204,12 @@ def reconcile_state_with_holdings(state, holdings):
         fresh_invested = h["avg"] * h["qty"]
         if abs(float(s.get("invested", 0)) - fresh_invested) > 1e-9:
             s["invested"] = fresh_invested
+            changed = True
+
+        # Freeze original capital for 6.28% → 3.14% doubling rule.
+        # Missing field: snapshot current invested (future BIDs grow from here).
+        invested_now = float(s.get("invested") or fresh_invested)
+        if ensure_original_invested(s, invested_now):
             changed = True
 
         if "last_sip" not in s:
@@ -342,36 +442,32 @@ def main(run_sell=True, run_buy=True):
             print(f"  initialized missing state: {', '.join(sorted(added))}")
 
     # ─────────────────────────────────────────────────────
-    # 🔴 SELL — check all holdings, sell first eligible one
+    # 🔴 SELL — most profitable eligible (≥6.28%, or ≥3.14% if capital ≥2×)
     # ─────────────────────────────────────────────────────
     if run_sell:
-        for code, h in holdings.items():
-            cmp = next((r["cmp"] for r in ranked if r["code"] == code), None)
-            if not cmp:
-                continue
-
-            bid_count = state.get(code, {}).get("bid_count", 0)
-            base      = config["profit_target_pct"]
-            decay     = config["decay"]
-            floor     = config["floor"]
-            target    = max(floor, base - decay * bid_count)
-
-            if cmp >= h["avg"] * (1 + target):
-                print(f"🔴 SELL {code} (target={round(target*100,2)}%)")
-                sell_status, sell_price = place_and_confirm(
-                    kite, code, cmp, h["qty"],
-                    config["limit_price_buffer"], "SELL"
-                )
-                if sell_status == "HARD_STOP":
-                    print("🛑 Hard stop during sell — account/session-level error")
-                    send_telegram("🛑 FIRE Shop — Hard stop during sell. No further action attempted.")
-                    return
-                if sell_status == "FILLED":
-                    if sell_price:
-                        print(f"✅ Sold {code} @ ₹{sell_price}")
-                    state.pop(code, None)
-                    save_state(state)
-                return   # only one sell per run regardless
+        winner = pick_sell_candidate(holdings, ranked, state, config)
+        if winner:
+            code = winner["code"]
+            target = winner["target"]
+            doubled_note = " capital-doubled" if winner["capital_doubled"] else ""
+            print(
+                f"🔴 SELL {code} (target={round(target*100,2)}%{doubled_note}, "
+                f"pnl={round(winner['profit_pct']*100,2)}%)"
+            )
+            sell_status, sell_price = place_and_confirm(
+                kite, code, winner["cmp"], winner["qty"],
+                config["limit_price_buffer"], "SELL"
+            )
+            if sell_status == "HARD_STOP":
+                print("🛑 Hard stop during sell — account/session-level error")
+                send_telegram("🛑 FIRE Shop — Hard stop during sell. No further action attempted.")
+                return
+            if sell_status == "FILLED":
+                if sell_price:
+                    print(f"✅ Sold {code} @ ₹{sell_price}")
+                state.pop(code, None)
+                save_state(state)
+            return   # only one sell per run regardless
 
     # ─────────────────────────────────────────────────────
     # 🟢 BUY — try NEW BUY first, then BID, with fallback
@@ -401,14 +497,17 @@ def main(run_sell=True, run_buy=True):
         # ── BID candidates second — fallback average-down ───
         for code, h in holdings.items():
             if code not in state:
+                invested = h["avg"] * h["qty"]
                 state[code] = {
                     "last_buy":  h["avg"],
                     "bid_count": 0,
-                    "invested":  h["avg"] * h["qty"],
+                    "invested":  invested,
+                    "original_invested": invested,
                     "last_sip":  None
                 }
 
             s   = state[code]
+            ensure_original_invested(s, s.get("invested") or (h["avg"] * h["qty"]))
             cmp = next((r["cmp"] for r in ranked if r["code"] == code), None)
             if not cmp:
                 continue
@@ -455,6 +554,7 @@ def main(run_sell=True, run_buy=True):
                 executed_value = qty * executed_price
                 if candidate["type"] == "BID":
                     s = candidate["state"]
+                    ensure_original_invested(s, s.get("invested") or executed_value)
                     s["last_buy"]   = executed_price
                     s["invested"]  += executed_value
                     s["bid_count"] += 1
@@ -463,6 +563,7 @@ def main(run_sell=True, run_buy=True):
                         "last_buy":  executed_price,
                         "bid_count": 0,
                         "invested":  executed_value,
+                        "original_invested": executed_value,
                         "last_sip":  None
                     }
                 save_state(state)
