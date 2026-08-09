@@ -232,6 +232,39 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 
 ---
 
+## 4d. Sell logic (decide before re-enabling cron)
+
+**Already frozen that affect sells**
+- Min profit **6.28%** vs broker avg (D1); no 3.14% half-target (D2)
+- FIRE sleeve = **ETFs only** (M0)
+- On fill → charges via Kite (B1–B4) → **100% growth** into WC (D6*) → ticket = WC/50
+
+**What live code does today (baseline)**
+- `sell_engine.py` → `engine.main(run_sell=True)`
+- Eligible if `cmp >= avg × 1.0628` (provisional branch also had capital-double — **to revert**)
+- Provisional: pick **most profitable %** among eligible; **one sell per run**
+- Full qty CNC limit sell; price = cmp × (1 − limit_buffer)
+- Cron was **15:15 IST**; currently disabled
+
+### Decisions to freeze (S1–S8)
+
+| ID | Question | Options | Recommend |
+|---|---|---|---|
+| **S1** | How many sells per day? | **A one** · B all eligible | **A** (author + current) |
+| **S2** | Which eligible winner? | **A highest unrealized %** · B highest ₹ profit · C first in rank list | **A** |
+| **S3** | Profit measured vs? | **A broker holding avg** · B our state last_buy | **A** |
+| **S4** | Qty | **A full position** · B partial / one tranche | **A** |
+| **S5** | Order type | **A limit @ cmp×(1−buffer)** (current 0.1%) · B market | **A** |
+| **S6** | Universe for sell scan | **A ETF universe only** · B any CNC holding in state | **A** |
+| **S7** | CMP source for eligibility | **A same rank fetch (Yahoo)** · B Kite LTP | **B** if reliable else **A** — your call |
+| **S8** | Cron time | **A 15:15 IST (after buy 15:00)** · B before buy · C both morning+afternoon | **discuss** — author likes open&pick; afternoon is fine |
+
+**Also confirm:** sell cron **on** after S1–S8 freeze (= D8 A), still **no code until full plan accepted**.
+
+Reply e.g. `S1 A, S2 A, S3 A, S4 A, S5 A, S6 A, S7 ?, S8 A`
+
+---
+
 ## 4. Melt to our needs — open decisions (must freeze)
 
 Answer each before design/code. Recommendations are starting points only.
