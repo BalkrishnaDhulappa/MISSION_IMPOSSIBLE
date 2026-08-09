@@ -1,6 +1,6 @@
 # FIRE ETF Shop — Compounding Design Plan
 
-**Status:** 🟢 **DECISIONS FROZEN** — ready for signed design · **no code until design accepted**  
+**Status:** 🟢 **DECISIONS FROZEN** · signed design in `FIRE_ETF_DESIGN.md` (awaiting acceptance) · **no code until design accepted**  
 **Source transcript:** `componding_v2` (Mahesh Chandra Kaushik — ETF Dukaan Updated Version, Class 3)  
 **Live system today:** Oracle `fire_shop` (CNC ETF SIP)  
 **Related PR (provisional):** #6 capital-double 6.28→3.14 — **superseded by D1/D2 below** (revert when coding)  
