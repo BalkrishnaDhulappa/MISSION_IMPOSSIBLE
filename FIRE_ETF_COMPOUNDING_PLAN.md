@@ -9,8 +9,8 @@
 ### Frozen so far
 | ID | Decision | Notes |
 |---|---|---|
-| **D1** | Profit minimum = **6.28%** | Keep current FIRE target; do **not** switch to Class 3’s 4.71% |
-| **D2** | **No** 3.14% capital-double half-target | “6.28 only” — single exit threshold |
+| **D1** | Profit eligibility = **6.29%** vs broker avg | Raised from 6.28% as fill cushion with LTP−0.1% limit |
+| **D2** | **No** 3.14% capital-double half-target | “single exit threshold” only |
 | **D6** | **No self-dividend** — 100% of reusable net → growth | |
 | **D6b** | Brokerage = **actual Zerodha charges** on the sell | Not a manual estimate to “set aside” |
 | **D6c** | **No tax haircut in compounding ledger** | Can’t segregate tax into separate funds; reuse what remains after sell |
@@ -24,8 +24,9 @@
 | **D5** | Parts = **50** | Author Class 3 default |
 | **S1** | Sells per day = **one** | |
 | **S2** | Winner = **highest unrealized %** | |
+| **S3** | Profit % vs **broker holding average** | Kite `average_price` (blended buys/BIDs) |
 | **S4** | Qty = **full position** | |
-| **S5** | Order = **LIMIT @ CMP** | Exact CMP unless you want a small undercut buffer |
+| **S5** | Order = **LIMIT @ LTP × (1 − 0.001)** | LTP − 0.1% |
 | **S6** | Scan = **ETF universe only** | |
 | **S7** | Price for eligibility = **Kite LTP** | |
 | **S8** | Sell cron = **15:05 IST** | Independent of buy @ 15:00 |
@@ -259,27 +260,20 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 | ID | Decision | Status |
 |---|---|---|
 | **S1** | **One** sell per day | **FROZEN** |
-| **S2** | Pick **highest unrealized %** among eligible (≥6.28%) | **FROZEN** |
-| **S3** | Profit % vs **broker holding average price** (see explanation below) | **pending your OK** |
+| **S2** | Pick **highest unrealized %** among eligible | **FROZEN** |
+| **S3** | Profit % vs **broker holding average price** | **FROZEN A** |
 | **S4** | Sell **full position** qty | **FROZEN** |
-| **S5** | **LIMIT @ CMP** (Kite LTP as reference) | **FROZEN** — confirm if price = LTP exactly or LTP×(1−0.1%) for easier fill |
+| **S5** | **LIMIT @ LTP − 0.1%** (`price = LTP × 0.999`) | **FROZEN** |
 | **S6** | Only symbols in **ETF universe** | **FROZEN** |
-| **S7** | Use **Kite LTP** for eligibility (and limit ref) | **FROZEN** — yes, LTP is the live broker quote; good for CNC afternoon checks |
-| **S8** | Cron **15:05 IST** (buy remains 15:00; independent) | **FROZEN** |
+| **S7** | Use **Kite LTP** for eligibility + limit ref | **FROZEN** |
+| **S8** | Cron **15:05 IST** (buy remains 15:00) | **FROZEN** |
+| **D1′** | Eligibility threshold **6.29%** (`LTP >= avg × 1.0629`) | **FROZEN** (was 6.28%; cushion for −0.1% limit) |
 | **D8** | Re-enable sell cron after code ships | **Intent yes** |
 
-### S3 explained (this was the confusing one)
+**Note:** Eligibility uses **6.29% on LTP**; the limit sits **0.1% under LTP**, so a fill at the limit is slightly under 6.29% on the print (roughly ~6.18% if filled exactly at limit). If you instead want the **fill** to stay ≥ 6.28%, we’d raise the gate further (~6.39%). Say if you want that tighter guarantee.
 
-When we ask “is this ETF up 6.28%?”, **6.28% of what cost?**
-
-| Option | Meaning | Example |
-|---|---|---|
-| **A — broker holding avg** | Zerodha `average_price` on the holding (includes all your buys/BIDs blended) | Bought @ 100 then BID @ 90 → avg ~95; need LTP ≥ 95×1.0628 |
-| **B — our `last_buy` in state** | Only the price of the **latest** buy/BID leg | Same case: last_buy=90 → might sell earlier while overall book isn’t +6.28% |
-
-**Recommend A** — matches how you actually see P&L in Kite, and matches “full position” sells.
-
-Reply **S3 A** (or B), and for **S5**: exact **LTP** or **LTP − 0.1%** buffer?
+### S3 (locked)
+**A — broker holding avg** = Zerodha blended average on the full position.
 
 ---
 
