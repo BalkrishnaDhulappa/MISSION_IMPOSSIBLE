@@ -14,6 +14,10 @@
 | **D6** | **No self-dividend** — 100% of reusable net → growth | |
 | **D6b** | Brokerage = **actual Zerodha charges** on the sell | Not a manual estimate to “set aside” |
 | **D6c** | **No tax haircut in compounding ledger** | Can’t segregate tax into separate funds; reuse what remains after sell |
+| **B1** | “Brokerage” = **all trade charges**, not ₹0 brokerage line | CNC delivery brokerage is ₹0; count STT/txn/SEBI/GST/DP |
+| **B2** | Source = Kite **`/charges/orders`** after fill | Virtual contract note `charges.total` |
+| **B3** | Fallback = CNC **formula** if API fails | Rates aligned with `strategy_validator.calc_trade_costs` |
+| **B4** | **Include DP** on sell | From API if present, else flat ~₹15.34 |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
