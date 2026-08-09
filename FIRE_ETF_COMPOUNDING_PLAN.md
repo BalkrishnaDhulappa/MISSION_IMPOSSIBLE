@@ -18,6 +18,9 @@
 | **B2** | Source = Kite **`/charges/orders`** after fill | Virtual contract note `charges.total` |
 | **B3** | Fallback = CNC **formula** if API fails | Rates aligned with `strategy_validator.calc_trade_costs` |
 | **B4** | **Include DP** on sell | From API if present, else flat ~₹15.34 |
+| **D3** | Start WC = **₹6,000 × 50 = ₹3,00,000** | Bootstrap from today’s ticket (option C) |
+| **D4** | Ticket **grows** = WC / parts | Compounding takes effect after each booked growth |
+| **D5** | Parts = **50** | Author Class 3 default |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -134,9 +137,9 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 
 | ID | Question | Options | Suggest |
 |---|---|---|---|
-| **D3** | Starting working capital? | A declared config · B broker-derived · C `ticket×50` from today’s ₹6k → ₹3L | **C** easiest bootstrap, or **A** if you know sleeve size |
-| **D4** | Ticket grows with WC/parts? | A fixed 6k · **B grow** · C floor 6k then grow | **B** (you want compounding) |
-| **D5** | Parts? | **A 50** · B other | **A** |
+| **D3** | Starting working capital? | A declared · B broker · **C `6k×50=₹3L` FROZEN** | |
+| **D4** | Ticket grows with WC/parts? | A fixed · **B grow FROZEN** · C floor then grow | |
+| **D5** | Parts? | **A 50 FROZEN** · B other | |
 | **D6** | Post-sell split? | **B FROZEN** — no self-div; + **D6b/D6c**: actual Zerodha net, no tax set-aside | |
 | **D8** | Sell cron? | **A re-enable** · B stay off | **A** — else no compounds |
 
@@ -231,19 +234,18 @@ Answer each before design/code. Recommendations are starting points only.
 What is “₹5L” for us?
 - **A.** Declared FIRE sleeve only (e.g. manual `initial_capital` in config)  
 - **B.** Broker CNC ETF market value + free cash earmarked for FIRE  
-- **C.** Fixed parts from current ticket: `parts=50`, `working = ticket × 50` (implies ₹3L if ticket=6k)  
-- **Recommendation:** **A** (simple, avoids fighting MTF cash).
+- **C.** Fixed parts from current ticket: `parts=50`, `working = ticket × 50` (₹3L if ticket=6k) ← **FROZEN**  
+  - `initial_capital = 300000`  
+  - `investment_per_tx` becomes derived: `ticket = working_capital / 50` (starts at 6000)
 
 ### D4 — Tranche / ticket sizing
 - **A.** Stay fixed ₹6,000 forever  
-- **B.** Author: `ticket = working_capital / 50`, grows after each booked growth  
+- **B.** Author: `ticket = working_capital / 50`, grows after each booked growth ← **FROZEN**  
 - **C.** Hybrid: floor ₹6,000; grow only after growth pool ≥ threshold  
-- **Recommendation:** **B or C** if we adopt Class 3 compounding.
 
 ### D5 — Parts count
-- **A.** 50 (author)  
-- **B.** Other (e.g. 30 / 40) to match cash + MTF reserve  
-- **Recommendation:** **A** unless cash math forces otherwise.
+- **A.** 50 (author) ← **FROZEN**  
+- **B.** Other (e.g. 30 / 40) to match cash + MTF reserve
 
 ### D6 — Post-sell split / what counts as growth
 - **A.** Full Class 3: brokerage estimate → tax 20.8% → 50% self-div / 50% growth  
