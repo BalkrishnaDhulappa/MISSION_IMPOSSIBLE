@@ -254,22 +254,32 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 - Full qty CNC limit sell; price = cmp × (1 − limit_buffer)
 - Cron was **15:15 IST**; currently disabled
 
-### Decisions to freeze (S1–S8)
+### Decisions (S1–S8)
 
-| ID | Question | Options | Recommend |
-|---|---|---|---|
-| **S1** | How many sells per day? | **A one** · B all eligible | **A** (author + current) |
-| **S2** | Which eligible winner? | **A highest unrealized %** · B highest ₹ profit · C first in rank list | **A** |
-| **S3** | Profit measured vs? | **A broker holding avg** · B our state last_buy | **A** |
-| **S4** | Qty | **A full position** · B partial / one tranche | **A** |
-| **S5** | Order type | **A limit @ cmp×(1−buffer)** (current 0.1%) · B market | **A** |
-| **S6** | Universe for sell scan | **A ETF universe only** · B any CNC holding in state | **A** |
-| **S7** | CMP source for eligibility | **A same rank fetch (Yahoo)** · B Kite LTP | **B** if reliable else **A** — your call |
-| **S8** | Cron time | **A 15:15 IST (after buy 15:00)** · B before buy · C both morning+afternoon | **discuss** — author likes open&pick; afternoon is fine |
+| ID | Decision | Status |
+|---|---|---|
+| **S1** | **One** sell per day | **FROZEN** |
+| **S2** | Pick **highest unrealized %** among eligible (≥6.28%) | **FROZEN** |
+| **S3** | Profit % vs **broker holding average price** (see explanation below) | **pending your OK** |
+| **S4** | Sell **full position** qty | **FROZEN** |
+| **S5** | **LIMIT @ CMP** (Kite LTP as reference) | **FROZEN** — confirm if price = LTP exactly or LTP×(1−0.1%) for easier fill |
+| **S6** | Only symbols in **ETF universe** | **FROZEN** |
+| **S7** | Use **Kite LTP** for eligibility (and limit ref) | **FROZEN** — yes, LTP is the live broker quote; good for CNC afternoon checks |
+| **S8** | Cron **15:05 IST** (buy remains 15:00; independent) | **FROZEN** |
+| **D8** | Re-enable sell cron after code ships | **Intent yes** |
 
-**Also confirm:** sell cron **on** after S1–S8 freeze (= D8 A), still **no code until full plan accepted**.
+### S3 explained (this was the confusing one)
 
-Reply e.g. `S1 A, S2 A, S3 A, S4 A, S5 A, S6 A, S7 ?, S8 A`
+When we ask “is this ETF up 6.28%?”, **6.28% of what cost?**
+
+| Option | Meaning | Example |
+|---|---|---|
+| **A — broker holding avg** | Zerodha `average_price` on the holding (includes all your buys/BIDs blended) | Bought @ 100 then BID @ 90 → avg ~95; need LTP ≥ 95×1.0628 |
+| **B — our `last_buy` in state** | Only the price of the **latest** buy/BID leg | Same case: last_buy=90 → might sell earlier while overall book isn’t +6.28% |
+
+**Recommend A** — matches how you actually see P&L in Kite, and matches “full position” sells.
+
+Reply **S3 A** (or B), and for **S5**: exact **LTP** or **LTP − 0.1%** buffer?
 
 ---
 
