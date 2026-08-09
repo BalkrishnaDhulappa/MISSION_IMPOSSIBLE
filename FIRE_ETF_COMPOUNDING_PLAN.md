@@ -21,6 +21,8 @@
 | **D3** | Start WC = **₹6,000 × 50 = ₹3,00,000** | Bootstrap from today’s ticket (option C) |
 | **D4** | Ticket **grows** = WC / parts | Compounding takes effect after each booked growth |
 | **D5** | Parts = **50** | Author Class 3 default |
+| **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
+| **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you; state ETF-like ≈ ₹2.30L (39 names). Non-ETF ~₹50k (IRCTC/AWL/…) out of scope |
 
 > Educational personal system. Not investment advice. No guaranteed returns.
 
@@ -159,6 +161,18 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 - Auto withdraw self-dividend to bank  
 - Filesystem reorg  
 - Changing rank signal (keep DMA-dip unless you say otherwise)  
+
+---
+
+### Existing holdings (clarified)
+
+- **ETF capital already bought ≈ ₹2,30,000** (your number; matches state ETF-like sum ≈ ₹2.30L).
+- Proposed sleeve WC = **₹3,00,000** → about **₹70,000** of sleeve still “outside” as future daily tickets (~11× ₹6k).
+- Non-ETF names in the same demat/state (e.g. IRCTC, AWL, SGB) are **not** part of FIRE WC / growth.
+- Existing ETF positions **stay as-is**; they do not reset ticket.
+- When an **ETF** holding is sold ≥ 6.28%, growth still increases WC → ticket (compounding starts on the live book).
+
+**Still confirm M1:** keep start WC at **₹3L (A)** even with ₹2.30L already in ETFs? (Recommended: **yes / A** — already frozen D3.)
 
 ---
 
