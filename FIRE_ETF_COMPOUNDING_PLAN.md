@@ -9,7 +9,7 @@
 ### Frozen so far
 | ID | Decision | Notes |
 |---|---|---|
-| **D1** | Profit eligibility = **6.29%** vs broker avg | Raised from 6.28% as fill cushion with LTP−0.1% limit |
+| **D1** | Profit eligibility = **6.38%** vs broker avg | Cushion for LTP−0.1% limit so fill stays ~≥6.28% |
 | **D2** | **No** 3.14% capital-double half-target | “single exit threshold” only |
 | **D6** | **No self-dividend** — 100% of reusable net → growth | |
 | **D6b** | Brokerage = **actual Zerodha charges** on the sell | Not a manual estimate to “set aside” |
@@ -267,10 +267,11 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 | **S6** | Only symbols in **ETF universe** | **FROZEN** |
 | **S7** | Use **Kite LTP** for eligibility + limit ref | **FROZEN** |
 | **S8** | Cron **15:05 IST** (buy remains 15:00) | **FROZEN** |
-| **D1′** | Eligibility threshold **6.29%** (`LTP >= avg × 1.0629`) | **FROZEN** (was 6.28%; cushion for −0.1% limit) |
+| **D1′** | Eligibility threshold **6.38%** (`LTP >= avg × 1.0638`) | **FROZEN** (cushion for −0.1% limit ≈ ~6.27–6.28% if filled at limit) |
 | **D8** | Re-enable sell cron after code ships | **Intent yes** |
 
-**Note:** Eligibility uses **6.29% on LTP**; the limit sits **0.1% under LTP**, so a fill at the limit is slightly under 6.29% on the print (roughly ~6.18% if filled exactly at limit). If you instead want the **fill** to stay ≥ 6.28%, we’d raise the gate further (~6.39%). Say if you want that tighter guarantee.
+**Note:** Eligibility uses **6.38% on LTP**; limit is **LTP − 0.1%**. If filled at the limit:  
+`1.0638 × 0.999 − 1 ≈ 6.27%` — effectively protects ~**6.28%** on the print.
 
 ### S3 (locked)
 **A — broker holding avg** = Zerodha blended average on the full position.
