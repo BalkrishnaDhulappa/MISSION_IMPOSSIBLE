@@ -3,7 +3,8 @@
 **Status:** 🟢 **DESIGN ACCEPTED** (2026-08-09) · **implemented on branch** `cursor/fire-etf-profit-double-d711`  
 **Based on:** `FIRE_ETF_COMPOUNDING_PLAN.md` (decisions frozen)  
 **Scope:** `existing_bots/daily_etf_sip/fire_shop` live ETF SIP only  
-**Out of scope v1:** filesystem reorg, RSI ranking, self-dividend, tax set-aside, MTF  
+**Out of scope v1:** filesystem reorg, self-dividend, tax set-aside, MTF  
+**Amend (2026-08-10):** Buy rank switched **DMA-dip → lowest RSI(14)** (`buy_rank_mode=rsi`) after RSI edged DMA in shop backtests.  
 
 > Educational personal system. Not investment advice.
 
@@ -27,7 +28,7 @@
 | Ticket | `working_capital / 50` (starts ₹6,000; grows after booked growth) |
 | Extra cash | Buffer — not added into WC |
 | Sleeve contents | **ETFs only** (ignore stocks/SGB for WC/sell scan) |
-| Buy rank | DMA-dip (current Yahoo/20DMA + volume) — unchanged |
+| Buy rank | **Lowest RSI(14)** among liquid ETFs (Yahoo); `buy_rank_mode=dma` kept as fallback |
 | BID | −4% from `last_buy`, max 3, size `max(invested/2, ticket)` |
 | Sell count | 1 / day |
 | Sell pick | Highest unrealized % among eligible |
@@ -55,7 +56,7 @@ engine
   ├─ config + compound_ledger (WC, ticket, Σ growth)
   ├─ calendar (IST session)
   ├─ kite (token, LTP, holdings, orders, charges)
-  ├─ ranking (DMA-dip)          # buys only
+  ├─ ranking (RSI-14 lowest)    # buys only; config buy_rank_mode
   ├─ state (positions_state.json)
   ├─ sell_select + place limit
   ├─ compound_on_sell_fill
@@ -78,6 +79,8 @@ engine
   "sell_limit_buffer": 0.001,
   "bid_threshold": 0.04,
   "max_bid": 3,
+  "buy_rank_mode": "rsi",
+  "rsi_period": 14,
   "buy_limit_buffer": 0.001,
   "order_fill_timeout_sec": 90,
   "dp_flat_fallback": 15.34
@@ -138,7 +141,7 @@ Invested continues to reconcile from broker holdings for ETFs.
 0. Run **§5.4 manual-sell reconcile** first (so overnight/manual exits book growth before sizing).  
 1. Session + calendar checks (unchanged).  
 2. Read **ticket** from compound ledger.  
-3. Rank via DMA-dip (unchanged).  
+3. Rank via **lowest RSI(14)** (volume filter unchanged; `buy_rank_mode=dma` optional).  
 4. NEW candidates: not in holdings; `qty = ceil(ticket / cmp)`.  
 5. BID candidates: current rules with **ticket** instead of fixed 6k.  
 6. Try until one FILLED; update state; Telegram.  
@@ -225,7 +228,6 @@ Token / notify / weekly jobs unchanged unless you ask.
 ## 10. Non-goals (v1)
 
 - Auto bank withdrawal  
-- RSI shop ranking  
 - Folder reorg / archive sweep  
 - Inflating WC to cash+ETF market value  
 - Same-day ticket bump after 15:05 sell  

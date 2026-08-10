@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FIRE Shop live engine — buy (DMA-dip + BID) + sell (6.38% / compound)."""
+"""FIRE Shop live engine — buy (RSI rank + BID) + sell (6.38% / compound)."""
 
 from __future__ import annotations
 
@@ -38,6 +38,8 @@ DEFAULT_CONFIG = {
     "sell_limit_buffer": 0.001,
     "bid_threshold": 0.04,
     "max_bid": 3,
+    "buy_rank_mode": "rsi",  # "rsi" = lowest RSI(14); "dma" = deepest 20DMA dip
+    "rsi_period": 14,
     "buy_limit_buffer": 0.001,
     "limit_price_buffer": 0.001,  # legacy alias for buy
     "order_fill_timeout_sec": 90,
@@ -584,7 +586,16 @@ def main(run_sell=True, run_buy=True):
 
         session = get_nse_session()
         instruments = [(code, code.replace("NSE:", "")) for code in etf_map.keys()]
-        ranked = rank_instruments(instruments, session, "ETF")
+        rank_mode = config.get("buy_rank_mode", "rsi")
+        rsi_period = int(config.get("rsi_period", 14))
+        ranked = rank_instruments(
+            instruments,
+            session,
+            "ETF",
+            rank_mode=rank_mode,
+            rsi_period=rsi_period,
+        )
+        print(f"📊 Buy rank mode: {rank_mode.upper()}" + (f"({rsi_period})" if rank_mode == "rsi" else ""))
 
         buy_candidates = []
 

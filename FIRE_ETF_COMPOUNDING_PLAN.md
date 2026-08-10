@@ -32,7 +32,7 @@
 | **S8** | Sell cron = **15:05 IST** | Independent of buy @ 15:00 |
 | **D8** | Re-enable sell cron after implement | Intent: yes · cron **15:05 IST** |
 | **D7** | BID keep **current** | −4% from last_buy, max 3, size max(invested/2, ticket) |
-| **R1** | Buy rank = **DMA-dip** (current) | Do **not** switch to Class 3 RSI for v1 |
+| **R1** | Buy rank = **lowest RSI(14)** | Amended 2026-08-10 (was DMA-dip); `buy_rank_mode=dma` fallback |
 | **D9** | First build = **full cutover (B)** | Sell logic + compounding + growing ticket on buys together |
 | **D10** | **Revert** provisional PR #6 6.28→3.14 capital-double code | Conflicts with frozen exit rules |
 | **T1** | Same-day: sell growth applies to **next** buy | Buy 15:00 / sell 15:05 → ticket bump used from next session |
@@ -177,7 +177,7 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 ### Non-goals for compounding v1
 - Auto withdraw self-dividend to bank  
 - Filesystem reorg  
-- Changing rank signal (keep DMA-dip unless you say otherwise)  
+- Changing rank signal (default is now RSI; set `buy_rank_mode=dma` to revert)  
 
 ---
 
@@ -331,8 +331,8 @@ What is “₹5L” for us?
 - **C.** Change bid size to **1× current ticket** only (not half-invested)  
 
 ### R1 — Buy ranking
-- **A.** Keep **DMA-dip** (Yahoo CMP vs 20 DMA, volume filter) ← **FROZEN** for v1  
-- **B.** Switch to Class 3 lowest-RSI rank  
+- **A.** Keep **DMA-dip** (Yahoo CMP vs 20 DMA, volume filter) — v1 freeze; superseded  
+- **B.** Switch to Class 3 lowest-RSI rank ← **AMENDED 2026-08-10** (live default `buy_rank_mode=rsi`)  
 
 ### D8 — Sell ops
 - **A.** Re-enable sell cron after rules freeze ← **FROZEN** (15:05 IST)  
