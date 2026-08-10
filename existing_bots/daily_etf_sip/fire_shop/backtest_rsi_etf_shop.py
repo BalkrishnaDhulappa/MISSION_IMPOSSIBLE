@@ -664,8 +664,9 @@ def main():
         df = run_sweep(
             panel, days, capital=args.capital, sell_buffer=args.sell_buffer
         )
-        out_csv = OUT_DIR / f"sweep_sep2024_{stamp}.csv"
-        out_json = OUT_DIR / f"sweep_sep2024_{stamp}.json"
+        tag = f"{days[0].strftime('%Y%m%d')}_{days[-1].strftime('%Y%m%d')}"
+        out_csv = OUT_DIR / f"sweep_{tag}_{stamp}.csv"
+        out_json = OUT_DIR / f"sweep_{tag}_{stamp}.json"
         df.to_csv(out_csv, index=False)
         payload = {
             "window": {"start": str(days[0].date()), "end": str(days[-1].date())},
