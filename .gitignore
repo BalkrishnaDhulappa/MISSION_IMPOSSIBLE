@@ -12,5 +12,6 @@
 **/*.pyc
 **/venv/
 **/.venv/
+**/data_cache/*.pkl
 mtf_nursery/data/
 mtf_nursery/config.json
