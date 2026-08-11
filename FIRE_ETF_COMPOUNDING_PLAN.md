@@ -272,7 +272,7 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 | **S5** | **LIMIT @ LTP − 0.1%** (`price = LTP × 0.999`) | **FROZEN** |
 | **S6** | Only symbols in **ETF universe** | **FROZEN** |
 | **S7** | Use **Kite LTP** for eligibility + limit ref | **FROZEN** |
-| **S8** | Cron **15:05 IST** (buy remains 15:00) | **FROZEN** |
+| **S8** | Cron **14:45 IST** (before buy 15:00) | **AMENDED 2026-08-11** |
 | **D1′** | Eligibility threshold **6.38%** (`LTP >= avg × 1.0638`) | **FROZEN** (cushion for −0.1% limit ≈ ~6.27–6.28% if filled at limit) |
 | **D8** | Re-enable sell cron after code ships | **Intent yes** |
 
@@ -335,7 +335,7 @@ What is “₹5L” for us?
 - **B.** Switch to Class 3 lowest-RSI rank ← **AMENDED 2026-08-10** (live default `buy_rank_mode=rsi`)  
 
 ### D8 — Sell ops
-- **A.** Re-enable sell cron after rules freeze ← **FROZEN** (15:05 IST)  
+- **A.** Re-enable sell cron after rules freeze ← **FROZEN** (now **14:45 IST**)  
 - **B.** Keep sell manual / disabled  
 
 ### D9 — Scope of first code change (after accept)
@@ -348,8 +348,8 @@ What is “₹5L” for us?
 - **C.** Leave draft open until D1/D2 decided  
 
 ### T1 — When does growth affect ticket?
-- **A.** Next buy session (sell 15:05 → ticket used from next day 15:00) ← **FROZEN**  
-- **B.** Same day (would require sell before buy)
+- **A.** Next buy session (old: sell 15:05 → next day) — superseded  
+- **B.** Same day (sell before buy) ← **AMENDED 2026-08-11** (sell **14:45**, buy **15:00**)
 
 ---
 
