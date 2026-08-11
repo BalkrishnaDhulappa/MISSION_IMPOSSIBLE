@@ -244,6 +244,7 @@ def place_and_confirm(kite, code, cmp, qty, buffer, side, timeout=ORDER_FILL_TIM
 
 
 def load_holdings(kite) -> dict:
+    """CNC holdings including T+1 qty; fall back to positions() if holdings lag."""
     holdings = {}
     for p in kite.holdings():
         qty = float(p["quantity"]) + float(p["t1_quantity"])
@@ -254,6 +255,31 @@ def load_holdings(kite) -> dict:
             "qty": qty,
             "avg": float(p["average_price"]),
         }
+
+    # Same-day CNC buys sometimes appear in positions before holdings/t1 updates.
+    try:
+        net = (kite.positions() or {}).get("net") or []
+    except Exception as e:
+        print(f"⚠️  positions() failed: {e}")
+        net = []
+    for p in net:
+        if str(p.get("product", "")).upper() != "CNC":
+            continue
+        qty = float(p.get("quantity") or 0)
+        if qty <= 0:
+            continue
+        sym = str(p.get("tradingsymbol") or "")
+        if not sym:
+            continue
+        code = f"NSE:{sym}"
+        if code in holdings:
+            continue
+        avg = float(p.get("average_price") or 0)
+        if avg <= 0:
+            continue
+        holdings[code] = {"qty": qty, "avg": avg}
+        print(f"  ℹ️  holdings lag — using positions() for {code} qty={qty}")
+
     return holdings
 
 
@@ -346,15 +372,16 @@ def _symbol(code: str) -> str:
     return code.replace("NSE:", "")
 
 
-def find_today_sell_trades(kite, code: str) -> list[dict]:
-    """Return today's CNC SELL trades for symbol (may be empty)."""
+def find_today_trades(kite, code: str, side: str) -> list[dict]:
+    """Return today's CNC trades for symbol and side (BUY/SELL)."""
     symbol = _symbol(code)
+    side_u = side.upper()
     trades = []
     try:
         for t in kite.trades():
             if str(t.get("tradingsymbol")) != symbol:
                 continue
-            if str(t.get("transaction_type", "")).upper() != "SELL":
+            if str(t.get("transaction_type", "")).upper() != side_u:
                 continue
             product = str(t.get("product", "")).upper()
             if product and product != "CNC":
@@ -363,6 +390,11 @@ def find_today_sell_trades(kite, code: str) -> list[dict]:
     except Exception as e:
         print(f"⚠️  trades() failed: {e}")
     return trades
+
+
+def find_today_sell_trades(kite, code: str) -> list[dict]:
+    """Return today's CNC SELL trades for symbol (may be empty)."""
+    return find_today_trades(kite, code, "SELL")
 
 
 def book_sell_growth(
@@ -414,10 +446,14 @@ def book_sell_growth(
 
 
 def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
-    """M2: state ETFs missing from holdings → try today's SELL trades → book growth."""
+    """M2: state ETFs missing from holdings → try today's SELL trades → book growth.
+
+    Skip when a same-day BUY exists and there is no SELL (holdings/T+1 lag after bot buy).
+    """
     holding_codes = set(holdings.keys())
     booked = []
     cleaned = []
+    skipped_lag = []
 
     for code in list(state.keys()):
         if code not in etf_universe:
@@ -425,12 +461,23 @@ def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
         if code in holding_codes and holdings[code]["qty"] > 0:
             continue
 
+        buy_trades = find_today_trades(kite, code, "BUY")
+        sell_trades = find_today_sell_trades(kite, code)
+        # Bot bought today; broker holdings not updated yet — do NOT wipe state.
+        if buy_trades and not sell_trades:
+            print(
+                f"ℹ️  {code}: in state, missing from holdings, but BUY today — "
+                f"treat as holdings lag (skip M2)"
+            )
+            skipped_lag.append(code)
+            continue
+
         s = state.get(code) or {}
         avg = float(s.get("broker_avg") or s.get("last_buy") or 0)
         invested = float(s.get("invested") or 0)
         qty_hint = (invested / avg) if avg > 0 else 0
 
-        trades = find_today_sell_trades(kite, code)
+        trades = sell_trades
         if trades:
             # Aggregate fills
             total_qty = sum(float(t.get("quantity") or 0) for t in trades)
@@ -475,7 +522,7 @@ def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
 
     if booked or cleaned:
         save_state(state)
-    return booked, cleaned
+    return booked, cleaned, skipped_lag
 
 
 def main(run_sell=True, run_buy=True):
@@ -533,7 +580,12 @@ def main(run_sell=True, run_buy=True):
         ltps = get_ltps(kite, list(etf_holdings.keys()))
         winner = pick_sell_candidate(etf_holdings, ltps, etf_universe, eligibility)
         if not winner:
-            print("ℹ️  No ETF eligible to sell today")
+            msg = (
+                f"ℹ️ FIRE Shop — no ETF ≥ {round(eligibility*100, 2)}% to sell today "
+                f"({len(etf_holdings)} ETF holdings scanned)"
+            )
+            print(msg)
+            send_telegram(msg)
         else:
             code = winner["code"]
             ltp = winner["ltp"]
