@@ -38,8 +38,8 @@
 | Sell universe | ETF universe ∩ holdings |
 | Charges | Kite `/charges/orders` total (+ DP if missing); formula fallback |
 | Growth | `max(0, sell_value − cost_basis − sell_charges)` · 100% to WC · no self-div · no tax haircut |
-| Ticket timing | Growth from sell @ 15:05 applies to **next** buy session |
-| Cron | Buy 15:00 IST · Sell **15:05 IST** (re-enable) · token unchanged |
+| Ticket timing | Sell **14:45 IST** then buy **15:00 IST** → sell growth applies to **same-day** buy ticket |
+| Cron | Sell **14:45 IST** · Buy **15:00 IST** · token unchanged |
 | PR #6 tweak | Revert 6.28→3.14 capital-double paths |
 | Manual sell | **M2:** if ETF left holdings but was in state → match Kite **day trades** SELL → book charges + growth (same ledger path). If no trade found → Telegram warn, no growth. Manual sell does **not** consume the bot’s one-sell-per-day slot. |
 
@@ -48,8 +48,8 @@
 ## 3. Runtime architecture
 
 ```text
+cron 14:45  → jobs/sell → engine(run_sell=True)
 cron 15:00  → jobs/buy  → engine(run_buy=True)
-cron 15:05  → jobs/sell → engine(run_sell=True)
 cron token  → server_generate_token (unchanged)
 
 engine
@@ -115,7 +115,7 @@ Invested continues to reconcile from broker holdings for ETFs.
 
 ## 5. Flows
 
-### 5.1 Sell (15:05 IST)
+### 5.1 Sell (14:45 IST)
 
 0. Run **§5.4 manual-sell reconcile** first.  
 1. Market session open? else skip + Telegram.  
@@ -145,7 +145,7 @@ Invested continues to reconcile from broker holdings for ETFs.
 4. NEW candidates: not in holdings; `qty = ceil(ticket / cmp)`.  
 5. BID candidates: current rules with **ticket** instead of fixed 6k.  
 6. Try until one FILLED; update state; Telegram.  
-7. Does **not** re-read growth from a same-day bot sell (bot sell runs later at 15:05).
+7. Sell has already run at 14:45, so buy uses the **updated** ticket if growth was booked same day.
 
 ### 5.3 Bootstrap / migration
 
@@ -195,11 +195,11 @@ Runs at start of sell **and** buy jobs (after loading holdings + state):
 ## 7. Cron (Oracle) — target
 
 ```cron
+# Sell 14:45 IST = 09:15 UTC  (before buy)
+15 9 * * 1-5  ... sell_engine.py ...
+
 # Buy 15:00 IST = 09:30 UTC
 30 9 * * 1-5  ... buy_engine.py ...
-
-# Sell 15:05 IST = 09:35 UTC  (RE-ENABLE)
-35 9 * * 1-5  ... sell_engine.py ...
 ```
 
 Token / notify / weekly jobs unchanged unless you ask.
@@ -221,7 +221,7 @@ Token / notify / weekly jobs unchanged unless you ask.
 2. Unit: growth math with mock charges; ticket = WC/50  
 3. Unit: BID sizing uses ticket  
 4. Dry/ Tol: one paper sell path with token if available in env — else mock kite  
-5. Deploy: update `engine` + ledger on VM; enable sell cron at 15:05; watch one session  
+5. Deploy: update `engine` + ledger + universe on VM; sell cron **14:45 IST**, buy **15:00 IST**  
 
 ---
 
@@ -230,7 +230,6 @@ Token / notify / weekly jobs unchanged unless you ask.
 - Auto bank withdrawal  
 - Folder reorg / archive sweep  
 - Inflating WC to cash+ETF market value  
-- Same-day ticket bump after 15:05 sell  
 
 ---
 

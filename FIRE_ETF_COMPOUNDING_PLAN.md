@@ -29,13 +29,13 @@
 | **S5** | Order = **LIMIT @ LTP × (1 − 0.001)** | LTP − 0.1% |
 | **S6** | Scan = **ETF universe only** | |
 | **S7** | Price for eligibility = **Kite LTP** | |
-| **S8** | Sell cron = **15:05 IST** | Independent of buy @ 15:00 |
-| **D8** | Re-enable sell cron after implement | Intent: yes · cron **15:05 IST** |
+| **S8** | Sell cron = **14:45 IST** (before buy) | Amended 2026-08-11 · buy stays 15:00 |
+| **D8** | Re-enable sell cron after implement | Intent: yes · cron **14:45 IST** |
 | **D7** | BID keep **current** | −4% from last_buy, max 3, size max(invested/2, ticket) |
 | **R1** | Buy rank = **lowest RSI(14)** | Amended 2026-08-10 (was DMA-dip); `buy_rank_mode=dma` fallback |
 | **D9** | First build = **full cutover (B)** | Sell logic + compounding + growing ticket on buys together |
 | **D10** | **Revert** provisional PR #6 6.28→3.14 capital-double code | Conflicts with frozen exit rules |
-| **T1** | Same-day: sell growth applies to **next** buy | Buy 15:00 / sell 15:05 → ticket bump used from next session |
+| **T1** | Same-day: sell **14:45** then buy **15:00** → growth applies to **same-day** ticket | Amended 2026-08-11 |
 | **M2** | Manual sells: **detect via Kite day trades** and book growth | If symbol left holdings but state had it → look up today’s SELL trade(s); compound like bot sell |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
 | **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you |
