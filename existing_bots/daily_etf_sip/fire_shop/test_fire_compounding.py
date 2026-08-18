@@ -103,6 +103,26 @@ class TestSellSelect(unittest.TestCase):
         price = round(ltp * (1 - 0.001), 1)
         self.assertEqual(price, 99.9)
 
+    def test_uses_holdings_last_price_when_kite_ltp_empty(self):
+        from engine import merge_holdings_ltps, pick_sell_candidate
+
+        holdings = {
+            "NSE:MODEFENCE": {"qty": 59, "avg": 102.19, "ltp": 109.70},
+            "NSE:DEFENCE": {"qty": 77, "avg": 78.44, "ltp": 83.52},
+        }
+        ltps = merge_holdings_ltps(holdings, {})
+        w = pick_sell_candidate(holdings, ltps, set(holdings), 0.0638)
+        self.assertIsNotNone(w)
+        self.assertEqual(w["code"], "NSE:MODEFENCE")
+        self.assertGreater(w["profit_pct"], 0.0638)
+
+    def test_lookup_ltp_keys_without_exchange_prefix(self):
+        from engine import _lookup_quote, _parse_ltp_row
+
+        raw = {"MODEFENCE": {"last_price": 109.7}}
+        row = _lookup_quote(raw, "NSE:MODEFENCE")
+        self.assertAlmostEqual(_parse_ltp_row(row), 109.7)
+
 
 class TestManualSellReconcile(unittest.TestCase):
     """M2 must not wipe state for same-day buys missing from holdings yet."""
