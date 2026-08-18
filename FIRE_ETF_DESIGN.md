@@ -3,7 +3,8 @@
 **Status:** 🟢 **DESIGN ACCEPTED** (2026-08-09) · **implemented on branch** `cursor/fire-etf-profit-double-d711`  
 **Based on:** `FIRE_ETF_COMPOUNDING_PLAN.md` (decisions frozen)  
 **Scope:** `existing_bots/daily_etf_sip/fire_shop` live ETF SIP only  
-**Out of scope v1:** filesystem reorg, RSI ranking, self-dividend, tax set-aside, MTF  
+**Out of scope v1:** filesystem reorg, self-dividend, tax set-aside, MTF  
+**Amend (2026-08-10):** Buy rank switched **DMA-dip → lowest RSI(14)** (`buy_rank_mode=rsi`) after RSI edged DMA in shop backtests.  
 
 > Educational personal system. Not investment advice.
 
@@ -27,7 +28,7 @@
 | Ticket | `working_capital / 50` (starts ₹6,000; grows after booked growth) |
 | Extra cash | Buffer — not added into WC |
 | Sleeve contents | **ETFs only** (ignore stocks/SGB for WC/sell scan) |
-| Buy rank | DMA-dip (current Yahoo/20DMA + volume) — unchanged |
+| Buy rank | **Lowest RSI(14)** among liquid ETFs (Yahoo); `buy_rank_mode=dma` kept as fallback |
 | BID | −4% from `last_buy`, max 3, size `max(invested/2, ticket)` |
 | Sell count | 1 / day |
 | Sell pick | Highest unrealized % among eligible |
@@ -37,8 +38,8 @@
 | Sell universe | ETF universe ∩ holdings |
 | Charges | Kite `/charges/orders` total (+ DP if missing); formula fallback |
 | Growth | `max(0, sell_value − cost_basis − sell_charges)` · 100% to WC · no self-div · no tax haircut |
-| Ticket timing | Growth from sell @ 15:05 applies to **next** buy session |
-| Cron | Buy 15:00 IST · Sell **15:05 IST** (re-enable) · token unchanged |
+| Ticket timing | Sell **14:45 IST** then buy **15:00 IST** → sell growth applies to **same-day** buy ticket |
+| Cron | Sell **14:45 IST** · Buy **15:00 IST** · token unchanged |
 | PR #6 tweak | Revert 6.28→3.14 capital-double paths |
 | Manual sell | **M2:** if ETF left holdings but was in state → match Kite **day trades** SELL → book charges + growth (same ledger path). If no trade found → Telegram warn, no growth. Manual sell does **not** consume the bot’s one-sell-per-day slot. |
 
@@ -47,15 +48,15 @@
 ## 3. Runtime architecture
 
 ```text
+cron 14:45  → jobs/sell → engine(run_sell=True)
 cron 15:00  → jobs/buy  → engine(run_buy=True)
-cron 15:05  → jobs/sell → engine(run_sell=True)
 cron token  → server_generate_token (unchanged)
 
 engine
   ├─ config + compound_ledger (WC, ticket, Σ growth)
   ├─ calendar (IST session)
   ├─ kite (token, LTP, holdings, orders, charges)
-  ├─ ranking (DMA-dip)          # buys only
+  ├─ ranking (RSI-14 lowest)    # buys only; config buy_rank_mode
   ├─ state (positions_state.json)
   ├─ sell_select + place limit
   ├─ compound_on_sell_fill
@@ -78,6 +79,8 @@ engine
   "sell_limit_buffer": 0.001,
   "bid_threshold": 0.04,
   "max_bid": 3,
+  "buy_rank_mode": "rsi",
+  "rsi_period": 14,
   "buy_limit_buffer": 0.001,
   "order_fill_timeout_sec": 90,
   "dp_flat_fallback": 15.34
@@ -112,7 +115,7 @@ Invested continues to reconcile from broker holdings for ETFs.
 
 ## 5. Flows
 
-### 5.1 Sell (15:05 IST)
+### 5.1 Sell (14:45 IST)
 
 0. Run **§5.4 manual-sell reconcile** first.  
 1. Market session open? else skip + Telegram.  
@@ -138,11 +141,11 @@ Invested continues to reconcile from broker holdings for ETFs.
 0. Run **§5.4 manual-sell reconcile** first (so overnight/manual exits book growth before sizing).  
 1. Session + calendar checks (unchanged).  
 2. Read **ticket** from compound ledger.  
-3. Rank via DMA-dip (unchanged).  
+3. Rank via **lowest RSI(14)** (volume filter unchanged; `buy_rank_mode=dma` optional).  
 4. NEW candidates: not in holdings; `qty = ceil(ticket / cmp)`.  
 5. BID candidates: current rules with **ticket** instead of fixed 6k.  
 6. Try until one FILLED; update state; Telegram.  
-7. Does **not** re-read growth from a same-day bot sell (bot sell runs later at 15:05).
+7. Sell has already run at 14:45, so buy uses the **updated** ticket if growth was booked same day.
 
 ### 5.3 Bootstrap / migration
 
@@ -192,11 +195,11 @@ Runs at start of sell **and** buy jobs (after loading holdings + state):
 ## 7. Cron (Oracle) — target
 
 ```cron
+# Sell 14:45 IST = 09:15 UTC  (before buy)
+15 9 * * 1-5  ... sell_engine.py ...
+
 # Buy 15:00 IST = 09:30 UTC
 30 9 * * 1-5  ... buy_engine.py ...
-
-# Sell 15:05 IST = 09:35 UTC  (RE-ENABLE)
-35 9 * * 1-5  ... sell_engine.py ...
 ```
 
 Token / notify / weekly jobs unchanged unless you ask.
@@ -218,17 +221,15 @@ Token / notify / weekly jobs unchanged unless you ask.
 2. Unit: growth math with mock charges; ticket = WC/50  
 3. Unit: BID sizing uses ticket  
 4. Dry/ Tol: one paper sell path with token if available in env — else mock kite  
-5. Deploy: update `engine` + ledger on VM; enable sell cron at 15:05; watch one session  
+5. Deploy: update `engine` + ledger + universe on VM; sell cron **14:45 IST**, buy **15:00 IST**  
 
 ---
 
 ## 10. Non-goals (v1)
 
 - Auto bank withdrawal  
-- RSI shop ranking  
 - Folder reorg / archive sweep  
 - Inflating WC to cash+ETF market value  
-- Same-day ticket bump after 15:05 sell  
 
 ---
 

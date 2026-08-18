@@ -8,6 +8,8 @@
   "limit_price_buffer": 0.001,
   "bid_threshold": 0.04,
   "max_bid": 3,
+  "buy_rank_mode": "rsi",
+  "rsi_period": 14,
   "order_fill_timeout_sec": 90,
   "dp_flat_fallback": 15.34
 }

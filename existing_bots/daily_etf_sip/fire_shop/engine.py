@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FIRE Shop live engine — buy (DMA-dip + BID) + sell (6.38% / compound)."""
+"""FIRE Shop live engine — buy (RSI rank + BID) + sell (6.38% / compound)."""
 
 from __future__ import annotations
 
@@ -38,6 +38,8 @@ DEFAULT_CONFIG = {
     "sell_limit_buffer": 0.001,
     "bid_threshold": 0.04,
     "max_bid": 3,
+    "buy_rank_mode": "rsi",  # "rsi" = lowest RSI(14); "dma" = deepest 20DMA dip
+    "rsi_period": 14,
     "buy_limit_buffer": 0.001,
     "limit_price_buffer": 0.001,  # legacy alias for buy
     "order_fill_timeout_sec": 90,
@@ -242,6 +244,7 @@ def place_and_confirm(kite, code, cmp, qty, buffer, side, timeout=ORDER_FILL_TIM
 
 
 def load_holdings(kite) -> dict:
+    """CNC holdings including T+1 qty; fall back to positions() if holdings lag."""
     holdings = {}
     for p in kite.holdings():
         qty = float(p["quantity"]) + float(p["t1_quantity"])
@@ -251,31 +254,155 @@ def load_holdings(kite) -> dict:
         holdings[code] = {
             "qty": qty,
             "avg": float(p["average_price"]),
+            "ltp": float(p["last_price"]) if p.get("last_price") else None,
         }
+
+    # Same-day CNC buys sometimes appear in positions before holdings/t1 updates.
+    try:
+        net = (kite.positions() or {}).get("net") or []
+    except Exception as e:
+        print(f"⚠️  positions() failed: {e}")
+        net = []
+    for p in net:
+        if str(p.get("product", "")).upper() != "CNC":
+            continue
+        qty = float(p.get("quantity") or 0)
+        if qty <= 0:
+            continue
+        sym = str(p.get("tradingsymbol") or "")
+        if not sym:
+            continue
+        code = f"NSE:{sym}"
+        if code in holdings:
+            continue
+        avg = float(p.get("average_price") or 0)
+        if avg <= 0:
+            continue
+        holdings[code] = {
+            "qty": qty,
+            "avg": avg,
+            "ltp": float(p["last_price"]) if p.get("last_price") else None,
+        }
+        print(f"  ℹ️  holdings lag — using positions() for {code} qty={qty}")
+
     return holdings
 
 
+def _parse_ltp_row(row) -> float | None:
+    if not row or not isinstance(row, dict):
+        return None
+    px = row.get("last_price") or row.get("last_traded_price")
+    if px is None:
+        return None
+    try:
+        val = float(px)
+    except (TypeError, ValueError):
+        return None
+    return val if val > 0 else None
+
+
+def _lookup_quote(raw: dict, code: str):
+    if not raw:
+        return None
+    if code in raw:
+        return raw[code]
+    sym = code.replace("NSE:", "")
+    for key in (f"NSE:{sym}", f"BSE:{sym}", sym):
+        if key in raw:
+            return raw[key]
+    for k, v in raw.items():
+        if str(k).endswith(f":{sym}") or str(k) == sym:
+            return v
+    return None
+
+
 def get_ltps(kite, codes: list[str]) -> dict[str, float]:
-    """Return {NSE:SYM: ltp} via kite.ltp."""
+    """Return {NSE:SYM: ltp} via kite.ltp, chunked; never fail the whole book."""
     if not codes:
         return {}
-    try:
-        raw = kite.ltp(codes)
-    except Exception as e:
-        print(f"⚠️  LTP fetch failed: {e}")
-        return {}
-    out = {}
-    for code in codes:
-        row = raw.get(code) or raw.get(code.replace("NSE:", "NSE:"))
-        if not row:
-            # kite sometimes keys without exchange prefix variants
-            for k, v in raw.items():
-                if k.endswith(code.replace("NSE:", "")) or k == code:
-                    row = v
-                    break
-        if row and row.get("last_price"):
-            out[code] = float(row["last_price"])
+    out: dict[str, float] = {}
+    chunk_size = 20
+    for i in range(0, len(codes), chunk_size):
+        chunk = codes[i : i + chunk_size]
+        raw = {}
+        try:
+            raw = kite.ltp(chunk) or {}
+        except Exception as e:
+            print(f"⚠️  LTP batch failed ({len(chunk)} names): {e}")
+            try:
+                raw = kite.ltp(*chunk) or {}
+            except Exception as e2:
+                print(f"⚠️  LTP *args also failed: {e2}")
+                raw = {}
+        if not isinstance(raw, dict):
+            raw = {}
+        for code in chunk:
+            px = _parse_ltp_row(_lookup_quote(raw, code))
+            if px:
+                out[code] = px
+    missing = [c for c in codes if c not in out]
+    if missing:
+        print(f"⚠️  LTP missing for {len(missing)}/{len(codes)}: {', '.join(missing[:12])}")
     return out
+
+
+def merge_holdings_ltps(holdings: dict, live: dict[str, float]) -> dict[str, float]:
+    """Prefer live kite.ltp; fall back to holdings() last_price (same as Kite app P&L)."""
+    out = {}
+    for code, h in holdings.items():
+        fallback = h.get("ltp") or h.get("last_price")
+        if fallback:
+            try:
+                val = float(fallback)
+                if val > 0:
+                    out[code] = val
+            except (TypeError, ValueError):
+                pass
+    out.update({c: p for c, p in live.items() if p and p > 0})
+    return out
+
+
+def sell_scan_rows(holdings, ltps, etf_universe, eligibility_pct: float) -> list[dict]:
+    """All universe ETF holdings with pnl vs gate, for logs/Telegram."""
+    rows = []
+    for code, h in holdings.items():
+        if code not in etf_universe:
+            continue
+        avg = float(h.get("avg") or 0)
+        ltp = ltps.get(code)
+        target = round(avg * (1.0 + eligibility_pct), 2) if avg > 0 else None
+        pnl = (ltp / avg - 1.0) if (ltp and avg > 0) else None
+        rows.append(
+            {
+                "code": code,
+                "avg": avg,
+                "ltp": ltp,
+                "target": target,
+                "pnl_pct": pnl,
+                "eligible": bool(ltp and avg > 0 and target is not None and ltp >= target),
+            }
+        )
+    rows.sort(key=lambda r: (r["pnl_pct"] is not None, r["pnl_pct"] or -999), reverse=True)
+    return rows
+
+
+def pick_sell_candidate(holdings, ltps, etf_universe, eligibility_pct: float):
+    """Among ETF holdings with LTP >= avg*(1+pct), pick highest unrealized %."""
+    best = None
+    for row in sell_scan_rows(holdings, ltps, etf_universe, eligibility_pct):
+        if not row["eligible"]:
+            continue
+        code = row["code"]
+        candidate = {
+            "code": code,
+            "ltp": row["ltp"],
+            "qty": holdings[code]["qty"],
+            "avg": row["avg"],
+            "profit_pct": row["pnl_pct"],
+        }
+        if best is None or candidate["profit_pct"] > best["profit_pct"]:
+            best = candidate
+    return best
 
 
 def reconcile_state_with_holdings(state, holdings, etf_universe: set[str]):
@@ -313,46 +440,20 @@ def reconcile_state_with_holdings(state, holdings, etf_universe: set[str]):
     return changed, removed, added
 
 
-def pick_sell_candidate(holdings, ltps, etf_universe, eligibility_pct: float):
-    """Among ETF holdings with LTP >= avg*(1+pct), pick highest unrealized %."""
-    best = None
-    for code, h in holdings.items():
-        if code not in etf_universe:
-            continue
-        ltp = ltps.get(code)
-        avg = float(h["avg"])
-        if not ltp or avg <= 0:
-            continue
-        # Compare on paise-rounded target to avoid float drift at exact 6.38%.
-        target_px = round(avg * (1.0 + eligibility_pct), 2)
-        if ltp < target_px:
-            continue
-        profit_pct = (ltp / avg) - 1.0
-        candidate = {
-            "code": code,
-            "ltp": ltp,
-            "qty": h["qty"],
-            "avg": avg,
-            "profit_pct": profit_pct,
-        }
-        if best is None or candidate["profit_pct"] > best["profit_pct"]:
-            best = candidate
-    return best
-
-
 def _symbol(code: str) -> str:
     return code.replace("NSE:", "")
 
 
-def find_today_sell_trades(kite, code: str) -> list[dict]:
-    """Return today's CNC SELL trades for symbol (may be empty)."""
+def find_today_trades(kite, code: str, side: str) -> list[dict]:
+    """Return today's CNC trades for symbol and side (BUY/SELL)."""
     symbol = _symbol(code)
+    side_u = side.upper()
     trades = []
     try:
         for t in kite.trades():
             if str(t.get("tradingsymbol")) != symbol:
                 continue
-            if str(t.get("transaction_type", "")).upper() != "SELL":
+            if str(t.get("transaction_type", "")).upper() != side_u:
                 continue
             product = str(t.get("product", "")).upper()
             if product and product != "CNC":
@@ -361,6 +462,11 @@ def find_today_sell_trades(kite, code: str) -> list[dict]:
     except Exception as e:
         print(f"⚠️  trades() failed: {e}")
     return trades
+
+
+def find_today_sell_trades(kite, code: str) -> list[dict]:
+    """Return today's CNC SELL trades for symbol (may be empty)."""
+    return find_today_trades(kite, code, "SELL")
 
 
 def book_sell_growth(
@@ -412,10 +518,14 @@ def book_sell_growth(
 
 
 def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
-    """M2: state ETFs missing from holdings → try today's SELL trades → book growth."""
+    """M2: state ETFs missing from holdings → try today's SELL trades → book growth.
+
+    Skip when a same-day BUY exists and there is no SELL (holdings/T+1 lag after bot buy).
+    """
     holding_codes = set(holdings.keys())
     booked = []
     cleaned = []
+    skipped_lag = []
 
     for code in list(state.keys()):
         if code not in etf_universe:
@@ -423,12 +533,23 @@ def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
         if code in holding_codes and holdings[code]["qty"] > 0:
             continue
 
+        buy_trades = find_today_trades(kite, code, "BUY")
+        sell_trades = find_today_sell_trades(kite, code)
+        # Bot bought today; broker holdings not updated yet — do NOT wipe state.
+        if buy_trades and not sell_trades:
+            print(
+                f"ℹ️  {code}: in state, missing from holdings, but BUY today — "
+                f"treat as holdings lag (skip M2)"
+            )
+            skipped_lag.append(code)
+            continue
+
         s = state.get(code) or {}
         avg = float(s.get("broker_avg") or s.get("last_buy") or 0)
         invested = float(s.get("invested") or 0)
         qty_hint = (invested / avg) if avg > 0 else 0
 
-        trades = find_today_sell_trades(kite, code)
+        trades = sell_trades
         if trades:
             # Aggregate fills
             total_qty = sum(float(t.get("quantity") or 0) for t in trades)
@@ -473,7 +594,7 @@ def reconcile_manual_sells(kite, state, holdings, etf_universe, ledger, config):
 
     if booked or cleaned:
         save_state(state)
-    return booked, cleaned
+    return booked, cleaned, skipped_lag
 
 
 def main(run_sell=True, run_buy=True):
@@ -528,10 +649,39 @@ def main(run_sell=True, run_buy=True):
     # ── SELL ───────────────────────────────────────────────
     if run_sell:
         etf_holdings = {c: h for c, h in holdings.items() if c in etf_universe}
-        ltps = get_ltps(kite, list(etf_holdings.keys()))
+        live = get_ltps(kite, list(etf_holdings.keys()))
+        ltps = merge_holdings_ltps(etf_holdings, live)
+        rows = sell_scan_rows(etf_holdings, ltps, etf_universe, eligibility)
+        priced = [r for r in rows if r["ltp"]]
+        missing = [r["code"] for r in rows if not r["ltp"]]
+        print(
+            f"📊 Sell scan: {len(etf_holdings)} ETF holdings, "
+            f"{len(priced)} with price, {len(missing)} missing LTP"
+        )
+        for r in rows[:8]:
+            if r["ltp"] and r["pnl_pct"] is not None:
+                flag = "ELIGIBLE" if r["eligible"] else "below"
+                print(
+                    f"  {r['code']:<22} avg=₹{r['avg']:.2f} ltp=₹{r['ltp']:.2f} "
+                    f"need=₹{r['target']:.2f} pnl={r['pnl_pct']*100:.2f}% {flag}"
+                )
+            else:
+                print(f"  {r['code']:<22} avg=₹{r['avg']:.2f} LTP MISSING")
         winner = pick_sell_candidate(etf_holdings, ltps, etf_universe, eligibility)
         if not winner:
-            print("ℹ️  No ETF eligible to sell today")
+            closest = [
+                f"{r['code'].replace('NSE:', '')} {r['pnl_pct']*100:+.2f}%"
+                for r in priced[:3]
+            ]
+            miss = f", {len(missing)} LTP missing" if missing else ""
+            closest_s = (" | closest: " + ", ".join(closest)) if closest else ""
+            msg = (
+                f"ℹ️ FIRE Shop — no ETF ≥ {round(eligibility*100, 2)}% to sell today "
+                f"({len(etf_holdings)} scanned, {len(priced)} priced{miss})"
+                f"{closest_s}"
+            )
+            print(msg)
+            send_telegram(msg)
         else:
             code = winner["code"]
             ltp = winner["ltp"]
@@ -584,7 +734,16 @@ def main(run_sell=True, run_buy=True):
 
         session = get_nse_session()
         instruments = [(code, code.replace("NSE:", "")) for code in etf_map.keys()]
-        ranked = rank_instruments(instruments, session, "ETF")
+        rank_mode = config.get("buy_rank_mode", "rsi")
+        rsi_period = int(config.get("rsi_period", 14))
+        ranked = rank_instruments(
+            instruments,
+            session,
+            "ETF",
+            rank_mode=rank_mode,
+            rsi_period=rsi_period,
+        )
+        print(f"📊 Buy rank mode: {rank_mode.upper()}" + (f"({rsi_period})" if rank_mode == "rsi" else ""))
 
         buy_candidates = []
 

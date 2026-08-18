@@ -615,54 +615,96 @@ class TestAlreadyOrderedToday(unittest.TestCase):
             self._restore_log(tmp)
 
 
-class TestRankInstruments(unittest.TestCase):
-    """rank_instruments — volume filter and ranking logic."""
+class TestComputeRsi(unittest.TestCase):
+    """compute_rsi — RSI(14) used for buy ranking."""
 
-    def _make_fetch_result(self, cmp, dma20, vol):
-        return (cmp, dma20, vol)
+    def test_insufficient_history_returns_none(self):
+        from fire_shop_automation import compute_rsi
+        self.assertIsNone(compute_rsi([100.0] * 10, period=14))
+
+    def test_flat_market_near_50_or_neutral(self):
+        from fire_shop_automation import compute_rsi
+        # flat → no gains/losses over window → treated as 50
+        closes = [100.0] * 20
+        self.assertEqual(compute_rsi(closes, period=14), 50.0)
+
+    def test_strong_uptrend_high_rsi(self):
+        from fire_shop_automation import compute_rsi
+        closes = [float(100 + i) for i in range(20)]
+        rsi = compute_rsi(closes, period=14)
+        self.assertIsNotNone(rsi)
+        self.assertGreater(rsi, 70)
+
+    def test_strong_downtrend_low_rsi(self):
+        from fire_shop_automation import compute_rsi
+        closes = [float(120 - i) for i in range(20)]
+        rsi = compute_rsi(closes, period=14)
+        self.assertIsNotNone(rsi)
+        self.assertLess(rsi, 30)
+
+
+class TestRankInstruments(unittest.TestCase):
+    """rank_instruments — volume filter and RSI ranking logic."""
+
+    def _row(self, cmp, dma20, vol, rsi):
+        return (cmp, dma20, vol, rsi)
 
     @patch("fire_shop_automation.fetch_etf_data")
     @patch("fire_shop_automation.time.sleep")
     def test_low_volume_excluded(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
-        # Two ETFs: one high volume, one low
         mock_fetch.side_effect = [
-            (100.0, 110.0, 500000),   # high vol
-            (50.0,  60.0,  5000),     # low vol — should be excluded
+            self._row(100.0, 110.0, 500000, 40.0),   # high vol
+            self._row(50.0,  60.0,  5000, 35.0),     # low vol — excluded
         ]
         instruments = [("NSE:NIFTYBEES", "NIFTY 50"), ("NSE:LOWVOL", "Low Vol ETF")]
-        result = rank_instruments(instruments, None, "test")
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
         codes = [r["code"] for r in result]
         self.assertIn("NSE:NIFTYBEES", codes)
         self.assertNotIn("NSE:LOWVOL", codes)
 
     @patch("fire_shop_automation.fetch_etf_data")
     @patch("fire_shop_automation.time.sleep")
-    def test_ranked_by_biggest_dip(self, mock_sleep, mock_fetch):
+    def test_ranked_by_lowest_rsi(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
         mock_fetch.side_effect = [
-            (90.0, 100.0, 1000000),   # -10% dip
-            (95.0, 100.0, 1000000),   # -5% dip
-            (85.0, 100.0, 1000000),   # -15% dip — should be rank 1
+            self._row(90.0, 100.0, 1000000, 45.0),
+            self._row(95.0, 100.0, 1000000, 55.0),
+            self._row(85.0, 100.0, 1000000, 30.0),  # lowest RSI — rank 1
         ]
         instruments = [
             ("NSE:A", "A"), ("NSE:B", "B"), ("NSE:C", "C")
         ]
-        result = rank_instruments(instruments, None, "test")
-        self.assertEqual(result[0]["code"], "NSE:C")   # biggest dip first
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
+        self.assertEqual(result[0]["code"], "NSE:C")
         self.assertEqual(result[1]["code"], "NSE:A")
         self.assertEqual(result[2]["code"], "NSE:B")
+
+    @patch("fire_shop_automation.fetch_etf_data")
+    @patch("fire_shop_automation.time.sleep")
+    def test_dma_mode_ranks_by_biggest_dip(self, mock_sleep, mock_fetch):
+        from fire_shop_automation import rank_instruments
+        mock_fetch.side_effect = [
+            self._row(90.0, 100.0, 1000000, 40.0),   # -10%
+            self._row(95.0, 100.0, 1000000, 30.0),   # -5%
+            self._row(85.0, 100.0, 1000000, 50.0),   # -15% — rank 1 in dma mode
+        ]
+        instruments = [
+            ("NSE:A", "A"), ("NSE:B", "B"), ("NSE:C", "C")
+        ]
+        result = rank_instruments(instruments, None, "test", rank_mode="dma")
+        self.assertEqual(result[0]["code"], "NSE:C")
 
     @patch("fire_shop_automation.fetch_etf_data")
     @patch("fire_shop_automation.time.sleep")
     def test_fetch_failure_excluded(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
         mock_fetch.side_effect = [
-            (None, None, None),       # fetch failed
-            (100.0, 110.0, 500000),   # success
+            (None, None, None, None),
+            self._row(100.0, 110.0, 500000, 42.0),
         ]
         instruments = [("NSE:FAIL", "Failed"), ("NSE:OK", "OK")]
-        result = rank_instruments(instruments, None, "test")
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
         codes = [r["code"] for r in result]
         self.assertNotIn("NSE:FAIL", codes)
         self.assertIn("NSE:OK", codes)
@@ -671,18 +713,18 @@ class TestRankInstruments(unittest.TestCase):
     @patch("fire_shop_automation.time.sleep")
     def test_all_fail_returns_empty(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
-        mock_fetch.return_value = (None, None, None)
+        mock_fetch.return_value = (None, None, None, None)
         instruments = [("NSE:A", "A"), ("NSE:B", "B")]
-        result = rank_instruments(instruments, None, "test")
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
         self.assertEqual(result, [])
 
     @patch("fire_shop_automation.fetch_etf_data")
     @patch("fire_shop_automation.time.sleep")
     def test_all_below_volume_threshold(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
-        mock_fetch.return_value = (100.0, 110.0, 100)   # vol=100 < 20000
+        mock_fetch.return_value = self._row(100.0, 110.0, 100, 40.0)
         instruments = [("NSE:A", "A"), ("NSE:B", "B")]
-        result = rank_instruments(instruments, None, "test")
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
         self.assertEqual(result, [])
 
     @patch("fire_shop_automation.fetch_etf_data")
@@ -690,11 +732,11 @@ class TestRankInstruments(unittest.TestCase):
     def test_rank_field_assigned(self, mock_sleep, mock_fetch):
         from fire_shop_automation import rank_instruments
         mock_fetch.side_effect = [
-            (90.0, 100.0, 500000),
-            (95.0, 100.0, 500000),
+            self._row(90.0, 100.0, 500000, 35.0),
+            self._row(95.0, 100.0, 500000, 45.0),
         ]
         instruments = [("NSE:A", "A"), ("NSE:B", "B")]
-        result = rank_instruments(instruments, None, "test")
+        result = rank_instruments(instruments, None, "test", rank_mode="rsi")
         self.assertEqual(result[0]["rank"], 1)
         self.assertEqual(result[1]["rank"], 2)
 
@@ -782,18 +824,20 @@ class TestFetchEtfData(unittest.TestCase):
     @patch("fire_shop_automation.requests.get")
     def test_normal_fetch(self, mock_get):
         from fire_shop_automation import fetch_etf_data
-        closes = [100.0] * 19 + [95.0]   # 20 closes, last = 95
+        # 20 flat then decline — enough for RSI(14)
+        closes = [100.0] * 20 + [99.0, 98.0, 97.0, 96.0, 95.0]
         mock_get.return_value = self._mock_response(closes)
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertAlmostEqual(cmp, 95.0)
         self.assertIsNotNone(dma20)
+        self.assertIsNotNone(rsi)
 
     @patch("fire_shop_automation.requests.get")
     def test_none_values_in_closes_filtered(self, mock_get):
         from fire_shop_automation import fetch_etf_data
         closes = [100.0, None, 102.0, None] + [100.0] * 16 + [98.0]
         mock_get.return_value = self._mock_response(closes)
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertIsNotNone(cmp)
         self.assertIsNotNone(dma20)
 
@@ -805,27 +849,30 @@ class TestFetchEtfData(unittest.TestCase):
             "chart": {"result": [{"indicators": {"quote": [{"close": [], "volume": []}]}}]}
         }
         mock_get.return_value = mock_r
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertIsNone(cmp)
         self.assertIsNone(dma20)
+        self.assertIsNone(rsi)
 
     @patch("fire_shop_automation.requests.get")
     def test_network_error_returns_none(self, mock_get):
         from fire_shop_automation import fetch_etf_data
         mock_get.side_effect = Exception("network error")
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertIsNone(cmp)
         self.assertIsNone(dma20)
         self.assertIsNone(vol)
+        self.assertIsNone(rsi)
 
     @patch("fire_shop_automation.requests.get")
     def test_fewer_than_20_closes_uses_available(self, mock_get):
         from fire_shop_automation import fetch_etf_data
-        closes = [100.0] * 10   # only 10 days of data
+        closes = [100.0] * 10   # only 10 days of data — DMA ok, RSI None
         mock_get.return_value = self._mock_response(closes)
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertIsNotNone(cmp)
         self.assertIsNotNone(dma20)
+        self.assertIsNone(rsi)
 
     @patch("fire_shop_automation.requests.get")
     def test_volume_computed_correctly(self, mock_get):
@@ -833,7 +880,7 @@ class TestFetchEtfData(unittest.TestCase):
         closes  = [100.0] * 20
         volumes = [500000] * 20
         mock_get.return_value = self._mock_response(closes, volumes)
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:NIFTYBEES")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:NIFTYBEES")
         self.assertEqual(vol, 500000)
 
     @patch("fire_shop_automation.requests.get")
@@ -846,8 +893,9 @@ class TestFetchEtfData(unittest.TestCase):
             ]}}]}
         }
         mock_get.return_value = mock_r
-        cmp, dma20, vol = fetch_etf_data(None, "NSE:AUTOIETF")
+        cmp, dma20, vol, rsi = fetch_etf_data(None, "NSE:AUTOIETF")
         self.assertIsNone(cmp)
+        self.assertIsNone(rsi)
 
 
 class TestRemoveFromHoldings(unittest.TestCase):

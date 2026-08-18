@@ -81,14 +81,36 @@ def nse_to_yahoo(symbol):
     return symbol.replace("NSE:", "") + ".NS"
 
 
-def fetch_etf_data(session, symbol):
+def compute_rsi(closes, period=14):
     """
-    Fetch CMP, 20 DMA and avg daily volume using Yahoo Finance API.
-    Returns (cmp, dma20, avg_volume) or (None, None, None).
+    RSI matching fire_shop backtest: simple rolling mean of gains/losses.
+    Needs period+1 closes; returns None if insufficient history.
+    """
+    if closes is None or len(closes) < period + 1:
+        return None
+    gains = []
+    losses = []
+    for i in range(1, len(closes)):
+        delta = closes[i] - closes[i - 1]
+        gains.append(max(delta, 0.0))
+        losses.append(max(-delta, 0.0))
+    avg_gain = sum(gains[-period:]) / period
+    avg_loss = sum(losses[-period:]) / period
+    if avg_loss == 0:
+        return 100.0 if avg_gain > 0 else 50.0
+    rs = avg_gain / avg_loss
+    return round(100.0 - (100.0 / (1.0 + rs)), 2)
+
+
+def fetch_etf_data(session, symbol, rsi_period=14):
+    """
+    Fetch CMP, 20 DMA, avg daily volume, and RSI via Yahoo Finance.
+    Returns (cmp, dma20, avg_volume, rsi) or (None, None, None, None).
     """
     ticker = nse_to_yahoo(symbol)
+    # 3mo gives enough bars for stable RSI(14) + 20 DMA
     url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
-           f"?interval=1d&range=30d")
+           f"?interval=1d&range=3mo")
     headers = {"User-Agent": "Mozilla/5.0"}
     try:
         r = requests.get(url, headers=headers, timeout=10)
@@ -98,14 +120,15 @@ def fetch_etf_data(session, symbol):
         closes  = [c for c in quotes["close"]  if c is not None]
         volumes = [v for v in quotes.get("volume", []) if v is not None]
         if not closes:
-            return None, None, None
+            return None, None, None, None
         cmp        = closes[-1]
         dma20      = sum(closes[-20:]) / min(20, len(closes[-20:]))
         avg_volume = sum(volumes[-20:]) / min(20, len(volumes[-20:])) if volumes else 0
-        return round(cmp, 2), round(dma20, 2), int(avg_volume)
+        rsi        = compute_rsi(closes, period=rsi_period)
+        return round(cmp, 2), round(dma20, 2), int(avg_volume), rsi
     except Exception as e:
         print(f"      [fetch error] {symbol}: {e}")
-        return None, None, None
+        return None, None, None, None
 
 
 def compute_pct_change(cmp, dma20):
@@ -119,28 +142,47 @@ def compute_pct_change(cmp, dma20):
 # ──────────────────────────────────────────────────────────────────────────────
 
 MIN_VOLUME = 20000      # exclude ETFs with avg daily volume below this
+DEFAULT_BUY_RANK_MODE = "rsi"  # lowest RSI(14); "dma" = deepest 20DMA dip
+DEFAULT_RSI_PERIOD = 14
 
 # ── Accumulation guard ────────────────────────────────────────────────────────
 MAX_INVESTED_PER_ETF  = 15000   # ₹ — once invested >= this, apply cooldown
 AVG_DOWN_COOLDOWN_DAYS = 7      # days — min gap between buys after threshold hit
 
-def rank_instruments(instruments, session, label):
+def rank_instruments(instruments, session, label, rank_mode=None, rsi_period=None):
     """
     Fetch live data, then:
-    1. Filter to top N by avg daily volume (most liquid)
-    2. Rank those by biggest dip from 20 DMA
+    1. Filter by avg daily volume (liquidity)
+    2. Rank by lowest RSI(14) (default) or deepest dip vs 20 DMA
     """
-    print(f"\n  Fetching {label} ({len(instruments)} instruments)...")
+    mode = (rank_mode or DEFAULT_BUY_RANK_MODE).lower()
+    period = int(rsi_period or DEFAULT_RSI_PERIOD)
+    if mode not in ("rsi", "dma"):
+        raise ValueError(f"unknown rank_mode: {mode}")
+
+    print(f"\n  Fetching {label} ({len(instruments)} instruments) "
+          f"[rank={mode.upper()}" + (f"/{period}" if mode == "rsi" else "") + "]...")
     results = []
     for code, name in instruments:
-        cmp, dma20, avg_vol = fetch_etf_data(session, code)
+        cmp, dma20, avg_vol, rsi = fetch_etf_data(session, code, rsi_period=period)
         pct = compute_pct_change(cmp, dma20)
-        if pct is not None:
-            status = f"CMP=₹{cmp}, 20DMA=₹{dma20}, Δ={pct:.2%}, Vol={avg_vol:,}"
-            results.append({"code": code, "name": name, "cmp": cmp,
-                            "dma20": dma20, "pct": pct, "avg_volume": avg_vol})
-        else:
+        if cmp is None or (mode == "rsi" and rsi is None) or (mode == "dma" and pct is None):
             status = "fetch failed"
+        else:
+            status = (
+                f"CMP=₹{cmp}, RSI={rsi}, 20DMA=₹{dma20}, Δ={pct:.2%}, Vol={avg_vol:,}"
+                if pct is not None
+                else f"CMP=₹{cmp}, RSI={rsi}, Vol={avg_vol:,}"
+            )
+            results.append({
+                "code": code,
+                "name": name,
+                "cmp": cmp,
+                "dma20": dma20,
+                "pct": pct if pct is not None else 0.0,
+                "rsi": rsi,
+                "avg_volume": avg_vol,
+            })
         print(f"    {code:<25} {status}")
         time.sleep(0.2)
 
@@ -149,10 +191,16 @@ def rank_instruments(instruments, session, label):
     excluded      = [r["code"] for r in results if r["avg_volume"] < MIN_VOLUME]
     if excluded:
         print(f"\n  ⛔ Low volume excluded: {', '.join(excluded)}")
-    print(f"  ✅ {len(top_by_volume)} ETFs above volume threshold shortlisted for dip ranking")
+    print(
+        f"  ✅ {len(top_by_volume)} ETFs above volume threshold "
+        f"shortlisted for {mode.upper()} ranking"
+    )
 
-    # Step 2 — rank shortlisted by biggest dip
-    top_by_volume.sort(key=lambda x: x["pct"])
+    # Step 2 — rank: lowest RSI or deepest (most negative) DMA dip
+    if mode == "rsi":
+        top_by_volume.sort(key=lambda x: x["rsi"])
+    else:
+        top_by_volume.sort(key=lambda x: x["pct"])
     for i, r in enumerate(top_by_volume):
         r["rank"] = i + 1
     return top_by_volume

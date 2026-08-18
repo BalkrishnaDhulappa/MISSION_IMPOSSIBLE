@@ -258,11 +258,12 @@ try:
     sample  = [("NSE:NIFTYBEES", "NIFTY 50"), ("NSE:PSUBNKBEES", "PSU Bank"), ("NSE:ITBEES", "IT")]
     for code, name in sample:
         try:
-            cmp, dma20, vol = fetch_etf_data(session, code)
+            cmp, dma20, vol, rsi = fetch_etf_data(session, code)
             ok  = cmp is not None and dma20 is not None
             pct = round((cmp - dma20) / dma20 * 100, 2) if ok else None
+            rsi_s = f", RSI={rsi}" if rsi is not None else ""
             test(f"  {code} data fetched", ok,
-                 f"CMP=₹{cmp}, 20DMA=₹{dma20}, Δ={pct}%, Vol={vol:,}" if ok else "fetch failed")
+                 f"CMP=₹{cmp}, 20DMA=₹{dma20}, Δ={pct}%, Vol={vol:,}{rsi_s}" if ok else "fetch failed")
         except Exception as e:
             test(f"  {code} data fetched", False, str(e)[:80])
 except Exception as e:
@@ -287,7 +288,7 @@ if xlsx_exists:
             try:
                 from fire_shop_automation import fetch_etf_data
                 sess2 = get_nse_session()
-                cmp, _, _ = fetch_etf_data(sess2, code)
+                cmp, _, _, _ = fetch_etf_data(sess2, code)
             except Exception:
                 cmp = None
 

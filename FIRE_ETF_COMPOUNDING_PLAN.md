@@ -29,13 +29,13 @@
 | **S5** | Order = **LIMIT @ LTP × (1 − 0.001)** | LTP − 0.1% |
 | **S6** | Scan = **ETF universe only** | |
 | **S7** | Price for eligibility = **Kite LTP** | |
-| **S8** | Sell cron = **15:05 IST** | Independent of buy @ 15:00 |
-| **D8** | Re-enable sell cron after implement | Intent: yes · cron **15:05 IST** |
+| **S8** | Sell cron = **14:45 IST** (before buy) | Amended 2026-08-11 · buy stays 15:00 |
+| **D8** | Re-enable sell cron after implement | Intent: yes · cron **14:45 IST** |
 | **D7** | BID keep **current** | −4% from last_buy, max 3, size max(invested/2, ticket) |
-| **R1** | Buy rank = **DMA-dip** (current) | Do **not** switch to Class 3 RSI for v1 |
+| **R1** | Buy rank = **lowest RSI(14)** | Amended 2026-08-10 (was DMA-dip); `buy_rank_mode=dma` fallback |
 | **D9** | First build = **full cutover (B)** | Sell logic + compounding + growing ticket on buys together |
 | **D10** | **Revert** provisional PR #6 6.28→3.14 capital-double code | Conflicts with frozen exit rules |
-| **T1** | Same-day: sell growth applies to **next** buy | Buy 15:00 / sell 15:05 → ticket bump used from next session |
+| **T1** | Same-day: sell **14:45** then buy **15:00** → growth applies to **same-day** ticket | Amended 2026-08-11 |
 | **M2** | Manual sells: **detect via Kite day trades** and book growth | If symbol left holdings but state had it → look up today’s SELL trade(s); compound like bot sell |
 | **M0** | FIRE sleeve = **ETFs only** | Exclude stocks/SGB etc. from WC / compounding |
 | **M0b** | Current ETF deployed ≈ **₹2,30,000** | Snapshot from you |
@@ -177,7 +177,7 @@ SELL fill (one/day, most profitable ≥ 6.28%)
 ### Non-goals for compounding v1
 - Auto withdraw self-dividend to bank  
 - Filesystem reorg  
-- Changing rank signal (keep DMA-dip unless you say otherwise)  
+- Changing rank signal (default is now RSI; set `buy_rank_mode=dma` to revert)  
 
 ---
 
@@ -272,7 +272,7 @@ Buy-side charges were already cash-out when the position was built; we don’t r
 | **S5** | **LIMIT @ LTP − 0.1%** (`price = LTP × 0.999`) | **FROZEN** |
 | **S6** | Only symbols in **ETF universe** | **FROZEN** |
 | **S7** | Use **Kite LTP** for eligibility + limit ref | **FROZEN** |
-| **S8** | Cron **15:05 IST** (buy remains 15:00) | **FROZEN** |
+| **S8** | Cron **14:45 IST** (before buy 15:00) | **AMENDED 2026-08-11** |
 | **D1′** | Eligibility threshold **6.38%** (`LTP >= avg × 1.0638`) | **FROZEN** (cushion for −0.1% limit ≈ ~6.27–6.28% if filled at limit) |
 | **D8** | Re-enable sell cron after code ships | **Intent yes** |
 
@@ -331,11 +331,11 @@ What is “₹5L” for us?
 - **C.** Change bid size to **1× current ticket** only (not half-invested)  
 
 ### R1 — Buy ranking
-- **A.** Keep **DMA-dip** (Yahoo CMP vs 20 DMA, volume filter) ← **FROZEN** for v1  
-- **B.** Switch to Class 3 lowest-RSI rank  
+- **A.** Keep **DMA-dip** (Yahoo CMP vs 20 DMA, volume filter) — v1 freeze; superseded  
+- **B.** Switch to Class 3 lowest-RSI rank ← **AMENDED 2026-08-10** (live default `buy_rank_mode=rsi`)  
 
 ### D8 — Sell ops
-- **A.** Re-enable sell cron after rules freeze ← **FROZEN** (15:05 IST)  
+- **A.** Re-enable sell cron after rules freeze ← **FROZEN** (now **14:45 IST**)  
 - **B.** Keep sell manual / disabled  
 
 ### D9 — Scope of first code change (after accept)
@@ -348,8 +348,8 @@ What is “₹5L” for us?
 - **C.** Leave draft open until D1/D2 decided  
 
 ### T1 — When does growth affect ticket?
-- **A.** Next buy session (sell 15:05 → ticket used from next day 15:00) ← **FROZEN**  
-- **B.** Same day (would require sell before buy)
+- **A.** Next buy session (old: sell 15:05 → next day) — superseded  
+- **B.** Same day (sell before buy) ← **AMENDED 2026-08-11** (sell **14:45**, buy **15:00**)
 
 ---
 
